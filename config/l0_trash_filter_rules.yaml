@@ -1,0 +1,91 @@
+version: 1
+description: >
+  Conservative L0 Trash Filter rules. Thresholds are adjustable assumptions and
+  must be reviewed before production use.
+
+status_priority:
+  - L0_REJECT
+  - INSUFFICIENT_DATA_FOR_L0
+  - L0_MANUAL_REVIEW
+  - L0_WATCH_ONLY
+  - L0_PASS
+
+scoring:
+  starting_score: 100
+  minimum_score: 0
+  penalties:
+    missing_ticker: 100
+    missing_market_data: 60
+    missing_financial_data: 60
+    low_data_confidence: 30
+    source_conflict: 40
+    data_error: 70
+    stale_price_data: 20
+    very_low_liquidity: 50
+    low_liquidity: 25
+    market_cap_missing: 10
+    market_cap_extremely_small: 40
+    negative_equity: 70
+    persistent_losses: 60
+    debt_pressure: 40
+    negative_operating_cash_flow: 40
+    critical_disclosure: 80
+
+data_availability:
+  missing_ticker_status: L0_REJECT
+  missing_market_data_status: INSUFFICIENT_DATA_FOR_L0
+  missing_financial_data_status: INSUFFICIENT_DATA_FOR_L0
+  low_confidence_status: L0_MANUAL_REVIEW
+  source_conflict_status: L0_MANUAL_REVIEW
+  data_error_status: L0_REJECT
+  stale_data_status: L0_MANUAL_REVIEW
+
+liquidity:
+  # Adjustable assumptions; tune after real Vietnamese liquidity data exists.
+  avg_trading_value_reject_below: 100000000
+  avg_trading_value_watch_below: 1000000000
+  avg_volume_reject_below: 1000
+  avg_volume_watch_below: 10000
+  max_zero_volume_day_ratio: 0.5
+  very_low_liquidity_status: L0_REJECT
+  low_liquidity_status: L0_WATCH_ONLY
+  stale_price_status: L0_MANUAL_REVIEW
+
+market_size:
+  # Market cap is not yet guaranteed by the base schema; do not fabricate it.
+  require_market_cap: false
+  market_cap_column: market_cap
+  market_cap_missing_status: L0_WATCH_ONLY
+  market_cap_extremely_small_below: 100000000000
+  market_cap_extremely_small_status: L0_WATCH_ONLY
+
+financial_red_flags:
+  negative_equity_status: L0_REJECT
+  min_periods_for_persistent_checks: 3
+  persistent_loss_periods: 3
+  persistent_losses_status: L0_REJECT
+  negative_ocf_periods: 3
+  negative_ocf_status: L0_MANUAL_REVIEW
+  debt_to_equity_manual_review_above: 3.0
+  debt_pressure_status: L0_MANUAL_REVIEW
+  missing_essential_fields_status: INSUFFICIENT_DATA_FOR_L0
+  essential_fields:
+    - equity
+    - total_assets
+    - total_liabilities
+    - net_profit
+    - operating_cash_flow
+
+disclosure_red_flags:
+  critical_severities:
+    - CRITICAL
+    - HIGH
+  critical_event_types:
+    - TRADING_RESTRICTION
+    - SUSPENSION
+    - DELISTING_WARNING
+    - AUDIT_WARNING
+  disclosure_violation_event_type: DISCLOSURE_VIOLATION
+  repeated_disclosure_violation_count: 2
+  critical_disclosure_status: L0_REJECT
+  repeated_disclosure_status: L0_MANUAL_REVIEW

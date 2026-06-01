@@ -1,0 +1,918 @@
+version: 1
+description: Step 16 driver registry for Vietnamese stock screening.
+
+required_driver_fields:
+  - driver_id
+  - display_name
+  - category
+  - description
+  - applies_to_archetypes
+  - applies_to_micro_sectors
+  - economic_logic
+  - directionality
+  - cycle_relevance
+  - data_availability_expectation
+  - indicator_hints
+  - missing_data_handling
+  - manual_review_triggers
+  - notes
+
+driver_categories:
+  - macro_financial
+  - fx
+  - export_demand
+  - domestic_demand
+  - commodity_price
+  - input_cost
+  - output_price
+  - spread
+  - regulation_policy
+  - real_estate_project
+  - banking_credit
+  - market_cycle
+  - operational_volume
+  - weather_hydrology
+  - trade_policy
+  - working_capital
+  - balance_sheet_risk
+  - logistics
+  - unknown
+
+required_initial_drivers:
+  - USD_VND
+  - interest_rate
+  - credit_growth
+  - inflation
+  - FDI_flow
+  - consumer_demand
+  - construction_demand
+  - export_demand
+  - US_demand
+  - EU_demand
+  - China_demand
+  - order_trend
+  - customer_inventory_cycle
+  - input_cost
+  - output_price
+  - commodity_spread
+  - HRC_price
+  - iron_ore_price
+  - coking_coal_price
+  - rubber_price
+  - oil_price
+  - cotton_price
+  - feed_cost
+  - fertilizer_price
+  - NIM
+  - CASA
+  - NPL
+  - group_2_debt
+  - provisioning
+  - loan_growth
+  - legal_status
+  - presales
+  - inventory_cycle
+  - bond_maturity
+  - land_bank
+  - occupancy
+  - rental_price
+  - market_liquidity
+  - margin_lending
+  - brokerage_market_share
+  - VNIndex_trend
+  - electricity_output
+  - hydrology
+  - fuel_cost
+  - coal_price
+  - gas_price
+  - PPA_regulatory_price
+  - container_volume
+  - freight_rate
+  - export_import_volume
+  - logistics_cost
+  - anti_dumping_tax
+  - trade_defense_risk
+  - tariff_policy
+  - auto_demand
+  - raw_material_availability
+  - labor_cost
+
+driver_defaults: &driver_defaults
+  applies_to_archetypes: []
+  applies_to_micro_sectors: []
+  economic_logic: Driver should be monitored as context for later analysis.
+  directionality: context_dependent
+  cycle_relevance: medium
+  data_availability_expectation: medium
+  indicator_hints: []
+  missing_data_handling: Missing driver data should reduce confidence or trigger manual review when material.
+  manual_review_triggers:
+    - missing_driver_data
+  notes: Driver definition only. Step 17 defines formal indicators; this file does not calculate values.
+
+drivers:
+  USD_VND:
+    <<: *driver_defaults
+    driver_id: USD_VND
+    display_name: USD/VND
+    category: fx
+    description: Exchange-rate driver for exporters, importers, and businesses with foreign-currency exposure.
+    applies_to_archetypes: [export_manufacturer, commodity_processor]
+    applies_to_micro_sectors: [textile_export, pangasius_export, shrimp_export, tire_manufacturing, galvanized_steel]
+    economic_logic: FX changes can affect export revenue translation and imported input costs.
+    directionality: mixed
+    cycle_relevance: high
+    data_availability_expectation: high
+    indicator_hints: [usd_vnd_spot, usd_vnd_trend]
+    aliases: [USD/VND, usd vnd, fx, exchange_rate]
+
+  interest_rate:
+    <<: *driver_defaults
+    driver_id: interest_rate
+    display_name: Interest Rate
+    category: macro_financial
+    description: Domestic interest-rate conditions that influence funding costs and demand.
+    applies_to_archetypes: [financial_bank, real_estate_developer, securities_broker, holding_company]
+    applies_to_micro_sectors: [commercial_bank, residential_real_estate, industrial_park, securities_broker]
+    economic_logic: Rates affect funding costs, loan demand, project affordability, and financial-market liquidity.
+    cycle_relevance: high
+    data_availability_expectation: high
+    indicator_hints: [policy_rate, deposit_rate, lending_rate]
+    aliases: [rates, lending_rate, deposit_rate]
+
+  credit_growth:
+    <<: *driver_defaults
+    driver_id: credit_growth
+    display_name: Credit Growth
+    category: banking_credit
+    description: System or sector credit expansion conditions.
+    applies_to_archetypes: [financial_bank, real_estate_developer]
+    applies_to_micro_sectors: [commercial_bank, residential_real_estate, industrial_park]
+    economic_logic: Credit availability can affect bank earnings and financing for property or industrial projects.
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [system_credit_growth, sector_credit_growth]
+
+  inflation:
+    <<: *driver_defaults
+    driver_id: inflation
+    display_name: Inflation
+    category: macro_financial
+    description: Broad price-pressure driver for costs, rates, and consumer demand.
+    applies_to_archetypes: [consumer_defensive, cyclical_manufacturer, real_estate_developer]
+    applies_to_micro_sectors: [consumer_staples, retail_distribution, construction_materials]
+    economic_logic: Inflation can pressure margins, purchasing power, and monetary policy.
+    cycle_relevance: medium
+    data_availability_expectation: high
+    indicator_hints: [cpi, core_cpi]
+
+  FDI_flow:
+    <<: *driver_defaults
+    driver_id: FDI_flow
+    display_name: FDI Flow
+    category: domestic_demand
+    description: Foreign direct investment flow relevant to industrial property and logistics demand.
+    applies_to_archetypes: [real_estate_developer, logistics_infrastructure]
+    applies_to_micro_sectors: [industrial_park, port_logistics]
+    economic_logic: FDI supports industrial land demand, warehouse demand, and trade activity.
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [registered_fdi, disbursed_fdi]
+    aliases: [FDI, foreign_direct_investment]
+
+  consumer_demand:
+    <<: *driver_defaults
+    driver_id: consumer_demand
+    display_name: Consumer Demand
+    category: domestic_demand
+    description: Household demand for consumer and retail categories.
+    applies_to_archetypes: [consumer_defensive, cyclical_manufacturer]
+    applies_to_micro_sectors: [consumer_staples, retail_distribution]
+    economic_logic: Demand strength affects volume growth and pricing ability.
+    cycle_relevance: medium
+    data_availability_expectation: medium
+    indicator_hints: [retail_sales, household_consumption]
+
+  construction_demand:
+    <<: *driver_defaults
+    driver_id: construction_demand
+    display_name: Construction Demand
+    category: domestic_demand
+    description: Demand from residential, infrastructure, and industrial construction.
+    applies_to_archetypes: [commodity_processor, cyclical_manufacturer]
+    applies_to_micro_sectors: [steel_integrated, construction_materials, residential_real_estate]
+    economic_logic: Construction activity drives volumes for steel, cement, aggregates, and related materials.
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [construction_activity, public_investment_disbursement]
+
+  export_demand:
+    <<: *driver_defaults
+    driver_id: export_demand
+    display_name: Export Demand
+    category: export_demand
+    description: Foreign-market demand for Vietnamese export goods.
+    applies_to_archetypes: [export_manufacturer]
+    applies_to_micro_sectors: [textile_export, pangasius_export, shrimp_export, tire_manufacturing, galvanized_steel]
+    economic_logic: External demand affects order volume, utilization, and margins for exporters.
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [export_value, export_volume, foreign_pmi]
+
+  US_demand:
+    <<: *driver_defaults
+    driver_id: US_demand
+    display_name: US Demand
+    category: export_demand
+    description: Demand from the US market for export-oriented businesses.
+    applies_to_archetypes: [export_manufacturer]
+    applies_to_micro_sectors: [textile_export, pangasius_export, shrimp_export]
+    economic_logic: US end-demand and inventory cycles can influence export orders.
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [us_retail_sales, us_import_volume, us_pmi]
+    aliases: [USA_demand, United_States_demand]
+
+  EU_demand:
+    <<: *driver_defaults
+    driver_id: EU_demand
+    display_name: EU Demand
+    category: export_demand
+    description: Demand from European markets for export-oriented businesses.
+    applies_to_archetypes: [export_manufacturer]
+    applies_to_micro_sectors: [textile_export, pangasius_export, shrimp_export]
+    economic_logic: EU consumer and industrial demand can affect order flow.
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [eu_pmi, eu_import_volume]
+
+  China_demand:
+    <<: *driver_defaults
+    driver_id: China_demand
+    display_name: China Demand
+    category: export_demand
+    description: China demand relevant to commodities, rubber, seafood, and exports.
+    applies_to_archetypes: [export_manufacturer, commodity_processor]
+    applies_to_micro_sectors: [natural_rubber, pangasius_export, shrimp_export, steel_integrated]
+    economic_logic: China demand can influence commodity prices and export volumes.
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [china_pmi, china_import_volume]
+
+  order_trend:
+    <<: *driver_defaults
+    driver_id: order_trend
+    display_name: Order Trend
+    category: export_demand
+    description: Direction of customer orders for export or manufacturing businesses.
+    applies_to_archetypes: [export_manufacturer, cyclical_manufacturer]
+    applies_to_micro_sectors: [textile_export, pangasius_export, shrimp_export, tire_manufacturing]
+    economic_logic: New order trend is an early signal for revenue and utilization.
+    cycle_relevance: high
+    data_availability_expectation: low
+    indicator_hints: [reported_order_backlog, export_order_commentary]
+
+  customer_inventory_cycle:
+    <<: *driver_defaults
+    driver_id: customer_inventory_cycle
+    display_name: Customer Inventory Cycle
+    category: export_demand
+    description: Inventory restocking or destocking cycle at end customers.
+    applies_to_archetypes: [export_manufacturer]
+    applies_to_micro_sectors: [textile_export, tire_manufacturing, pangasius_export, shrimp_export]
+    economic_logic: Customer destocking can reduce orders even when final demand is stable.
+    cycle_relevance: high
+    data_availability_expectation: low
+    indicator_hints: [customer_inventory_commentary, import_inventory_ratio]
+
+  input_cost:
+    <<: *driver_defaults
+    driver_id: input_cost
+    display_name: Input Cost
+    category: input_cost
+    description: Cost of raw materials, labor, energy, or imported inputs.
+    applies_to_archetypes: [export_manufacturer, commodity_processor, cyclical_manufacturer, consumer_defensive]
+    applies_to_micro_sectors: [textile_export, pangasius_export, shrimp_export, tire_manufacturing, steel_integrated, construction_materials, consumer_staples]
+    economic_logic: Rising input costs can pressure margins when pass-through is limited.
+    directionality: higher_usually_negative_for_margin
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [raw_material_price, cost_index]
+
+  output_price:
+    <<: *driver_defaults
+    driver_id: output_price
+    display_name: Output Price
+    category: output_price
+    description: Product price or benchmark output price for goods and services.
+    applies_to_archetypes: [commodity_processor, export_manufacturer, cyclical_manufacturer]
+    applies_to_micro_sectors: [steel_integrated, galvanized_steel, fertilizer, natural_rubber, construction_materials]
+    economic_logic: Output prices affect revenue and spread versus input costs.
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [benchmark_product_price, average_unit_price]
+
+  commodity_spread:
+    <<: *driver_defaults
+    driver_id: commodity_spread
+    display_name: Commodity Spread
+    category: spread
+    description: Spread between output price and key input commodity costs.
+    applies_to_archetypes: [commodity_processor]
+    applies_to_micro_sectors: [steel_integrated, galvanized_steel, fertilizer, natural_rubber]
+    economic_logic: Processor earnings often depend on spread rather than only output price.
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [output_price_minus_input_cost, gross_spread]
+    aliases: [spread]
+
+  HRC_price:
+    <<: *driver_defaults
+    driver_id: HRC_price
+    display_name: HRC Price
+    category: commodity_price
+    description: Hot-rolled coil price relevant to steel and galvanized steel.
+    applies_to_archetypes: [commodity_processor]
+    applies_to_micro_sectors: [steel_integrated, galvanized_steel]
+    economic_logic: HRC affects output pricing and input cost for coated steel.
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [hrc_benchmark_price]
+    aliases: [HRC, hot_rolled_coil]
+
+  iron_ore_price:
+    <<: *driver_defaults
+    driver_id: iron_ore_price
+    display_name: Iron Ore Price
+    category: commodity_price
+    description: Iron ore input cost for integrated steel producers.
+    applies_to_archetypes: [commodity_processor]
+    applies_to_micro_sectors: [steel_integrated]
+    economic_logic: Iron ore price affects steel input cost and margins.
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [iron_ore_benchmark_price]
+
+  coking_coal_price:
+    <<: *driver_defaults
+    driver_id: coking_coal_price
+    display_name: Coking Coal Price
+    category: commodity_price
+    description: Coking coal input cost for steel production.
+    applies_to_archetypes: [commodity_processor]
+    applies_to_micro_sectors: [steel_integrated]
+    economic_logic: Coking coal affects steel production cost.
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [coking_coal_benchmark_price]
+
+  rubber_price:
+    <<: *driver_defaults
+    driver_id: rubber_price
+    display_name: Rubber Price
+    category: commodity_price
+    description: Natural rubber price relevant to plantations and tire manufacturers.
+    applies_to_archetypes: [commodity_processor, export_manufacturer]
+    applies_to_micro_sectors: [natural_rubber, tire_manufacturing]
+    economic_logic: Rubber price is output price for natural rubber and input cost for tires.
+    directionality: mixed
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [rubber_benchmark_price]
+
+  oil_price:
+    <<: *driver_defaults
+    driver_id: oil_price
+    display_name: Oil Price
+    category: commodity_price
+    description: Crude oil driver for oil and gas activity, fuel cost, and synthetic-rubber relationship.
+    applies_to_archetypes: [commodity_processor, cyclical_manufacturer, logistics_infrastructure]
+    applies_to_micro_sectors: [oil_gas_upstream, oil_gas_services, natural_rubber, tire_manufacturing, port_logistics]
+    economic_logic: Oil affects upstream activity, fuel costs, and related commodity pricing.
+    cycle_relevance: high
+    data_availability_expectation: high
+    indicator_hints: [brent_price, wti_price]
+
+  cotton_price:
+    <<: *driver_defaults
+    driver_id: cotton_price
+    display_name: Cotton Price
+    category: commodity_price
+    description: Cotton input cost for textile and garment supply chains.
+    applies_to_archetypes: [export_manufacturer]
+    applies_to_micro_sectors: [textile_export]
+    economic_logic: Cotton price can affect yarn and garment margins.
+    directionality: higher_usually_negative_for_margin
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [cotton_benchmark_price]
+
+  feed_cost:
+    <<: *driver_defaults
+    driver_id: feed_cost
+    display_name: Feed Cost
+    category: input_cost
+    description: Aquaculture feed cost for seafood exporters.
+    applies_to_archetypes: [export_manufacturer]
+    applies_to_micro_sectors: [pangasius_export, shrimp_export]
+    economic_logic: Feed cost affects farming and processing margins.
+    directionality: higher_usually_negative_for_margin
+    cycle_relevance: high
+    data_availability_expectation: low
+    indicator_hints: [aquaculture_feed_price]
+
+  fertilizer_price:
+    <<: *driver_defaults
+    driver_id: fertilizer_price
+    display_name: Fertilizer Price
+    category: commodity_price
+    description: Fertilizer benchmark price relevant to producers and agricultural demand.
+    applies_to_archetypes: [commodity_processor]
+    applies_to_micro_sectors: [fertilizer]
+    economic_logic: Fertilizer price affects producer revenue and spread versus input gas or materials.
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [urea_price, phosphate_price]
+
+  NIM:
+    <<: *driver_defaults
+    driver_id: NIM
+    display_name: Net Interest Margin
+    category: banking_credit
+    description: Bank margin between earning asset yield and funding cost.
+    applies_to_archetypes: [financial_bank]
+    applies_to_micro_sectors: [commercial_bank]
+    economic_logic: NIM is a core driver of bank profitability.
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [reported_nim]
+    aliases: [net_interest_margin]
+
+  CASA:
+    <<: *driver_defaults
+    driver_id: CASA
+    display_name: CASA Ratio
+    category: banking_credit
+    description: Low-cost current and savings account funding mix for banks.
+    applies_to_archetypes: [financial_bank]
+    applies_to_micro_sectors: [commercial_bank]
+    economic_logic: CASA supports lower funding cost and bank margin resilience.
+    cycle_relevance: medium
+    data_availability_expectation: medium
+    indicator_hints: [casa_ratio]
+
+  NPL:
+    <<: *driver_defaults
+    driver_id: NPL
+    display_name: Non-Performing Loans
+    category: banking_credit
+    description: Non-performing loan quality driver for banks.
+    applies_to_archetypes: [financial_bank]
+    applies_to_micro_sectors: [commercial_bank]
+    economic_logic: Higher NPLs indicate asset-quality pressure and future provisioning risk.
+    directionality: higher_usually_negative
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [npl_ratio]
+    aliases: [non_performing_loans]
+
+  group_2_debt:
+    <<: *driver_defaults
+    driver_id: group_2_debt
+    display_name: Group 2 Debt
+    category: banking_credit
+    description: Watch-list debt that can signal future bank asset-quality risk.
+    applies_to_archetypes: [financial_bank]
+    applies_to_micro_sectors: [commercial_bank]
+    economic_logic: Rising group 2 debt can precede NPL pressure.
+    directionality: higher_usually_negative
+    cycle_relevance: high
+    data_availability_expectation: low
+    indicator_hints: [group_2_debt_ratio]
+
+  provisioning:
+    <<: *driver_defaults
+    driver_id: provisioning
+    display_name: Provisioning
+    category: banking_credit
+    description: Credit provisioning expense and reserve coverage for banks.
+    applies_to_archetypes: [financial_bank]
+    applies_to_micro_sectors: [commercial_bank]
+    economic_logic: Provisioning affects reported earnings and credit-loss absorption.
+    directionality: mixed
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [provision_expense, loan_loss_coverage]
+
+  loan_growth:
+    <<: *driver_defaults
+    driver_id: loan_growth
+    display_name: Loan Growth
+    category: banking_credit
+    description: Bank loan-book growth driver.
+    applies_to_archetypes: [financial_bank]
+    applies_to_micro_sectors: [commercial_bank]
+    economic_logic: Loan growth supports revenue but can add risk when too aggressive.
+    directionality: mixed
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [loan_growth_rate]
+
+  legal_status:
+    <<: *driver_defaults
+    driver_id: legal_status
+    display_name: Legal Status
+    category: real_estate_project
+    description: Project legal approval or regulatory status for property developers.
+    applies_to_archetypes: [real_estate_developer]
+    applies_to_micro_sectors: [residential_real_estate, industrial_park]
+    economic_logic: Legal progress can unlock launches, presales, handovers, and land development.
+    cycle_relevance: high
+    data_availability_expectation: low
+    indicator_hints: [project_approval_status, land_use_right_status]
+
+  presales:
+    <<: *driver_defaults
+    driver_id: presales
+    display_name: Presales
+    category: real_estate_project
+    description: Pre-sale progress and cash collection for property projects.
+    applies_to_archetypes: [real_estate_developer]
+    applies_to_micro_sectors: [residential_real_estate]
+    economic_logic: Presales indicate demand and future revenue visibility.
+    cycle_relevance: high
+    data_availability_expectation: low
+    indicator_hints: [presales_value, presales_units]
+
+  inventory_cycle:
+    <<: *driver_defaults
+    driver_id: inventory_cycle
+    display_name: Inventory Cycle
+    category: working_capital
+    description: Inventory accumulation or drawdown cycle across project, commodity, or manufacturing businesses.
+    applies_to_archetypes: [real_estate_developer, commodity_processor, export_manufacturer, cyclical_manufacturer]
+    applies_to_micro_sectors: [residential_real_estate, steel_integrated, galvanized_steel, textile_export, construction_materials]
+    economic_logic: Inventory buildup can signal demand weakness, working-capital strain, or project delay.
+    directionality: higher_usually_negative
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [inventory_days, inventory_growth]
+
+  bond_maturity:
+    <<: *driver_defaults
+    driver_id: bond_maturity
+    display_name: Bond Maturity
+    category: balance_sheet_risk
+    description: Debt maturity pressure from bonds or similar obligations.
+    applies_to_archetypes: [real_estate_developer, holding_company]
+    applies_to_micro_sectors: [residential_real_estate]
+    economic_logic: Near-term maturities can create refinancing and liquidity risk.
+    directionality: higher_near_term_pressure_negative
+    cycle_relevance: high
+    data_availability_expectation: low
+    indicator_hints: [bond_maturity_schedule, near_term_debt_due]
+
+  land_bank:
+    <<: *driver_defaults
+    driver_id: land_bank
+    display_name: Land Bank
+    category: real_estate_project
+    description: Available land or project pipeline for property and industrial park developers.
+    applies_to_archetypes: [real_estate_developer]
+    applies_to_micro_sectors: [residential_real_estate, industrial_park]
+    economic_logic: Land bank supports future development capacity but needs legal and funding context.
+    directionality: mixed
+    cycle_relevance: medium
+    data_availability_expectation: low
+    indicator_hints: [land_bank_area, leasable_area]
+
+  occupancy:
+    <<: *driver_defaults
+    driver_id: occupancy
+    display_name: Occupancy
+    category: operational_volume
+    description: Occupancy rate for industrial parks, warehouses, or leased properties.
+    applies_to_archetypes: [real_estate_developer, logistics_infrastructure]
+    applies_to_micro_sectors: [industrial_park, port_logistics]
+    economic_logic: Occupancy indicates utilization and leasing demand.
+    cycle_relevance: high
+    data_availability_expectation: low
+    indicator_hints: [occupancy_rate]
+
+  rental_price:
+    <<: *driver_defaults
+    driver_id: rental_price
+    display_name: Rental Price
+    category: real_estate_project
+    description: Lease or rental pricing for industrial parks and infrastructure assets.
+    applies_to_archetypes: [real_estate_developer, logistics_infrastructure]
+    applies_to_micro_sectors: [industrial_park]
+    economic_logic: Rental pricing affects revenue per leased area and project returns.
+    cycle_relevance: high
+    data_availability_expectation: low
+    indicator_hints: [rental_rate, lease_price]
+
+  market_liquidity:
+    <<: *driver_defaults
+    driver_id: market_liquidity
+    display_name: Market Liquidity
+    category: market_cycle
+    description: Equity-market turnover and liquidity conditions.
+    applies_to_archetypes: [securities_broker]
+    applies_to_micro_sectors: [securities_broker]
+    economic_logic: Market liquidity affects brokerage activity and market-sensitive revenue.
+    cycle_relevance: high
+    data_availability_expectation: high
+    indicator_hints: [market_turnover, trading_value]
+
+  margin_lending:
+    <<: *driver_defaults
+    driver_id: margin_lending
+    display_name: Margin Lending
+    category: market_cycle
+    description: Securities margin loan growth and risk exposure.
+    applies_to_archetypes: [securities_broker]
+    applies_to_micro_sectors: [securities_broker]
+    economic_logic: Margin lending can support earnings but increases risk in downturns.
+    directionality: mixed
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [margin_loan_balance, margin_loan_growth]
+
+  brokerage_market_share:
+    <<: *driver_defaults
+    driver_id: brokerage_market_share
+    display_name: Brokerage Market Share
+    category: market_cycle
+    description: Broker competitive position in trading activity.
+    applies_to_archetypes: [securities_broker]
+    applies_to_micro_sectors: [securities_broker]
+    economic_logic: Market share influences fee revenue capture from market turnover.
+    cycle_relevance: medium
+    data_availability_expectation: medium
+    indicator_hints: [brokerage_market_share]
+
+  VNIndex_trend:
+    <<: *driver_defaults
+    driver_id: VNIndex_trend
+    display_name: VNIndex Trend
+    category: market_cycle
+    description: Broad Vietnamese equity-market trend.
+    applies_to_archetypes: [securities_broker]
+    applies_to_micro_sectors: [securities_broker]
+    economic_logic: Index trend can affect investor activity, risk appetite, and proprietary exposure.
+    directionality: mixed
+    cycle_relevance: medium
+    data_availability_expectation: high
+    indicator_hints: [vnindex_return, vnindex_drawdown]
+    aliases: [VNIndex, VN_Index, vietnam_index]
+
+  electricity_output:
+    <<: *driver_defaults
+    driver_id: electricity_output
+    display_name: Electricity Output
+    category: operational_volume
+    description: Power generation volume or dispatch output.
+    applies_to_archetypes: [utility_regulated]
+    applies_to_micro_sectors: [power_generation]
+    economic_logic: Output volume directly affects power generation revenue where tariffs/contracts apply.
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [electricity_generation_volume]
+
+  hydrology:
+    <<: *driver_defaults
+    driver_id: hydrology
+    display_name: Hydrology
+    category: weather_hydrology
+    description: Water conditions relevant to hydropower output.
+    applies_to_archetypes: [utility_regulated]
+    applies_to_micro_sectors: [power_generation]
+    economic_logic: Hydrology affects hydropower generation volume and dispatch mix.
+    cycle_relevance: high
+    data_availability_expectation: low
+    indicator_hints: [rainfall, reservoir_level, water_inflow]
+
+  fuel_cost:
+    <<: *driver_defaults
+    driver_id: fuel_cost
+    display_name: Fuel Cost
+    category: input_cost
+    description: Fuel cost for power, logistics, and industrial operations.
+    applies_to_archetypes: [utility_regulated, logistics_infrastructure, cyclical_manufacturer]
+    applies_to_micro_sectors: [power_generation, port_logistics, construction_materials]
+    economic_logic: Fuel cost affects margins when pass-through is delayed or incomplete.
+    directionality: higher_usually_negative_for_margin
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [fuel_price_index]
+
+  coal_price:
+    <<: *driver_defaults
+    driver_id: coal_price
+    display_name: Coal Price
+    category: commodity_price
+    description: Coal input cost for thermal power and some industrial production.
+    applies_to_archetypes: [utility_regulated]
+    applies_to_micro_sectors: [power_generation]
+    economic_logic: Coal price affects thermal power generation cost.
+    directionality: higher_usually_negative_for_margin
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [coal_benchmark_price]
+
+  gas_price:
+    <<: *driver_defaults
+    driver_id: gas_price
+    display_name: Gas Price
+    category: commodity_price
+    description: Gas input cost for power and fertilizer production.
+    applies_to_archetypes: [utility_regulated, commodity_processor]
+    applies_to_micro_sectors: [power_generation, fertilizer]
+    economic_logic: Gas price affects generation cost and fertilizer production cost.
+    directionality: higher_usually_negative_for_margin
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [gas_price_benchmark]
+
+  PPA_regulatory_price:
+    <<: *driver_defaults
+    driver_id: PPA_regulatory_price
+    display_name: PPA Regulatory Price
+    category: regulation_policy
+    description: Contracted or regulated pricing for power generation.
+    applies_to_archetypes: [utility_regulated]
+    applies_to_micro_sectors: [power_generation]
+    economic_logic: PPA and regulated pricing determine revenue capture and fuel pass-through.
+    directionality: mixed
+    cycle_relevance: medium
+    data_availability_expectation: low
+    indicator_hints: [ppa_tariff, regulated_power_price]
+    aliases: [PPA, regulatory_price]
+
+  container_volume:
+    <<: *driver_defaults
+    driver_id: container_volume
+    display_name: Container Volume
+    category: operational_volume
+    description: Container throughput for ports and logistics operators.
+    applies_to_archetypes: [logistics_infrastructure]
+    applies_to_micro_sectors: [port_logistics]
+    economic_logic: Container volume drives port handling and logistics revenue.
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [container_throughput, teu_volume]
+
+  freight_rate:
+    <<: *driver_defaults
+    driver_id: freight_rate
+    display_name: Freight Rate
+    category: logistics
+    description: Freight pricing and shipping-cost conditions.
+    applies_to_archetypes: [logistics_infrastructure, export_manufacturer]
+    applies_to_micro_sectors: [port_logistics, textile_export, pangasius_export, shrimp_export]
+    economic_logic: Freight rates affect logistics revenue and exporter cost competitiveness.
+    directionality: mixed
+    cycle_relevance: medium
+    data_availability_expectation: medium
+    indicator_hints: [freight_rate_index]
+
+  export_import_volume:
+    <<: *driver_defaults
+    driver_id: export_import_volume
+    display_name: Export Import Volume
+    category: operational_volume
+    description: Trade-flow volume relevant to ports and logistics.
+    applies_to_archetypes: [logistics_infrastructure]
+    applies_to_micro_sectors: [port_logistics]
+    economic_logic: Trade volume supports throughput and logistics demand.
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [export_volume, import_volume]
+    aliases: [export_import_activity]
+
+  logistics_cost:
+    <<: *driver_defaults
+    driver_id: logistics_cost
+    display_name: Logistics Cost
+    category: logistics
+    description: Logistics and transport cost for exporters and distribution businesses.
+    applies_to_archetypes: [export_manufacturer, consumer_defensive, logistics_infrastructure]
+    applies_to_micro_sectors: [textile_export, pangasius_export, shrimp_export, port_logistics, retail_distribution]
+    economic_logic: Logistics cost affects margins and competitiveness.
+    directionality: higher_usually_negative_for_margin
+    cycle_relevance: medium
+    data_availability_expectation: low
+    indicator_hints: [freight_cost, logistics_cost_index]
+
+  anti_dumping_tax:
+    <<: *driver_defaults
+    driver_id: anti_dumping_tax
+    display_name: Anti-Dumping Tax
+    category: trade_policy
+    description: Anti-dumping duties or investigation risk for export sectors.
+    applies_to_archetypes: [export_manufacturer]
+    applies_to_micro_sectors: [pangasius_export, shrimp_export, galvanized_steel]
+    economic_logic: Trade duties can reduce pricing power, access, or margin.
+    directionality: higher_usually_negative
+    cycle_relevance: medium
+    data_availability_expectation: low
+    indicator_hints: [anti_dumping_rate, investigation_status]
+
+  trade_defense_risk:
+    <<: *driver_defaults
+    driver_id: trade_defense_risk
+    display_name: Trade Defense Risk
+    category: trade_policy
+    description: Trade defense measures, quotas, or investigations.
+    applies_to_archetypes: [export_manufacturer, commodity_processor]
+    applies_to_micro_sectors: [galvanized_steel, steel_integrated, textile_export]
+    economic_logic: Trade defense actions can disrupt export access or pricing.
+    directionality: higher_usually_negative
+    cycle_relevance: medium
+    data_availability_expectation: low
+    indicator_hints: [trade_case_status, tariff_change]
+
+  tariff_policy:
+    <<: *driver_defaults
+    driver_id: tariff_policy
+    display_name: Tariff Policy
+    category: trade_policy
+    description: Import or export tariff policy relevant to costs and market access.
+    applies_to_archetypes: [export_manufacturer, commodity_processor]
+    applies_to_micro_sectors: [textile_export, galvanized_steel, fertilizer]
+    economic_logic: Tariff changes can affect demand, competition, and input costs.
+    directionality: mixed
+    cycle_relevance: medium
+    data_availability_expectation: low
+    indicator_hints: [tariff_rate, tariff_policy_change]
+
+  auto_demand:
+    <<: *driver_defaults
+    driver_id: auto_demand
+    display_name: Auto Demand
+    category: domestic_demand
+    description: Vehicle demand relevant to tire and auto-linked manufacturers.
+    applies_to_archetypes: [export_manufacturer, cyclical_manufacturer]
+    applies_to_micro_sectors: [tire_manufacturing]
+    economic_logic: Auto demand supports tire volume and replacement demand.
+    cycle_relevance: medium
+    data_availability_expectation: medium
+    indicator_hints: [auto_sales, vehicle_production]
+
+  raw_material_availability:
+    <<: *driver_defaults
+    driver_id: raw_material_availability
+    display_name: Raw Material Availability
+    category: input_cost
+    description: Availability of key raw materials or supply-chain inputs.
+    applies_to_archetypes: [export_manufacturer, commodity_processor, cyclical_manufacturer]
+    applies_to_micro_sectors: [textile_export, pangasius_export, shrimp_export, construction_materials]
+    economic_logic: Supply shortages can limit production or raise costs.
+    directionality: lower_availability_negative
+    cycle_relevance: medium
+    data_availability_expectation: low
+    indicator_hints: [supply_commentary, raw_material_shortage_index]
+
+  labor_cost:
+    <<: *driver_defaults
+    driver_id: labor_cost
+    display_name: Labor Cost
+    category: input_cost
+    description: Labor cost pressure for manufacturers and service operators.
+    applies_to_archetypes: [export_manufacturer, consumer_defensive, logistics_infrastructure, cyclical_manufacturer]
+    applies_to_micro_sectors: [textile_export, retail_distribution, port_logistics]
+    economic_logic: Labor cost affects operating margins and competitiveness.
+    directionality: higher_usually_negative_for_margin
+    cycle_relevance: medium
+    data_availability_expectation: low
+    indicator_hints: [wage_index, labor_cost_ratio]
+
+  working_capital:
+    <<: *driver_defaults
+    driver_id: working_capital
+    display_name: Working Capital
+    category: working_capital
+    description: Working-capital pressure from inventory, receivables, and payables.
+    applies_to_archetypes: [commodity_processor, export_manufacturer, consumer_defensive, holding_company]
+    applies_to_micro_sectors: [steel_integrated, galvanized_steel, textile_export, consumer_staples, retail_distribution]
+    economic_logic: Working-capital stress can reduce cash conversion and resilience.
+    directionality: higher_pressure_negative
+    cycle_relevance: high
+    data_availability_expectation: medium
+    indicator_hints: [cash_conversion_cycle, receivables_days, inventory_days]
+
+  unknown:
+    <<: *driver_defaults
+    driver_id: unknown
+    display_name: Unknown Driver
+    category: unknown
+    description: Fallback when a raw driver hint cannot be mapped with confidence.
+    economic_logic: Unknown driver hints require manual review before later modules use them.
+    directionality: unknown
+    cycle_relevance: unknown
+    data_availability_expectation: unknown
+    indicator_hints: []
+    manual_review_triggers:
+      - unknown_driver_hint
+    notes: Fallback only; do not use for automated indicator mapping.

@@ -1,0 +1,60 @@
+version: 1
+description: Deterministic L1 business classification rules.
+
+eligible_l0_basic_statuses:
+  - L0_INVESTABLE
+  - L0_WATCH_ONLY
+
+provisional_l0_basic_statuses:
+  - L0_MANUAL_REVIEW
+
+blocked_l0_basic_statuses:
+  - L0_REJECT
+  - INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY
+
+evidence_weights:
+  segment_revenue: 6
+  segment_gross_profit: 7
+  segment_ebit: 7
+  segment_assets: 4
+  segment_capex: 3
+  business_description: 3
+  manual_notes: 2
+  classification_notes: 2
+  company_name: 1
+  industry_raw: 1
+
+segment_priority:
+  - segment_revenue
+  - segment_gross_profit
+  - segment_ebit
+  - segment_assets
+  - segment_capex
+
+confidence_thresholds:
+  high_min_score: 8
+  medium_min_score: 3
+  high_min_primary_weight: 0.65
+  secondary_min_weight: 0.20
+  similar_score_delta: 2
+
+minimum_data_requirements:
+  require_business_description_for_medium: true
+  raw_industry_only_confidence: low
+
+manual_review_triggers:
+  - UNKNOWN_MICRO_SECTOR
+  - MISSING_BUSINESS_DESCRIPTION
+  - BROAD_INDUSTRY_ONLY
+  - CONFLICTING_CLASSIFICATION_SIGNALS
+  - SIMILAR_MICRO_SECTOR_SCORES
+  - HOLDING_COMPANY_REVIEW
+  - LOW_L0_BASIC_CONFIDENCE
+  - PROFILE_DATA_QUALITY_REVIEW
+
+fallback_rules:
+  unknown_micro_sector: unknown
+  unknown_archetype: unknown
+  holding_micro_sector: holding_company
+  not_classified_reason_failed_l0: FAILED_L0_BASIC_INVESTABILITY
+  not_classified_reason_insufficient: INSUFFICIENT_DATA_FOR_CLASSIFICATION

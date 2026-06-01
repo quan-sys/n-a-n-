@@ -1,0 +1,617 @@
+version: 1
+description: Reusable L1 archetype templates for later Vietnamese stock screening steps.
+
+required_template_fields:
+  - archetype_id
+  - display_name
+  - description
+  - typical_micro_sectors
+  - business_model_logic
+  - key_economic_exposures
+  - typical_revenue_drivers
+  - typical_cost_drivers
+  - balance_sheet_focus
+  - cash_flow_focus
+  - survival_risk_focus
+  - quality_signals
+  - red_flags
+  - cycle_sensitivity
+  - data_requirements
+  - manual_review_triggers
+  - notes
+
+templates:
+  export_manufacturer:
+    archetype_id: export_manufacturer
+    display_name: Export Manufacturer
+    description: Companies that manufacture goods mainly for export markets.
+    typical_micro_sectors:
+      - textile_export
+      - pangasius_export
+      - shrimp_export
+      - tire_manufacturing
+    business_model_logic:
+      - earns revenue from export orders
+      - margins depend on foreign demand, input costs, FX, and logistics
+    key_economic_exposures:
+      - export_demand
+      - USD_VND
+      - input_cost
+      - logistics_cost
+    typical_revenue_drivers:
+      - order_volume
+      - average_unit_price
+      - customer_inventory_cycle
+    typical_cost_drivers:
+      - raw_material_cost
+      - labor_cost
+      - freight_cost
+    balance_sheet_focus:
+      - inventory
+      - receivables
+      - short_term_debt
+    cash_flow_focus:
+      - operating_cash_flow
+      - working_capital_change
+    survival_risk_focus:
+      - falling_orders
+      - margin_compression
+      - inventory_buildup
+      - FX_mismatch
+    quality_signals:
+      - stable_margin_relative_to_history
+      - positive_operating_cash_flow
+      - controlled_inventory
+    red_flags:
+      - persistent_negative_cash_flow
+      - large_inventory_buildup
+      - heavy_short_term_debt
+    cycle_sensitivity: high
+    data_requirements:
+      - revenue
+      - gross_margin
+      - operating_cash_flow
+      - inventory
+      - debt
+    manual_review_triggers:
+      - missing_export_exposure_evidence
+      - conflicting_business_description_and_segment_data
+    notes: Template only; no recommendation output.
+
+  commodity_processor:
+    archetype_id: commodity_processor
+    display_name: Commodity Processor
+    description: Companies that process commodity inputs into intermediate or finished products.
+    typical_micro_sectors:
+      - steel_integrated
+      - galvanized_steel
+      - natural_rubber
+      - fertilizer
+      - construction_materials
+    business_model_logic:
+      - earns spread between input commodity cost and output product price
+      - earnings can move quickly when spreads compress or expand
+    key_economic_exposures:
+      - input_commodity_price
+      - output_price
+      - demand_cycle
+      - inventory_revaluation
+    typical_revenue_drivers:
+      - output_volume
+      - benchmark_product_price
+      - domestic_demand
+    typical_cost_drivers:
+      - raw_material_cost
+      - energy_cost
+      - transport_cost
+    balance_sheet_focus:
+      - inventory
+      - short_term_debt
+      - working_capital
+    cash_flow_focus:
+      - operating_cash_flow
+      - inventory_cash_conversion
+    survival_risk_focus:
+      - spread_compression
+      - inventory_write_down
+      - debt_refinancing_pressure
+    quality_signals:
+      - resilient_spread
+      - controlled_inventory_days
+      - positive_cash_conversion
+    red_flags:
+      - high_inventory_during_price_downturn
+      - persistent_margin_compression
+      - rising_short_term_debt
+    cycle_sensitivity: high
+    data_requirements:
+      - revenue
+      - gross_margin
+      - inventory
+      - operating_cash_flow
+      - debt
+    manual_review_triggers:
+      - missing_input_cost_evidence
+      - abnormal_inventory_change
+    notes: Template only; no recommendation output.
+
+  financial_bank:
+    archetype_id: financial_bank
+    display_name: Financial Bank
+    description: Deposit-taking banks whose results depend on credit, funding, asset quality, and provisioning.
+    typical_micro_sectors:
+      - commercial_bank
+    business_model_logic:
+      - earns net interest income and fee income
+      - risk depends on asset quality, funding mix, and provisioning discipline
+    key_economic_exposures:
+      - credit_growth
+      - interest_rate
+      - NIM
+      - NPL
+      - provisioning
+    typical_revenue_drivers:
+      - loan_growth
+      - fee_income
+      - net_interest_margin
+    typical_cost_drivers:
+      - funding_cost
+      - credit_cost
+      - operating_expense
+    balance_sheet_focus:
+      - loan_book
+      - deposits
+      - non_performing_loans
+      - provisions
+    cash_flow_focus:
+      - funding_stability
+      - liquidity_buffers
+    survival_risk_focus:
+      - asset_quality_deterioration
+      - funding_pressure
+      - insufficient_provisioning
+    quality_signals:
+      - stable_NIM
+      - controlled_NPL
+      - strong_provision_coverage
+    red_flags:
+      - rising_NPL
+      - weak_provision_coverage
+      - aggressive_credit_growth
+    cycle_sensitivity: medium
+    data_requirements:
+      - loan_growth
+      - NIM
+      - NPL
+      - provision_expense
+      - equity
+    manual_review_triggers:
+      - missing_bank_specific_asset_quality_data
+      - non_bank_company_classified_as_bank
+    notes: Template only; no recommendation output.
+
+  real_estate_developer:
+    archetype_id: real_estate_developer
+    display_name: Real Estate Developer
+    description: Developers whose results depend on project launches, legal status, presales, inventory, and debt maturity.
+    typical_micro_sectors:
+      - residential_real_estate
+      - industrial_park
+    business_model_logic:
+      - earnings depend on project handover timing and legal progress
+      - balance sheet risk can be high when inventory and debt rise together
+    key_economic_exposures:
+      - property_policy
+      - mortgage_rate
+      - presales
+      - legal_progress
+      - bond_maturity
+    typical_revenue_drivers:
+      - handover_volume
+      - project_launches
+      - average_unit_price
+    typical_cost_drivers:
+      - land_cost
+      - construction_cost
+      - interest_expense
+    balance_sheet_focus:
+      - inventory
+      - customer_advances
+      - debt_maturity
+      - cash
+    cash_flow_focus:
+      - presale_cash_collection
+      - construction_cash_outflow
+    survival_risk_focus:
+      - legal_delay
+      - refinancing_pressure
+      - slow_inventory_conversion
+    quality_signals:
+      - visible_project_pipeline
+      - manageable_debt_maturity
+      - positive_operating_cash_flow
+    red_flags:
+      - large_unsold_inventory
+      - heavy_short_term_debt
+      - weak_cash_collection
+    cycle_sensitivity: high
+    data_requirements:
+      - inventory
+      - debt
+      - cash
+      - operating_cash_flow
+      - project_status
+    manual_review_triggers:
+      - missing_project_legal_status
+      - unclear_revenue_recognition_timing
+    notes: Template only; no recommendation output.
+
+  utility_regulated:
+    archetype_id: utility_regulated
+    display_name: Regulated Utility
+    description: Utilities whose output and tariff economics are influenced by regulation, contracts, and input fuel or hydrology.
+    typical_micro_sectors:
+      - power_generation
+    business_model_logic:
+      - revenue often depends on contracted output, regulated tariffs, or dispatch volume
+      - margins depend on fuel cost, hydrology, and contract terms
+    key_economic_exposures:
+      - regulated_tariff
+      - fuel_cost
+      - hydrology
+      - electricity_demand
+    typical_revenue_drivers:
+      - output_volume
+      - tariff_rate
+      - dispatch_priority
+    typical_cost_drivers:
+      - fuel_cost
+      - maintenance_cost
+      - depreciation
+    balance_sheet_focus:
+      - fixed_assets
+      - debt
+      - receivables
+    cash_flow_focus:
+      - operating_cash_flow
+      - maintenance_capex
+    survival_risk_focus:
+      - fuel_cost_pass_through_lag
+      - tariff_delay
+      - high_debt_for_new_projects
+    quality_signals:
+      - stable_cash_flow
+      - manageable_capex
+      - clear_contract_terms
+    red_flags:
+      - rising_receivables
+      - high_leverage
+      - adverse_fuel_cost_shift
+    cycle_sensitivity: low
+    data_requirements:
+      - production_volume
+      - fuel_cost
+      - operating_cash_flow
+      - debt
+      - capex
+    manual_review_triggers:
+      - missing_tariff_or_contract_evidence
+      - abnormal_receivable_growth
+    notes: Template only; no recommendation output.
+
+  logistics_infrastructure:
+    archetype_id: logistics_infrastructure
+    display_name: Logistics Infrastructure
+    description: Port, logistics, warehouse, and infrastructure operators tied to trade flow and utilization.
+    typical_micro_sectors:
+      - port_logistics
+      - industrial_park
+    business_model_logic:
+      - revenue depends on throughput, occupancy, utilization, or traffic volume
+      - operating leverage can amplify volume changes
+    key_economic_exposures:
+      - trade_volume
+      - container_throughput
+      - occupancy_rate
+      - infrastructure_tariff
+    typical_revenue_drivers:
+      - throughput_volume
+      - service_fee
+      - occupancy_rate
+    typical_cost_drivers:
+      - labor_cost
+      - maintenance_cost
+      - depreciation
+    balance_sheet_focus:
+      - fixed_assets
+      - debt
+      - receivables
+    cash_flow_focus:
+      - operating_cash_flow
+      - maintenance_capex
+    survival_risk_focus:
+      - volume_decline
+      - high_fixed_cost
+      - debt_funded_expansion
+    quality_signals:
+      - stable_utilization
+      - strong_cash_conversion
+      - disciplined_capex
+    red_flags:
+      - falling_throughput
+      - rising_debt_without_utilization_gain
+      - receivable_buildup
+    cycle_sensitivity: medium
+    data_requirements:
+      - volume
+      - revenue
+      - operating_cash_flow
+      - fixed_assets
+      - debt
+    manual_review_triggers:
+      - missing_volume_or_utilization_data
+      - concession_or_tariff_uncertainty
+    notes: Template only; no recommendation output.
+
+  consumer_defensive:
+    archetype_id: consumer_defensive
+    display_name: Consumer Defensive
+    description: Consumer companies with relatively stable demand for essential goods or recurring household categories.
+    typical_micro_sectors:
+      - consumer_staples
+      - retail_distribution
+    business_model_logic:
+      - revenue depends on volume, distribution reach, and brand strength
+      - margins depend on input cost and pricing discipline
+    key_economic_exposures:
+      - household_consumption
+      - input_cost
+      - distribution_network
+      - brand_power
+    typical_revenue_drivers:
+      - volume_growth
+      - average_unit_price
+      - distribution_expansion
+    typical_cost_drivers:
+      - raw_material_cost
+      - packaging_cost
+      - marketing_cost
+    balance_sheet_focus:
+      - inventory
+      - receivables
+      - cash
+    cash_flow_focus:
+      - operating_cash_flow
+      - working_capital_change
+    survival_risk_focus:
+      - margin_pressure
+      - weak_distribution
+      - brand_erosion
+    quality_signals:
+      - stable_gross_margin
+      - positive_operating_cash_flow
+      - controlled_working_capital
+    red_flags:
+      - falling_margin
+      - receivable_buildup
+      - inventory_buildup
+    cycle_sensitivity: low
+    data_requirements:
+      - revenue
+      - gross_margin
+      - operating_cash_flow
+      - inventory
+      - receivables
+    manual_review_triggers:
+      - unclear_consumer_category_exposure
+      - abnormal_working_capital_change
+    notes: Template only; no recommendation output.
+
+  cyclical_manufacturer:
+    archetype_id: cyclical_manufacturer
+    display_name: Cyclical Manufacturer
+    description: Manufacturers whose demand and margins move with industrial or discretionary cycles.
+    typical_micro_sectors:
+      - construction_materials
+      - tire_manufacturing
+      - oil_gas_services
+    business_model_logic:
+      - revenue depends on cyclical demand and capacity utilization
+      - margins can compress when input costs rise faster than product prices
+    key_economic_exposures:
+      - domestic_demand
+      - capacity_utilization
+      - input_cost
+      - construction_cycle
+    typical_revenue_drivers:
+      - volume_growth
+      - product_mix
+      - average_unit_price
+    typical_cost_drivers:
+      - raw_material_cost
+      - energy_cost
+      - labor_cost
+    balance_sheet_focus:
+      - inventory
+      - fixed_assets
+      - debt
+    cash_flow_focus:
+      - operating_cash_flow
+      - capex
+      - working_capital_change
+    survival_risk_focus:
+      - demand_downturn
+      - high_fixed_cost
+      - inventory_buildup
+    quality_signals:
+      - stable_margin_through_cycle
+      - disciplined_capex
+      - positive_cash_flow_in_downturn
+    red_flags:
+      - rising_inventory
+      - falling_utilization
+      - debt_funded_capacity_expansion
+    cycle_sensitivity: high
+    data_requirements:
+      - revenue
+      - gross_margin
+      - inventory
+      - capex
+      - debt
+    manual_review_triggers:
+      - missing_capacity_or_utilization_evidence
+      - mixed_defensive_and_cyclical_business_lines
+    notes: Template only; no recommendation output.
+
+  securities_broker:
+    archetype_id: securities_broker
+    display_name: Securities Broker
+    description: Brokerages whose earnings depend on market turnover, margin lending, proprietary activity, and risk controls.
+    typical_micro_sectors:
+      - securities_broker
+    business_model_logic:
+      - revenue depends on brokerage activity, lending balances, and capital market transactions
+      - risk can increase during market downturns through margin exposure
+    key_economic_exposures:
+      - market_turnover
+      - margin_lending
+      - equity_market_sentiment
+      - interest_rate
+    typical_revenue_drivers:
+      - brokerage_fee_income
+      - margin_interest_income
+      - advisory_fee_income
+    typical_cost_drivers:
+      - funding_cost
+      - operating_expense
+      - credit_loss
+    balance_sheet_focus:
+      - margin_loans
+      - liquid_assets
+      - equity
+      - debt
+    cash_flow_focus:
+      - liquidity_buffer
+      - funding_stability
+    survival_risk_focus:
+      - market_liquidity_drop
+      - margin_call_risk
+      - proprietary_loss
+    quality_signals:
+      - controlled_margin_lending
+      - strong_capital_buffer
+      - diversified_fee_income
+    red_flags:
+      - rapid_margin_book_growth
+      - weak_liquidity_buffer
+      - volatile_proprietary_results
+    cycle_sensitivity: high
+    data_requirements:
+      - brokerage_revenue
+      - margin_loans
+      - equity
+      - liquid_assets
+      - funding_cost
+    manual_review_triggers:
+      - missing_margin_lending_data
+      - unclear_proprietary_activity_exposure
+    notes: Template only; no recommendation output.
+
+  holding_company:
+    archetype_id: holding_company
+    display_name: Holding Company
+    description: Companies whose value and risk depend on investments, subsidiaries, associates, or multi-sector holdings.
+    typical_micro_sectors:
+      - holding_company
+    business_model_logic:
+      - earnings may come from dividends, associate profit, disposals, or consolidated subsidiaries
+      - exposure can be mixed and should not be forced into one sector without evidence
+    key_economic_exposures:
+      - subsidiary_performance
+      - investment_portfolio_value
+      - leverage_at_parent
+      - governance_quality
+    typical_revenue_drivers:
+      - dividend_income
+      - associate_profit
+      - consolidated_subsidiary_revenue
+    typical_cost_drivers:
+      - holding_company_overhead
+      - funding_cost
+      - impairment_loss
+    balance_sheet_focus:
+      - investments
+      - cash
+      - debt
+      - minority_interests
+    cash_flow_focus:
+      - dividend_cash_inflow
+      - debt_service
+      - investment_cash_flow
+    survival_risk_focus:
+      - opaque_asset_value
+      - leverage_at_parent
+      - weak_subsidiary_cash_upstream
+    quality_signals:
+      - transparent_holdings
+      - stable_dividend_inflow
+      - low_parent_leverage
+    red_flags:
+      - opaque_related_party_transactions
+      - frequent_impairments
+      - unclear_subsidiary_exposure
+    cycle_sensitivity: mixed
+    data_requirements:
+      - investment_breakdown
+      - subsidiary_results
+      - cash
+      - debt
+      - operating_cash_flow
+    manual_review_triggers:
+      - missing_subsidiary_exposure_data
+      - multi_sector_exposure_without_weights
+    notes: Template only; no recommendation output.
+
+  unknown:
+    archetype_id: unknown
+    display_name: Unknown Archetype
+    description: Fallback template when the business model archetype cannot be determined with enough evidence.
+    typical_micro_sectors:
+      - unknown
+    business_model_logic:
+      - business_model_not_yet_classified
+      - requires_manual_review_before_sector_specific_analysis
+    key_economic_exposures:
+      - unknown_exposure
+    typical_revenue_drivers:
+      - unknown_revenue_driver
+    typical_cost_drivers:
+      - unknown_cost_driver
+    balance_sheet_focus:
+      - data_completeness
+      - debt
+      - cash
+    cash_flow_focus:
+      - operating_cash_flow
+      - data_completeness
+    survival_risk_focus:
+      - insufficient_business_model_evidence
+      - missing_segment_information
+    quality_signals:
+      - clear_business_description
+      - sufficient_segment_data
+    red_flags:
+      - missing_business_description
+      - conflicting_classification_inputs
+      - insufficient_data
+    cycle_sensitivity: unknown
+    data_requirements:
+      - company_profile
+      - business_description
+      - segment_data
+      - financial_statement_summary
+    manual_review_triggers:
+      - unknown_archetype
+      - missing_business_description
+      - conflicting_classification_evidence
+    notes: Template only; manual review required before later analysis.

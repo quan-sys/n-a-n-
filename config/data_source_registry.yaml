@@ -1,0 +1,733 @@
+version: 1
+description: Candidate data sources for the Vietnamese stock screening pipeline.
+datasets:
+  - dataset_name: universe
+    description: Initial listed stock universe.
+    required_for_stage:
+      - real_data_ingestion
+      - raw_to_clean
+      - universe_builder
+      - l0_filters
+    production_required: true
+    sources:
+      - source_name: Vnstock
+        source_type: python_package
+        primary_or_backup: primary
+        expected_fields:
+          - ticker
+          - exchange
+          - company_name
+          - listing_status
+          - data_source
+          - last_updated
+        update_frequency: daily
+        reliability_level: medium
+        requires_api_key: false
+        access_method: package
+        output_dataset_schema: universe
+        confidence_default: medium
+        notes: Candidate package source for listed ticker universe if available.
+        legal_or_terms_notes: Review package license and upstream data terms before production use.
+      - source_name: HOSE
+        source_type: official_exchange
+        primary_or_backup: backup
+        expected_fields:
+          - ticker
+          - exchange
+          - company_name
+          - listing_status
+        update_frequency: daily
+        reliability_level: high
+        requires_api_key: false
+        access_method: html_table
+        output_dataset_schema: universe
+        confidence_default: high
+        notes: Candidate official exchange source for HOSE-listed companies.
+        legal_or_terms_notes: Confirm permitted automated access and cite official exchange pages.
+      - source_name: HNX_UPCOM
+        source_type: official_exchange
+        primary_or_backup: backup
+        expected_fields:
+          - ticker
+          - exchange
+          - company_name
+          - listing_status
+        update_frequency: daily
+        reliability_level: high
+        requires_api_key: false
+        access_method: html_table
+        output_dataset_schema: universe
+        confidence_default: high
+        notes: Candidate official exchange source for HNX and UPCoM universe data.
+        legal_or_terms_notes: Confirm permitted automated access and cite official exchange pages.
+      - source_name: Manual Universe CSV
+        source_type: manual_file
+        primary_or_backup: fallback
+        expected_fields:
+          - ticker
+          - exchange
+          - company_name
+          - listing_status
+          - data_source
+          - last_updated
+        update_frequency: manual
+        reliability_level: medium
+        requires_api_key: false
+        access_method: manual_upload
+        output_dataset_schema: universe
+        confidence_default: medium
+        notes: Manually provided real universe file fallback.
+        legal_or_terms_notes: User must document source and collection date.
+
+  - dataset_name: market_price
+    description: Price, volume, trading value, and liquidity data.
+    required_for_stage:
+      - real_data_ingestion
+      - raw_to_clean
+      - data_quality
+      - universe_builder
+      - l0_filters
+      - l6_timing_liquidity
+    production_required: true
+    sources:
+      - source_name: Vnstock
+        source_type: python_package
+        primary_or_backup: primary
+        expected_fields:
+          - ticker
+          - date
+          - close
+          - volume
+          - trading_value
+          - source
+          - fetch_time
+        update_frequency: daily
+        reliability_level: medium
+        requires_api_key: false
+        access_method: package
+        output_dataset_schema: market_price
+        confidence_default: medium
+        notes: Candidate package source for historical price and liquidity fields.
+        legal_or_terms_notes: Review package license and upstream data terms before production use.
+      - source_name: Exchange Price Data
+        source_type: official_exchange
+        primary_or_backup: backup
+        expected_fields:
+          - ticker
+          - date
+          - close
+          - volume
+          - trading_value
+        update_frequency: daily
+        reliability_level: high
+        requires_api_key: false
+        access_method: html_table
+        output_dataset_schema: market_price
+        confidence_default: high
+        notes: Candidate official exchange source if accessible.
+        legal_or_terms_notes: Confirm permitted automated access and cite official exchange pages.
+      - source_name: Manual Market Price CSV
+        source_type: manual_file
+        primary_or_backup: fallback
+        expected_fields:
+          - ticker
+          - date
+          - close
+          - volume
+          - trading_value
+          - source
+          - fetch_time
+        update_frequency: manual
+        reliability_level: medium
+        requires_api_key: false
+        access_method: manual_upload
+        output_dataset_schema: market_price
+        confidence_default: medium
+        notes: Manually provided real market price file fallback.
+        legal_or_terms_notes: User must document source and collection date.
+
+  - dataset_name: company_profile
+    description: Company name, exchange, raw industry, and business description.
+    required_for_stage:
+      - real_data_ingestion
+      - raw_to_clean
+      - data_quality
+      - universe_builder
+      - l1_business_classification
+    production_required: true
+    sources:
+      - source_name: Vnstock
+        source_type: python_package
+        primary_or_backup: primary
+        expected_fields:
+          - ticker
+          - company_name
+          - exchange
+          - industry_raw
+          - business_description
+          - source
+          - last_updated
+        update_frequency: weekly
+        reliability_level: medium
+        requires_api_key: false
+        access_method: package
+        output_dataset_schema: company_profile
+        confidence_default: medium
+        notes: Candidate package source for profile and industry metadata.
+        legal_or_terms_notes: Review package license and upstream data terms before production use.
+      - source_name: HOSE HNX Company Profiles
+        source_type: official_exchange
+        primary_or_backup: backup
+        expected_fields:
+          - ticker
+          - company_name
+          - exchange
+          - industry_raw
+          - business_description
+        update_frequency: weekly
+        reliability_level: high
+        requires_api_key: false
+        access_method: html_table
+        output_dataset_schema: company_profile
+        confidence_default: high
+        notes: Candidate official exchange profile pages.
+        legal_or_terms_notes: Confirm permitted automated access and cite official exchange pages.
+      - source_name: Company Website
+        source_type: official_company
+        primary_or_backup: backup
+        expected_fields:
+          - ticker
+          - company_name
+          - business_description
+        update_frequency: event_driven
+        reliability_level: high
+        requires_api_key: false
+        access_method: html_table
+        output_dataset_schema: company_profile
+        confidence_default: high
+        notes: Candidate company website or IR profile source.
+        legal_or_terms_notes: Confirm site terms before automated collection.
+      - source_name: Manual Company Profile CSV
+        source_type: manual_file
+        primary_or_backup: fallback
+        expected_fields:
+          - ticker
+          - company_name
+          - exchange
+          - industry_raw
+          - business_description
+          - source
+          - last_updated
+        update_frequency: manual
+        reliability_level: medium
+        requires_api_key: false
+        access_method: manual_upload
+        output_dataset_schema: company_profile
+        confidence_default: medium
+        notes: Manually provided real company profile file fallback.
+        legal_or_terms_notes: User must document source and collection date.
+
+  - dataset_name: financial_statement_summary
+    description: Revenue, profit, assets, liabilities, equity, debt, cash flow, and inventory.
+    required_for_stage:
+      - real_data_ingestion
+      - raw_to_clean
+      - data_quality
+      - universe_builder
+      - l0_filters
+      - l4_company_engine
+      - l5_valuation_risk
+    production_required: true
+    sources:
+      - source_name: Vnstock
+        source_type: python_package
+        primary_or_backup: primary
+        expected_fields:
+          - ticker
+          - period
+          - revenue
+          - gross_profit
+          - operating_profit
+          - net_profit
+          - total_assets
+          - total_liabilities
+          - equity
+          - cash
+          - short_term_debt
+          - long_term_debt
+          - operating_cash_flow
+          - inventory
+          - source
+          - fetch_time
+        update_frequency: quarterly
+        reliability_level: medium
+        requires_api_key: false
+        access_method: package
+        output_dataset_schema: financial_statement_summary
+        confidence_default: medium
+        notes: Candidate package source for normalized financial statements.
+        legal_or_terms_notes: Review package license and upstream data terms before production use.
+      - source_name: Official Company Financial Reports
+        source_type: official_company
+        primary_or_backup: backup
+        expected_fields:
+          - ticker
+          - period
+          - revenue
+          - net_profit
+          - total_assets
+          - total_liabilities
+          - equity
+        update_frequency: quarterly
+        reliability_level: high
+        requires_api_key: false
+        access_method: pdf_download
+        output_dataset_schema: financial_statement_summary
+        confidence_default: high
+        notes: Candidate source from official published BCTC reports.
+        legal_or_terms_notes: Preserve source URL and report date; confirm publication permissions.
+      - source_name: CafeF Vietstock Financial Tables
+        source_type: news_site
+        primary_or_backup: backup
+        expected_fields:
+          - ticker
+          - period
+          - revenue
+          - net_profit
+          - total_assets
+          - total_liabilities
+          - equity
+        update_frequency: quarterly
+        reliability_level: medium
+        requires_api_key: false
+        access_method: html_table
+        output_dataset_schema: financial_statement_summary
+        confidence_default: medium
+        notes: Candidate secondary financial table source if legally and technically accessible.
+        legal_or_terms_notes: Review site terms and robots policy before automated access.
+      - source_name: Manual Financial Statement File
+        source_type: manual_file
+        primary_or_backup: fallback
+        expected_fields:
+          - ticker
+          - period
+          - revenue
+          - gross_profit
+          - operating_profit
+          - net_profit
+          - total_assets
+          - total_liabilities
+          - equity
+          - cash
+          - short_term_debt
+          - long_term_debt
+          - operating_cash_flow
+          - inventory
+          - source
+          - fetch_time
+        update_frequency: manual
+        reliability_level: medium
+        requires_api_key: false
+        access_method: manual_upload
+        output_dataset_schema: financial_statement_summary
+        confidence_default: medium
+        notes: Manually provided real CSV or XLSX fallback.
+        legal_or_terms_notes: User must document source, period, and collection date.
+
+  - dataset_name: disclosure_status
+    description: Disclosure, audit, warning, trading restriction, and listing-status risk.
+    required_for_stage:
+      - real_data_ingestion
+      - raw_to_clean
+      - data_quality
+      - universe_builder
+      - l0_filters
+    production_required: true
+    sources:
+      - source_name: HOSE Disclosures
+        source_type: official_exchange
+        primary_or_backup: primary
+        expected_fields:
+          - ticker
+          - date
+          - event_type
+          - severity
+          - source
+          - source_url
+          - notes
+        update_frequency: event_driven
+        reliability_level: high
+        requires_api_key: false
+        access_method: html_table
+        output_dataset_schema: disclosure_status
+        confidence_default: high
+        notes: Candidate official exchange disclosure source.
+        legal_or_terms_notes: Confirm permitted automated access and cite official exchange pages.
+      - source_name: HNX Disclosures
+        source_type: official_exchange
+        primary_or_backup: backup
+        expected_fields:
+          - ticker
+          - date
+          - event_type
+          - severity
+          - source
+          - source_url
+          - notes
+        update_frequency: event_driven
+        reliability_level: high
+        requires_api_key: false
+        access_method: html_table
+        output_dataset_schema: disclosure_status
+        confidence_default: high
+        notes: Candidate official HNX and UPCoM disclosure source.
+        legal_or_terms_notes: Confirm permitted automated access and cite official exchange pages.
+      - source_name: SSC Disclosures
+        source_type: official_regulator
+        primary_or_backup: backup
+        expected_fields:
+          - ticker
+          - date
+          - event_type
+          - severity
+          - source
+          - source_url
+          - notes
+        update_frequency: event_driven
+        reliability_level: high
+        requires_api_key: false
+        access_method: html_table
+        output_dataset_schema: disclosure_status
+        confidence_default: high
+        notes: Candidate official regulator source for severe disclosure events.
+        legal_or_terms_notes: Confirm permitted automated access and cite official regulator pages.
+      - source_name: Company IR Disclosures
+        source_type: official_company
+        primary_or_backup: backup
+        expected_fields:
+          - ticker
+          - date
+          - event_type
+          - severity
+          - source
+          - source_url
+          - notes
+        update_frequency: event_driven
+        reliability_level: high
+        requires_api_key: false
+        access_method: html_table
+        output_dataset_schema: disclosure_status
+        confidence_default: high
+        notes: Candidate company IR source for company-specific announcements.
+        legal_or_terms_notes: Confirm site terms before automated collection.
+      - source_name: Manual Disclosure CSV
+        source_type: manual_file
+        primary_or_backup: fallback
+        expected_fields:
+          - ticker
+          - date
+          - event_type
+          - severity
+          - source
+          - source_url
+          - notes
+        update_frequency: manual
+        reliability_level: medium
+        requires_api_key: false
+        access_method: manual_upload
+        output_dataset_schema: disclosure_status
+        confidence_default: medium
+        notes: Manually provided real disclosure file fallback.
+        legal_or_terms_notes: User must document source and collection date.
+
+  - dataset_name: macro_vietnam
+    description: Vietnam macro drivers.
+    required_for_stage:
+      - l2_indicator_registry
+      - l3_sector_cycle_engine
+    production_required: false
+    sources:
+      - source_name: SBV
+        source_type: official_macro
+        primary_or_backup: primary
+        expected_fields:
+          - date
+          - indicator
+          - value
+          - source
+          - source_url
+          - fetch_time
+        update_frequency: monthly
+        reliability_level: high
+        requires_api_key: false
+        access_method: html_table
+        output_dataset_schema: macro_vietnam
+        confidence_default: high
+        notes: Candidate official source for interest rates and USD/VND policy data.
+        legal_or_terms_notes: Confirm permitted automated access and cite official macro source pages.
+      - source_name: GSO NSO
+        source_type: official_macro
+        primary_or_backup: backup
+        expected_fields:
+          - date
+          - indicator
+          - value
+          - source
+          - source_url
+          - fetch_time
+        update_frequency: monthly
+        reliability_level: high
+        requires_api_key: false
+        access_method: xlsx_download
+        output_dataset_schema: macro_vietnam
+        confidence_default: high
+        notes: Candidate official source for CPI, retail sales, production, and trade data.
+        legal_or_terms_notes: Confirm permitted automated access and cite official macro source pages.
+      - source_name: Manual Vietnam Macro CSV
+        source_type: manual_file
+        primary_or_backup: fallback
+        expected_fields:
+          - date
+          - indicator
+          - value
+          - source
+          - source_url
+          - fetch_time
+        update_frequency: manual
+        reliability_level: medium
+        requires_api_key: false
+        access_method: manual_upload
+        output_dataset_schema: macro_vietnam
+        confidence_default: medium
+        notes: Manually provided real macro file fallback.
+        legal_or_terms_notes: User must document source and collection date.
+
+  - dataset_name: commodity_global
+    description: Global commodity drivers.
+    required_for_stage:
+      - l2_indicator_registry
+      - l3_sector_cycle_engine
+    production_required: false
+    sources:
+      - source_name: World Bank Commodity Data
+        source_type: public_file
+        primary_or_backup: primary
+        expected_fields:
+          - date
+          - commodity
+          - value
+          - source
+          - source_url
+          - fetch_time
+        update_frequency: monthly
+        reliability_level: high
+        requires_api_key: false
+        access_method: xlsx_download
+        output_dataset_schema: commodity_global
+        confidence_default: high
+        notes: Candidate public commodity price file source.
+        legal_or_terms_notes: Review public data license and attribution requirements.
+      - source_name: IMF Commodity Data
+        source_type: public_file
+        primary_or_backup: backup
+        expected_fields:
+          - date
+          - commodity
+          - value
+          - source
+          - source_url
+          - fetch_time
+        update_frequency: monthly
+        reliability_level: high
+        requires_api_key: false
+        access_method: csv_download
+        output_dataset_schema: commodity_global
+        confidence_default: high
+        notes: Candidate backup commodity data source.
+        legal_or_terms_notes: Review public data license and attribution requirements.
+      - source_name: FRED
+        source_type: public_file
+        primary_or_backup: backup
+        expected_fields:
+          - date
+          - commodity
+          - value
+          - source
+          - source_url
+          - fetch_time
+        update_frequency: daily
+        reliability_level: high
+        requires_api_key: false
+        access_method: api
+        output_dataset_schema: commodity_global
+        confidence_default: high
+        notes: Candidate source if relevant commodity series are available.
+        legal_or_terms_notes: Review API terms and attribution requirements before production use.
+      - source_name: Manual Commodity CSV
+        source_type: manual_file
+        primary_or_backup: fallback
+        expected_fields:
+          - date
+          - commodity
+          - value
+          - source
+          - source_url
+          - fetch_time
+        update_frequency: manual
+        reliability_level: medium
+        requires_api_key: false
+        access_method: manual_upload
+        output_dataset_schema: commodity_global
+        confidence_default: medium
+        notes: Manually provided real commodity data fallback.
+        legal_or_terms_notes: User must document source and collection date.
+
+  - dataset_name: sector_news
+    description: Sector-level news and soft signals.
+    required_for_stage:
+      - l2_indicator_registry
+      - l3_sector_cycle_engine
+      - l7_weekly_report
+    production_required: false
+    sources:
+      - source_name: CafeF Sector News
+        source_type: news_site
+        primary_or_backup: primary
+        expected_fields:
+          - date
+          - sector
+          - headline
+          - source
+          - source_url
+          - fetch_time
+          - notes
+        update_frequency: daily
+        reliability_level: medium
+        requires_api_key: false
+        access_method: rss
+        output_dataset_schema: sector_news
+        confidence_default: medium
+        notes: Candidate sector news source if RSS or legal access is available.
+        legal_or_terms_notes: Review site terms, robots policy, and citation requirements before automated access.
+      - source_name: Vietstock Sector News
+        source_type: news_site
+        primary_or_backup: backup
+        expected_fields:
+          - date
+          - sector
+          - headline
+          - source
+          - source_url
+          - fetch_time
+          - notes
+        update_frequency: daily
+        reliability_level: medium
+        requires_api_key: false
+        access_method: rss
+        output_dataset_schema: sector_news
+        confidence_default: medium
+        notes: Candidate sector news backup source if RSS or legal access is available.
+        legal_or_terms_notes: Review site terms, robots policy, and citation requirements before automated access.
+      - source_name: Manual Sector News CSV
+        source_type: manual_file
+        primary_or_backup: fallback
+        expected_fields:
+          - date
+          - sector
+          - headline
+          - source
+          - source_url
+          - fetch_time
+          - notes
+        update_frequency: manual
+        reliability_level: medium
+        requires_api_key: false
+        access_method: manual_upload
+        output_dataset_schema: sector_news
+        confidence_default: medium
+        notes: Manually curated real sector news fallback.
+        legal_or_terms_notes: User must document source URLs and collection date.
+
+  - dataset_name: company_events
+    description: Company-specific events, earnings announcements, audit notes, and major corporate actions.
+    required_for_stage:
+      - l4_company_engine
+      - l7_weekly_report
+    production_required: false
+    sources:
+      - source_name: Company IR Events
+        source_type: official_company
+        primary_or_backup: primary
+        expected_fields:
+          - ticker
+          - date
+          - event_type
+          - source
+          - source_url
+          - fetch_time
+          - notes
+        update_frequency: event_driven
+        reliability_level: high
+        requires_api_key: false
+        access_method: html_table
+        output_dataset_schema: company_events
+        confidence_default: high
+        notes: Candidate official company event source.
+        legal_or_terms_notes: Confirm site terms before automated collection.
+      - source_name: HOSE HNX SSC Company Events
+        source_type: official_regulator
+        primary_or_backup: backup
+        expected_fields:
+          - ticker
+          - date
+          - event_type
+          - source
+          - source_url
+          - fetch_time
+          - notes
+        update_frequency: event_driven
+        reliability_level: high
+        requires_api_key: false
+        access_method: html_table
+        output_dataset_schema: company_events
+        confidence_default: high
+        notes: Candidate official disclosure source for corporate actions and audit events.
+        legal_or_terms_notes: Confirm permitted automated access and cite official source pages.
+      - source_name: CafeF Vietstock Company Events
+        source_type: news_site
+        primary_or_backup: backup
+        expected_fields:
+          - ticker
+          - date
+          - event_type
+          - source
+          - source_url
+          - fetch_time
+          - notes
+        update_frequency: event_driven
+        reliability_level: medium
+        requires_api_key: false
+        access_method: html_table
+        output_dataset_schema: company_events
+        confidence_default: medium
+        notes: Candidate secondary event source if legally and technically accessible.
+        legal_or_terms_notes: Review site terms, robots policy, and citation requirements before automated access.
+      - source_name: Manual Company Events CSV
+        source_type: manual_file
+        primary_or_backup: fallback
+        expected_fields:
+          - ticker
+          - date
+          - event_type
+          - source
+          - source_url
+          - fetch_time
+          - notes
+        update_frequency: manual
+        reliability_level: medium
+        requires_api_key: false
+        access_method: manual_upload
+        output_dataset_schema: company_events
+        confidence_default: medium
+        notes: Manually curated real company events fallback.
+        legal_or_terms_notes: User must document source URLs and collection date.

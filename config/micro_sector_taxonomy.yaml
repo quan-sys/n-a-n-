@@ -1,0 +1,359 @@
+version: 1
+description: Initial L1 micro-sector taxonomy for Vietnamese stock screening.
+
+micro_sectors:
+  steel_integrated:
+    micro_sector: steel_integrated
+    display_name: Integrated Steel
+    allowed_archetypes:
+      - commodity_processor
+      - cyclical_manufacturer
+    driver_hints:
+      - HRC
+      - iron_ore
+      - coking_coal
+      - construction_demand
+    keyword_hints:
+      - steel
+      - hrc
+      - billet
+      - iron ore
+      - integrated steel
+    notes: Steel producers with upstream or integrated production exposure.
+
+  galvanized_steel:
+    micro_sector: galvanized_steel
+    display_name: Galvanized Steel
+    allowed_archetypes:
+      - commodity_processor
+      - export_manufacturer
+    driver_hints:
+      - HRC
+      - export_demand
+      - trade_defense
+    keyword_hints:
+      - galvanized
+      - coated steel
+      - steel sheet
+      - corrugated steel
+    notes: Coated or galvanized steel producers and exporters.
+
+  natural_rubber:
+    micro_sector: natural_rubber
+    display_name: Natural Rubber
+    allowed_archetypes:
+      - commodity_processor
+    driver_hints:
+      - rubber_price
+      - China_demand
+      - oil_price
+    keyword_hints:
+      - natural rubber
+      - rubber plantation
+      - latex
+      - rubber processing
+    notes: Natural rubber plantation or processing exposure.
+
+  tire_manufacturing:
+    micro_sector: tire_manufacturing
+    display_name: Tire Manufacturing
+    allowed_archetypes:
+      - export_manufacturer
+      - cyclical_manufacturer
+    driver_hints:
+      - rubber_input_cost
+      - tire_exports
+      - auto_demand
+    keyword_hints:
+      - tire
+      - tyre
+      - radial
+      - rubber tire
+    notes: Tire manufacturers exposed to rubber inputs and auto demand.
+
+  pangasius_export:
+    micro_sector: pangasius_export
+    display_name: Pangasius Export
+    allowed_archetypes:
+      - export_manufacturer
+    driver_hints:
+      - export_demand
+      - pangasius_price
+      - feed_cost
+      - anti_dumping_tax
+    keyword_hints:
+      - pangasius
+      - basa fish
+      - seafood export
+      - fish fillet
+    notes: Pangasius exporters and processors.
+
+  shrimp_export:
+    micro_sector: shrimp_export
+    display_name: Shrimp Export
+    allowed_archetypes:
+      - export_manufacturer
+    driver_hints:
+      - export_demand
+      - shrimp_price
+      - feed_cost
+    keyword_hints:
+      - shrimp
+      - seafood export
+      - frozen shrimp
+    notes: Shrimp exporters and processors.
+
+  textile_export:
+    micro_sector: textile_export
+    display_name: Textile Export
+    allowed_archetypes:
+      - export_manufacturer
+    driver_hints:
+      - USD_VND
+      - export_demand
+      - cotton_price
+      - order_cycle
+    keyword_hints:
+      - textile
+      - garment
+      - apparel
+      - yarn
+      - export orders
+    notes: Textile, garment, apparel, or yarn export businesses.
+
+  residential_real_estate:
+    micro_sector: residential_real_estate
+    display_name: Residential Real Estate
+    allowed_archetypes:
+      - real_estate_developer
+    driver_hints:
+      - legal_status
+      - mortgage_rate
+      - presales
+      - bond_maturity
+    keyword_hints:
+      - residential
+      - apartment
+      - housing
+      - real estate developer
+      - property developer
+    notes: Residential property developers.
+
+  industrial_park:
+    micro_sector: industrial_park
+    display_name: Industrial Park
+    allowed_archetypes:
+      - real_estate_developer
+      - logistics_infrastructure
+    driver_hints:
+      - FDI
+      - occupancy
+      - land_lease
+      - rental_price
+    keyword_hints:
+      - industrial park
+      - industrial zone
+      - land lease
+      - warehouse lease
+    notes: Industrial park developers and operators.
+
+  commercial_bank:
+    micro_sector: commercial_bank
+    display_name: Commercial Bank
+    allowed_archetypes:
+      - financial_bank
+    driver_hints:
+      - credit_growth
+      - NIM
+      - NPL
+      - interest_rate
+    keyword_hints:
+      - bank
+      - banking
+      - credit
+      - deposit
+      - loan
+    notes: Deposit-taking banks and commercial banking groups.
+
+  securities_broker:
+    micro_sector: securities_broker
+    display_name: Securities Broker
+    allowed_archetypes:
+      - securities_broker
+    driver_hints:
+      - market_turnover
+      - margin_lending
+      - equity_market_sentiment
+    keyword_hints:
+      - securities
+      - brokerage
+      - broker
+      - margin lending
+      - investment banking
+    notes: Securities brokerages and margin-lending platforms.
+
+  power_generation:
+    micro_sector: power_generation
+    display_name: Power Generation
+    allowed_archetypes:
+      - utility_regulated
+    driver_hints:
+      - hydrology
+      - coal_price
+      - gas_price
+      - electricity_output
+    keyword_hints:
+      - power generation
+      - electricity
+      - hydropower
+      - thermal power
+      - power plant
+    notes: Power generation companies.
+
+  port_logistics:
+    micro_sector: port_logistics
+    display_name: Port Logistics
+    allowed_archetypes:
+      - logistics_infrastructure
+    driver_hints:
+      - freight_volume
+      - container_throughput
+      - export_import_activity
+    keyword_hints:
+      - port
+      - logistics
+      - container
+      - freight
+      - warehouse
+    notes: Port, freight, and logistics infrastructure exposure.
+
+  oil_gas_upstream:
+    micro_sector: oil_gas_upstream
+    display_name: Oil and Gas Upstream
+    allowed_archetypes:
+      - commodity_processor
+      - cyclical_manufacturer
+    driver_hints:
+      - oil_price
+      - exploration_activity
+      - production_volume
+    keyword_hints:
+      - upstream
+      - exploration
+      - oil production
+      - gas production
+    notes: Upstream oil and gas exposure.
+
+  oil_gas_services:
+    micro_sector: oil_gas_services
+    display_name: Oil and Gas Services
+    allowed_archetypes:
+      - cyclical_manufacturer
+      - logistics_infrastructure
+    driver_hints:
+      - oil_price
+      - drilling_activity
+      - capex_cycle
+    keyword_hints:
+      - oilfield services
+      - drilling
+      - offshore services
+      - petroleum services
+    notes: Oil and gas service contractors and support businesses.
+
+  fertilizer:
+    micro_sector: fertilizer
+    display_name: Fertilizer
+    allowed_archetypes:
+      - commodity_processor
+    driver_hints:
+      - urea_price
+      - gas_input_cost
+      - agriculture_demand
+    keyword_hints:
+      - fertilizer
+      - urea
+      - phosphate
+      - nitrogen
+    notes: Fertilizer producers and distributors with commodity exposure.
+
+  consumer_staples:
+    micro_sector: consumer_staples
+    display_name: Consumer Staples
+    allowed_archetypes:
+      - consumer_defensive
+    driver_hints:
+      - household_consumption
+      - input_cost
+      - distribution_network
+    keyword_hints:
+      - food
+      - beverage
+      - dairy
+      - consumer staples
+      - household products
+    notes: Defensive consumer staples businesses.
+
+  retail_distribution:
+    micro_sector: retail_distribution
+    display_name: Retail Distribution
+    allowed_archetypes:
+      - consumer_defensive
+      - cyclical_manufacturer
+    driver_hints:
+      - retail_sales
+      - store_expansion
+      - consumer_income
+    keyword_hints:
+      - retail
+      - distribution
+      - store chain
+      - pharmacy retail
+      - supermarket
+    notes: Retail and distribution businesses.
+
+  construction_materials:
+    micro_sector: construction_materials
+    display_name: Construction Materials
+    allowed_archetypes:
+      - commodity_processor
+      - cyclical_manufacturer
+    driver_hints:
+      - construction_demand
+      - public_investment
+      - input_cost
+    keyword_hints:
+      - cement
+      - construction materials
+      - stone
+      - aggregate
+      - concrete
+    notes: Construction material producers and suppliers.
+
+  holding_company:
+    micro_sector: holding_company
+    display_name: Holding Company
+    allowed_archetypes:
+      - holding_company
+    driver_hints:
+      - subsidiary_performance
+      - investment_portfolio_value
+      - governance_quality
+    keyword_hints:
+      - holding
+      - investment holding
+      - diversified
+      - subsidiaries
+      - associate companies
+    notes: Diversified or investment holding companies requiring exposure weights.
+
+  unknown:
+    micro_sector: unknown
+    display_name: Unknown
+    allowed_archetypes:
+      - unknown
+    driver_hints:
+      - unknown_driver
+    keyword_hints:
+      - unknown
+    notes: Fallback when evidence is insufficient.

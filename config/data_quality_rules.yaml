@@ -1,0 +1,84 @@
+version: 1
+description: Data quality and sanity rules for clean Vietnamese stock datasets.
+
+freshness_threshold_days:
+  market_price: 10
+  company_profile: 365
+  financial_statement_summary: 150
+  disclosure_status: 90
+
+low_confidence_values:
+  - low
+  - very_low
+  - mock
+
+datasets:
+  market_price:
+    date_col: date
+    required_fields:
+      - close
+      - volume
+      - trading_value
+    invalid_values:
+      close:
+        min_exclusive: 0
+        error: INVALID_CLOSE_NON_POSITIVE
+      volume:
+        min_inclusive: 0
+        error: INVALID_VOLUME_NEGATIVE
+      trading_value:
+        min_inclusive: 0
+        error: INVALID_TRADING_VALUE_NEGATIVE
+    outlier_fields:
+      - close
+      - volume
+      - trading_value
+    source_conflict:
+      key_cols:
+        - ticker
+        - date
+      value_cols:
+        - close
+        - volume
+        - trading_value
+
+  financial_statement_summary:
+    date_col: fetch_time
+    required_fields:
+      - revenue
+      - net_profit
+      - operating_cash_flow
+      - inventory
+      - equity
+      - total_assets
+    invalid_values:
+      total_assets:
+        min_exclusive_if_available: 0
+        warning: NON_POSITIVE_TOTAL_ASSETS
+      equity:
+        max_exclusive_if_available: 0
+        warning: NEGATIVE_EQUITY
+
+  company_profile:
+    date_col: last_updated
+    required_fields:
+      - company_name
+      - industry_raw
+      - business_description
+    missing_warnings:
+      company_name: MISSING_COMPANY_NAME
+      industry_raw: MISSING_INDUSTRY_RAW
+      business_description: MISSING_BUSINESS_DESCRIPTION
+
+  disclosure_status:
+    date_col: date
+    required_fields:
+      - ticker
+      - date
+      - event_type
+      - severity
+    high_severity_values:
+      - HIGH
+      - SEVERE
+      - CRITICAL
+    high_severity_warning: HIGH_SEVERITY_DISCLOSURE_FLAG

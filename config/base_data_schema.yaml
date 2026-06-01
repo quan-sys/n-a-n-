@@ -1,0 +1,65 @@
+version: 1
+description: Base input schemas for the Vietnamese stock screening pipeline.
+datasets:
+  universe:
+    purpose: Initial list of listed Vietnamese stocks before any filtering.
+    required_fields:
+      - ticker
+      - exchange
+      - company_name
+      - listing_status
+      - data_source
+      - last_updated
+
+  market_price:
+    purpose: Daily or historical market price and liquidity data.
+    required_fields:
+      - ticker
+      - date
+      - close
+      - volume
+      - trading_value
+      - source
+      - fetch_time
+
+  company_profile:
+    purpose: Basic company information used later for business classification.
+    required_fields:
+      - ticker
+      - company_name
+      - exchange
+      - industry_raw
+      - business_description
+      - source
+      - last_updated
+
+  financial_statement_summary:
+    purpose: Basic financial statement fields needed later for survival gate, financial viability, peer comparison, and valuation.
+    required_fields:
+      - ticker
+      - period
+      - revenue
+      - gross_profit
+      - operating_profit
+      - net_profit
+      - total_assets
+      - total_liabilities
+      - equity
+      - cash
+      - short_term_debt
+      - long_term_debt
+      - operating_cash_flow
+      - inventory
+      - source
+      - fetch_time
+
+  disclosure_status:
+    purpose: Disclosure, audit, warning, trading restriction, or other risk events if available.
+    required_fields:
+      - ticker
+      - date
+      - event_type
+      - severity
+      - source
+      - source_url
+      - notes

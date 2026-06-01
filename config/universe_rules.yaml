@@ -1,0 +1,48 @@
+version: 1
+description: Production universe builder rules for the Pre-L0 candidate universe.
+
+allowed_exchanges:
+  - HOSE
+  - HNX
+  - UPCOM
+
+active_listing_statuses:
+  - ACTIVE
+  - LISTED
+  - TRADING
+
+warning_listing_statuses:
+  - UNKNOWN
+  - SUSPENDED
+  - RESTRICTED
+  - DELISTING_WARNING
+
+required_data_groups:
+  - universe
+  - market_price
+  - company_profile
+  - financial_statement_summary
+
+optional_data_groups:
+  - disclosure_status
+
+required_profile_fields:
+  - ticker
+  - company_name
+  - exchange
+
+required_market_fields:
+  - ticker
+  - date
+  - close
+  - volume
+  - trading_value
+
+required_financial_fields:
+  - ticker
+  - period
+  - revenue
+  - net_profit
+  - equity
+  - total_assets
+  - total_liabilities
