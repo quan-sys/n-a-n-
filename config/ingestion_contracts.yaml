@@ -1,0 +1,413 @@
+version: 1
+description: Explicit ingestion contracts for raw Vietnamese stock screening inputs.
+contract_type: data_ingestion
+hard_rules:
+  - do_not_fetch_live_data_without_explicit_task
+  - do_not_treat_mock_data_as_production_data
+  - do_not_fabricate_financial_data
+  - do_not_create_buy_sell_or_target_price_fields
+datasets:
+  universe:
+    dataset_name: universe
+    required_columns:
+      - ticker
+      - exchange
+      - company_name
+      - listing_status
+      - data_source
+      - last_updated
+    optional_columns:
+      - source
+      - source_url
+      - fetch_time
+      - confidence_raw
+      - notes
+    primary_keys:
+      - ticker
+    date_columns:
+      - last_updated
+    allowed_frequencies:
+      - daily
+      - manual
+    supported_file_formats:
+      - csv
+      - xlsx
+    supported_modes:
+      - mock
+      - manual_csv
+      - manual_xlsx
+      - real_vnstock_optional
+      - real_adapter
+      - vendor_file
+    output_raw_path: data/raw/universe
+    output_clean_path: data/clean/universe.csv
+    missing_data_policy: fail_missing_required_columns_and_flag_missing_rows
+    stale_data_policy: flag_stale_if_last_updated_exceeds_configured_threshold
+    confidence_policy: require_source_confidence_or_assign_low_until_quality_checks
+    source_url_required: false
+    notes: Initial listed universe contract. Real/manual inputs must preserve source and collection date.
+
+  company_profile:
+    dataset_name: company_profile
+    required_columns:
+      - ticker
+      - company_name
+      - exchange
+      - industry_raw
+      - business_description
+      - source
+      - source_url
+      - last_updated
+    optional_columns:
+      - fetch_time
+      - confidence_raw
+      - notes
+    primary_keys:
+      - ticker
+      - source
+    date_columns:
+      - last_updated
+    allowed_frequencies:
+      - weekly
+      - manual
+    supported_file_formats:
+      - csv
+      - xlsx
+    supported_modes:
+      - mock
+      - manual_csv
+      - manual_xlsx
+      - real_vnstock_optional
+      - real_adapter
+      - vendor_file
+    output_raw_path: data/raw/company_profile
+    output_clean_path: data/clean/company_profile.csv
+    missing_data_policy: fail_missing_required_columns_and_flag_profile_gaps
+    stale_data_policy: flag_stale_if_last_updated_exceeds_configured_threshold
+    confidence_policy: reduce_confidence_for_raw_industry_only_or_missing_description
+    source_url_required: true
+    notes: Company profile inputs support L1 classification but must not force sector conclusions without evidence.
+
+  market_price:
+    dataset_name: market_price
+    required_columns:
+      - ticker
+      - date
+      - close
+      - volume
+      - trading_value
+      - source
+      - source_url
+      - fetch_time
+      - confidence_raw
+      - notes
+    optional_columns:
+      - open
+      - high
+      - low
+      - market_cap
+    primary_keys:
+      - ticker
+      - date
+      - source
+    date_columns:
+      - date
+      - fetch_time
+    allowed_frequencies:
+      - daily
+      - manual
+    supported_file_formats:
+      - csv
+      - xlsx
+    supported_modes:
+      - mock
+      - manual_csv
+      - manual_xlsx
+      - real_vnstock_optional
+      - real_adapter
+      - vendor_file
+    output_raw_path: data/raw/market_price
+    output_clean_path: data/clean/market_price.csv
+    missing_data_policy: fail_missing_required_columns_and_flag_missing_market_rows
+    stale_data_policy: flag_stale_if_price_date_exceeds_configured_threshold
+    confidence_policy: reduce_confidence_for_mock_stale_missing_or_conflicting_market_data
+    source_url_required: true
+    notes: Market inputs are required for liquidity checks; this contract does not implement fetching.
+
+  financial_statement_summary:
+    dataset_name: financial_statement_summary
+    required_columns:
+      - ticker
+      - period
+      - period_type
+      - revenue
+      - gross_profit
+      - operating_profit
+      - net_profit
+      - total_assets
+      - total_liabilities
+      - equity
+      - cash
+      - short_term_debt
+      - long_term_debt
+      - operating_cash_flow
+      - inventory
+      - source
+      - source_url
+      - fetch_time
+      - confidence_raw
+      - notes
+    optional_columns:
+      - statement_type
+      - fiscal_year
+      - quarter
+      - currency
+      - unit_scale
+      - accounting_standard
+      - report_type
+    primary_keys:
+      - ticker
+      - period
+      - source
+    date_columns:
+      - period
+      - fetch_time
+    allowed_frequencies:
+      - quarterly
+      - annual
+      - manual
+    supported_file_formats:
+      - csv
+      - xlsx
+    supported_modes:
+      - mock
+      - manual_csv
+      - manual_xlsx
+      - real_vnstock_optional
+      - external_vendor_optional
+      - real_adapter
+      - vendor_file
+    output_raw_path: data/raw/financial_statement_summary
+    output_clean_path: data/clean/financial_statement_summary.csv
+    missing_data_policy: fail_missing_required_columns_and_flag_missing_financial_values
+    stale_data_policy: flag_stale_if_financial_period_exceeds_configured_threshold
+    confidence_policy: reduce_confidence_for_missing_stale_conflicting_or_mock_financial_data
+    source_url_required: true
+    notes: Financial values must come from real/user-provided source files or mock fixtures only in tests.
+
+  disclosure_status:
+    dataset_name: disclosure_status
+    required_columns:
+      - ticker
+      - event_date
+      - event_type
+      - severity
+      - title
+      - description
+      - source
+      - source_url
+      - fetch_time
+      - confidence_raw
+      - notes
+    optional_columns:
+      - date
+      - related_period
+      - exchange
+    primary_keys:
+      - ticker
+      - event_date
+      - event_type
+      - source
+    date_columns:
+      - event_date
+      - fetch_time
+    allowed_frequencies:
+      - event_driven
+      - manual
+    supported_file_formats:
+      - csv
+      - xlsx
+    supported_modes:
+      - mock
+      - manual_csv
+      - manual_xlsx
+      - real_exchange_optional
+      - external_vendor_optional
+      - real_adapter
+      - vendor_file
+    output_raw_path: data/raw/disclosure_status
+    output_clean_path: data/clean/disclosure_status.csv
+    missing_data_policy: fail_missing_required_columns_and_flag_unknown_disclosure_values
+    stale_data_policy: event_driven_items_do_not_expire_but_fetch_time_can_be_stale
+    confidence_policy: require_evidence_url_and_reduce_confidence_for_unknown_severity
+    source_url_required: true
+    notes: Disclosure and audit-warning records require source evidence for later L0 risk handling.
+
+  macro_vietnam:
+    dataset_name: macro_vietnam
+    required_columns:
+      - date
+      - indicator
+      - value
+      - source
+      - source_url
+      - fetch_time
+    optional_columns:
+      - unit
+      - frequency
+      - confidence_raw
+      - notes
+    primary_keys:
+      - date
+      - indicator
+      - source
+    date_columns:
+      - date
+      - fetch_time
+    allowed_frequencies:
+      - daily
+      - monthly
+      - quarterly
+      - manual
+    supported_file_formats:
+      - csv
+      - xlsx
+    supported_modes:
+      - mock
+      - manual_csv
+      - manual_xlsx
+      - real_adapter
+      - vendor_file
+    output_raw_path: data/raw/macro_vietnam
+    output_clean_path: data/clean/macro_vietnam.csv
+    missing_data_policy: fail_missing_required_columns_and_flag_missing_macro_values
+    stale_data_policy: flag_stale_if_macro_date_exceeds_indicator_frequency_threshold
+    confidence_policy: reduce_confidence_for_missing_source_url_stale_or_conflicting_macro_data
+    source_url_required: true
+    notes: Macro inputs are later indicator evidence; this step only defines the contract.
+
+  commodity_global:
+    dataset_name: commodity_global
+    required_columns:
+      - date
+      - commodity
+      - value
+      - source
+      - source_url
+      - fetch_time
+    optional_columns:
+      - unit
+      - currency
+      - frequency
+      - confidence_raw
+      - notes
+    primary_keys:
+      - date
+      - commodity
+      - source
+    date_columns:
+      - date
+      - fetch_time
+    allowed_frequencies:
+      - daily
+      - monthly
+      - manual
+    supported_file_formats:
+      - csv
+      - xlsx
+    supported_modes:
+      - mock
+      - manual_csv
+      - manual_xlsx
+      - real_adapter
+      - vendor_file
+    output_raw_path: data/raw/commodity_global
+    output_clean_path: data/clean/commodity_global.csv
+    missing_data_policy: fail_missing_required_columns_and_flag_missing_commodity_values
+    stale_data_policy: flag_stale_if_commodity_date_exceeds_indicator_frequency_threshold
+    confidence_policy: reduce_confidence_for_missing_source_url_stale_or_conflicting_commodity_data
+    source_url_required: true
+    notes: Commodity inputs are external drivers; no values are generated by this contract.
+
+  sector_news:
+    dataset_name: sector_news
+    required_columns:
+      - date
+      - sector
+      - headline
+      - source
+      - source_url
+      - fetch_time
+    optional_columns:
+      - notes
+      - confidence_raw
+      - sentiment_hint
+    primary_keys:
+      - date
+      - sector
+      - headline
+      - source
+    date_columns:
+      - date
+      - fetch_time
+    allowed_frequencies:
+      - daily
+      - event_driven
+      - manual
+    supported_file_formats:
+      - csv
+      - xlsx
+    supported_modes:
+      - mock
+      - manual_csv
+      - manual_xlsx
+      - real_adapter
+      - vendor_file
+    output_raw_path: data/raw/sector_news
+    output_clean_path: data/clean/sector_news.csv
+    missing_data_policy: fail_missing_required_columns_and_keep_optional_sentiment_missing
+    stale_data_policy: flag_stale_if_news_date_exceeds_configured_threshold
+    confidence_policy: require_source_url_and_reduce_confidence_for_unverified_soft_signals
+    source_url_required: true
+    notes: News is soft evidence only and must not create recommendations by itself.
+
+  company_events:
+    dataset_name: company_events
+    required_columns:
+      - ticker
+      - date
+      - event_type
+      - source
+      - source_url
+      - fetch_time
+    optional_columns:
+      - notes
+      - severity
+      - confidence_raw
+    primary_keys:
+      - ticker
+      - date
+      - event_type
+      - source
+    date_columns:
+      - date
+      - fetch_time
+    allowed_frequencies:
+      - event_driven
+      - manual
+    supported_file_formats:
+      - csv
+      - xlsx
+    supported_modes:
+      - mock
+      - manual_csv
+      - manual_xlsx
+      - real_adapter
+      - vendor_file
+    output_raw_path: data/raw/company_events
+    output_clean_path: data/clean/company_events.csv
+    missing_data_policy: fail_missing_required_columns_and_keep_optional_severity_missing
+    stale_data_policy: event_driven_items_do_not_expire_but_fetch_time_can_be_stale
+    confidence_policy: require_source_url_and_reduce_confidence_for_unverified_company_events
+    source_url_required: true
+    notes: Company events preserve evidence for later review; no valuation or recommendation logic is allowed here.

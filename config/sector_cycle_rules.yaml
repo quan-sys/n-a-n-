@@ -1,0 +1,348 @@
+default_rules:
+  score_min: 0
+  score_max: 100
+  insufficient_data_min_indicator_count: 2
+  key_indicator_coverage_min_ratio: 0.5
+  manual_review_on_data_conflict: true
+  manual_review_on_low_confidence: true
+  manual_review_on_stale_data: true
+  low_confidence_values: [low]
+  stale_data_statuses: [STALE_DATA]
+  conflict_data_statuses: [DATA_CONFLICT, CONFLICTING_DATA]
+  invalid_data_statuses: [MISSING_DATA, DATA_ERROR, INVALID_DATA]
+  anomaly_threshold_pct: 0.5
+  overheating_threshold_pct: 0.3
+  default_score_impact: 20
+  structural_risk_score_impact: 30
+  anomaly_score_impact: 40
+  overheating_score_impact: 25
+  confidence_rules:
+    high_min_coverage_ratio: 0.8
+    medium_min_coverage_ratio: 0.5
+    low_on_manual_review: true
+  missing_data_behavior:
+    insufficient_data_status: INSUFFICIENT_DATA_FOR_SECTOR_CYCLE
+    missing_key_indicator_warning: MISSING_KEY_INDICATORS
+
+micro_sector_rules:
+  steel_integrated:
+    key_indicators:
+      - HRC_price
+      - iron_ore_price
+      - coking_coal_price
+      - steel_spread
+      - construction_demand
+    recovery_when:
+      HRC_price: up
+      steel_spread: up
+      construction_demand: up
+    distress_when:
+      steel_spread: down
+      construction_demand: down
+      inventory: up
+      iron_ore_price: up
+      coking_coal_price: up
+    overheating_when:
+      HRC_price: spike_up
+      volume: spike_up
+    structural_risk_indicators:
+      - trade_defense_risk
+      - debt_pressure
+    anomaly_indicators:
+      - HRC_price
+      - steel_spread
+
+  galvanized_steel:
+    key_indicators: [HRC_price, galvanized_export_demand, trade_defense_risk, steel_spread]
+    recovery_when:
+      galvanized_export_demand: up
+      steel_spread: up
+    distress_when:
+      HRC_price: up
+      galvanized_export_demand: down
+      steel_spread: down
+    overheating_when:
+      HRC_price: spike_up
+    structural_risk_indicators: [trade_defense_risk]
+    anomaly_indicators: [HRC_price, steel_spread]
+
+  natural_rubber:
+    key_indicators: [rubber_price, China_demand, oil_synthetic_rubber_proxy]
+    recovery_when:
+      rubber_price: up
+      China_demand: up
+    distress_when:
+      rubber_price: down
+      China_demand: down
+    overheating_when:
+      rubber_price: spike_up
+    structural_risk_indicators: [trade_defense_risk]
+    anomaly_indicators: [rubber_price]
+
+  tire_manufacturing:
+    key_indicators: [rubber_input_cost, oil_input_cost, auto_demand, tire_exports]
+    recovery_when:
+      auto_demand: up
+      tire_exports: up
+    distress_when:
+      rubber_input_cost: up
+      oil_input_cost: up
+      auto_demand: down
+      tire_exports: down
+    overheating_when:
+      auto_demand: spike_up
+    structural_risk_indicators: [trade_defense_risk]
+    anomaly_indicators: [rubber_input_cost, oil_input_cost]
+
+  pangasius_export:
+    key_indicators: [pangasius_price, US_demand, EU_demand, China_demand, anti_dumping_tax, feed_cost]
+    recovery_when:
+      pangasius_price: up
+      US_demand: up
+      EU_demand: up
+      China_demand: up
+    distress_when:
+      pangasius_price: down
+      feed_cost: up
+      US_demand: down
+      EU_demand: down
+      China_demand: down
+    overheating_when:
+      pangasius_price: spike_up
+    structural_risk_indicators: [anti_dumping_tax, trade_defense_risk]
+    anomaly_indicators: [pangasius_price, feed_cost]
+
+  shrimp_export:
+    key_indicators: [shrimp_price, US_demand, EU_demand, China_demand, anti_dumping_tax, feed_cost]
+    recovery_when:
+      shrimp_price: up
+      US_demand: up
+      EU_demand: up
+      China_demand: up
+    distress_when:
+      shrimp_price: down
+      feed_cost: up
+      US_demand: down
+      EU_demand: down
+      China_demand: down
+    overheating_when:
+      shrimp_price: spike_up
+    structural_risk_indicators: [anti_dumping_tax, trade_defense_risk]
+    anomaly_indicators: [shrimp_price, feed_cost]
+
+  textile_export:
+    key_indicators: [cotton_price, US_EU_PMI, order_trend, customer_inventory_cycle, export_demand_index]
+    recovery_when:
+      US_EU_PMI: up
+      order_trend: up
+      export_demand_index: up
+    distress_when:
+      cotton_price: up
+      US_EU_PMI: down
+      order_trend: down
+      customer_inventory_cycle: down
+    overheating_when:
+      export_demand_index: spike_up
+    structural_risk_indicators: [trade_defense_risk]
+    anomaly_indicators: [cotton_price, export_demand_index]
+
+  residential_real_estate:
+    key_indicators: [legal_progress, presales, real_estate_inventory, bond_maturity, interest_rate]
+    recovery_when:
+      legal_progress: up
+      presales: up
+    distress_when:
+      real_estate_inventory: up
+      bond_maturity: up
+      interest_rate: up
+      presales: down
+    overheating_when:
+      presales: spike_up
+    structural_risk_indicators: [legal_progress, bond_maturity, debt_pressure]
+    anomaly_indicators: [presales, real_estate_inventory]
+
+  industrial_park:
+    key_indicators: [FDI_flow, occupancy_rate, land_bank, rental_price]
+    recovery_when:
+      FDI_flow: up
+      occupancy_rate: up
+      rental_price: up
+    distress_when:
+      FDI_flow: down
+      occupancy_rate: down
+    overheating_when:
+      rental_price: spike_up
+      occupancy_rate: spike_up
+    structural_risk_indicators: [land_bank, legal_status]
+    anomaly_indicators: [FDI_flow, occupancy_rate]
+
+  commercial_bank:
+    key_indicators: [NIM, CASA, NPL, group_2_debt, provisioning, bank_credit_growth]
+    recovery_when:
+      NIM: up
+      CASA: up
+      bank_credit_growth: up
+    distress_when:
+      NPL: up
+      group_2_debt: up
+      provisioning: up
+      NIM: down
+    overheating_when:
+      bank_credit_growth: spike_up
+    structural_risk_indicators: [NPL, group_2_debt, provisioning]
+    anomaly_indicators: [NPL, bank_credit_growth]
+
+  securities_broker:
+    key_indicators: [market_liquidity, VNIndex_trend, margin_lending, brokerage_market_share, broker_market_activity]
+    recovery_when:
+      market_liquidity: up
+      VNIndex_trend: up
+      broker_market_activity: up
+    distress_when:
+      market_liquidity: down
+      VNIndex_trend: down
+    overheating_when:
+      margin_lending: spike_up
+      broker_market_activity: spike_up
+    structural_risk_indicators: [margin_lending]
+    anomaly_indicators: [VNIndex_trend, broker_market_activity]
+
+  power_generation:
+    key_indicators: [electricity_output, hydrology, coal_price, gas_price, PPA_regulatory_price]
+    recovery_when:
+      electricity_output: up
+      hydrology: up
+    distress_when:
+      coal_price: up
+      gas_price: up
+      electricity_output: down
+      hydrology: down
+    overheating_when:
+      electricity_output: spike_up
+    structural_risk_indicators: [PPA_regulatory_price]
+    anomaly_indicators: [hydrology, electricity_output]
+
+  port_logistics:
+    key_indicators: [container_volume, export_import_volume, freight_rate, logistics_cost]
+    recovery_when:
+      container_volume: up
+      export_import_volume: up
+      freight_rate: up
+    distress_when:
+      container_volume: down
+      export_import_volume: down
+      logistics_cost: up
+    overheating_when:
+      freight_rate: spike_up
+    structural_risk_indicators: [logistics_cost]
+    anomaly_indicators: [container_volume, freight_rate]
+
+  oil_gas_upstream:
+    key_indicators: [oil_price, production_volume]
+    recovery_when:
+      oil_price: up
+      production_volume: up
+    distress_when:
+      oil_price: down
+      production_volume: down
+    overheating_when:
+      oil_price: spike_up
+    structural_risk_indicators: [debt_pressure]
+    anomaly_indicators: [oil_price]
+
+  oil_gas_services:
+    key_indicators: [oil_price, drilling_activity, capex_cycle]
+    recovery_when:
+      oil_price: up
+      drilling_activity: up
+      capex_cycle: up
+    distress_when:
+      oil_price: down
+      drilling_activity: down
+      capex_cycle: down
+    overheating_when:
+      drilling_activity: spike_up
+    structural_risk_indicators: [debt_pressure]
+    anomaly_indicators: [oil_price, drilling_activity]
+
+  fertilizer:
+    key_indicators: [fertilizer_price, fertilizer_spread, gas_price]
+    recovery_when:
+      fertilizer_price: up
+      fertilizer_spread: up
+    distress_when:
+      fertilizer_spread: down
+      gas_price: up
+    overheating_when:
+      fertilizer_price: spike_up
+    structural_risk_indicators: [trade_defense_risk]
+    anomaly_indicators: [fertilizer_price, fertilizer_spread]
+
+  consumer_staples:
+    key_indicators: [staples_demand, consumer_demand, gross_margin, input_cost_index]
+    recovery_when:
+      staples_demand: up
+      consumer_demand: up
+      gross_margin: up
+    distress_when:
+      staples_demand: down
+      consumer_demand: down
+      input_cost_index: up
+      gross_margin: down
+    overheating_when:
+      staples_demand: spike_up
+    structural_risk_indicators: [working_capital_change]
+    anomaly_indicators: [gross_margin]
+
+  retail_distribution:
+    key_indicators: [retail_sales, consumer_demand, logistics_cost, inventory]
+    recovery_when:
+      retail_sales: up
+      consumer_demand: up
+    distress_when:
+      retail_sales: down
+      consumer_demand: down
+      logistics_cost: up
+      inventory: up
+    overheating_when:
+      retail_sales: spike_up
+    structural_risk_indicators: [working_capital_change]
+    anomaly_indicators: [retail_sales, inventory]
+
+  construction_materials:
+    key_indicators: [construction_demand, public_investment, input_cost_index, gross_margin]
+    recovery_when:
+      construction_demand: up
+      public_investment: up
+      gross_margin: up
+    distress_when:
+      construction_demand: down
+      public_investment: down
+      input_cost_index: up
+      gross_margin: down
+    overheating_when:
+      construction_demand: spike_up
+    structural_risk_indicators: [debt_pressure]
+    anomaly_indicators: [construction_demand, gross_margin]
+
+  holding_company:
+    key_indicators: [holding_exposure_map, subsidiary_performance, investment_portfolio_value, parent_leverage]
+    recovery_when:
+      subsidiary_performance: up
+      investment_portfolio_value: up
+    distress_when:
+      subsidiary_performance: down
+      investment_portfolio_value: down
+      parent_leverage: up
+    overheating_when:
+      investment_portfolio_value: spike_up
+    structural_risk_indicators: [holding_exposure_map, parent_leverage]
+    anomaly_indicators: [investment_portfolio_value]
+
+  unknown:
+    key_indicators: []
+    recovery_when: {}
+    distress_when: {}
+    overheating_when: {}
+    structural_risk_indicators: []
+    anomaly_indicators: []

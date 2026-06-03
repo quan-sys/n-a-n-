@@ -17,6 +17,7 @@ checks exist.
 
 ```text
 raw source registry
+-> ingestion contracts and manifests
 -> real fetchers
 -> raw data
 -> clean data
@@ -53,10 +54,18 @@ raw source registry
   Archetype Templates, preserving upstream warnings and manual-review flags. It
   prepares inputs for the Indicator Registry and does not fetch data, calculate
   indicators, score cycles, rank peers, value stocks, or make recommendations.
-- L2: Indicator Registry. Define core, archetype, and sector-specific
-  indicators that should be tracked.
-- L3: Sector Cycle Engine. Score each micro-sector separately using
-  sector-specific drivers and confidence-aware cycle signals.
+- L2: Indicator Registry. Defines a fixed registry and resolver for core,
+  archetype, and sector-specific indicators. It maps drivers, archetypes, and
+  micro-sectors to indicator metadata, required datasets/fields, stale-data
+  policy, confidence rules, and manual-review triggers. It does not fetch data,
+  calculate sector/company/valuation scores, or produce recommendation output.
+  Step 18 will use this registry later for the Sector Cycle Engine.
+- L3: Sector Cycle Engine. Scores each micro-sector separately from already
+  available indicator inputs and evidence. It outputs distress, recovery,
+  overheating, structural risk, anomaly, confidence, data-quality, warning, and
+  manual-review fields. It does not fetch live data, score individual
+  companies, perform valuation, or produce recommendation/target-price output.
+  Step 19 will later implement the Company Engine.
 - L4: Company Engine. Evaluate company survival, peer quality, and cycle
   resilience only after the sector and peer group are known.
 - L5: Valuation & Risk. Assess valuation and risk only when data is sufficient,
@@ -77,7 +86,38 @@ raw source registry
   scoring, and reporting steps.
 - `data/reports/`: Generated weekly review reports and other human-readable
   outputs.
+- `data/reports/ingestion_manifests/`: JSON run manifests for ingestion
+  attempts, including missing columns, counts, warnings, errors, and data
+  quality status.
 - `data/rejects/`: Reject logs and evidence for stocks removed by Pre-L0 or L0.
+- `src/ingestion/`: DATA-01 ingestion contracts and manifest helpers. This
+  layer validates manual/mock-ready inputs and records ingestion attempts, but
+  does not fetch live data. DATA-02 adds bulk universe/company-profile ingestion
+  for `manual_csv`, `manual_xlsx`, and `mock` modes, writing
+  `data/raw/universe_raw.csv`, `data/raw/company_profile_raw.csv`, ingestion
+  manifests, and coverage summaries. DATA-03 adds bulk market price/volume
+  ingestion for `manual_csv`, `manual_xlsx`, and `mock` modes, writing
+  `data/raw/market_price_raw.csv`, ingestion manifests, market coverage
+  reports, and ticker-level success/failure logs. DATA-04 adds bulk financial
+  statement ingestion for `manual_csv`, `manual_xlsx`, `mock`, and
+  user-provided `external_vendor_optional` modes, writing
+  `data/raw/financial_statement_summary_raw.csv`, ingestion manifests,
+  financial coverage reports, and missing-data reports without fabricating BCTC
+  values. DATA-05 adds bulk disclosure/warning ingestion for `manual_csv`,
+  `manual_xlsx`, `mock`, optional `real_exchange_optional`, and user-provided
+  `external_vendor_optional` modes, writing
+  `data/raw/disclosure_status_raw.csv`, ingestion manifests, disclosure
+  coverage reports, and manual-review candidate files. Missing disclosure rows
+  are treated as unknown/unavailable, not clean, unless a source explicitly
+  confirms clean status. DATA-06 adds an auditable raw-to-clean coverage and
+  pipeline dry run through available Step 18 modules, writing
+  `data/reports/data_coverage_report.csv`,
+  `data/reports/ingestion_run_summary.md`,
+  `data/reports/pipeline_dry_run_summary.md`,
+  `data/reports/pipeline_dry_run_errors.csv`, and
+  `data/reports/manual_review_queue.csv` when review rows exist. This remains a
+  validation pass only; it does not implement Step 19, recommendations, or
+  target prices.
 - `src/fetchers/`: Data fetching adapters. These must not fetch real data unless
   a task explicitly requests implementation.
 - `src/universe/`: Pre-L0 universe construction and data sanity modules.

@@ -1,0 +1,1739 @@
+core_indicators:
+  price:
+    <<: &daily_market_indicator
+      data_type: numeric
+      frequency: daily
+      source_dataset: market_price
+      missing_data_handling: insufficient_data_if_missing
+      stale_data_policy: daily_data_stale_after_7_days
+      confidence_rules:
+        - source_timestamp_required
+        - quality_status_required
+        - stale_data_reduces_confidence
+      manual_review_triggers:
+        - missing_required_field
+        - stale_data
+        - low_source_confidence
+      notes: Metadata definition only. Step 17 does not fetch values, score cycles, score companies, or run valuation.
+    indicator_id: price
+    display_name: Price
+    category: market_price
+    description: Market close price reference.
+    unit: VND
+    required_fields: [ticker, date, close, source, fetch_time]
+    applies_to_drivers: []
+    applies_to_archetypes: []
+    applies_to_micro_sectors: []
+    calculation_hint: use_clean_close_field
+    interpretation_hint: context_only_for_later_timing_and_liquidity_work
+    directionality: context_dependent
+    higher_is_better: null
+    data_availability: high
+
+  volume:
+    <<: *daily_market_indicator
+    indicator_id: volume
+    display_name: Volume
+    category: market_liquidity
+    description: Shares traded during the market period.
+    unit: shares
+    required_fields: [ticker, date, volume, source, fetch_time]
+    applies_to_drivers: [market_liquidity]
+    applies_to_archetypes: [securities_broker]
+    applies_to_micro_sectors: [securities_broker]
+    calculation_hint: use_clean_volume_field
+    interpretation_hint: low_or_missing_volume_reduces_liquidity_confidence
+    directionality: context_dependent
+    higher_is_better: null
+    data_availability: high
+
+  trading_value:
+    <<: *daily_market_indicator
+    indicator_id: trading_value
+    display_name: Trading Value
+    category: market_liquidity
+    description: Traded value used for liquidity context.
+    unit: VND
+    required_fields: [ticker, date, trading_value, source, fetch_time]
+    applies_to_drivers: [market_liquidity]
+    applies_to_archetypes: [securities_broker]
+    applies_to_micro_sectors: [securities_broker]
+    calculation_hint: use_clean_trading_value_field
+    interpretation_hint: weak_trading_value_reduces_confidence
+    directionality: context_dependent
+    higher_is_better: null
+    data_availability: high
+
+  market_cap:
+    <<: *daily_market_indicator
+    indicator_id: market_cap
+    display_name: Market Cap
+    category: market_price
+    description: Market capitalization when available from clean or manually supplied market data.
+    unit: VND
+    required_fields: [ticker, date, market_cap, source, fetch_time]
+    applies_to_drivers: []
+    applies_to_archetypes: []
+    applies_to_micro_sectors: []
+    calculation_hint: use_clean_market_cap_when_available
+    interpretation_hint: missing_market_cap_reduces_l0_and_later_confidence
+    directionality: context_dependent
+    higher_is_better: null
+    data_availability: medium
+
+  revenue:
+    <<: &quarterly_financial_indicator
+      data_type: numeric
+      frequency: quarterly
+      source_dataset: financial_statement_summary
+      missing_data_handling: required_for_high_confidence
+      stale_data_policy: quarterly_data_stale_after_120_days
+      confidence_rules:
+        - source_timestamp_required
+        - quality_status_required
+        - stale_financial_data_reduces_confidence
+      manual_review_triggers:
+        - missing_required_field
+        - stale_data
+        - low_source_confidence
+      notes: Metadata definition only. Step 17 does not fetch values, score cycles, score companies, or run valuation.
+    indicator_id: revenue
+    display_name: Revenue
+    category: financial_statement
+    description: Reported revenue from clean financial statements.
+    unit: VND
+    required_fields: [ticker, period, revenue, source, fetch_time]
+    applies_to_drivers: []
+    applies_to_archetypes: [export_manufacturer, commodity_processor, consumer_defensive, cyclical_manufacturer]
+    applies_to_micro_sectors: []
+    calculation_hint: use_clean_revenue_field
+    interpretation_hint: context_only_until_later_company_modules
+    directionality: context_dependent
+    higher_is_better: null
+    data_availability: high
+
+  net_profit:
+    <<: *quarterly_financial_indicator
+    indicator_id: net_profit
+    display_name: Net Profit
+    category: profitability
+    description: Reported net profit from clean financial statements.
+    unit: VND
+    required_fields: [ticker, period, net_profit, source, fetch_time]
+    applies_to_drivers: []
+    applies_to_archetypes: [financial_bank, holding_company]
+    applies_to_micro_sectors: []
+    calculation_hint: use_clean_net_profit_field
+    interpretation_hint: context_only_until_later_company_modules
+    directionality: context_dependent
+    higher_is_better: null
+    data_availability: high
+
+  gross_margin:
+    <<: *quarterly_financial_indicator
+    indicator_id: gross_margin
+    display_name: Gross Margin
+    category: profitability
+    description: Gross margin derived only when clean revenue and gross profit exist.
+    unit: percent
+    required_fields: [ticker, period, revenue, gross_profit, source, fetch_time]
+    applies_to_drivers: [input_cost, output_price, commodity_spread]
+    applies_to_archetypes: [export_manufacturer, commodity_processor, consumer_defensive, cyclical_manufacturer]
+    applies_to_micro_sectors: [textile_export, consumer_staples, construction_materials]
+    calculation_hint: gross_profit_divided_by_revenue_when_available
+    interpretation_hint: margin_pressure_requires_context_from_sector_and_inputs
+    directionality: context_dependent
+    higher_is_better: null
+    data_availability: high
+
+  operating_margin:
+    <<: *quarterly_financial_indicator
+    indicator_id: operating_margin
+    display_name: Operating Margin
+    category: profitability
+    description: Operating margin derived only when clean revenue and operating profit exist.
+    unit: percent
+    required_fields: [ticker, period, revenue, operating_profit, source, fetch_time]
+    applies_to_drivers: [input_cost, output_price]
+    applies_to_archetypes: [export_manufacturer, commodity_processor, consumer_defensive, cyclical_manufacturer]
+    applies_to_micro_sectors: []
+    calculation_hint: operating_profit_divided_by_revenue_when_available
+    interpretation_hint: margin_pressure_requires_later_context
+    directionality: context_dependent
+    higher_is_better: null
+    data_availability: high
+
+  operating_cash_flow:
+    <<: *quarterly_financial_indicator
+    indicator_id: operating_cash_flow
+    display_name: Operating Cash Flow
+    category: cash_flow
+    description: Operating cash flow from clean financial statements.
+    unit: VND
+    required_fields: [ticker, period, operating_cash_flow, source, fetch_time]
+    applies_to_drivers: [working_capital]
+    applies_to_archetypes: [export_manufacturer, commodity_processor, real_estate_developer, utility_regulated, logistics_infrastructure, consumer_defensive]
+    applies_to_micro_sectors: []
+    calculation_hint: use_clean_operating_cash_flow_field
+    interpretation_hint: weak_cash_flow_reduces_later_survival_confidence
+    directionality: context_dependent
+    higher_is_better: null
+    data_availability: high
+
+  debt:
+    <<: *quarterly_financial_indicator
+    indicator_id: debt
+    display_name: Debt
+    category: balance_sheet
+    description: Short-term and long-term debt fields for later balance-sheet review.
+    unit: VND
+    required_fields: [ticker, period, short_term_debt, long_term_debt, source, fetch_time]
+    applies_to_drivers: [bond_maturity, interest_rate, working_capital]
+    applies_to_archetypes: [real_estate_developer, utility_regulated, holding_company]
+    applies_to_micro_sectors: [residential_real_estate, holding_company]
+    calculation_hint: sum_short_term_and_long_term_debt_when_needed_later
+    interpretation_hint: debt_pressure_requires_later_survival_context
+    directionality: higher_usually_riskier
+    higher_is_better: false
+    data_availability: high
+
+  inventory:
+    <<: *quarterly_financial_indicator
+    indicator_id: inventory
+    display_name: Inventory
+    category: working_capital
+    description: Inventory balance for later working-capital and sector context.
+    unit: VND
+    required_fields: [ticker, period, inventory, source, fetch_time]
+    applies_to_drivers: [inventory_cycle, working_capital]
+    applies_to_archetypes: [export_manufacturer, commodity_processor, real_estate_developer, consumer_defensive, cyclical_manufacturer]
+    applies_to_micro_sectors: [textile_export, residential_real_estate, retail_distribution, construction_materials]
+    calculation_hint: use_clean_inventory_field
+    interpretation_hint: inventory_change_requires_sector_context
+    directionality: context_dependent
+    higher_is_better: null
+    data_availability: high
+
+  equity:
+    <<: *quarterly_financial_indicator
+    indicator_id: equity
+    display_name: Equity
+    category: balance_sheet
+    description: Equity from clean financial statements.
+    unit: VND
+    required_fields: [ticker, period, equity, source, fetch_time]
+    applies_to_drivers: []
+    applies_to_archetypes: [financial_bank, holding_company]
+    applies_to_micro_sectors: [commercial_bank, holding_company]
+    calculation_hint: use_clean_equity_field
+    interpretation_hint: negative_or_missing_equity_requires_manual_review_upstream
+    directionality: context_dependent
+    higher_is_better: null
+    data_availability: high
+
+  ROE:
+    <<: *quarterly_financial_indicator
+    indicator_id: ROE
+    display_name: ROE
+    category: profitability
+    description: Return on equity if clean net profit and equity are available.
+    unit: percent
+    required_fields: [ticker, period, net_profit, equity, source, fetch_time]
+    applies_to_drivers: []
+    applies_to_archetypes: [financial_bank, holding_company]
+    applies_to_micro_sectors: [commercial_bank, holding_company]
+    calculation_hint: net_profit_divided_by_equity_when_available
+    interpretation_hint: context_only_until_later_peer_group_analysis
+    directionality: context_dependent
+    higher_is_better: null
+    data_availability: high
+
+  ROA:
+    <<: *quarterly_financial_indicator
+    indicator_id: ROA
+    display_name: ROA
+    category: profitability
+    description: Return on assets if clean net profit and total assets are available.
+    unit: percent
+    required_fields: [ticker, period, net_profit, total_assets, source, fetch_time]
+    applies_to_drivers: []
+    applies_to_archetypes: [financial_bank]
+    applies_to_micro_sectors: [commercial_bank]
+    calculation_hint: net_profit_divided_by_total_assets_when_available
+    interpretation_hint: context_only_until_later_peer_group_analysis
+    directionality: context_dependent
+    higher_is_better: null
+    data_availability: high
+
+archetype_indicators:
+  export_manufacturer:
+    usd_vnd_rate:
+      <<: &macro_indicator
+        data_type: numeric
+        frequency: monthly_or_daily
+        source_dataset: macro_vietnam
+        missing_data_handling: reduce_confidence
+        stale_data_policy: monthly_data_stale_after_45_days
+        confidence_rules: [source_timestamp_required, quality_status_required]
+        manual_review_triggers: [missing_required_field, stale_data, low_source_confidence]
+        notes: Metadata definition only. Step 17 does not fetch values, score cycles, score companies, or run valuation.
+      indicator_id: usd_vnd_rate
+      display_name: USD/VND Rate
+      category: fx
+      description: Exchange-rate indicator for foreign-currency exposure.
+      unit: VND_per_USD
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [USD_VND]
+      applies_to_archetypes: [export_manufacturer, commodity_processor]
+      applies_to_micro_sectors: [textile_export, pangasius_export, shrimp_export, tire_manufacturing, galvanized_steel]
+      calculation_hint: use_clean_or_manual_macro_series
+      interpretation_hint: effect_depends_on_export_revenue_and_imported_inputs
+      directionality: mixed
+      higher_is_better: null
+      data_availability: medium
+
+    export_demand_index:
+      <<: *macro_indicator
+      indicator_id: export_demand_index
+      display_name: Export Demand Index
+      category: export_demand
+      description: Export demand proxy from trade, PMI, or manually curated sector data.
+      unit: index
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [export_demand, US_demand, EU_demand, China_demand]
+      applies_to_archetypes: [export_manufacturer]
+      applies_to_micro_sectors: [textile_export, pangasius_export, shrimp_export, tire_manufacturing, galvanized_steel]
+      calculation_hint: map_to_relevant_export_or_pmi_series_later
+      interpretation_hint: weaker_demand_reduces_later_cycle_confidence
+      directionality: higher_usually_positive_for_volume
+      higher_is_better: true
+      data_availability: medium
+
+    order_trend:
+      <<: &event_indicator
+        data_type: qualitative
+        frequency: event_driven
+        source_dataset: sector_news
+        missing_data_handling: optional_context_only
+        stale_data_policy: manual_review_if_no_timestamp
+        confidence_rules: [source_timestamp_required, evidence_required_for_qualitative_signal]
+        manual_review_triggers: [missing_source, conflicting_commentary, low_source_confidence]
+        notes: Metadata definition only. Qualitative signals require evidence before later modules use them.
+      indicator_id: order_trend
+      display_name: Order Trend
+      category: export_demand
+      description: Order-book or customer-order direction from evidence-backed commentary.
+      unit: qualitative
+      required_fields: [date, sector, headline, source, source_url, fetch_time]
+      applies_to_drivers: [order_trend, customer_inventory_cycle]
+      applies_to_archetypes: [export_manufacturer, cyclical_manufacturer]
+      applies_to_micro_sectors: [textile_export, pangasius_export, shrimp_export, tire_manufacturing]
+      calculation_hint: metadata_only_until_text_or_manual_evidence_pipeline_exists
+      interpretation_hint: conflicting_or_unsourced_commentary_requires_manual_review
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: medium
+      requires_manual_input: true
+
+    input_cost_index:
+      <<: &commodity_indicator
+        data_type: numeric
+        frequency: weekly_or_monthly
+        source_dataset: commodity_global
+        missing_data_handling: reduce_confidence
+        stale_data_policy: monthly_data_stale_after_45_days
+        confidence_rules: [source_timestamp_required, quality_status_required]
+        manual_review_triggers: [missing_required_field, stale_data, conflicting_sources]
+        notes: Metadata definition only. Step 17 does not fetch values, score cycles, score companies, or run valuation.
+      indicator_id: input_cost_index
+      display_name: Input Cost Index
+      category: input_cost
+      description: Input-cost proxy when sector-specific commodities are not yet mapped.
+      unit: index
+      required_fields: [date, commodity, value, source, fetch_time]
+      applies_to_drivers: [input_cost, raw_material_availability, labor_cost]
+      applies_to_archetypes: [export_manufacturer, commodity_processor, consumer_defensive, cyclical_manufacturer]
+      applies_to_micro_sectors: [textile_export, consumer_staples, retail_distribution, construction_materials]
+      calculation_hint: map_relevant_input_series_later
+      interpretation_hint: higher_input_cost_can_pressure_margin_if_pass_through_is_limited
+      directionality: higher_usually_negative_for_margin
+      higher_is_better: false
+      data_availability: medium
+
+    logistics_cost_index:
+      <<: *event_indicator
+      indicator_id: logistics_cost_index
+      display_name: Logistics Cost Index
+      category: logistics
+      description: Logistics or freight cost proxy for exporters and logistics operators.
+      data_type: numeric
+      unit: index
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [logistics_cost, freight_rate]
+      applies_to_archetypes: [export_manufacturer, logistics_infrastructure, consumer_defensive]
+      applies_to_micro_sectors: [textile_export, pangasius_export, shrimp_export, port_logistics, retail_distribution]
+      calculation_hint: map_to_freight_or_logistics_cost_series_later
+      interpretation_hint: higher_cost_can_reduce_margin_when_not_passed_through
+      directionality: higher_usually_negative_for_margin
+      higher_is_better: false
+      data_availability: medium
+      requires_manual_input: false
+
+  commodity_processor:
+    output_price_index:
+      <<: *commodity_indicator
+      indicator_id: output_price_index
+      display_name: Output Price Index
+      category: output_price
+      description: Benchmark output price for processed commodity products.
+      unit: index_or_price
+      required_fields: [date, commodity, value, source, fetch_time]
+      applies_to_drivers: [output_price]
+      applies_to_archetypes: [commodity_processor, export_manufacturer, cyclical_manufacturer]
+      applies_to_micro_sectors: [steel_integrated, galvanized_steel, natural_rubber, fertilizer, construction_materials]
+      calculation_hint: select_sector_relevant_output_price_later
+      interpretation_hint: output_price_effect_depends_on_input_cost_and_inventory
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: medium
+
+    commodity_spread:
+      <<: *commodity_indicator
+      indicator_id: commodity_spread
+      display_name: Commodity Spread
+      category: spread
+      description: Spread between output price and key input costs.
+      unit: price_spread
+      required_fields: [date, output_price, input_cost, source, fetch_time]
+      applies_to_drivers: [commodity_spread]
+      applies_to_archetypes: [commodity_processor]
+      applies_to_micro_sectors: [steel_integrated, galvanized_steel, fertilizer, natural_rubber]
+      calculation_hint: output_price_minus_key_input_costs_later
+      interpretation_hint: spread_compression_is_negative_for_processors
+      directionality: higher_usually_positive_for_margin
+      higher_is_better: true
+      data_availability: medium
+
+    end_demand_index:
+      <<: *macro_indicator
+      indicator_id: end_demand_index
+      display_name: End Demand Index
+      category: domestic_demand
+      description: End-demand proxy for processors and manufacturers.
+      unit: index
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [construction_demand, consumer_demand, China_demand]
+      applies_to_archetypes: [commodity_processor, cyclical_manufacturer]
+      applies_to_micro_sectors: [steel_integrated, construction_materials, natural_rubber]
+      calculation_hint: map_to_sector_relevant_demand_series_later
+      interpretation_hint: weak_end_demand_reduces_later_cycle_confidence
+      directionality: higher_usually_positive_for_volume
+      higher_is_better: true
+      data_availability: medium
+
+    working_capital_change:
+      <<: *quarterly_financial_indicator
+      indicator_id: working_capital_change
+      display_name: Working Capital Change
+      category: working_capital
+      description: Working-capital change using clean statement fields when available.
+      unit: VND_or_percent
+      required_fields: [ticker, period, inventory, operating_cash_flow, source, fetch_time]
+      applies_to_drivers: [working_capital, inventory_cycle]
+      applies_to_archetypes: [commodity_processor, export_manufacturer, consumer_defensive]
+      applies_to_micro_sectors: [steel_integrated, galvanized_steel, retail_distribution]
+      calculation_hint: derive_only_after_required_clean_fields_exist
+      interpretation_hint: working_capital_pressure_reduces_later_confidence
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: medium
+
+  financial_bank:
+    NIM:
+      <<: *quarterly_financial_indicator
+      indicator_id: NIM
+      display_name: Net Interest Margin
+      category: banking_credit
+      description: Bank margin between earning asset yield and funding cost.
+      unit: percent
+      required_fields: [ticker, period, NIM, source, fetch_time]
+      applies_to_drivers: [NIM]
+      applies_to_archetypes: [financial_bank]
+      applies_to_micro_sectors: [commercial_bank]
+      calculation_hint: use_reported_bank_specific_field_when_available
+      interpretation_hint: NIM_context_depends_on_rate_and_credit_cycle
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: medium
+
+    CASA:
+      <<: *quarterly_financial_indicator
+      indicator_id: CASA
+      display_name: CASA Ratio
+      category: banking_credit
+      description: Low-cost deposit funding mix for banks.
+      unit: percent
+      required_fields: [ticker, period, CASA, source, fetch_time]
+      applies_to_drivers: [CASA]
+      applies_to_archetypes: [financial_bank]
+      applies_to_micro_sectors: [commercial_bank]
+      calculation_hint: use_reported_bank_specific_field_when_available
+      interpretation_hint: stronger_low_cost_funding_can_support_margin_resilience
+      directionality: higher_usually_positive
+      higher_is_better: true
+      data_availability: medium
+
+    NPL:
+      <<: *quarterly_financial_indicator
+      indicator_id: NPL
+      display_name: NPL Ratio
+      category: banking_credit
+      description: Non-performing loan ratio for banks.
+      unit: percent
+      required_fields: [ticker, period, NPL, source, fetch_time]
+      applies_to_drivers: [NPL]
+      applies_to_archetypes: [financial_bank]
+      applies_to_micro_sectors: [commercial_bank]
+      calculation_hint: use_reported_bank_specific_field_when_available
+      interpretation_hint: higher_NPL_reduces_asset_quality_confidence
+      directionality: higher_usually_negative
+      higher_is_better: false
+      data_availability: medium
+
+    group_2_debt:
+      <<: *quarterly_financial_indicator
+      indicator_id: group_2_debt
+      display_name: Group 2 Debt
+      category: banking_credit
+      description: Watch-list debt ratio or value for bank asset-quality review.
+      unit: percent_or_VND
+      required_fields: [ticker, period, group_2_debt, source, fetch_time]
+      applies_to_drivers: [group_2_debt]
+      applies_to_archetypes: [financial_bank]
+      applies_to_micro_sectors: [commercial_bank]
+      calculation_hint: use_reported_bank_specific_field_when_available
+      interpretation_hint: rising_group_2_debt_requires_manual_review_if_material
+      directionality: higher_usually_negative
+      higher_is_better: false
+      data_availability: medium
+
+    provisioning:
+      <<: *quarterly_financial_indicator
+      indicator_id: provisioning
+      display_name: Provisioning
+      category: banking_credit
+      description: Provision expense or reserve coverage for banks.
+      unit: VND_or_percent
+      required_fields: [ticker, period, provisioning, source, fetch_time]
+      applies_to_drivers: [provisioning]
+      applies_to_archetypes: [financial_bank]
+      applies_to_micro_sectors: [commercial_bank]
+      calculation_hint: use_reported_bank_specific_field_when_available
+      interpretation_hint: interpretation_depends_on_asset_quality_and_coverage
+      directionality: mixed
+      higher_is_better: null
+      data_availability: medium
+
+    credit_growth:
+      <<: *macro_indicator
+      indicator_id: credit_growth
+      display_name: Credit Growth
+      category: banking_credit
+      description: System, sector, or bank loan growth context.
+      unit: percent
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [credit_growth, loan_growth]
+      applies_to_archetypes: [financial_bank, real_estate_developer]
+      applies_to_micro_sectors: [commercial_bank, residential_real_estate, industrial_park]
+      calculation_hint: map_to_system_or_bank_specific_credit_growth_later
+      interpretation_hint: aggressive_growth_can_add_risk_without_asset_quality_context
+      directionality: mixed
+      higher_is_better: null
+      data_availability: medium
+
+  real_estate_developer:
+    legal_status:
+      <<: *event_indicator
+      indicator_id: legal_status
+      display_name: Legal Status
+      category: real_estate_project
+      description: Project legal approval or land-use status.
+      unit: qualitative
+      required_fields: [ticker, date, event_type, source, source_url, fetch_time]
+      applies_to_drivers: [legal_status]
+      applies_to_archetypes: [real_estate_developer]
+      applies_to_micro_sectors: [residential_real_estate, industrial_park]
+      calculation_hint: metadata_only_until_project_event_pipeline_exists
+      interpretation_hint: unclear_project_legal_status_requires_manual_review
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: low
+      requires_manual_input: true
+
+    presales:
+      <<: *event_indicator
+      indicator_id: presales
+      display_name: Presales
+      category: real_estate_project
+      description: Presales value or units when disclosed.
+      data_type: numeric_or_qualitative
+      unit: VND_or_units
+      required_fields: [ticker, date, event_type, source, source_url, fetch_time]
+      applies_to_drivers: [presales]
+      applies_to_archetypes: [real_estate_developer]
+      applies_to_micro_sectors: [residential_real_estate]
+      calculation_hint: use_project_specific_disclosures_or_manual_input_later
+      interpretation_hint: presales_need_cash_collection_and_project_context
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: low
+      requires_manual_input: true
+
+    bond_maturity:
+      <<: *event_indicator
+      indicator_id: bond_maturity
+      display_name: Bond Maturity
+      category: balance_sheet
+      description: Near-term bond or debt maturity pressure.
+      data_type: numeric_or_schedule
+      unit: VND_by_period
+      required_fields: [ticker, date, event_type, source, source_url, fetch_time]
+      applies_to_drivers: [bond_maturity]
+      applies_to_archetypes: [real_estate_developer, holding_company]
+      applies_to_micro_sectors: [residential_real_estate]
+      calculation_hint: use_maturity_schedule_when_available_later
+      interpretation_hint: near_term_refinancing_pressure_requires_manual_review
+      directionality: higher_near_term_pressure_negative
+      higher_is_better: false
+      data_availability: low
+      requires_manual_input: true
+
+    interest_rate:
+      <<: *macro_indicator
+      indicator_id: interest_rate
+      display_name: Interest Rate
+      category: macro_financial
+      description: Domestic rate context for banks, property, and funding costs.
+      unit: percent
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [interest_rate]
+      applies_to_archetypes: [financial_bank, real_estate_developer, securities_broker]
+      applies_to_micro_sectors: [commercial_bank, residential_real_estate, industrial_park, securities_broker]
+      calculation_hint: map_to_policy_deposit_or_lending_rate_later
+      interpretation_hint: higher_rates_can_pressure_funding_and_demand
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: medium
+
+  utility_regulated:
+    electricity_output:
+      <<: *macro_indicator
+      indicator_id: electricity_output
+      display_name: Electricity Output
+      category: operational_volume
+      description: Power generation or dispatch volume.
+      unit: MWh
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [electricity_output]
+      applies_to_archetypes: [utility_regulated]
+      applies_to_micro_sectors: [power_generation]
+      calculation_hint: map_to_generation_volume_series_later
+      interpretation_hint: output_needs_tariff_and_cost_context
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: medium
+
+    fuel_cost:
+      <<: *commodity_indicator
+      indicator_id: fuel_cost
+      display_name: Fuel Cost
+      category: input_cost
+      description: Fuel cost proxy for power, logistics, and manufacturing.
+      unit: index_or_price
+      required_fields: [date, commodity, value, source, fetch_time]
+      applies_to_drivers: [fuel_cost, coal_price, gas_price, oil_price]
+      applies_to_archetypes: [utility_regulated, logistics_infrastructure, cyclical_manufacturer]
+      applies_to_micro_sectors: [power_generation, port_logistics, construction_materials]
+      calculation_hint: map_to_relevant_fuel_series_later
+      interpretation_hint: higher_cost_can_pressure_margin_when_pass_through_lags
+      directionality: higher_usually_negative_for_margin
+      higher_is_better: false
+      data_availability: medium
+
+    hydrology:
+      <<: *macro_indicator
+      indicator_id: hydrology
+      display_name: Hydrology
+      category: weather_hydrology
+      description: Rainfall, reservoir, or water-inflow context for hydropower.
+      unit: index_or_level
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [hydrology]
+      applies_to_archetypes: [utility_regulated]
+      applies_to_micro_sectors: [power_generation]
+      calculation_hint: map_to_hydrology_series_later
+      interpretation_hint: hydrology_effect_depends_on_generation_mix
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: medium
+
+    PPA_regulatory_price:
+      <<: *event_indicator
+      indicator_id: PPA_regulatory_price
+      display_name: PPA Regulatory Price
+      category: regulation_policy
+      description: PPA tariff or regulated power price.
+      data_type: numeric_or_qualitative
+      unit: price_or_qualitative
+      required_fields: [ticker, date, event_type, source, source_url, fetch_time]
+      applies_to_drivers: [PPA_regulatory_price]
+      applies_to_archetypes: [utility_regulated]
+      applies_to_micro_sectors: [power_generation]
+      calculation_hint: use_contract_or_regulatory_disclosure_later
+      interpretation_hint: unclear_contract_terms_require_manual_review
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: low
+      requires_manual_input: true
+
+  logistics_infrastructure:
+    container_volume:
+      <<: *macro_indicator
+      indicator_id: container_volume
+      display_name: Container Volume
+      category: operational_volume
+      description: Container throughput or TEU volume.
+      unit: TEU_or_containers
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [container_volume, export_import_volume]
+      applies_to_archetypes: [logistics_infrastructure]
+      applies_to_micro_sectors: [port_logistics]
+      calculation_hint: map_to_port_or_trade_volume_series_later
+      interpretation_hint: higher_volume_can_support_revenue_if_tariff_stable
+      directionality: higher_usually_positive_for_volume
+      higher_is_better: true
+      data_availability: medium
+
+    freight_rate:
+      <<: *macro_indicator
+      indicator_id: freight_rate
+      display_name: Freight Rate
+      category: logistics
+      description: Freight rate index for logistics revenue and exporter cost context.
+      unit: index
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [freight_rate, logistics_cost]
+      applies_to_archetypes: [logistics_infrastructure, export_manufacturer]
+      applies_to_micro_sectors: [port_logistics, textile_export, pangasius_export, shrimp_export]
+      calculation_hint: map_to_relevant_freight_series_later
+      interpretation_hint: effect_depends_on_business_model_as_operator_or_user
+      directionality: mixed
+      higher_is_better: null
+      data_availability: medium
+
+  consumer_defensive:
+    consumer_demand:
+      <<: *macro_indicator
+      indicator_id: consumer_demand
+      display_name: Consumer Demand
+      category: domestic_demand
+      description: Household consumption or retail sales proxy.
+      unit: index_or_percent
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [consumer_demand]
+      applies_to_archetypes: [consumer_defensive]
+      applies_to_micro_sectors: [consumer_staples, retail_distribution]
+      calculation_hint: map_to_retail_sales_or_household_consumption_later
+      interpretation_hint: demand_context_needs_pricing_and_margin_context
+      directionality: higher_usually_positive_for_volume
+      higher_is_better: true
+      data_availability: medium
+
+  cyclical_manufacturer:
+    capacity_utilization:
+      <<: *event_indicator
+      indicator_id: capacity_utilization
+      display_name: Capacity Utilization
+      category: operational_volume
+      description: Capacity utilization when disclosed or manually tracked.
+      data_type: numeric_or_qualitative
+      unit: percent_or_qualitative
+      required_fields: [date, sector, headline, source, source_url, fetch_time]
+      applies_to_drivers: [construction_demand, auto_demand]
+      applies_to_archetypes: [cyclical_manufacturer]
+      applies_to_micro_sectors: [tire_manufacturing, construction_materials, oil_gas_services]
+      calculation_hint: metadata_only_until_operational_dataset_exists
+      interpretation_hint: low_utilization_can_signal_cycle_stress
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: low
+      requires_manual_input: true
+
+  securities_broker:
+    market_liquidity:
+      <<: *daily_market_indicator
+      indicator_id: market_liquidity
+      display_name: Market Liquidity
+      category: market_liquidity
+      description: Market turnover or aggregate trading value for broker activity.
+      unit: VND
+      required_fields: [date, trading_value, source, fetch_time]
+      applies_to_drivers: [market_liquidity]
+      applies_to_archetypes: [securities_broker]
+      applies_to_micro_sectors: [securities_broker]
+      calculation_hint: aggregate_market_trading_value_later
+      interpretation_hint: stronger_market_liquidity_can_support_broker_activity
+      directionality: higher_usually_positive_for_activity
+      higher_is_better: true
+      data_availability: medium
+
+    VNIndex_trend:
+      <<: *daily_market_indicator
+      indicator_id: VNIndex_trend
+      display_name: VNIndex Trend
+      category: market_price
+      description: Broad Vietnamese equity-market trend.
+      unit: percent_or_index
+      required_fields: [date, close, source, fetch_time]
+      applies_to_drivers: [VNIndex_trend]
+      applies_to_archetypes: [securities_broker]
+      applies_to_micro_sectors: [securities_broker]
+      calculation_hint: calculate_return_or_drawdown_later_only_when_requested_by_later_step
+      interpretation_hint: trend_context_only_without_recommendation_output
+      directionality: mixed
+      higher_is_better: null
+      data_availability: medium
+
+    margin_lending:
+      <<: *quarterly_financial_indicator
+      indicator_id: margin_lending
+      display_name: Margin Lending
+      category: market_liquidity
+      description: Margin loan balance or growth for securities brokers.
+      unit: VND_or_percent
+      required_fields: [ticker, period, margin_lending, source, fetch_time]
+      applies_to_drivers: [margin_lending]
+      applies_to_archetypes: [securities_broker]
+      applies_to_micro_sectors: [securities_broker]
+      calculation_hint: use_broker_specific_statement_or_manual_data_later
+      interpretation_hint: rapid_growth_can_add_risk_in_downturns
+      directionality: mixed
+      higher_is_better: null
+      data_availability: medium
+
+    brokerage_market_share:
+      <<: *event_indicator
+      indicator_id: brokerage_market_share
+      display_name: Brokerage Market Share
+      category: market_liquidity
+      description: Broker market-share context.
+      data_type: numeric
+      unit: percent
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [brokerage_market_share]
+      applies_to_archetypes: [securities_broker]
+      applies_to_micro_sectors: [securities_broker]
+      calculation_hint: use_market_share_table_when_available_later
+      interpretation_hint: share_context_needs_fee_and_risk_context
+      directionality: higher_usually_positive_for_activity
+      higher_is_better: true
+      data_availability: medium
+      requires_manual_input: false
+
+  holding_company:
+    subsidiary_performance:
+      <<: *event_indicator
+      indicator_id: subsidiary_performance
+      display_name: Subsidiary Performance
+      category: financial_statement
+      description: Subsidiary or associate performance for holding companies.
+      data_type: qualitative_or_numeric
+      unit: qualitative_or_VND
+      required_fields: [ticker, date, event_type, source, source_url, fetch_time]
+      applies_to_drivers: [working_capital]
+      applies_to_archetypes: [holding_company]
+      applies_to_micro_sectors: [holding_company]
+      calculation_hint: metadata_only_until_subsidiary_dataset_exists
+      interpretation_hint: opaque_subsidiary_data_requires_manual_review
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: low
+      requires_manual_input: true
+
+    investment_portfolio_value:
+      <<: *quarterly_financial_indicator
+      indicator_id: investment_portfolio_value
+      display_name: Investment Portfolio Value
+      category: balance_sheet
+      description: Investment portfolio value or breakdown for holding companies.
+      unit: VND
+      required_fields: [ticker, period, total_assets, equity, source, fetch_time]
+      applies_to_drivers: [working_capital]
+      applies_to_archetypes: [holding_company]
+      applies_to_micro_sectors: [holding_company]
+      calculation_hint: use_disclosed_investment_breakdown_later
+      interpretation_hint: opaque_portfolio_requires_manual_review
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: low
+      requires_manual_input: true
+
+    parent_leverage:
+      <<: *quarterly_financial_indicator
+      indicator_id: parent_leverage
+      display_name: Parent Leverage
+      category: balance_sheet
+      description: Parent-level leverage when available for holding companies.
+      unit: ratio_or_VND
+      required_fields: [ticker, period, short_term_debt, long_term_debt, equity, source, fetch_time]
+      applies_to_drivers: [bond_maturity, working_capital]
+      applies_to_archetypes: [holding_company]
+      applies_to_micro_sectors: [holding_company]
+      calculation_hint: derive_only_when_parent_level_data_is_available_later
+      interpretation_hint: missing_parent_level_data_requires_manual_review
+      directionality: higher_usually_riskier
+      higher_is_better: false
+      data_availability: low
+      requires_manual_input: true
+
+  unknown:
+    unknown_indicator:
+      <<: *event_indicator
+      indicator_id: unknown_indicator
+      display_name: Unknown Indicator
+      category: unknown
+      description: Fallback metadata for unmapped or unknown classifications.
+      unit: unknown
+      required_fields: []
+      applies_to_drivers: [unknown]
+      applies_to_archetypes: [unknown]
+      applies_to_micro_sectors: [unknown]
+      calculation_hint: do_not_use_until_mapping_is_resolved
+      interpretation_hint: manual_review_required_before_later_analysis
+      directionality: unknown
+      higher_is_better: null
+      data_availability: unknown
+      requires_manual_input: true
+
+sector_specific_indicators:
+  steel_integrated:
+    HRC_price:
+      <<: *commodity_indicator
+      indicator_id: HRC_price
+      display_name: HRC Price
+      category: commodity_price
+      description: Hot-rolled coil benchmark price.
+      unit: price
+      required_fields: [date, commodity, value, source, fetch_time]
+      applies_to_drivers: [HRC_price, output_price]
+      applies_to_archetypes: [commodity_processor]
+      applies_to_micro_sectors: [steel_integrated, galvanized_steel]
+      calculation_hint: use_HRC_benchmark_series_later
+      interpretation_hint: effect_differs_for_integrated_and_galvanized_steel
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: medium
+
+    iron_ore_price:
+      <<: *commodity_indicator
+      indicator_id: iron_ore_price
+      display_name: Iron Ore Price
+      category: commodity_price
+      description: Iron ore input price for integrated steel.
+      unit: price
+      required_fields: [date, commodity, value, source, fetch_time]
+      applies_to_drivers: [iron_ore_price, input_cost]
+      applies_to_archetypes: [commodity_processor]
+      applies_to_micro_sectors: [steel_integrated]
+      calculation_hint: use_iron_ore_benchmark_series_later
+      interpretation_hint: higher_input_cost_can_pressure_spread
+      directionality: higher_usually_negative_for_margin
+      higher_is_better: false
+      data_availability: medium
+
+    coking_coal_price:
+      <<: *commodity_indicator
+      indicator_id: coking_coal_price
+      display_name: Coking Coal Price
+      category: commodity_price
+      description: Coking coal input price for steel.
+      unit: price
+      required_fields: [date, commodity, value, source, fetch_time]
+      applies_to_drivers: [coking_coal_price, input_cost]
+      applies_to_archetypes: [commodity_processor]
+      applies_to_micro_sectors: [steel_integrated]
+      calculation_hint: use_coking_coal_benchmark_series_later
+      interpretation_hint: higher_input_cost_can_pressure_spread
+      directionality: higher_usually_negative_for_margin
+      higher_is_better: false
+      data_availability: medium
+
+    steel_spread:
+      <<: *commodity_indicator
+      indicator_id: steel_spread
+      display_name: Steel Spread
+      category: spread
+      description: Steel output price less major input costs.
+      unit: price_spread
+      required_fields: [date, output_price, input_cost, source, fetch_time]
+      applies_to_drivers: [commodity_spread]
+      applies_to_archetypes: [commodity_processor]
+      applies_to_micro_sectors: [steel_integrated, galvanized_steel]
+      calculation_hint: calculate_only_in_later_cycle_step_from_defined_inputs
+      interpretation_hint: spread_compression_can_signal_sector_stress
+      directionality: higher_usually_positive_for_margin
+      higher_is_better: true
+      data_availability: medium
+
+    construction_demand:
+      <<: *macro_indicator
+      indicator_id: construction_demand
+      display_name: Construction Demand
+      category: domestic_demand
+      description: Construction or public investment demand proxy.
+      unit: index_or_percent
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [construction_demand]
+      applies_to_archetypes: [commodity_processor, cyclical_manufacturer]
+      applies_to_micro_sectors: [steel_integrated, construction_materials, residential_real_estate]
+      calculation_hint: map_to_construction_or_public_investment_series_later
+      interpretation_hint: demand_context_only_until_sector_cycle_step
+      directionality: higher_usually_positive_for_volume
+      higher_is_better: true
+      data_availability: medium
+
+  galvanized_steel:
+    galvanized_export_demand:
+      <<: *macro_indicator
+      indicator_id: galvanized_export_demand
+      display_name: Galvanized Steel Export Demand
+      category: export_demand
+      description: Export demand proxy for galvanized steel.
+      unit: index_or_volume
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [export_demand]
+      applies_to_archetypes: [export_manufacturer, commodity_processor]
+      applies_to_micro_sectors: [galvanized_steel]
+      calculation_hint: map_to_export_volume_or_value_later
+      interpretation_hint: export_demand_needs_trade_policy_context
+      directionality: higher_usually_positive_for_volume
+      higher_is_better: true
+      data_availability: medium
+
+    trade_defense_risk:
+      <<: *event_indicator
+      indicator_id: trade_defense_risk
+      display_name: Trade Defense Risk
+      category: trade_policy
+      description: Trade defense, tariff, or investigation status.
+      data_type: qualitative
+      unit: qualitative
+      required_fields: [date, sector, headline, source, source_url, fetch_time]
+      applies_to_drivers: [trade_defense_risk, anti_dumping_tax, tariff_policy]
+      applies_to_archetypes: [export_manufacturer, commodity_processor]
+      applies_to_micro_sectors: [galvanized_steel, steel_integrated, textile_export]
+      calculation_hint: metadata_only_until_event_pipeline_exists
+      interpretation_hint: adverse_trade_action_requires_manual_review
+      directionality: higher_usually_negative
+      higher_is_better: false
+      data_availability: low
+      requires_manual_input: true
+
+  natural_rubber:
+    rubber_price:
+      <<: *commodity_indicator
+      indicator_id: rubber_price
+      display_name: Rubber Price
+      category: commodity_price
+      description: Natural rubber benchmark price.
+      unit: price
+      required_fields: [date, commodity, value, source, fetch_time]
+      applies_to_drivers: [rubber_price]
+      applies_to_archetypes: [commodity_processor, export_manufacturer]
+      applies_to_micro_sectors: [natural_rubber, tire_manufacturing]
+      calculation_hint: use_rubber_benchmark_series_later
+      interpretation_hint: output_price_for_rubber_input_cost_for_tires
+      directionality: mixed
+      higher_is_better: null
+      data_availability: medium
+
+    China_demand:
+      <<: *macro_indicator
+      indicator_id: China_demand
+      display_name: China Demand
+      category: export_demand
+      description: China demand proxy for commodities and exports.
+      unit: index_or_volume
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [China_demand]
+      applies_to_archetypes: [commodity_processor, export_manufacturer]
+      applies_to_micro_sectors: [natural_rubber, pangasius_export, shrimp_export, steel_integrated]
+      calculation_hint: map_to_China_PMI_or_import_volume_later
+      interpretation_hint: demand_context_requires_sector_specific_mapping
+      directionality: higher_usually_positive_for_volume
+      higher_is_better: true
+      data_availability: medium
+
+    oil_synthetic_rubber_proxy:
+      <<: *commodity_indicator
+      indicator_id: oil_synthetic_rubber_proxy
+      display_name: Oil Synthetic Rubber Proxy
+      category: commodity_price
+      description: Oil or synthetic rubber proxy related to natural rubber demand and tire costs.
+      unit: index_or_price
+      required_fields: [date, commodity, value, source, fetch_time]
+      applies_to_drivers: [oil_price, rubber_price]
+      applies_to_archetypes: [commodity_processor, export_manufacturer]
+      applies_to_micro_sectors: [natural_rubber, tire_manufacturing]
+      calculation_hint: map_to_oil_or_synthetic_rubber_series_later
+      interpretation_hint: relationship_requires_manual_context_when_conflicting
+      directionality: mixed
+      higher_is_better: null
+      data_availability: medium
+
+  tire_manufacturing:
+    rubber_input_cost:
+      <<: *commodity_indicator
+      indicator_id: rubber_input_cost
+      display_name: Rubber Input Cost
+      category: input_cost
+      description: Rubber input cost for tire manufacturers.
+      unit: price
+      required_fields: [date, commodity, value, source, fetch_time]
+      applies_to_drivers: [rubber_price, input_cost]
+      applies_to_archetypes: [export_manufacturer, cyclical_manufacturer]
+      applies_to_micro_sectors: [tire_manufacturing]
+      calculation_hint: use_rubber_price_as_tire_input_cost_proxy_later
+      interpretation_hint: higher_input_cost_can_pressure_tire_margin
+      directionality: higher_usually_negative_for_margin
+      higher_is_better: false
+      data_availability: medium
+
+    oil_input_cost:
+      <<: *commodity_indicator
+      indicator_id: oil_input_cost
+      display_name: Oil Input Cost
+      category: input_cost
+      description: Oil-linked input cost for tire manufacturing.
+      unit: price
+      required_fields: [date, commodity, value, source, fetch_time]
+      applies_to_drivers: [oil_price, input_cost]
+      applies_to_archetypes: [export_manufacturer, cyclical_manufacturer]
+      applies_to_micro_sectors: [tire_manufacturing]
+      calculation_hint: use_oil_or_derivative_proxy_later
+      interpretation_hint: higher_oil_linked_cost_can_pressure_margin
+      directionality: higher_usually_negative_for_margin
+      higher_is_better: false
+      data_availability: medium
+
+    auto_demand:
+      <<: *macro_indicator
+      indicator_id: auto_demand
+      display_name: Auto Demand
+      category: domestic_demand
+      description: Auto sales or production demand proxy.
+      unit: index_or_units
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [auto_demand]
+      applies_to_archetypes: [export_manufacturer, cyclical_manufacturer]
+      applies_to_micro_sectors: [tire_manufacturing]
+      calculation_hint: map_to_auto_sales_or_vehicle_production_later
+      interpretation_hint: demand_context_only_until_sector_cycle_step
+      directionality: higher_usually_positive_for_volume
+      higher_is_better: true
+      data_availability: medium
+
+    tire_exports:
+      <<: *macro_indicator
+      indicator_id: tire_exports
+      display_name: Tire Exports
+      category: export_demand
+      description: Tire export volume or value.
+      unit: volume_or_value
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [export_demand]
+      applies_to_archetypes: [export_manufacturer]
+      applies_to_micro_sectors: [tire_manufacturing]
+      calculation_hint: map_to_tire_export_series_later
+      interpretation_hint: export_context_needs_margin_and_cost_context
+      directionality: higher_usually_positive_for_volume
+      higher_is_better: true
+      data_availability: medium
+
+  pangasius_export:
+    pangasius_price:
+      <<: *commodity_indicator
+      indicator_id: pangasius_price
+      display_name: Pangasius Price
+      category: output_price
+      description: Pangasius export or farm-gate price proxy.
+      unit: price
+      required_fields: [date, commodity, value, source, fetch_time]
+      applies_to_drivers: [output_price]
+      applies_to_archetypes: [export_manufacturer]
+      applies_to_micro_sectors: [pangasius_export]
+      calculation_hint: map_to_pangasius_price_series_later
+      interpretation_hint: price_effect_depends_on_feed_cost_and_demand
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: medium
+
+    US_demand:
+      <<: *macro_indicator
+      indicator_id: US_demand
+      display_name: US Demand
+      category: export_demand
+      description: US demand proxy for selected export sectors.
+      unit: index_or_volume
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [US_demand]
+      applies_to_archetypes: [export_manufacturer]
+      applies_to_micro_sectors: [pangasius_export, shrimp_export, textile_export]
+      calculation_hint: map_to_US_import_volume_or_PMI_later
+      interpretation_hint: demand_context_only_until_sector_cycle_step
+      directionality: higher_usually_positive_for_volume
+      higher_is_better: true
+      data_availability: medium
+
+    EU_demand:
+      <<: *macro_indicator
+      indicator_id: EU_demand
+      display_name: EU Demand
+      category: export_demand
+      description: EU demand proxy for selected export sectors.
+      unit: index_or_volume
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [EU_demand]
+      applies_to_archetypes: [export_manufacturer]
+      applies_to_micro_sectors: [pangasius_export, shrimp_export, textile_export]
+      calculation_hint: map_to_EU_import_volume_or_PMI_later
+      interpretation_hint: demand_context_only_until_sector_cycle_step
+      directionality: higher_usually_positive_for_volume
+      higher_is_better: true
+      data_availability: medium
+
+    anti_dumping_tax:
+      <<: *event_indicator
+      indicator_id: anti_dumping_tax
+      display_name: Anti-Dumping Tax
+      category: trade_policy
+      description: Anti-dumping duty or investigation risk.
+      data_type: numeric_or_qualitative
+      unit: percent_or_qualitative
+      required_fields: [date, sector, headline, source, source_url, fetch_time]
+      applies_to_drivers: [anti_dumping_tax]
+      applies_to_archetypes: [export_manufacturer]
+      applies_to_micro_sectors: [pangasius_export, shrimp_export, galvanized_steel]
+      calculation_hint: metadata_only_until_trade_policy_event_pipeline_exists
+      interpretation_hint: adverse_tax_or_investigation_requires_manual_review
+      directionality: higher_usually_negative
+      higher_is_better: false
+      data_availability: low
+      requires_manual_input: true
+
+    feed_cost:
+      <<: *commodity_indicator
+      indicator_id: feed_cost
+      display_name: Feed Cost
+      category: input_cost
+      description: Aquaculture feed cost proxy.
+      unit: price_or_index
+      required_fields: [date, commodity, value, source, fetch_time]
+      applies_to_drivers: [feed_cost, input_cost]
+      applies_to_archetypes: [export_manufacturer]
+      applies_to_micro_sectors: [pangasius_export, shrimp_export]
+      calculation_hint: map_to_aquaculture_feed_cost_series_later
+      interpretation_hint: higher_feed_cost_can_pressure_margin
+      directionality: higher_usually_negative_for_margin
+      higher_is_better: false
+      data_availability: medium
+
+  shrimp_export:
+    shrimp_price:
+      <<: *commodity_indicator
+      indicator_id: shrimp_price
+      display_name: Shrimp Price
+      category: output_price
+      description: Shrimp export or farm-gate price proxy.
+      unit: price
+      required_fields: [date, commodity, value, source, fetch_time]
+      applies_to_drivers: [output_price]
+      applies_to_archetypes: [export_manufacturer]
+      applies_to_micro_sectors: [shrimp_export]
+      calculation_hint: map_to_shrimp_price_series_later
+      interpretation_hint: price_effect_depends_on_feed_cost_and_demand
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: medium
+
+  textile_export:
+    cotton_price:
+      <<: *commodity_indicator
+      indicator_id: cotton_price
+      display_name: Cotton Price
+      category: commodity_price
+      description: Cotton input price for textile and garment supply chains.
+      unit: price
+      required_fields: [date, commodity, value, source, fetch_time]
+      applies_to_drivers: [cotton_price, input_cost]
+      applies_to_archetypes: [export_manufacturer]
+      applies_to_micro_sectors: [textile_export]
+      calculation_hint: use_cotton_benchmark_series_later
+      interpretation_hint: higher_cotton_cost_can_pressure_margin
+      directionality: higher_usually_negative_for_margin
+      higher_is_better: false
+      data_availability: medium
+
+    US_EU_PMI:
+      <<: *macro_indicator
+      indicator_id: US_EU_PMI
+      display_name: US EU PMI
+      category: export_demand
+      description: US or EU PMI/order proxy for textile export demand.
+      unit: index
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [US_demand, EU_demand, export_demand]
+      applies_to_archetypes: [export_manufacturer]
+      applies_to_micro_sectors: [textile_export]
+      calculation_hint: map_to_relevant_US_or_EU_PMI_series_later
+      interpretation_hint: PMI_context_only_until_sector_cycle_step
+      directionality: higher_usually_positive_for_orders
+      higher_is_better: true
+      data_availability: medium
+
+    customer_inventory_cycle:
+      <<: *event_indicator
+      indicator_id: customer_inventory_cycle
+      display_name: Customer Inventory Cycle
+      category: export_demand
+      description: Customer restocking or destocking cycle.
+      unit: qualitative
+      required_fields: [date, sector, headline, source, source_url, fetch_time]
+      applies_to_drivers: [customer_inventory_cycle]
+      applies_to_archetypes: [export_manufacturer]
+      applies_to_micro_sectors: [textile_export, tire_manufacturing, pangasius_export, shrimp_export]
+      calculation_hint: metadata_only_until_evidence_pipeline_exists
+      interpretation_hint: unsourced_inventory_commentary_requires_manual_review
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: low
+      requires_manual_input: true
+
+  residential_real_estate:
+    legal_progress:
+      <<: *event_indicator
+      indicator_id: legal_progress
+      display_name: Legal Progress
+      category: real_estate_project
+      description: Legal approval progress for residential projects.
+      unit: qualitative
+      required_fields: [ticker, date, event_type, source, source_url, fetch_time]
+      applies_to_drivers: [legal_status]
+      applies_to_archetypes: [real_estate_developer]
+      applies_to_micro_sectors: [residential_real_estate]
+      calculation_hint: metadata_only_until_project_event_pipeline_exists
+      interpretation_hint: unclear_project_status_requires_manual_review
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: low
+      requires_manual_input: true
+
+    real_estate_inventory:
+      <<: *quarterly_financial_indicator
+      indicator_id: real_estate_inventory
+      display_name: Real Estate Inventory
+      category: working_capital
+      description: Inventory context for real estate developers.
+      unit: VND
+      required_fields: [ticker, period, inventory, source, fetch_time]
+      applies_to_drivers: [inventory_cycle]
+      applies_to_archetypes: [real_estate_developer]
+      applies_to_micro_sectors: [residential_real_estate]
+      calculation_hint: use_clean_inventory_with_project_context_later
+      interpretation_hint: high_inventory_requires_legal_and_presales_context
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: medium
+
+  industrial_park:
+    FDI_flow:
+      <<: *macro_indicator
+      indicator_id: FDI_flow
+      display_name: FDI Flow
+      category: domestic_demand
+      description: Registered or disbursed FDI flow for industrial park demand.
+      unit: USD_or_VND
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [FDI_flow]
+      applies_to_archetypes: [real_estate_developer, logistics_infrastructure]
+      applies_to_micro_sectors: [industrial_park, port_logistics]
+      calculation_hint: map_to_registered_or_disbursed_FDI_later
+      interpretation_hint: FDI_supports_demand_but_needs_occupancy_and_land_bank_context
+      directionality: higher_usually_positive_for_demand
+      higher_is_better: true
+      data_availability: medium
+
+    occupancy_rate:
+      <<: *event_indicator
+      indicator_id: occupancy_rate
+      display_name: Occupancy Rate
+      category: operational_volume
+      description: Occupancy rate for industrial parks or leased assets.
+      data_type: numeric
+      unit: percent
+      required_fields: [ticker, date, event_type, source, source_url, fetch_time]
+      applies_to_drivers: [occupancy]
+      applies_to_archetypes: [real_estate_developer, logistics_infrastructure]
+      applies_to_micro_sectors: [industrial_park, port_logistics]
+      calculation_hint: use_company_or_manual_operational_data_later
+      interpretation_hint: occupancy_context_needs_land_bank_and_rental_price
+      directionality: higher_usually_positive_for_utilization
+      higher_is_better: true
+      data_availability: low
+      requires_manual_input: true
+
+    land_bank:
+      <<: *event_indicator
+      indicator_id: land_bank
+      display_name: Land Bank
+      category: real_estate_project
+      description: Available land bank or leasable area.
+      data_type: numeric_or_qualitative
+      unit: area_or_qualitative
+      required_fields: [ticker, date, event_type, source, source_url, fetch_time]
+      applies_to_drivers: [land_bank]
+      applies_to_archetypes: [real_estate_developer]
+      applies_to_micro_sectors: [industrial_park, residential_real_estate]
+      calculation_hint: use_disclosed_area_or_manual_project_data_later
+      interpretation_hint: land_bank_without_legal_status_requires_manual_review
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: low
+      requires_manual_input: true
+
+    rental_price:
+      <<: *event_indicator
+      indicator_id: rental_price
+      display_name: Rental Price
+      category: real_estate_project
+      description: Rental or lease price for industrial parks.
+      data_type: numeric
+      unit: price_per_area
+      required_fields: [ticker, date, event_type, source, source_url, fetch_time]
+      applies_to_drivers: [rental_price]
+      applies_to_archetypes: [real_estate_developer, logistics_infrastructure]
+      applies_to_micro_sectors: [industrial_park]
+      calculation_hint: use_disclosed_or_manual_rental_series_later
+      interpretation_hint: price_context_needs_occupancy_and_land_cost_context
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: low
+      requires_manual_input: true
+
+  commercial_bank:
+    bank_credit_growth:
+      <<: *macro_indicator
+      indicator_id: bank_credit_growth
+      display_name: Bank Credit Growth
+      category: banking_credit
+      description: Bank or system credit growth mapped to commercial banks.
+      unit: percent
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [credit_growth, loan_growth]
+      applies_to_archetypes: [financial_bank]
+      applies_to_micro_sectors: [commercial_bank]
+      calculation_hint: map_to_system_or_bank_specific_credit_growth_later
+      interpretation_hint: growth_requires_asset_quality_and_provisioning_context
+      directionality: mixed
+      higher_is_better: null
+      data_availability: medium
+
+  securities_broker:
+    broker_market_activity:
+      <<: *daily_market_indicator
+      indicator_id: broker_market_activity
+      display_name: Broker Market Activity
+      category: market_liquidity
+      description: Broker-related market activity proxy.
+      unit: VND_or_index
+      required_fields: [date, trading_value, source, fetch_time]
+      applies_to_drivers: [market_liquidity, VNIndex_trend]
+      applies_to_archetypes: [securities_broker]
+      applies_to_micro_sectors: [securities_broker]
+      calculation_hint: aggregate_market_activity_later
+      interpretation_hint: context_only_until_sector_cycle_step
+      directionality: mixed
+      higher_is_better: null
+      data_availability: medium
+
+  power_generation:
+    coal_price:
+      <<: *commodity_indicator
+      indicator_id: coal_price
+      display_name: Coal Price
+      category: commodity_price
+      description: Coal input price for thermal power.
+      unit: price
+      required_fields: [date, commodity, value, source, fetch_time]
+      applies_to_drivers: [coal_price, fuel_cost]
+      applies_to_archetypes: [utility_regulated]
+      applies_to_micro_sectors: [power_generation]
+      calculation_hint: use_coal_benchmark_series_later
+      interpretation_hint: higher_cost_can_pressure_margin_if_pass_through_lags
+      directionality: higher_usually_negative_for_margin
+      higher_is_better: false
+      data_availability: medium
+
+    gas_price:
+      <<: *commodity_indicator
+      indicator_id: gas_price
+      display_name: Gas Price
+      category: commodity_price
+      description: Gas input price for power and fertilizer.
+      unit: price
+      required_fields: [date, commodity, value, source, fetch_time]
+      applies_to_drivers: [gas_price, fuel_cost]
+      applies_to_archetypes: [utility_regulated, commodity_processor]
+      applies_to_micro_sectors: [power_generation, fertilizer]
+      calculation_hint: use_gas_benchmark_series_later
+      interpretation_hint: higher_cost_can_pressure_margin_if_pass_through_lags
+      directionality: higher_usually_negative_for_margin
+      higher_is_better: false
+      data_availability: medium
+
+  port_logistics:
+    export_import_volume:
+      <<: *macro_indicator
+      indicator_id: export_import_volume
+      display_name: Export Import Volume
+      category: operational_volume
+      description: Trade-flow volume for port and logistics demand.
+      unit: volume_or_value
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [export_import_volume, container_volume]
+      applies_to_archetypes: [logistics_infrastructure]
+      applies_to_micro_sectors: [port_logistics]
+      calculation_hint: map_to_trade_flow_series_later
+      interpretation_hint: higher_trade_flow_can_support_throughput
+      directionality: higher_usually_positive_for_volume
+      higher_is_better: true
+      data_availability: medium
+
+    logistics_cost:
+      <<: *macro_indicator
+      indicator_id: logistics_cost
+      display_name: Logistics Cost
+      category: logistics
+      description: Logistics cost proxy for port operators and exporters.
+      unit: index
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [logistics_cost, freight_rate]
+      applies_to_archetypes: [logistics_infrastructure, export_manufacturer, consumer_defensive]
+      applies_to_micro_sectors: [port_logistics, textile_export, pangasius_export, shrimp_export, retail_distribution]
+      calculation_hint: map_to_logistics_or_freight_cost_series_later
+      interpretation_hint: effect_depends_on_operator_or_cost_user_exposure
+      directionality: mixed
+      higher_is_better: null
+      data_availability: medium
+
+  oil_gas_upstream:
+    oil_price:
+      <<: *commodity_indicator
+      indicator_id: oil_price
+      display_name: Oil Price
+      category: commodity_price
+      description: Oil price proxy for upstream and oil-linked sectors.
+      unit: price
+      required_fields: [date, commodity, value, source, fetch_time]
+      applies_to_drivers: [oil_price]
+      applies_to_archetypes: [commodity_processor, cyclical_manufacturer, logistics_infrastructure]
+      applies_to_micro_sectors: [oil_gas_upstream, oil_gas_services, natural_rubber, tire_manufacturing, port_logistics]
+      calculation_hint: use_Brent_or_WTI_series_later
+      interpretation_hint: effect_depends_on_sector_exposure
+      directionality: mixed
+      higher_is_better: null
+      data_availability: medium
+
+    production_volume:
+      <<: *event_indicator
+      indicator_id: production_volume
+      display_name: Production Volume
+      category: operational_volume
+      description: Production volume for upstream oil and gas exposure.
+      data_type: numeric
+      unit: volume
+      required_fields: [date, sector, headline, source, source_url, fetch_time]
+      applies_to_drivers: [output_price]
+      applies_to_archetypes: [commodity_processor]
+      applies_to_micro_sectors: [oil_gas_upstream]
+      calculation_hint: metadata_only_until_operational_dataset_exists
+      interpretation_hint: volume_context_needs_price_and_cost_context
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: low
+      requires_manual_input: true
+
+  oil_gas_services:
+    drilling_activity:
+      <<: *event_indicator
+      indicator_id: drilling_activity
+      display_name: Drilling Activity
+      category: operational_volume
+      description: Drilling activity or service demand proxy.
+      data_type: numeric_or_qualitative
+      unit: index_or_qualitative
+      required_fields: [date, sector, headline, source, source_url, fetch_time]
+      applies_to_drivers: [oil_price]
+      applies_to_archetypes: [cyclical_manufacturer, logistics_infrastructure]
+      applies_to_micro_sectors: [oil_gas_services]
+      calculation_hint: metadata_only_until_sector_event_pipeline_exists
+      interpretation_hint: activity_context_needs_capex_cycle_context
+      directionality: higher_usually_positive_for_volume
+      higher_is_better: true
+      data_availability: low
+      requires_manual_input: true
+
+    capex_cycle:
+      <<: *event_indicator
+      indicator_id: capex_cycle
+      display_name: Capex Cycle
+      category: operational_volume
+      description: Oil and gas capex cycle proxy.
+      unit: qualitative
+      required_fields: [date, sector, headline, source, source_url, fetch_time]
+      applies_to_drivers: [oil_price]
+      applies_to_archetypes: [cyclical_manufacturer]
+      applies_to_micro_sectors: [oil_gas_services]
+      calculation_hint: metadata_only_until_sector_event_pipeline_exists
+      interpretation_hint: weak_capex_cycle_can_reduce_service_demand_confidence
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: low
+      requires_manual_input: true
+
+  fertilizer:
+    fertilizer_price:
+      <<: *commodity_indicator
+      indicator_id: fertilizer_price
+      display_name: Fertilizer Price
+      category: commodity_price
+      description: Urea or fertilizer benchmark price.
+      unit: price
+      required_fields: [date, commodity, value, source, fetch_time]
+      applies_to_drivers: [fertilizer_price, output_price]
+      applies_to_archetypes: [commodity_processor]
+      applies_to_micro_sectors: [fertilizer]
+      calculation_hint: map_to_urea_or_phosphate_series_later
+      interpretation_hint: price_effect_depends_on_gas_input_cost_and_demand
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: medium
+
+    fertilizer_spread:
+      <<: *commodity_indicator
+      indicator_id: fertilizer_spread
+      display_name: Fertilizer Spread
+      category: spread
+      description: Fertilizer output price less key gas or input costs.
+      unit: price_spread
+      required_fields: [date, output_price, input_cost, source, fetch_time]
+      applies_to_drivers: [commodity_spread, gas_price, fertilizer_price]
+      applies_to_archetypes: [commodity_processor]
+      applies_to_micro_sectors: [fertilizer]
+      calculation_hint: calculate_only_in_later_cycle_step_from_defined_inputs
+      interpretation_hint: spread_compression_can_signal_sector_stress
+      directionality: higher_usually_positive_for_margin
+      higher_is_better: true
+      data_availability: medium
+
+  consumer_staples:
+    staples_demand:
+      <<: *macro_indicator
+      indicator_id: staples_demand
+      display_name: Staples Demand
+      category: domestic_demand
+      description: Consumer staples demand proxy.
+      unit: index_or_percent
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [consumer_demand]
+      applies_to_archetypes: [consumer_defensive]
+      applies_to_micro_sectors: [consumer_staples]
+      calculation_hint: map_to_retail_sales_or_household_consumption_later
+      interpretation_hint: demand_context_needs_margin_and_input_cost_context
+      directionality: higher_usually_positive_for_volume
+      higher_is_better: true
+      data_availability: medium
+
+  retail_distribution:
+    retail_sales:
+      <<: *macro_indicator
+      indicator_id: retail_sales
+      display_name: Retail Sales
+      category: domestic_demand
+      description: Retail sales proxy.
+      unit: index_or_value
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [consumer_demand]
+      applies_to_archetypes: [consumer_defensive]
+      applies_to_micro_sectors: [retail_distribution, consumer_staples]
+      calculation_hint: map_to_retail_sales_series_later
+      interpretation_hint: demand_context_needs_store_and_margin_context
+      directionality: higher_usually_positive_for_volume
+      higher_is_better: true
+      data_availability: medium
+
+  construction_materials:
+    public_investment:
+      <<: *macro_indicator
+      indicator_id: public_investment
+      display_name: Public Investment
+      category: domestic_demand
+      description: Public investment disbursement proxy for construction materials.
+      unit: value_or_percent
+      required_fields: [date, indicator, value, source, fetch_time]
+      applies_to_drivers: [construction_demand]
+      applies_to_archetypes: [commodity_processor, cyclical_manufacturer]
+      applies_to_micro_sectors: [construction_materials, steel_integrated]
+      calculation_hint: map_to_public_investment_series_later
+      interpretation_hint: public_investment_context_only_until_sector_cycle_step
+      directionality: higher_usually_positive_for_volume
+      higher_is_better: true
+      data_availability: medium
+
+  holding_company:
+    holding_exposure_map:
+      <<: *event_indicator
+      indicator_id: holding_exposure_map
+      display_name: Holding Exposure Map
+      category: qualitative_event
+      description: Manual or disclosed exposure map for holding companies.
+      unit: qualitative
+      required_fields: [ticker, date, event_type, source, source_url, fetch_time]
+      applies_to_drivers: [working_capital]
+      applies_to_archetypes: [holding_company]
+      applies_to_micro_sectors: [holding_company]
+      calculation_hint: manual_exposure_mapping_required_before_later_analysis
+      interpretation_hint: missing_exposure_map_requires_manual_review
+      directionality: context_dependent
+      higher_is_better: null
+      data_availability: low
+      requires_manual_input: true
+
+  unknown:
+    unknown_micro_sector_indicator:
+      <<: *event_indicator
+      indicator_id: unknown_micro_sector_indicator
+      display_name: Unknown Micro-Sector Indicator
+      category: unknown
+      description: Fallback metadata when the micro-sector mapping is unknown.
+      unit: unknown
+      required_fields: []
+      applies_to_drivers: [unknown]
+      applies_to_archetypes: [unknown]
+      applies_to_micro_sectors: [unknown]
+      calculation_hint: do_not_use_until_micro_sector_is_resolved
+      interpretation_hint: manual_review_required_before_later_analysis
+      directionality: unknown
+      higher_is_better: null
+      data_availability: unknown
+      requires_manual_input: true

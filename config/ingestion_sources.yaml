@@ -1,0 +1,162 @@
+version: 1
+description: Source strategy for ingestion modes before any live connector is enabled.
+default_rules:
+  live_fetch_allowed_by_default: false
+  mock_allowed_in_production: false
+  manual_files_require_contract_validation: true
+  preserve_source_url_when_available: true
+modes:
+  mock:
+    description: Deterministic interface/test mode only.
+    production_allowed: false
+    requires_user_input_file: false
+    live_fetch: false
+  manual_csv:
+    description: User-provided CSV file validated against ingestion contracts.
+    production_allowed: true
+    requires_user_input_file: true
+    live_fetch: false
+  manual_xlsx:
+    description: User-provided XLSX file validated against ingestion contracts.
+    production_allowed: true
+    requires_user_input_file: true
+    live_fetch: false
+  real_adapter:
+    description: Optional adapter such as vnstock or official-source parser, disabled until explicitly implemented.
+    production_allowed: false
+    requires_user_input_file: false
+    live_fetch: true
+  vendor_file:
+    description: External or vendor file supplied by user, validated through the same contract layer.
+    production_allowed: true
+    requires_user_input_file: true
+    live_fetch: false
+datasets:
+  universe:
+    dataset_name: universe
+    preferred_mode_order:
+      - manual_csv
+      - manual_xlsx
+      - real_adapter
+      - vendor_file
+      - mock
+    candidate_real_adapters:
+      - vnstock_universe_adapter_later
+      - official_exchange_universe_adapter_later
+    manual_source_notes: User must document exchange/source and collection date.
+    live_fetch_status: not_implemented
+
+  company_profile:
+    dataset_name: company_profile
+    preferred_mode_order:
+      - manual_csv
+      - manual_xlsx
+      - real_adapter
+      - vendor_file
+      - mock
+    candidate_real_adapters:
+      - vnstock_company_profile_adapter_later
+      - official_exchange_profile_adapter_later
+      - company_ir_profile_adapter_later
+    manual_source_notes: User must document profile source, source URL if available, and collection date.
+    live_fetch_status: not_implemented
+
+  market_price:
+    dataset_name: market_price
+    preferred_mode_order:
+      - manual_csv
+      - manual_xlsx
+      - real_adapter
+      - vendor_file
+      - mock
+    candidate_real_adapters:
+      - vnstock_market_price_adapter_later
+      - official_exchange_price_adapter_later
+    manual_source_notes: Manual price files must preserve date, close, volume, trading_value, source, and fetch_time.
+    live_fetch_status: not_implemented
+
+  financial_statement_summary:
+    dataset_name: financial_statement_summary
+    preferred_mode_order:
+      - manual_csv
+      - manual_xlsx
+      - real_adapter
+      - vendor_file
+      - mock
+    candidate_real_adapters:
+      - vnstock_financial_statement_adapter_later
+      - official_report_table_adapter_later
+    manual_source_notes: Manual statements must preserve period, source, and fetch_time; do not synthesize missing values.
+    live_fetch_status: not_implemented
+
+  disclosure_status:
+    dataset_name: disclosure_status
+    preferred_mode_order:
+      - manual_csv
+      - manual_xlsx
+      - real_adapter
+      - vendor_file
+      - mock
+    candidate_real_adapters:
+      - hose_disclosure_adapter_later
+      - hnx_disclosure_adapter_later
+      - ssc_disclosure_adapter_later
+    manual_source_notes: Disclosure files require source_url evidence for later risk review.
+    live_fetch_status: not_implemented
+
+  macro_vietnam:
+    dataset_name: macro_vietnam
+    preferred_mode_order:
+      - manual_csv
+      - manual_xlsx
+      - real_adapter
+      - vendor_file
+      - mock
+    candidate_real_adapters:
+      - sbv_macro_adapter_later
+      - gso_macro_adapter_later
+    manual_source_notes: Macro files require source URL and unit/frequency when available.
+    live_fetch_status: not_implemented
+
+  commodity_global:
+    dataset_name: commodity_global
+    preferred_mode_order:
+      - manual_csv
+      - manual_xlsx
+      - real_adapter
+      - vendor_file
+      - mock
+    candidate_real_adapters:
+      - world_bank_commodity_adapter_later
+      - imf_commodity_adapter_later
+      - fred_commodity_adapter_later
+    manual_source_notes: Commodity files require source URL, unit, and currency when available.
+    live_fetch_status: not_implemented
+
+  sector_news:
+    dataset_name: sector_news
+    preferred_mode_order:
+      - manual_csv
+      - manual_xlsx
+      - real_adapter
+      - vendor_file
+      - mock
+    candidate_real_adapters:
+      - cafef_sector_news_adapter_later
+      - vietstock_sector_news_adapter_later
+    manual_source_notes: News files are soft evidence and require source URLs.
+    live_fetch_status: not_implemented
+
+  company_events:
+    dataset_name: company_events
+    preferred_mode_order:
+      - manual_csv
+      - manual_xlsx
+      - real_adapter
+      - vendor_file
+      - mock
+    candidate_real_adapters:
+      - company_ir_event_adapter_later
+      - exchange_company_event_adapter_later
+    manual_source_notes: Event files require ticker, event type, date, source, and source URL.
+    live_fetch_status: not_implemented
