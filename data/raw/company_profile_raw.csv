@@ -1,21 +1,94 @@
 ticker,company_name,exchange,industry_raw,business_description,source,source_url,last_updated,fetch_time,confidence_raw,notes
-DPP,CTCP Dược Đồng Nai,UPCOM,,,vnstock:kbs/vci,https://vnstocks.com/,2026-06-04,2026-06-04T02:26:27+00:00,low,company profile initialized from real universe source; KBS overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; VCI overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED
-SDA,CTCP Simco Sông Đà,UPCOM,,,vnstock:kbs/vci,https://vnstocks.com/,2026-06-04,2026-06-04T02:26:27+00:00,low,company profile initialized from real universe source; KBS overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; VCI overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED
-CLH,CTCP Xi măng La Hiên VVMI,HNX,,,vnstock:kbs/vci,https://vnstocks.com/,2026-06-04,2026-06-04T02:26:27+00:00,low,company profile initialized from real universe source; KBS overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; VCI overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED
-DND,CTCP Đầu tư Xây dựng và Vật liệu Đồng Nai,UPCOM,,,vnstock:kbs/vci,https://vnstocks.com/,2026-06-04,2026-06-04T02:26:27+00:00,low,company profile initialized from real universe source; KBS overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; VCI overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED
-DBT,CTCP Dược phẩm Bến Tre,HOSE,,,vnstock:kbs/vci,https://vnstocks.com/,2026-06-04,2026-06-04T02:26:27+00:00,low,company profile initialized from real universe source; KBS overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; VCI overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED
-CCR,CTCP Cảng Cam Ranh,HNX,,,vnstock:kbs/vci,https://vnstocks.com/,2026-06-04,2026-06-04T02:26:27+00:00,low,company profile initialized from real universe source; KBS overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; VCI overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED
-NOS,CTCP Vận tải biển và Thương mại Phương Đông,UPCOM,,,vnstock:kbs/vci,https://vnstocks.com/,2026-06-04,2026-06-04T02:26:27+00:00,low,company profile initialized from real universe source; KBS overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; VCI overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED
-DPH,CTCP Dược phẩm Hải Phòng,UPCOM,,,vnstock:kbs/vci,https://vnstocks.com/,2026-06-04,2026-06-04T02:26:27+00:00,low,company profile initialized from real universe source; KBS overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; VCI overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED
-DSN,CTCP Công viên nước Đầm Sen,HOSE,,,vnstock:kbs/vci,https://vnstocks.com/,2026-06-04,2026-06-04T02:26:27+00:00,low,company profile initialized from real universe source; KBS overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; VCI overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED
-WSS,CTCP Chứng khoán Phố Wall,HNX,,,vnstock:kbs/vci,https://vnstocks.com/,2026-06-04,2026-06-04T02:26:27+00:00,low,company profile initialized from real universe source; KBS overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; VCI overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED
-STC,CTCP Sách và Thiết bị Trường học Thành phố Hồ Chí Minh,HNX,,,vnstock:kbs/vci,https://vnstocks.com/,2026-06-04,2026-06-04T02:26:27+00:00,low,company profile initialized from real universe source; KBS overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; VCI overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED
-CFM,CTCP Đầu tư CFM,UPCOM,,,vnstock:kbs/vci,https://vnstocks.com/,2026-06-04,2026-06-04T02:26:27+00:00,low,company profile initialized from real universe source; KBS overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; VCI overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED
-VPG,CTCP Đầu tư Thương mại Xuất nhập khẩu Việt Phát,HOSE,,,vnstock:kbs/vci,https://vnstocks.com/,2026-06-04,2026-06-04T02:26:27+00:00,low,company profile initialized from real universe source; KBS overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; VCI overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED
-DST,CTCP Đầu tư Sao Thăng Long,HNX,,,vnstock:kbs/vci,https://vnstocks.com/,2026-06-04,2026-06-04T02:26:27+00:00,low,company profile initialized from real universe source; KBS overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; VCI overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED
-DCV,CTCP Quản lý Quỹ Đầu tư Dragon Capital Việt Nam,UPCOM,,,vnstock:kbs/vci,https://vnstocks.com/,2026-06-04,2026-06-04T02:26:27+00:00,low,company profile initialized from real universe source; KBS overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; VCI overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED
-MBN,CTCP Môi trường và Công trình đô thị Bắc Ninh,UPCOM,,,vnstock:kbs/vci,https://vnstocks.com/,2026-06-04,2026-06-04T02:26:27+00:00,low,company profile initialized from real universe source; KBS overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; VCI overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED
-HPG,CTCP Tập đoàn Hòa Phát,HOSE,,,vnstock:kbs/vci,https://vnstocks.com/,2026-06-04,2026-06-04T02:26:27+00:00,low,company profile initialized from real universe source; KBS overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; VCI overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED
-VGC,Tổng Công ty Viglacera - CTCP,HOSE,,,vnstock:kbs/vci,https://vnstocks.com/,2026-06-04,2026-06-04T02:26:27+00:00,low,company profile initialized from real universe source; KBS overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; VCI overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED
-VCS,CTCP Vicostone,HNX,,,vnstock:kbs/vci,https://vnstocks.com/,2026-06-04,2026-06-04T02:26:27+00:00,low,company profile initialized from real universe source; KBS overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; VCI overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED
-HT1,CTCP Xi Măng Vicem Hà Tiên,HOSE,,,vnstock:kbs/vci,https://vnstocks.com/,2026-06-04,2026-06-04T02:26:27+00:00,low,company profile initialized from real universe source; KBS overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; VCI overview unavailable: REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED
+VCB,Ngân hàng Thương mại Cổ phần Ngoại thương Việt Nam,HOSE,Ngân hàng,"- Dịch vụ tài khoản; huy động vốn (tiền gửi tiết kiệm, trái phiếu, kỳ phiếu); cho vay (ngăn, trung, dài hạn); bảo lãnh; chiết khấu chứng từ; thanh toán quốc tế; chuyển tiền; thẻ; nhờ thu; mua bán ngoại tệ; ngân hàng đại lý; bao thanh toán; Các dịch vụ khác theo Giấy chứng nhân đăng ký kinh doanh.",vnstock:kbs/vci,https://vnstocks.com/,2025-12-31T00:00:00,2026-06-04T03:25:28+00:00,medium,company profile initialized from real universe source
+BID,Ngân hàng Thương mại Cổ phần Đầu tư và Phát triển Việt Nam,HOSE,Ngân hàng,"- Cấp tín dụng: Cho vay, chiết khấu, bảo lãnh,… đối với các cá nhân và tổ chức trên cơ sở đảm bảo an toàn cho cả khách hàng và Ngân hàng.
+- Huy động vốn: Nhận tiền gửi tiết kiệm; mua bán, phát hành trái phiếu, kỳ phiếu.
+- Giao dịch: Thực hiện các giao dịch ngoại tệ, các dịch vụ Tài trợ thương mại quốc tế và các dịch vụ ngân hàng khác được NHNN cho phép.
+- Dịch vụ thanh toán: Thực hiện thanh toán giữa các tổ chức, cá nhân trong nước và quốc tế qua tài khoản, thẻ ngân hàng và các phương tiện thanh toán khác.",vnstock:kbs/vci,https://vnstocks.com/,2025-12-31T00:00:00,2026-06-04T03:25:28+00:00,medium,company profile initialized from real universe source
+CTG,Ngân hàng Thương mại Cổ phần Công thương Việt Nam,HOSE,Ngân hàng,"- Huy động vốn: Nhận tiền gửi, phát hành giấy tờ có giá, vay vốn của các Tổ chức tín dụng (TCTD), Ngân hàng Nhà nước (NHNN).
+- Cấp tín dụng: Cho vay, chiết khấu, tái chiết khấu công cụ chuyển nhượng và giấy tờ có giá khác, bảo lãnh ngân hàng, phát hành thẻ tín dụng, bao thanh toán trong nước, các hình thức cấp tín dụng khác theo quy định của pháp luật.
+- Cung ứng dịch vụ thanh toán và ngân quỹ: Mở tài khoản, cung ứng các phương tiện thanh toán, các dịch vụ thanh toán trong nước và quốc tế, dịch vụ thu chi hộ, các dịch vụ thanh toán khác do pháp luật quy định.
+- Cung ứng dịch vụ ngoại hối: Trên thị trường trong nước và quốc tế theo quy định của pháp luật.
+- Cung ứng các sản phẩm phái sinh: Giá cả hàng hóa theo quy định của NHNN.
+- Cung ứng dịch vụ lưu ký chứng khoán.",vnstock:kbs/vci,https://vnstocks.com/,2025-12-31T00:00:00,2026-06-04T03:25:28+00:00,medium,company profile initialized from real universe source
+MBB,Ngân hàng Thương mại Cổ phần Quân đội,HOSE,Ngân hàng,"- Cho khách hàng cá nhân: Tiền gửi, ngân hàng số, dịch vụ thẻ, chuyển tiền & thanh toán, bảo hiểm nhân thọ và các dịch vụ khác.
+- Cho khách hàng doanh nghiệp: Tiền gửi & đầu tư, ngân hàng số, các dịch vụ thu hộ/trả lương/nộp thuế điện tử, tín dụng & bảo lãnh, thanh toán quốc tế & tài trợ thương mại, và tài khoản & gói tài khoản.
+- Các sản phẩm chuyên biệt cho doanh nghiệp lớn và định chế: Gồm thị trường tiền tệ & vốn, sản phẩm ngoại hối & ngân hàng đầu tư, sản phẩm & chính sách cho khách hàng FDI, cùng với thư tín dụng, bảo lãnh, nhờ thu, cấp tín dụng và hợp vốn.",vnstock:kbs/vci,https://vnstocks.com/,2025-12-31T00:00:00,2026-06-04T03:25:28+00:00,medium,company profile initialized from real universe source
+ACB,Ngân hàng Thương mại Cổ phần Á Châu,HOSE,Ngân hàng,"- Huy động vốn ngắn hạn, trung hạn và dài hạn, tiếp nhận vốn ủy thác đầu tư và phát triển của các tổ chức trong nước, vay vốn của các TCTD khác.
+- Cho vay ngắn hạn, trung hạn, dài hạn; chiết khấu thương phiếu, trái phiếu và giấy tờ có giá; góp vốn và liên doanh theo luật định.
+- Làm dịch vụ thanh toán giữa các khách hàng.
+- Kinh doanh ngoại tệ, vàng bạc và thanh toán quốc tế, huy động các loại vốn từ nước ngoài và các dịch vụ ngân hàng khác trong quan hệ với nước ngoài khi được NHNN cho phép.",vnstock:kbs/vci,https://vnstocks.com/,2025-12-31T00:00:00,2026-06-04T03:25:28+00:00,medium,company profile initialized from real universe source
+HPG,Công ty Cổ phần Tập đoàn Hòa Phát,HOSE,Công ty cổ phần,"- Sản xuất thép xây dựng, thép cuộn cán nóng.
+- Buôn bán và xuất nhập khẩu sắt thép, vật tư thiết bị luyện, cán thép.
+- Sản xuất cán kéo thép, sản xuất tôn lợp, tôn mạ kẽm, tôn mạ lạnh, tôn mạ màu.
+- Sản xuất ống thép không mạ và có mạ.
+- Sản xuất và mua bán kim loại màu các loại, phế liệu kim loại màu.
+- Luyện gang, thép; Đúc gang, sắt, thép...",vnstock:kbs/vci,https://vnstocks.com/,2025-12-31T00:00:00,2026-06-04T03:25:28+00:00,medium,company profile initialized from real universe source
+HSG,Công ty Cổ phần Tập đoàn Hoa Sen,HOSE,Công ty cổ phần,"- Sản xuất tấm lợp bằng thép mạ kẽm, hợp kim nhôm kẽm, mạ kẽm phủ sơn và mạ các loại hợp kim khác.
+- Sản xuất thép cán nguội dạng cuộn.
+- Sản xuất xà gồ thép, xà gồ mạ kẽm.
+- Sản xuất ống thép đen, ống thép mạ kẽm, ống thép mạ các loại hợp kim khác.
+- Sản xuất lưới thép mạ, dây thép mạ kẽm, dây thép các loại.
+- Sản xuất và kinh doanh vật liệu xây dựng bằng nhựa.
+- Mua bán vật liệu xây dựng, tư liệu sản xuất và hàng tiêu dùng.
+- Mua bán đồ ngũ kim, sơn, kính, thiết bị lắp đặt khác trong xây dựng, thảm, đệm, vật liệu phủ tường, đồ điện gia dụng, gạch và đồ dùng gia đình khác.
+- Dịch vụ cho thuê nhà kho và vận tải hàng hóa.
+- Cho thuê máy móc, thiết bị và đồ dùng hữu hình khác.
+- Kinh doanh bất động sản, quyền sử dụng đất thuộc chủ sở hữu, chủ sử dụng hoặc đi thuê.",vnstock:kbs/vci,https://vnstocks.com/,2025-12-31T00:00:00,2026-06-04T03:25:28+00:00,medium,company profile initialized from real universe source
+VHM,Công ty Cổ phần Vinhomes,HOSE,Công ty cổ phần,"- Phát triển và kinh doanh bất động sản, cho thuê văn phòng.
+- Cung cấp dịch vụ quản lý bất động sản và các dịch vụ liên quan.",vnstock:kbs/vci,https://vnstocks.com/,2025-12-31T00:00:00,2026-06-04T03:25:28+00:00,medium,company profile initialized from real universe source
+KDH,Công ty Cổ phần Đầu tư và Kinh doanh nhà Khang Điền,HOSE,Công ty cổ phần,"- Đầu tư và kinh doanh bất động sản, nhận quyền sử dụng đất để đầu tư và kinh doanh nhà ở.
+- Đầu tư xây dựng cơ sở hạ tầng theo quy hoạch, xây dựng nhà để ở, chuyển quyền sử dụng đất.
+- Giáo dục mầm non, tiểu học.
+- Hoạt động kiến trúc, tư vấn kỹ thuật...",vnstock:kbs/vci,https://vnstocks.com/,2025-12-31T00:00:00,2026-06-04T03:25:28+00:00,medium,company profile initialized from real universe source
+NLG,Công ty Cổ phần Đầu tư Nam Long,HOSE,Công ty cổ phần,"- Xây dựng công nghiệp và dân dụng.
+- Sửa chữa nhà ở và trang trí nội thất.
+- Kinh doanh nhà ở (xây dựng, sửa chữa nhà để bán hoặc cho thuê).
+- Xây dựng cầu đường bến cảng.
+- San lấp mặt bằng.
+- Thi công xây dựng hệ thống cấp thoát nước.
+- Lắp đặt và sửa chữa hệ thống điện dưới 35KV.
+- Dịch vụ môi giới nhà đất.",vnstock:kbs/vci,https://vnstocks.com/,2025-12-31T00:00:00,2026-06-04T03:25:28+00:00,medium,company profile initialized from real universe source
+SSI,Công ty Cổ phần Chứng khoán SSI,HOSE,Công ty chứng khoán,"- Dịch vụ chứng khoán.
+- Dịch vụ ngân hàng đầu tư.
+- Quản lý quỹ, nguồn vốn và kinh doanh tài chính",vnstock:kbs/vci,https://vnstocks.com/,2025-12-31T00:00:00,2026-06-04T03:25:28+00:00,medium,company profile initialized from real universe source
+VND,Công ty Cổ phần Chứng khoán VNDIRECT,HOSE,Công ty chứng khoán,"- Môi giới chứng khoán.
+- Tự doanh chứng khoán.
+- Bảo lãnh phát hành chứng khoán.
+- Tư vấn tài chính và đầu tư chứng khoán.
+- Lưu ký chứng khoán.",vnstock:kbs/vci,https://vnstocks.com/,2025-12-31T00:00:00,2026-06-04T03:25:28+00:00,medium,company profile initialized from real universe source
+GAS,Tổng Công ty Khí Việt Nam - Công ty Cổ phần,HOSE,Công ty cổ phần,"- Thu gom, vận chuyển, tàng trữ khí và sản phẩm khí. Nạp LPG vào chai, vào xe bồn (không hoạt động tại Tp. Hồ Chí Minh).
+- Vận hành, bảo dưỡng, sửa chữa các công trình, dự án khí và liên quan đến khí.
+- Chế biến, bán buôn nhiên liệu khí và sản phẩm liên quan (khí khô, khí LNG, CNG, LPG, Condensate..).
+- Kinh doanh bất động sản, quyền sử dụng đất.
+- Vận tải hàng hóa bằng đường bộ; cho thuê máy móc, thiết bị...",vnstock:kbs/vci,https://vnstocks.com/,2025-12-31T00:00:00,2026-06-04T03:25:28+00:00,medium,company profile initialized from real universe source
+PVS,Tổng Công ty Cổ phần Dịch vụ Kỹ thuật Dầu khí Việt Nam,HNX,Công ty cổ phần,"- Cơ khí dầu khí.
+- Kho nổi chứa, xử lý và xuất dầu thô (FSO/FPSO).
+- Lắp đặt, vận hành, bảo dưỡng công trình biển.
+- Căn cứ cảng dịch vụ.
+- Tàu dịch vụ dầu khí.
+- Khảo sát địa chất, khảo sát sửa chữa công trình ngầm.
+- Công trình công nghiệp.
+- Năng lượng tái tạo.",vnstock:kbs/vci,https://vnstocks.com/,2025-12-31T00:00:00,2026-06-04T03:25:28+00:00,medium,company profile initialized from real universe source
+FPT,Công ty Cổ phần FPT,HOSE,Công ty cổ phần,"- Công nghệ:+ Nhóm dịch vụ: Tư vấn Chuyển đổi số, Chuyển đổi xanh và Chuyển đổi trí tuệ nhân tạo; Thiết kế, triển khai, tích hợp, vận hành, bảo trì, kiểm thử... các hệ thống CNTT; Dịch vụ an toàn, an ninh mạng; Cung cấp các giải pháp dựa trên các nền tảng công nghệ: NVIDIA, Landing AI, SAP, Oracle, Microsoft, ESRI…+ Nhóm sản phẩm, giải pháp: Cung cấp các nền tảng công nghệ tiên tiến như: nền tảng trí tuệ nhân tạo FPT.AI, nền tảng điện toán đám mây FPT Cloud, nền tảng quản trị doanh nghiệp Base.vn; Phát triển chip nguồn và chip IoT; Sản phẩm, giải pháp chuyển đổi số tích hợp công nghệ AI, AI tạo sinh (Generative AI), tự động hóa (RPA), kết nối vạn vật (IoT)… chuyên sâu cho các lĩnh vực như: Chính phủ, Viễn thông, Ngân hàng 
+- Tài chính, Y tế, Giao thông vận tải, Tài chính công, Năng lượng, Doanh nghiệp, Ô tô…; Sản phẩm, giải pháp tiên tiến giải quyết các bài toán nghiệp vụ chuyên sâu của doanh nghiệp như: quản lý chuỗi cung ứng, quản lý tài chính, quản lý nguồn nhân lực, quản lý quan hệ khách hàng & trải nghiệm người dùng, quản lý phát triển bền vững, chuyển đổi quy trình kinh doanh…
+- Viễn thông: Dịch vụ Viễn thông; Dịch vụ truyền hình FPT Play; Dịch vụ họp trực tuyến; Hệ sinh thái truyền thông số; Hệ thống các sản phẩm FPT Smart Home.
+- Giáo dục: Bao gồm các khối đào tạo Giáo dục Phổ thông; Giáo dục Nghề nghiệp và Giáo dục Đại học.",vnstock:kbs/vci,https://vnstocks.com/,2025-12-31T00:00:00,2026-06-04T03:25:28+00:00,medium,company profile initialized from real universe source
+MWG,Công ty Cổ phần Đầu tư Thế Giới Di Động,HOSE,Công ty cổ phần,"- Lĩnh vực hoạt động chủ yếu là: mua bán, bảo hành, sửa chữa: thiết bị tin học, điện thoại, linh kiện và phụ kiện điện thoại với thương hiệu Thế Giới Di Động, các mặt hàng điện máy với thương hiệu Điện Máy Xanh, các mặt hàng lương thực, thực phẩm, đồ uống và các hàng hóa khác với thương hiệu Bách Hóa Xanh, trong lĩnh vực dược phẩm, thực phẩm chức năng, dụng cụ y tế và các sản phẩm khác, Nhóm Công ty cung cấp dịch vụ thông qua thương hiệu nhà thuốc An Khang.
+- MWG hiện đang vận hành các chuỗi bán lẻ chính bao gồm: thegioididong.com, Điện Máy Xanh (dienmayxanh.com), Bách Hóa Xanh (bachhoaxanh.com), nhà thuốc An Khang và một số chuỗi thử nghiệm khác.",vnstock:kbs/vci,https://vnstocks.com/,2025-12-31T00:00:00,2026-06-04T03:25:28+00:00,medium,company profile initialized from real universe source
+VGC,Tổng Công ty Viglacera - Công ty Cổ phần,HOSE,Công ty cổ phần,"- Sản xuất kinh doanh và nhập khẩu vật liệu xây dựng, nguyên liệu nhiên liệu..liên quan đến xây dựng.
+- Đầu tư xây dựng kinh doanh BĐS: hạ tầng khu CN, đô thị, nhà ở...
+- Khai thác chế biến và kinh doanh khoáng sản.
+- Kinh doanh dịch vụ BĐS.",vnstock:kbs/vci,https://vnstocks.com/,2025-12-31T00:00:00,2026-06-04T03:25:28+00:00,medium,company profile initialized from real universe source
+GMD,Công ty Cổ phần Tập đoàn Gemadept,HOSE,Công ty cổ phần,"Với hệ sinh thái Cảng và Logistics, Gemadept cung cấp các dịch vụ tích hợp, đa dạng và toàn diện:
+- Các dịch vụ khai thác cảng: Dịch vụ kho bãi container, cảng sông, cảng biển; Xếp dỡ, kiểm đếm, giao nhận, đóng rút hàng hóa; Khai thuế hải quan; Cung ứng, vệ sinh, bảo trì, sửa chữa container và tàu biển; Dịch vụ ICD, kho, bãi ngoại quan, kho CFS; Dịch vụ container lạnh...
+- Các dịch vụ Logistics: Dịch vụ logistics 3PL; Trung tâm phân phối hàng hóa, kho ngoại quan, kho lạnh; Vận chuyển hàng hóa bằng đường biển, đường thủy nội địa, đường bộ, đường hàng không; Vận chuyển hàng siêu trường siêu trọng; Cảng hàng hóa hàng không; Đại lý vận tải, giao nhận hàng hóa; Dịch vụ chuỗi cung ứng lạnh; Trung tâm logistics xe ô tô, dịch vụ PDI; Tư vấn giải pháp Logistics...",vnstock:kbs/vci,https://vnstocks.com/,2025-12-31T00:00:00,2026-06-04T03:25:28+00:00,medium,company profile initialized from real universe source
+VHC,Công ty Cổ phần Vĩnh Hoàn,HOSE,Công ty cổ phần,"- Nuôi trồng, đánh bắt, chế biến, bảo quản thủy hải sản.
+- Mua bán thủy hải sản, máy móc thiết bị, hóa chất, nông sản thực phẩm, súc sản, nguyên vật liệu phục vụ sản xuất.
+- Kinh doanh dịch vụ du lịch sinh thái, xây dựng nhà các loại, kinh doanh BĐS.
+- Sản xuất bao bì giấy, in các loại...",vnstock:kbs/vci,https://vnstocks.com/,2025-12-31T00:00:00,2026-06-04T03:25:28+00:00,medium,company profile initialized from real universe source
+TCM,Công ty Cổ phần Dệt may - Đầu tư - Thương mại Thành Công,HOSE,Công ty cổ phần,"- Sản xuất sợi, vải dệt thoi, sợi nhân tạo.
+- Buôn bán vải, hàng may sẵn, giày dép và chuyên doanh khác chưa được phân vào đâu như mua bán bông, xơ, sợi,...
+- May trang phục (trừ trang phục từ da lông thú).
+- Bán lẻ khác trong các cửa hàng kinh doanh tổng hợp, thực phẩm trong các cửa hàng chuyên doanh.
+- Kinh doanh bất động sản; xây dựng nhà các loại; lắp đặt máy móc, hệ thống và thiết bị công nghiệp.
+- Dịch vụ lưu trú ngắn ngày, nhà hàng và các dịch vụ ăn uống phục vụ lưu động...",vnstock:kbs/vci,https://vnstocks.com/,2025-12-31T00:00:00,2026-06-04T03:25:28+00:00,medium,company profile initialized from real universe source

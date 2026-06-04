@@ -1,0 +1,18 @@
+{
+  "data_quality_status": "SKIPPED_BY_ONLY_DATASETS",
+  "dataset_name": "market_price",
+  "errors": [],
+  "failed_count": 0,
+  "finished_at": "2026-06-04T04:26:39+00:00",
+  "input_path": "",
+  "missing_required_columns": [],
+  "mode": "real",
+  "notes": "REAL-DATA-01 ingestion manifest",
+  "output_path": "data\\raw\\market_price_raw.csv",
+  "row_count": 1340,
+  "run_id": "real_data_first_20_2026_06_04T04_17_02_00_00",
+  "started_at": "2026-06-04T04:17:02+00:00",
+  "success_count": 1340,
+  "ticker_count": 20,
+  "warnings": []
+}

@@ -176,3 +176,32 @@ the local environment. Install only if needed:
 ```powershell
 python -m pip install vnstock_ezchart
 ```
+
+### Manual financial/disclosure fallback
+
+If real-source coverage is still insufficient, provide source-backed manual
+files instead of fabricating missing values:
+
+```powershell
+python scripts\run_first_20_real_data_dry_run.py `
+  --mode real `
+  --ticker-selection representative `
+  --only-datasets financial_statement_summary,disclosure_status `
+  --input-financials data\manual\financial_statement_summary.csv `
+  --input-disclosure data\manual\disclosure_status.csv `
+  --finance-request-budget 120 `
+  --disclosure-request-budget 60 `
+  --output-dir data\reports\real_data_first_20_finance_disclosure_retry `
+  --raw-output-dir data\raw `
+  --allow-partial
+```
+
+Use the templates:
+
+- `data/templates/financial_statement_summary_template.csv`
+- `data/templates/disclosure_status_template.csv`
+
+Manual rows must preserve `source`, `source_url`, `fetch_time`, and confidence.
+If manual and real rows conflict, the pipeline logs
+`DATA_CONFLICT_MANUAL_VS_REAL` and keeps the record in manual review instead of
+silently overwriting source-provided values.

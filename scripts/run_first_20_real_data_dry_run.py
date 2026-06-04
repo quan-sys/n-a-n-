@@ -21,6 +21,11 @@ from src.ingestion.contracts import (  # noqa: E402
     load_ingestion_contracts,
     validate_dataset_columns,
 )
+from src.ingestion.disclosure_source_mapper import build_disclosure_coverage_status  # noqa: E402
+from src.ingestion.finance_statement_mapper import (  # noqa: E402
+    build_finance_field_coverage,
+    map_financial_statement_summary,
+)
 from src.ingestion.manifest import (  # noqa: E402
     create_ingestion_manifest_record,
     save_ingestion_manifest,
@@ -213,6 +218,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--allow-partial", action="store_true")
     parser.add_argument("--dry-source-unavailable", action="store_true")
     parser.add_argument(
+        "--only-datasets",
+        help="Comma-separated datasets to fetch; useful for financial_statement_summary,disclosure_status retry.",
+    )
+    parser.add_argument(
         "--request-pause-seconds",
         "--request-sleep-seconds",
         dest="request_pause_seconds",
@@ -223,11 +232,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--real-source-max-requests",
         type=int,
-        default=18,
-        help="Maximum real-source calls for this audit run; exhausted budget is reported as unavailable data.",
+        default=None,
+        help="Optional global real-source cap; dataset-specific budgets are preferred.",
     )
+    parser.add_argument("--universe-request-budget", type=int, default=5)
+    parser.add_argument("--profile-request-budget", type=int, default=40)
+    parser.add_argument("--market-request-budget", type=int, default=40)
+    parser.add_argument("--finance-request-budget", type=int, default=80)
+    parser.add_argument("--disclosure-request-budget", type=int, default=40)
     parser.add_argument("--market-lookback-days", type=int, default=90)
     parser.add_argument("--market-max-retries", type=int, default=1)
+    parser.add_argument("--finance-max-retries", type=int, default=1)
+    parser.add_argument("--disclosure-max-retries", type=int, default=1)
     parser.add_argument(
         "--financial-template-output",
         default="data/templates/financial_statement_summary_template.csv",
@@ -239,6 +255,26 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--start-date")
     parser.add_argument("--end-date")
     return parser.parse_args()
+
+
+def parse_dataset_list(value: str | None) -> set[str]:
+    if not value:
+        return set()
+    datasets = {item.strip() for item in value.split(",") if item.strip()}
+    unknown = sorted(datasets - set(DATASETS))
+    if unknown:
+        raise ValueError(f"Unsupported --only-datasets values: {', '.join(unknown)}")
+    return datasets
+
+
+def dataset_request_budgets_from_args(args: argparse.Namespace) -> dict[str, int | None]:
+    return {
+        "universe": args.universe_request_budget,
+        "company_profile": args.profile_request_budget,
+        "market_price": args.market_request_budget,
+        "financial_statement_summary": args.finance_request_budget,
+        "disclosure_status": args.disclosure_request_budget,
+    }
 
 
 def run_real_data_01(args: argparse.Namespace) -> dict[str, Any]:
@@ -282,6 +318,11 @@ def run_real_data_01(args: argparse.Namespace) -> dict[str, Any]:
             input_disclosure=args.input_disclosure,
             market_lookback_days=args.market_lookback_days,
             market_max_retries=args.market_max_retries,
+            finance_max_retries=args.finance_max_retries,
+            disclosure_max_retries=args.disclosure_max_retries,
+            only_datasets=parse_dataset_list(args.only_datasets),
+            raw_output_dir=raw_output_dir,
+            dataset_budgets=dataset_request_budgets_from_args(args),
         )
         if fetch_status["overall_status"] in {
             STATUS_REAL_UNAVAILABLE,
@@ -316,7 +357,11 @@ def run_real_data_01(args: argparse.Namespace) -> dict[str, Any]:
                 template_paths=template_paths,
             )
 
-    save_raw_files(raw_datasets, raw_output_dir)
+    save_raw_files(
+        raw_datasets,
+        raw_output_dir,
+        dataset_names=fetch_status.get("write_raw_datasets"),
+    )
     save_manifests(
         raw_datasets=raw_datasets,
         fetch_status=fetch_status,
@@ -369,7 +414,7 @@ def fetch_real_vnstock_data(
     start_date: str | None,
     end_date: str | None,
     request_pause_seconds: float,
-    real_source_max_requests: int,
+    real_source_max_requests: int | None,
     ticker_selection: str,
     representative_config: str,
     ticker_list: str | None,
@@ -378,9 +423,18 @@ def fetch_real_vnstock_data(
     input_disclosure: str | None,
     market_lookback_days: int,
     market_max_retries: int,
+    finance_max_retries: int,
+    disclosure_max_retries: int,
+    only_datasets: set[str],
+    raw_output_dir: Path,
+    dataset_budgets: dict[str, int | None],
 ) -> tuple[dict[str, pd.DataFrame], dict[str, Any]]:
     status = new_fetch_status("real")
-    request_tracker = SourceRequestTracker(real_source_max_requests)
+    requested_datasets = only_datasets or set(DATASETS)
+    request_tracker = SourceRequestTracker(
+        real_source_max_requests,
+        dataset_budgets=dataset_budgets,
+    )
     try:
         from vnstock import Company, Finance, Listing, Quote
     except BaseException as exc:  # noqa: BLE001
@@ -398,32 +452,44 @@ def fetch_real_vnstock_data(
         )
         return empty_raw_datasets(), status
 
-    listing_df, listing_error = request_tracker.request(
-        source_name="vnstock:kbs",
-        dataset_name="universe",
-        action=lambda: Listing(source="kbs").symbols_by_exchange(),
-        pause_seconds=request_pause_seconds,
-    )
-    if listing_error:
-        status["overall_status"] = STATUS_REAL_UNAVAILABLE
-        status["errors"].append(f"vnstock Listing(source='kbs') failed: {listing_error}")
-        status["source_request_summary"] = request_tracker.to_frame()
-        status["source_adapter_status"] = build_source_adapter_status(
-            vnstock_available=True
+    if "universe" in requested_datasets:
+        listing_df, listing_error = request_tracker.request(
+            source_name="vnstock:kbs",
+            dataset_name="universe",
+            action=lambda: Listing(source="kbs").symbols_by_exchange(),
+            pause_seconds=request_pause_seconds,
         )
-        return empty_raw_datasets(), status
-
-    universe_source, ticker_warnings = select_listing_universe(
-        listing_df,
-        limit=limit,
-        fetch_time=started_at,
-        ticker_selection=ticker_selection,
-        representative_config=representative_config,
-        ticker_list=ticker_list,
-        input_tickers=input_tickers,
-    )
+        if listing_error:
+            status["overall_status"] = STATUS_REAL_UNAVAILABLE
+            status["errors"].append(f"vnstock Listing(source='kbs') failed: {listing_error}")
+            status["source_request_summary"] = request_tracker.to_frame()
+            status["source_adapter_status"] = build_source_adapter_status(
+                vnstock_available=True
+            )
+            return empty_raw_datasets(), status
+        universe_source, ticker_warnings = select_listing_universe(
+            listing_df,
+            limit=limit,
+            fetch_time=started_at,
+            ticker_selection=ticker_selection,
+            representative_config=representative_config,
+            ticker_list=ticker_list,
+            input_tickers=input_tickers,
+        )
+    else:
+        tickers_for_retry = resolve_retry_tickers(
+            limit=limit,
+            ticker_selection=ticker_selection,
+            representative_config=representative_config,
+            ticker_list=ticker_list,
+            input_tickers=input_tickers,
+        )
+        universe_source = load_existing_raw_dataset(
+            raw_output_dir, "universe", tickers_for_retry
+        )
+        ticker_warnings = ["UNIVERSE_FETCH_SKIPPED_BY_ONLY_DATASETS"]
     status["warnings"].extend(ticker_warnings)
-    if universe_source.empty:
+    if universe_source.empty and "universe" in requested_datasets:
         status["overall_status"] = STATUS_REAL_DATA_NOT_AVAILABLE
         status["errors"].append("real universe source returned no valid stock tickers")
         status["source_request_summary"] = request_tracker.to_frame()
@@ -432,35 +498,67 @@ def fetch_real_vnstock_data(
         )
         return empty_raw_datasets(), status
 
-    tickers = universe_source["ticker"].tolist()
+    tickers = (
+        universe_source["ticker"].map(clean_ticker).tolist()
+        if not universe_source.empty and "ticker" in universe_source.columns
+        else resolve_retry_tickers(
+            limit=limit,
+            ticker_selection=ticker_selection,
+            representative_config=representative_config,
+            ticker_list=ticker_list,
+            input_tickers=input_tickers,
+        )
+    )
     status["tickers"] = tickers
-    status["dataset_status"]["universe"] = STATUS_REAL_INGESTED
+    status["dataset_status"]["universe"] = (
+        STATUS_REAL_INGESTED
+        if "universe" in requested_datasets
+        else "SKIPPED_BY_ONLY_DATASETS"
+    )
 
-    market_rows, market_failed = fetch_market_prices(
-        Quote=Quote,
-        tickers=tickers,
-        started_at=started_at,
-        start_date=start_date,
-        end_date=end_date,
-        request_pause_seconds=request_pause_seconds,
-        request_tracker=request_tracker,
-        market_lookback_days=market_lookback_days,
-        market_max_retries=market_max_retries,
-    )
-    profile_rows, profile_failed = fetch_company_profiles(
-        Company=Company,
-        universe_df=universe_source,
-        started_at=started_at,
-        request_pause_seconds=request_pause_seconds,
-        request_tracker=request_tracker,
-    )
-    financial_rows, financial_failed = fetch_financial_summaries(
-        Finance=Finance,
-        tickers=tickers,
-        started_at=started_at,
-        request_pause_seconds=request_pause_seconds,
-        request_tracker=request_tracker,
-    )
+    if "market_price" in requested_datasets:
+        market_rows, market_failed = fetch_market_prices(
+            Quote=Quote,
+            tickers=tickers,
+            started_at=started_at,
+            start_date=start_date,
+            end_date=end_date,
+            request_pause_seconds=request_pause_seconds,
+            request_tracker=request_tracker,
+            market_lookback_days=market_lookback_days,
+            market_max_retries=market_max_retries,
+        )
+    else:
+        market_rows = load_existing_raw_dataset(raw_output_dir, "market_price", tickers).to_dict("records")
+        market_failed = []
+        status["dataset_status"]["market_price"] = "SKIPPED_BY_ONLY_DATASETS"
+
+    if "company_profile" in requested_datasets:
+        profile_rows, profile_failed = fetch_company_profiles(
+            Company=Company,
+            universe_df=universe_source if not universe_source.empty else load_existing_raw_dataset(raw_output_dir, "universe", tickers),
+            started_at=started_at,
+            request_pause_seconds=request_pause_seconds,
+            request_tracker=request_tracker,
+        )
+    else:
+        profile_rows = load_existing_raw_dataset(raw_output_dir, "company_profile", tickers).to_dict("records")
+        profile_failed = []
+        status["dataset_status"]["company_profile"] = "SKIPPED_BY_ONLY_DATASETS"
+
+    if "financial_statement_summary" in requested_datasets:
+        financial_rows, financial_failed = fetch_financial_summaries(
+            Finance=Finance,
+            tickers=tickers,
+            started_at=started_at,
+            request_pause_seconds=request_pause_seconds,
+            request_tracker=request_tracker,
+            finance_max_retries=finance_max_retries,
+        )
+    else:
+        financial_rows = load_existing_raw_dataset(raw_output_dir, "financial_statement_summary", tickers).to_dict("records")
+        financial_failed = []
+        status["dataset_status"]["financial_statement_summary"] = "SKIPPED_BY_ONLY_DATASETS"
     financial_rows_from_manual = False
     manual_financial_df, manual_financial_failed = load_real_mode_manual_fallback(
         path=input_financials,
@@ -468,12 +566,18 @@ def fetch_real_vnstock_data(
         tickers=tickers,
         mode="manual_csv" if input_financials else "manual_csv",
     )
-    if not financial_rows and input_financials and not manual_financial_df.empty:
-        financial_rows = manual_financial_df.to_dict("records")
-        financial_failed = manual_financial_failed
-        status["dataset_status"]["financial_statement_summary"] = STATUS_MANUAL_IMPORTED
+    if "financial_statement_summary" in requested_datasets and input_financials and not manual_financial_df.empty:
+        merged_financial_df, conflict_rows = merge_manual_with_real(
+            dataset_name="financial_statement_summary",
+            real_df=pd.DataFrame(financial_rows, columns=RAW_COLUMNS["financial_statement_summary"]),
+            manual_df=manual_financial_df,
+            key_columns=["ticker", "period"],
+        )
+        financial_rows = merged_financial_df.to_dict("records")
+        financial_failed.extend(manual_financial_failed + conflict_rows)
+        status["dataset_status"]["financial_statement_summary"] = STATUS_MANUAL_IMPORTED if not conflict_rows else STATUS_DRY_RUN_PARTIAL
         financial_rows_from_manual = True
-    elif not financial_rows:
+    elif "financial_statement_summary" in requested_datasets and not financial_rows:
         financial_failed = [
             failed_row(
                 ticker,
@@ -484,13 +588,19 @@ def fetch_real_vnstock_data(
             for ticker in tickers
         ]
 
-    disclosure_rows, disclosure_failed = fetch_disclosures(
-        Company=Company,
-        tickers=tickers,
-        started_at=started_at,
-        request_pause_seconds=request_pause_seconds,
-        request_tracker=request_tracker,
-    )
+    if "disclosure_status" in requested_datasets:
+        disclosure_rows, disclosure_failed = fetch_disclosures(
+            Company=Company,
+            tickers=tickers,
+            started_at=started_at,
+            request_pause_seconds=request_pause_seconds,
+            request_tracker=request_tracker,
+            disclosure_max_retries=disclosure_max_retries,
+        )
+    else:
+        disclosure_rows = load_existing_raw_dataset(raw_output_dir, "disclosure_status", tickers).to_dict("records")
+        disclosure_failed = []
+        status["dataset_status"]["disclosure_status"] = "SKIPPED_BY_ONLY_DATASETS"
     disclosure_rows_from_manual = False
     manual_disclosure_df, manual_disclosure_failed = load_real_mode_manual_fallback(
         path=input_disclosure,
@@ -498,12 +608,18 @@ def fetch_real_vnstock_data(
         tickers=tickers,
         mode="manual_csv" if input_disclosure else "manual_csv",
     )
-    if not disclosure_rows and input_disclosure and not manual_disclosure_df.empty:
-        disclosure_rows = manual_disclosure_df.to_dict("records")
-        disclosure_failed = manual_disclosure_failed
-        status["dataset_status"]["disclosure_status"] = STATUS_MANUAL_IMPORTED
+    if "disclosure_status" in requested_datasets and input_disclosure and not manual_disclosure_df.empty:
+        merged_disclosure_df, conflict_rows = merge_manual_with_real(
+            dataset_name="disclosure_status",
+            real_df=pd.DataFrame(disclosure_rows, columns=RAW_COLUMNS["disclosure_status"]),
+            manual_df=manual_disclosure_df,
+            key_columns=["ticker", "event_date", "event_type"],
+        )
+        disclosure_rows = merged_disclosure_df.to_dict("records")
+        disclosure_failed.extend(manual_disclosure_failed + conflict_rows)
+        status["dataset_status"]["disclosure_status"] = STATUS_MANUAL_IMPORTED if not conflict_rows else STATUS_DRY_RUN_PARTIAL
         disclosure_rows_from_manual = True
-    elif not disclosure_rows:
+    elif "disclosure_status" in requested_datasets and not disclosure_rows:
         disclosure_failed = [
             failed_row(
                 ticker,
@@ -520,7 +636,7 @@ def fetch_real_vnstock_data(
         )
 
     raw_datasets = {
-        "universe": universe_source,
+        "universe": universe_source if not universe_source.empty else load_existing_raw_dataset(raw_output_dir, "universe", tickers),
         "company_profile": pd.DataFrame(profile_rows, columns=RAW_COLUMNS["company_profile"]),
         "market_price": pd.DataFrame(market_rows, columns=RAW_COLUMNS["market_price"]),
         "financial_statement_summary": pd.DataFrame(
@@ -533,6 +649,8 @@ def fetch_real_vnstock_data(
     status["failed_tickers"] = failed
     for dataset_name in DATASETS:
         if dataset_name == "universe":
+            continue
+        if dataset_name not in requested_datasets:
             continue
         if status["dataset_status"].get(dataset_name) == STATUS_MANUAL_IMPORTED:
             continue
@@ -559,6 +677,7 @@ def fetch_real_vnstock_data(
         financial_real_rows=0 if financial_rows_from_manual else len(financial_rows),
         disclosure_real_rows=0 if disclosure_rows_from_manual else len(disclosure_rows),
     )
+    status["write_raw_datasets"] = sorted(requested_datasets)
     return raw_datasets, status
 
 
@@ -654,6 +773,87 @@ def parse_manual_ticker_list(ticker_list: str | None, input_tickers: str | None)
         else:
             tickers.extend(path.read_text(encoding="utf-8").replace("\n", ",").split(","))
     return dedupe([clean_ticker(ticker) for ticker in tickers if clean_ticker(ticker)])
+
+
+def resolve_retry_tickers(
+    *,
+    limit: int,
+    ticker_selection: str,
+    representative_config: str,
+    ticker_list: str | None,
+    input_tickers: str | None,
+) -> list[str]:
+    tickers = parse_manual_ticker_list(ticker_list, input_tickers)
+    if not tickers and ticker_selection == "representative":
+        tickers = load_representative_ticker_config(representative_config)["tickers"]
+    return tickers[:limit]
+
+
+def load_existing_raw_dataset(
+    raw_output_dir: Path,
+    dataset_name: str,
+    tickers: list[str],
+) -> pd.DataFrame:
+    path = raw_output_dir / RAW_FILENAMES[dataset_name]
+    if not path.exists():
+        return pd.DataFrame(columns=RAW_COLUMNS[dataset_name])
+    df = pd.read_csv(path)
+    df = ensure_columns(df, RAW_COLUMNS[dataset_name])
+    if tickers and "ticker" in df.columns:
+        ticker_set = set(clean_ticker(ticker) for ticker in tickers)
+        df = df[df["ticker"].map(clean_ticker).isin(ticker_set)].copy()
+    return df
+
+
+def merge_manual_with_real(
+    *,
+    dataset_name: str,
+    real_df: pd.DataFrame,
+    manual_df: pd.DataFrame,
+    key_columns: list[str],
+) -> tuple[pd.DataFrame, list[dict[str, str]]]:
+    real = ensure_columns(real_df, RAW_COLUMNS[dataset_name])
+    manual = ensure_columns(manual_df, RAW_COLUMNS[dataset_name])
+    conflicts: list[dict[str, str]] = []
+    if manual.empty:
+        return real, conflicts
+    if real.empty:
+        return manual, conflicts
+
+    output = real.copy()
+    for _, manual_row in manual.iterrows():
+        mask = pd.Series([True] * len(output), index=output.index)
+        for column in key_columns:
+            if column not in output.columns or column not in manual.index:
+                continue
+            mask = mask & (output[column].map(clean_text) == clean_text(manual_row[column]))
+        if not mask.any():
+            output = pd.concat([output, pd.DataFrame([manual_row])], ignore_index=True)
+            continue
+        real_index = output[mask].index[0]
+        conflict_fields = []
+        for column in RAW_COLUMNS[dataset_name]:
+            if column in key_columns or column not in output.columns:
+                continue
+            real_value = output.at[real_index, column]
+            manual_value = manual_row[column]
+            if is_missing(manual_value):
+                continue
+            if is_missing(real_value):
+                output.at[real_index, column] = manual_value
+                continue
+            if clean_text(real_value) != clean_text(manual_value):
+                conflict_fields.append(column)
+        if conflict_fields:
+            conflicts.append(
+                failed_row(
+                    manual_row.get("ticker", ""),
+                    dataset_name,
+                    "DATA_CONFLICT_MANUAL_VS_REAL",
+                    "conflicting fields: " + ",".join(conflict_fields),
+                )
+            )
+    return ensure_columns(output, RAW_COLUMNS[dataset_name]), conflicts
 
 
 def select_universe_rows_by_ticker(
@@ -855,6 +1055,7 @@ def fetch_financial_summaries(
     started_at: str,
     request_pause_seconds: float,
     request_tracker: SourceRequestTracker,
+    finance_max_retries: int = 0,
 ) -> tuple[list[dict[str, Any]], list[dict[str, str]]]:
     rows: list[dict[str, Any]] = []
     failed: list[dict[str, str]] = []
@@ -866,51 +1067,57 @@ def fetch_financial_summaries(
             ("balance", "balance_sheet"),
             ("cash", "cash_flow"),
         ]:
-            df, finance_error = request_tracker.request(
-                source_name="vnstock:vci",
-                dataset_name="financial_statement_summary",
-                action=lambda ticker=ticker, method_name=method_name: getattr(
-                    Finance(source="VCI", symbol=ticker, period="quarter", get_all=False),
-                    method_name,
-                )(),
-                pause_seconds=request_pause_seconds,
-            )
+            df = pd.DataFrame()
+            finance_error = ""
+            for attempt in range(max(0, finance_max_retries) + 1):
+                df, finance_error = request_tracker.request(
+                    source_name="vnstock:vci",
+                    dataset_name="financial_statement_summary",
+                    action=lambda ticker=ticker, method_name=method_name: getattr(
+                        Finance(source="VCI", symbol=ticker, period="quarter", get_all=False),
+                        method_name,
+                    )(),
+                    pause_seconds=request_pause_seconds,
+                )
+                if isinstance(df, pd.DataFrame) and not df.empty:
+                    break
+                if "BUDGET_EXHAUSTED" in finance_error:
+                    break
             if finance_error:
                 statements[key] = pd.DataFrame()
-                statement_errors.append(f"{method_name}:{finance_error}")
+                statement_errors.append(f"{method_name}:{finance_error}; attempts={attempt + 1}")
             else:
                 statements[key] = df if isinstance(df, pd.DataFrame) else pd.DataFrame()
-        latest_period = latest_financial_period(statements.values())
-        if not latest_period:
+        record, warnings, missing_fields, not_applicable_fields = map_financial_statement_summary(
+            ticker=ticker,
+            statements=statements,
+            fetch_time=started_at,
+            source="vnstock:vci:finance",
+            source_url="https://vnstocks.com/",
+            period_type="quarter",
+        )
+        if record is None:
             failed.append(
                 failed_row(
                     ticker,
                     "financial_statement_summary",
                     "FINANCIAL_STATEMENT_DATA_UNAVAILABLE",
-                    "; ".join(statement_errors) or "no financial statement rows returned",
+                    "; ".join(statement_errors + warnings) or "no financial statement rows returned",
                 )
             )
             continue
-        record = {
-            "ticker": ticker,
-            "period": latest_period,
-            "period_type": "quarter",
-            "source": "vnstock:vci:finance",
-            "source_url": "https://vnstocks.com/",
-            "fetch_time": started_at,
-            "confidence_raw": "medium",
-            "notes": "real financial statement summary from vnstock Finance; missing mapped fields left blank",
-        }
-        for field, aliases in FINANCIAL_FIELD_ALIASES.items():
-            record[field] = lookup_financial_value(statements, aliases, latest_period)
-        missing = [field for field in FINANCIAL_FIELD_ALIASES if is_missing(record.get(field))]
-        if missing:
+        if missing_fields or warnings:
             failed.append(
                 failed_row(
                     ticker,
                     "financial_statement_summary",
                     "PARTIAL_FINANCIAL_FIELDS",
-                    "missing mapped fields: " + ",".join(missing),
+                    "warnings="
+                    + "|".join(warnings)
+                    + "; missing_fields="
+                    + ",".join(missing_fields)
+                    + "; not_applicable_fields="
+                    + ",".join(not_applicable_fields),
                 )
             )
         rows.append(record)
@@ -924,16 +1131,24 @@ def fetch_disclosures(
     started_at: str,
     request_pause_seconds: float,
     request_tracker: SourceRequestTracker,
+    disclosure_max_retries: int = 0,
 ) -> tuple[list[dict[str, Any]], list[dict[str, str]]]:
     rows: list[dict[str, Any]] = []
     failed: list[dict[str, str]] = []
     for ticker in tickers:
-        events, events_error = request_tracker.request(
-            source_name="vnstock:kbs",
-            dataset_name="disclosure_status",
-            action=lambda ticker=ticker: Company(source="KBS", symbol=ticker).events(),
-            pause_seconds=request_pause_seconds,
-        )
+        events = pd.DataFrame()
+        events_error = ""
+        for attempt in range(max(0, disclosure_max_retries) + 1):
+            events, events_error = request_tracker.request(
+                source_name="vnstock:kbs",
+                dataset_name="disclosure_status",
+                action=lambda ticker=ticker: Company(source="KBS", symbol=ticker).events(),
+                pause_seconds=request_pause_seconds,
+            )
+            if isinstance(events, pd.DataFrame) and not events.empty:
+                break
+            if "BUDGET_EXHAUSTED" in events_error:
+                break
         if events_error:
             events = pd.DataFrame()
             failed.append(
@@ -941,7 +1156,7 @@ def fetch_disclosures(
                     ticker,
                     "disclosure_status",
                     "DISCLOSURE_DATA_UNAVAILABLE",
-                    f"{events_error}; absence is unknown, not clean",
+                    f"{events_error}; attempts={attempt + 1}; absence is unknown, not clean",
                 )
             )
             continue
@@ -950,8 +1165,8 @@ def fetch_disclosures(
                 failed_row(
                     ticker,
                     "disclosure_status",
-                    "DISCLOSURE_DATA_UNAVAILABLE",
-                    "no disclosure/event rows returned; absence is unknown, not clean",
+                    "DISCLOSURE_SOURCE_EMPTY_RESPONSE",
+                    f"attempts={attempt + 1}; no disclosure/event rows returned; absence is unknown, not clean",
                 )
             )
             continue
@@ -1135,6 +1350,29 @@ def write_failure_reports(
     (source_adapter_status if isinstance(source_adapter_status, pd.DataFrame) else build_source_adapter_status()).to_csv(
         output_dir / "source_adapter_status.csv", index=False
     )
+    build_finance_field_coverage(
+        pd.DataFrame(columns=RAW_COLUMNS["financial_statement_summary"]),
+        tickers=[],
+    ).to_csv(output_dir / "finance_field_coverage.csv", index=False)
+    build_disclosure_coverage_status(
+        tickers=[],
+        disclosure_df=pd.DataFrame(columns=RAW_COLUMNS["disclosure_status"]),
+        failed_rows=[],
+        source_request_summary=source_request_summary,
+        manual_import_available=True,
+    ).to_csv(output_dir / "disclosure_coverage_status.csv", index=False)
+    (output_dir / "finance_disclosure_retry_summary.md").write_text(
+        render_finance_disclosure_retry_summary(
+            tickers=[],
+            finance_coverage_df=pd.DataFrame(),
+            disclosure_coverage_df=pd.DataFrame(),
+            source_request_df=source_request_summary
+            if isinstance(source_request_summary, pd.DataFrame)
+            else empty_source_request_summary(),
+            failed_df=failed_df,
+        ),
+        encoding="utf-8",
+    )
     run_summary = render_run_summary(
         run_id=run_id,
         started_at=started_at,
@@ -1253,6 +1491,32 @@ def write_real_data_reports(
     if errors_df.empty:
         errors_df = pd.DataFrame(columns=["stage", "dataset_name", "ticker", "error_code", "message", "notes"])
     errors_df.to_csv(output_dir / "pipeline_errors.csv", index=False)
+
+    finance_coverage_df = build_finance_field_coverage(
+        raw_datasets.get("financial_statement_summary", pd.DataFrame()),
+        tickers=fetch_status["tickers"],
+    )
+    finance_coverage_df.to_csv(output_dir / "finance_field_coverage.csv", index=False)
+
+    disclosure_coverage_df = build_disclosure_coverage_status(
+        tickers=fetch_status["tickers"],
+        disclosure_df=raw_datasets.get("disclosure_status", pd.DataFrame()),
+        failed_rows=fetch_status["failed_tickers"],
+        source_request_summary=source_request_df,
+        manual_import_available=True,
+    )
+    disclosure_coverage_df.to_csv(output_dir / "disclosure_coverage_status.csv", index=False)
+
+    (output_dir / "finance_disclosure_retry_summary.md").write_text(
+        render_finance_disclosure_retry_summary(
+            tickers=fetch_status["tickers"],
+            finance_coverage_df=finance_coverage_df,
+            disclosure_coverage_df=disclosure_coverage_df,
+            source_request_df=source_request_df,
+            failed_df=failed_df,
+        ),
+        encoding="utf-8",
+    )
 
     run_summary = render_run_summary(
         run_id=run_id,
@@ -1441,8 +1705,76 @@ def render_run_summary(
     return "\n".join(lines)
 
 
-def save_raw_files(raw_datasets: dict[str, pd.DataFrame], output_dir: Path) -> None:
+def render_finance_disclosure_retry_summary(
+    *,
+    tickers: list[str],
+    finance_coverage_df: pd.DataFrame,
+    disclosure_coverage_df: pd.DataFrame,
+    source_request_df: pd.DataFrame,
+    failed_df: pd.DataFrame,
+) -> str:
+    finance_rows = int(len(finance_coverage_df))
+    finance_available = (
+        int(finance_coverage_df["has_total_assets"].astype(bool).sum())
+        if "has_total_assets" in finance_coverage_df.columns
+        else 0
+    )
+    disclosure_clean_false = (
+        int((disclosure_coverage_df["treated_as_clean"].astype(str) == "False").sum())
+        if "treated_as_clean" in disclosure_coverage_df.columns
+        else len(tickers)
+    )
+    request_lines = []
+    if isinstance(source_request_df, pd.DataFrame) and not source_request_df.empty:
+        for _, row in source_request_df.iterrows():
+            request_lines.append(
+                "- "
+                + str(row.get("dataset_name", ""))
+                + " via "
+                + str(row.get("source_name", ""))
+                + ": attempted="
+                + str(row.get("requests_attempted", "0"))
+                + ", succeeded="
+                + str(row.get("requests_succeeded", "0"))
+                + ", failed="
+                + str(row.get("requests_failed", "0"))
+                + ", skipped="
+                + str(row.get("requests_skipped_due_to_budget", "0"))
+            )
+    failed_count = int(len(failed_df)) if isinstance(failed_df, pd.DataFrame) else 0
+    return "\n".join(
+        [
+            "# Finance/Disclosure Retry Summary",
+            "",
+            f"- ticker_count: {len(tickers)}",
+            f"- finance_coverage_rows: {finance_rows}",
+            f"- finance_rows_with_total_assets: {finance_available}",
+            f"- disclosure_coverage_rows: {len(disclosure_coverage_df)}",
+            f"- disclosure_rows_treated_as_clean_false: {disclosure_clean_false}",
+            f"- failed_ticker_records: {failed_count}",
+            "- step19_implemented: False",
+            "- output_contains_prohibited_recommendation_fields: False",
+            "",
+            "## Source Requests",
+            *(request_lines or ["- none"]),
+            "",
+            "## Notes",
+            "- Missing financial fields remain blank; no zeros or inferred values are generated.",
+            "- Missing disclosure remains unavailable/unknown and is not treated as clean.",
+            "",
+        ]
+    )
+
+
+def save_raw_files(
+    raw_datasets: dict[str, pd.DataFrame],
+    output_dir: Path,
+    dataset_names: list[str] | None = None,
+) -> None:
+    names_to_write = set(dataset_names or raw_datasets)
     for dataset_name, df in raw_datasets.items():
+        if dataset_name not in names_to_write:
+            continue
         ensure_columns(df, RAW_COLUMNS[dataset_name]).to_csv(
             output_dir / RAW_FILENAMES[dataset_name], index=False
         )

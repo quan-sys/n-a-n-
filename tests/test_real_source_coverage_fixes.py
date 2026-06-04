@@ -212,7 +212,7 @@ def test_missing_disclosure_source_creates_template_and_is_not_clean(tmp_path):
     )
 
     assert rows == []
-    assert failed[0]["status"] == "DISCLOSURE_DATA_UNAVAILABLE"
+    assert failed[0]["status"] == "DISCLOSURE_SOURCE_EMPTY_RESPONSE"
     assert "unknown, not clean" in failed[0]["reason"]
     assert Path(template_paths["disclosure_status"]).exists()
 

@@ -12,10 +12,14 @@ import pandas as pd
 SOURCE_REQUEST_SUMMARY_COLUMNS = [
     "source_name",
     "dataset_name",
+    "global_request_budget",
+    "dataset_request_budget",
     "requests_attempted",
     "requests_succeeded",
     "requests_failed",
     "requests_skipped_due_to_budget",
+    "global_requests_remaining",
+    "dataset_requests_remaining",
     "rate_limit_errors",
     "dependency_errors",
     "notes",
@@ -40,9 +44,18 @@ DEPENDENCY_MARKERS = (
 class SourceRequestTracker:
     """Track source calls without letting one failed call crash the batch."""
 
-    def __init__(self, max_requests: int | None) -> None:
+    def __init__(
+        self,
+        max_requests: int | None,
+        dataset_budgets: dict[str, int | None] | None = None,
+    ) -> None:
         self.max_requests = None if max_requests is None else max(0, int(max_requests))
         self.remaining = self.max_requests
+        self.dataset_budgets = {
+            dataset_name: None if budget is None else max(0, int(budget))
+            for dataset_name, budget in (dataset_budgets or {}).items()
+        }
+        self.dataset_remaining = dict(self.dataset_budgets)
         self._records: OrderedDict[tuple[str, str], dict[str, Any]] = OrderedDict()
 
     def request(
@@ -58,11 +71,21 @@ class SourceRequestTracker:
         record = self._record(source_name, dataset_name)
         if self.remaining is not None and self.remaining <= 0:
             record["requests_skipped_due_to_budget"] += 1
+            record["global_requests_remaining"] = 0
             self._add_note(record, "REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED")
             return None, "REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED"
+        if self.dataset_remaining.get(dataset_name) is not None and self.dataset_remaining[dataset_name] <= 0:
+            record["requests_skipped_due_to_budget"] += 1
+            record["dataset_requests_remaining"] = 0
+            self._add_note(record, f"DATASET_REQUEST_BUDGET_EXHAUSTED:{dataset_name}")
+            return None, f"DATASET_REQUEST_BUDGET_EXHAUSTED:{dataset_name}"
 
         if self.remaining is not None:
             self.remaining -= 1
+        if self.dataset_remaining.get(dataset_name) is not None:
+            self.dataset_remaining[dataset_name] -= 1
+            record["dataset_requests_remaining"] = self.dataset_remaining[dataset_name]
+        record["global_requests_remaining"] = self.remaining if self.remaining is not None else ""
         record["requests_attempted"] += 1
 
         try:
@@ -104,13 +127,20 @@ class SourceRequestTracker:
     def _record(self, source_name: str, dataset_name: str) -> dict[str, Any]:
         key = (source_name, dataset_name)
         if key not in self._records:
+            dataset_budget = self.dataset_budgets.get(dataset_name)
             self._records[key] = {
                 "source_name": source_name,
                 "dataset_name": dataset_name,
+                "global_request_budget": "" if self.max_requests is None else self.max_requests,
+                "dataset_request_budget": "" if dataset_budget is None else dataset_budget,
                 "requests_attempted": 0,
                 "requests_succeeded": 0,
                 "requests_failed": 0,
                 "requests_skipped_due_to_budget": 0,
+                "global_requests_remaining": "" if self.remaining is None else self.remaining,
+                "dataset_requests_remaining": (
+                    "" if dataset_budget is None else self.dataset_remaining.get(dataset_name, dataset_budget)
+                ),
                 "rate_limit_errors": 0,
                 "dependency_errors": 0,
                 "notes": [],

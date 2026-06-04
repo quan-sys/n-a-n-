@@ -1,0 +1,5 @@
+source_name,dataset_name,global_request_budget,dataset_request_budget,requests_attempted,requests_succeeded,requests_failed,requests_skipped_due_to_budget,global_requests_remaining,dataset_requests_remaining,rate_limit_errors,dependency_errors,notes
+vnstock:vci,financial_statement_summary,,120,61,60,1,0,,59,0,1,"ImportError: No charting library available. Please install one of:
+1. vnstock_chart (recommended): pip install --extra-index-url https://vnstocks.com/api/simple vnstock_chart
+2. vnstock_ezchart (fallback): pip install vnstock_ezchart"
+vnstock:kbs,disclosure_status,,60,40,40,0,0,,20,0,0,
