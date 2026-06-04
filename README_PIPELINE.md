@@ -141,3 +141,38 @@ watchlists, or reports without preserving this ordering.
 Production filtering must not run before real or clean input data exists. Mock
 data is only for tests and early interface validation; it must not be treated as
 production data.
+
+## REAL-DATA-01B Source Coverage
+
+`scripts/run_first_20_real_data_dry_run.py` supports a source-coverage repair
+batch before scaling:
+
+```powershell
+python scripts\run_first_20_real_data_dry_run.py `
+  --limit 20 `
+  --mode real `
+  --ticker-selection representative `
+  --request-sleep-seconds 3.2 `
+  --real-source-max-requests 80 `
+  --market-lookback-days 90 `
+  --output-dir data\reports\real_data_first_20 `
+  --raw-output-dir data\raw `
+  --allow-partial
+```
+
+The representative ticker config is
+`config/real_data_first_20_representative_tickers.yaml`. It is only for
+engineering source-coverage testing.
+
+The run writes `source_request_summary.csv` and `source_adapter_status.csv` in
+`data/reports/real_data_first_20/`. If financial statement or disclosure sources
+are unavailable, use the empty manual templates in `data/templates/` and pass
+`--input-financials` or `--input-disclosure`. Missing disclosure remains
+unknown/unavailable, not clean.
+
+Some `vnstock` finance/profile paths may require optional charting support in
+the local environment. Install only if needed:
+
+```powershell
+python -m pip install vnstock_ezchart
+```

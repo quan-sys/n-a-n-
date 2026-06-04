@@ -5,12 +5,12 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-import time
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
 import pandas as pd
+import yaml
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 if str(ROOT_DIR) not in sys.path:
@@ -26,6 +26,16 @@ from src.ingestion.manifest import (  # noqa: E402
     save_ingestion_manifest,
 )
 from src.ingestion.pipeline_dry_run import run_pipeline_dry_run  # noqa: E402
+from src.ingestion.real_source_adapters import (  # noqa: E402
+    build_source_adapter_status,
+    create_manual_templates,
+    empty_source_adapter_status,
+)
+from src.ingestion.source_rate_limit import (  # noqa: E402
+    SourceRequestTracker,
+    empty_source_request_summary,
+    external_error_text,
+)
 
 
 RUN_TYPE = "REAL-DATA-01"
@@ -182,6 +192,17 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--limit", type=int, default=20)
     parser.add_argument("--mode", choices=["real", "manual_csv", "manual_xlsx"], default="real")
+    parser.add_argument(
+        "--ticker-selection",
+        choices=["first_from_universe", "representative", "manual_list"],
+        default="first_from_universe",
+    )
+    parser.add_argument(
+        "--representative-config",
+        default="config/real_data_first_20_representative_tickers.yaml",
+    )
+    parser.add_argument("--ticker-list", help="Comma-separated tickers for --ticker-selection manual_list.")
+    parser.add_argument("--input-tickers", help="CSV/TXT file with manual ticker list.")
     parser.add_argument("--input-universe")
     parser.add_argument("--input-profile")
     parser.add_argument("--input-market")
@@ -193,6 +214,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--dry-source-unavailable", action="store_true")
     parser.add_argument(
         "--request-pause-seconds",
+        "--request-sleep-seconds",
+        dest="request_pause_seconds",
         type=float,
         default=3.2,
         help="Pause between real-source calls to avoid guest API rate limits.",
@@ -202,6 +225,16 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=18,
         help="Maximum real-source calls for this audit run; exhausted budget is reported as unavailable data.",
+    )
+    parser.add_argument("--market-lookback-days", type=int, default=90)
+    parser.add_argument("--market-max-retries", type=int, default=1)
+    parser.add_argument(
+        "--financial-template-output",
+        default="data/templates/financial_statement_summary_template.csv",
+    )
+    parser.add_argument(
+        "--disclosure-template-output",
+        default="data/templates/disclosure_status_template.csv",
     )
     parser.add_argument("--start-date")
     parser.add_argument("--end-date")
@@ -215,6 +248,10 @@ def run_real_data_01(args: argparse.Namespace) -> dict[str, Any]:
     raw_output_dir = Path(args.raw_output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     raw_output_dir.mkdir(parents=True, exist_ok=True)
+    template_paths = create_manual_templates(
+        financial_template_path=args.financial_template_output,
+        disclosure_template_path=args.disclosure_template_output,
+    )
 
     if args.dry_source_unavailable:
         return write_failure_reports(
@@ -226,6 +263,7 @@ def run_real_data_01(args: argparse.Namespace) -> dict[str, Any]:
             status=STATUS_REAL_UNAVAILABLE,
             reason="dry-source-unavailable flag set; no real source call attempted",
             requested_limit=args.limit,
+            template_paths=template_paths,
         )
 
     if args.mode == "real":
@@ -236,6 +274,14 @@ def run_real_data_01(args: argparse.Namespace) -> dict[str, Any]:
             end_date=args.end_date,
             request_pause_seconds=args.request_pause_seconds,
             real_source_max_requests=args.real_source_max_requests,
+            ticker_selection=args.ticker_selection,
+            representative_config=args.representative_config,
+            ticker_list=args.ticker_list,
+            input_tickers=args.input_tickers,
+            input_financials=args.input_financials,
+            input_disclosure=args.input_disclosure,
+            market_lookback_days=args.market_lookback_days,
+            market_max_retries=args.market_max_retries,
         )
         if fetch_status["overall_status"] in {
             STATUS_REAL_UNAVAILABLE,
@@ -250,6 +296,9 @@ def run_real_data_01(args: argparse.Namespace) -> dict[str, Any]:
                 status=fetch_status["overall_status"],
                 reason="; ".join(fetch_status["errors"] or fetch_status["warnings"]),
                 requested_limit=args.limit,
+                template_paths=template_paths,
+                source_request_summary=fetch_status.get("source_request_summary"),
+                source_adapter_status=fetch_status.get("source_adapter_status"),
             )
     else:
         raw_datasets, fetch_status = load_manual_data(args, started_at)
@@ -264,6 +313,7 @@ def run_real_data_01(args: argparse.Namespace) -> dict[str, Any]:
                 reason="; ".join(fetch_status["errors"]),
                 failed_rows=fetch_status["failed_tickers"],
                 requested_limit=args.limit,
+                template_paths=template_paths,
             )
 
     save_raw_files(raw_datasets, raw_output_dir)
@@ -293,6 +343,8 @@ def run_real_data_01(args: argparse.Namespace) -> dict[str, Any]:
         started_at=started_at,
         mode=args.mode,
         requested_limit=args.limit,
+        ticker_selection=args.ticker_selection,
+        template_paths=template_paths,
     )
     return {
         "console_summary": {
@@ -318,32 +370,66 @@ def fetch_real_vnstock_data(
     end_date: str | None,
     request_pause_seconds: float,
     real_source_max_requests: int,
+    ticker_selection: str,
+    representative_config: str,
+    ticker_list: str | None,
+    input_tickers: str | None,
+    input_financials: str | None,
+    input_disclosure: str | None,
+    market_lookback_days: int,
+    market_max_retries: int,
 ) -> tuple[dict[str, pd.DataFrame], dict[str, Any]]:
     status = new_fetch_status("real")
-    request_budget = {"remaining": int(real_source_max_requests)}
+    request_tracker = SourceRequestTracker(real_source_max_requests)
     try:
         from vnstock import Company, Finance, Listing, Quote
     except BaseException as exc:  # noqa: BLE001
         if isinstance(exc, KeyboardInterrupt):
             raise
+        error_text = external_error_text(exc)
+        request_tracker.record_dependency_error(
+            source_name="vnstock", dataset_name="all", error_text=error_text
+        )
         status["overall_status"] = STATUS_REAL_UNAVAILABLE
-        status["errors"].append(f"vnstock import failed: {external_error_text(exc)}")
+        status["errors"].append(f"vnstock import failed: {error_text}")
+        status["source_request_summary"] = request_tracker.to_frame()
+        status["source_adapter_status"] = build_source_adapter_status(
+            vnstock_available=False
+        )
         return empty_raw_datasets(), status
 
-    listing_df, listing_error = call_real_source(
-        lambda: Listing(source="kbs").symbols_by_exchange(),
-        request_pause_seconds,
-        request_budget,
+    listing_df, listing_error = request_tracker.request(
+        source_name="vnstock:kbs",
+        dataset_name="universe",
+        action=lambda: Listing(source="kbs").symbols_by_exchange(),
+        pause_seconds=request_pause_seconds,
     )
     if listing_error:
         status["overall_status"] = STATUS_REAL_UNAVAILABLE
         status["errors"].append(f"vnstock Listing(source='kbs') failed: {listing_error}")
+        status["source_request_summary"] = request_tracker.to_frame()
+        status["source_adapter_status"] = build_source_adapter_status(
+            vnstock_available=True
+        )
         return empty_raw_datasets(), status
 
-    universe_source = normalize_listing_universe(listing_df, limit, started_at)
+    universe_source, ticker_warnings = select_listing_universe(
+        listing_df,
+        limit=limit,
+        fetch_time=started_at,
+        ticker_selection=ticker_selection,
+        representative_config=representative_config,
+        ticker_list=ticker_list,
+        input_tickers=input_tickers,
+    )
+    status["warnings"].extend(ticker_warnings)
     if universe_source.empty:
         status["overall_status"] = STATUS_REAL_DATA_NOT_AVAILABLE
         status["errors"].append("real universe source returned no valid stock tickers")
+        status["source_request_summary"] = request_tracker.to_frame()
+        status["source_adapter_status"] = build_source_adapter_status(
+            vnstock_available=True
+        )
         return empty_raw_datasets(), status
 
     tickers = universe_source["ticker"].tolist()
@@ -357,30 +443,78 @@ def fetch_real_vnstock_data(
         start_date=start_date,
         end_date=end_date,
         request_pause_seconds=request_pause_seconds,
-        request_budget=request_budget,
+        request_tracker=request_tracker,
+        market_lookback_days=market_lookback_days,
+        market_max_retries=market_max_retries,
     )
     profile_rows, profile_failed = fetch_company_profiles(
         Company=Company,
         universe_df=universe_source,
         started_at=started_at,
         request_pause_seconds=request_pause_seconds,
-        request_budget=request_budget,
+        request_tracker=request_tracker,
     )
     financial_rows, financial_failed = fetch_financial_summaries(
         Finance=Finance,
         tickers=tickers,
         started_at=started_at,
         request_pause_seconds=request_pause_seconds,
-        request_budget=request_budget,
+        request_tracker=request_tracker,
     )
+    financial_rows_from_manual = False
+    manual_financial_df, manual_financial_failed = load_real_mode_manual_fallback(
+        path=input_financials,
+        dataset_name="financial_statement_summary",
+        tickers=tickers,
+        mode="manual_csv" if input_financials else "manual_csv",
+    )
+    if not financial_rows and input_financials and not manual_financial_df.empty:
+        financial_rows = manual_financial_df.to_dict("records")
+        financial_failed = manual_financial_failed
+        status["dataset_status"]["financial_statement_summary"] = STATUS_MANUAL_IMPORTED
+        financial_rows_from_manual = True
+    elif not financial_rows:
+        financial_failed = [
+            failed_row(
+                ticker,
+                "financial_statement_summary",
+                "FINANCIAL_STATEMENT_DATA_UNAVAILABLE",
+                "real source unavailable or budget exhausted; use data/templates/financial_statement_summary_template.csv or --input-financials",
+            )
+            for ticker in tickers
+        ]
+
     disclosure_rows, disclosure_failed = fetch_disclosures(
         Company=Company,
         tickers=tickers,
         started_at=started_at,
         request_pause_seconds=request_pause_seconds,
-        request_budget=request_budget,
+        request_tracker=request_tracker,
     )
-    if request_budget["remaining"] <= 0:
+    disclosure_rows_from_manual = False
+    manual_disclosure_df, manual_disclosure_failed = load_real_mode_manual_fallback(
+        path=input_disclosure,
+        dataset_name="disclosure_status",
+        tickers=tickers,
+        mode="manual_csv" if input_disclosure else "manual_csv",
+    )
+    if not disclosure_rows and input_disclosure and not manual_disclosure_df.empty:
+        disclosure_rows = manual_disclosure_df.to_dict("records")
+        disclosure_failed = manual_disclosure_failed
+        status["dataset_status"]["disclosure_status"] = STATUS_MANUAL_IMPORTED
+        disclosure_rows_from_manual = True
+    elif not disclosure_rows:
+        disclosure_failed = [
+            failed_row(
+                ticker,
+                "disclosure_status",
+                "DISCLOSURE_DATA_UNAVAILABLE",
+                "real source unavailable or budget exhausted; no disclosure is unknown, not clean; use data/templates/disclosure_status_template.csv or --input-disclosure",
+            )
+            for ticker in tickers
+        ]
+
+    if request_tracker.remaining is not None and request_tracker.remaining <= 0:
         status["warnings"].append(
             "REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED: remaining datasets are partial/unavailable to avoid rate limit"
         )
@@ -400,6 +534,8 @@ def fetch_real_vnstock_data(
     for dataset_name in DATASETS:
         if dataset_name == "universe":
             continue
+        if status["dataset_status"].get(dataset_name) == STATUS_MANUAL_IMPORTED:
+            continue
         row_count = int(len(raw_datasets[dataset_name]))
         failed_count = sum(1 for row in failed if row["dataset_name"] == dataset_name)
         if row_count > 0 and failed_count == 0:
@@ -417,10 +553,49 @@ def fetch_real_vnstock_data(
         if all(value == STATUS_REAL_INGESTED for value in status["dataset_status"].values())
         else STATUS_PARTIAL_REAL
     )
+    status["source_request_summary"] = request_tracker.to_frame()
+    status["source_adapter_status"] = build_source_adapter_status(
+        vnstock_available=True,
+        financial_real_rows=0 if financial_rows_from_manual else len(financial_rows),
+        disclosure_real_rows=0 if disclosure_rows_from_manual else len(disclosure_rows),
+    )
     return raw_datasets, status
 
 
-def normalize_listing_universe(df: pd.DataFrame, limit: int, fetch_time: str) -> pd.DataFrame:
+def select_listing_universe(
+    df: pd.DataFrame,
+    *,
+    limit: int,
+    fetch_time: str,
+    ticker_selection: str,
+    representative_config: str,
+    ticker_list: str | None,
+    input_tickers: str | None,
+) -> tuple[pd.DataFrame, list[str]]:
+    universe = normalize_listing_universe(df, None, fetch_time)
+    warnings: list[str] = []
+    if ticker_selection == "first_from_universe":
+        return universe.head(limit).copy(), warnings
+
+    if ticker_selection == "representative":
+        config = load_representative_ticker_config(representative_config)
+        desired_tickers = config["tickers"]
+        if "engineering" not in config.get("purpose", ""):
+            warnings.append("REPRESENTATIVE_CONFIG_PURPOSE_NOT_ENGINEERING_ONLY")
+    else:
+        desired_tickers = parse_manual_ticker_list(ticker_list, input_tickers)
+
+    selected = select_universe_rows_by_ticker(universe, desired_tickers, limit)
+    selected_tickers = set(selected["ticker"]) if "ticker" in selected.columns else set()
+    missing = [ticker for ticker in desired_tickers[:limit] if ticker not in selected_tickers]
+    if missing:
+        warnings.append(
+            "REQUESTED_TICKERS_NOT_IN_REAL_UNIVERSE:" + ",".join(missing)
+        )
+    return selected, warnings
+
+
+def normalize_listing_universe(df: pd.DataFrame, limit: int | None, fetch_time: str) -> pd.DataFrame:
     if not isinstance(df, pd.DataFrame) or df.empty:
         return pd.DataFrame(columns=RAW_COLUMNS["universe"])
     source = df.copy()
@@ -430,7 +605,9 @@ def normalize_listing_universe(df: pd.DataFrame, limit: int, fetch_time: str) ->
     if "type" in source.columns:
         source = source[source["type"].astype(str).str.lower() == "stock"]
     source = source[source["exchange"].isin(["HOSE", "HNX", "UPCOM"])]
-    source = source[source["symbol"].map(bool)].drop_duplicates("symbol").head(limit)
+    source = source[source["symbol"].map(bool)].drop_duplicates("symbol")
+    if limit is not None:
+        source = source.head(limit)
     rows = []
     for _, row in source.iterrows():
         rows.append(
@@ -451,13 +628,59 @@ def normalize_listing_universe(df: pd.DataFrame, limit: int, fetch_time: str) ->
     return pd.DataFrame(rows, columns=RAW_COLUMNS["universe"])
 
 
+def load_representative_ticker_config(path: str | Path) -> dict[str, Any]:
+    config_path = Path(path)
+    with config_path.open("r", encoding="utf-8") as config_file:
+        config = yaml.safe_load(config_file) or {}
+    tickers = [clean_ticker(ticker) for ticker in config.get("tickers", [])]
+    tickers = [ticker for ticker in tickers if ticker]
+    return {
+        "purpose": str(config.get("purpose", "")),
+        "notes": str(config.get("notes", "")),
+        "tickers": dedupe(tickers),
+    }
+
+
+def parse_manual_ticker_list(ticker_list: str | None, input_tickers: str | None) -> list[str]:
+    tickers: list[str] = []
+    if ticker_list:
+        tickers.extend(ticker_list.split(","))
+    if input_tickers:
+        path = Path(input_tickers)
+        if path.suffix.lower() == ".csv":
+            df = pd.read_csv(path)
+            column = "ticker" if "ticker" in df.columns else df.columns[0]
+            tickers.extend(df[column].tolist())
+        else:
+            tickers.extend(path.read_text(encoding="utf-8").replace("\n", ",").split(","))
+    return dedupe([clean_ticker(ticker) for ticker in tickers if clean_ticker(ticker)])
+
+
+def select_universe_rows_by_ticker(
+    universe: pd.DataFrame, desired_tickers: list[str], limit: int
+) -> pd.DataFrame:
+    if universe.empty or "ticker" not in universe.columns:
+        return pd.DataFrame(columns=RAW_COLUMNS["universe"])
+    by_ticker = {
+        clean_ticker(row["ticker"]): row
+        for _, row in universe.iterrows()
+        if clean_ticker(row.get("ticker"))
+    }
+    rows = [
+        by_ticker[ticker].to_dict()
+        for ticker in desired_tickers
+        if ticker in by_ticker
+    ][:limit]
+    return pd.DataFrame(rows, columns=RAW_COLUMNS["universe"])
+
+
 def fetch_company_profiles(
     *,
     Company: Any,
     universe_df: pd.DataFrame,
     started_at: str,
     request_pause_seconds: float,
-    request_budget: dict[str, int],
+    request_tracker: SourceRequestTracker,
 ) -> tuple[list[dict[str, Any]], list[dict[str, str]]]:
     rows: list[dict[str, Any]] = []
     failed: list[dict[str, str]] = []
@@ -465,41 +688,79 @@ def fetch_company_profiles(
         ticker = universe_row["ticker"]
         detail = {}
         notes = ["company profile initialized from real universe source"]
-        overview, overview_error = call_real_source(
-            lambda: Company(source="KBS", symbol=ticker).overview(),
-            request_pause_seconds,
-            request_budget,
+        overview, overview_error = request_tracker.request(
+            source_name="vnstock:kbs",
+            dataset_name="company_profile",
+            action=lambda ticker=ticker: Company(source="KBS", symbol=ticker).overview(),
+            pause_seconds=request_pause_seconds,
         )
         if isinstance(overview, pd.DataFrame) and not overview.empty:
             detail.update(overview.iloc[0].to_dict())
         elif overview_error:
             notes.append(f"KBS overview unavailable: {overview_error}")
 
-        overview_vci, overview_vci_error = call_real_source(
-            lambda: Company(source="VCI", symbol=ticker).overview(),
-            request_pause_seconds,
-            request_budget,
+        overview_vci, overview_vci_error = request_tracker.request(
+            source_name="vnstock:vci",
+            dataset_name="company_profile",
+            action=lambda ticker=ticker: Company(source="VCI", symbol=ticker).overview(),
+            pause_seconds=request_pause_seconds,
         )
         if isinstance(overview_vci, pd.DataFrame) and not overview_vci.empty:
             detail.update({f"vci_{k}": v for k, v in overview_vci.iloc[0].to_dict().items()})
         elif overview_vci_error:
             notes.append(f"VCI overview unavailable: {overview_vci_error}")
 
-        business_description = clean_text(detail.get("business_model"))
+        business_description = clean_text(
+            first_present_mapping(
+                detail,
+                [
+                    "business_model",
+                    "business_description",
+                    "company_profile",
+                    "company_description",
+                    "description",
+                    "summary",
+                    "vci_business_model",
+                    "vci_business_description",
+                    "vci_company_profile",
+                    "vci_company_description",
+                    "vci_description",
+                    "vci_summary",
+                ],
+            )
+        )
         industry_raw = clean_text(
-            detail.get("vci_industry_name")
-            or detail.get("vci_icb_name")
-            or detail.get("vci_sector")
-            or detail.get("vci_tag")
-            or detail.get("company_type")
+            first_present_mapping(
+                detail,
+                [
+                    "industry_raw",
+                    "industry",
+                    "industry_name",
+                    "icb_name",
+                    "sector",
+                    "tag",
+                    "company_type",
+                    "vci_industry_raw",
+                    "vci_industry",
+                    "vci_industry_name",
+                    "vci_icb_name",
+                    "vci_sector",
+                    "vci_tag",
+                ],
+            )
         )
         if not business_description or not industry_raw:
+            warning_flags = []
+            if not industry_raw:
+                warning_flags.append("MISSING_INDUSTRY_RAW")
+            if not business_description:
+                warning_flags.append("MISSING_BUSINESS_DESCRIPTION")
             failed.append(
                 failed_row(
                     ticker,
                     "company_profile",
                     "PARTIAL_PROFILE_DATA",
-                    "industry_raw or business_description unavailable from real source",
+                    "|".join(warning_flags) + ": source did not provide required profile fields",
                 )
             )
         rows.append(
@@ -514,7 +775,7 @@ def fetch_company_profiles(
                 "last_updated": clean_text(detail.get("as_of_date") or started_at[:10]),
                 "fetch_time": started_at,
                 "confidence_raw": "medium" if business_description and industry_raw else "low",
-                "notes": "; ".join(notes),
+                "notes": "; ".join(notes + (warning_flags if not business_description or not industry_raw else [])),
             }
         )
     return rows, failed
@@ -528,22 +789,40 @@ def fetch_market_prices(
     start_date: str | None,
     end_date: str | None,
     request_pause_seconds: float,
-    request_budget: dict[str, int],
+    request_tracker: SourceRequestTracker,
+    market_lookback_days: int,
+    market_max_retries: int,
 ) -> tuple[list[dict[str, Any]], list[dict[str, str]]]:
     rows: list[dict[str, Any]] = []
     failed: list[dict[str, str]] = []
     end = end_date or started_at[:10]
-    start = start_date or (pd.Timestamp(end) - pd.Timedelta(days=45)).strftime("%Y-%m-%d")
+    start = start_date or (pd.Timestamp(end) - pd.Timedelta(days=market_lookback_days)).strftime("%Y-%m-%d")
     for ticker in tickers:
-        history, history_error = call_real_source(
-            lambda ticker=ticker: Quote(source="VCI", symbol=ticker).history(
-                start=start, end=end, interval="1D"
-            ),
-            request_pause_seconds,
-            request_budget,
-        )
+        history = pd.DataFrame()
+        history_error = ""
+        for attempt in range(max(0, market_max_retries) + 1):
+            history, history_error = request_tracker.request(
+                source_name="vnstock:vci",
+                dataset_name="market_price",
+                action=lambda ticker=ticker: Quote(source="VCI", symbol=ticker).history(
+                    start=start, end=end, interval="1D"
+                ),
+                pause_seconds=request_pause_seconds,
+            )
+            if isinstance(history, pd.DataFrame) and not history.empty:
+                break
+            if history_error == "REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED":
+                break
+            history_error = history_error or "REAL_MARKET_PRICE_EMPTY"
         if history_error:
-            failed.append(failed_row(ticker, "market_price", "REAL_MARKET_PRICE_UNAVAILABLE", history_error))
+            failed.append(
+                failed_row(
+                    ticker,
+                    "market_price",
+                    "REAL_MARKET_PRICE_UNAVAILABLE",
+                    f"{history_error}; attempts={attempt + 1}",
+                )
+            )
             continue
         if not isinstance(history, pd.DataFrame) or history.empty:
             failed.append(failed_row(ticker, "market_price", "REAL_MARKET_PRICE_EMPTY", "no rows returned"))
@@ -575,7 +854,7 @@ def fetch_financial_summaries(
     tickers: list[str],
     started_at: str,
     request_pause_seconds: float,
-    request_budget: dict[str, int],
+    request_tracker: SourceRequestTracker,
 ) -> tuple[list[dict[str, Any]], list[dict[str, str]]]:
     rows: list[dict[str, Any]] = []
     failed: list[dict[str, str]] = []
@@ -587,13 +866,14 @@ def fetch_financial_summaries(
             ("balance", "balance_sheet"),
             ("cash", "cash_flow"),
         ]:
-            df, finance_error = call_real_source(
-                lambda ticker=ticker, method_name=method_name: getattr(
+            df, finance_error = request_tracker.request(
+                source_name="vnstock:vci",
+                dataset_name="financial_statement_summary",
+                action=lambda ticker=ticker, method_name=method_name: getattr(
                     Finance(source="VCI", symbol=ticker, period="quarter", get_all=False),
                     method_name,
                 )(),
-                request_pause_seconds,
-                request_budget,
+                pause_seconds=request_pause_seconds,
             )
             if finance_error:
                 statements[key] = pd.DataFrame()
@@ -606,7 +886,7 @@ def fetch_financial_summaries(
                 failed_row(
                     ticker,
                     "financial_statement_summary",
-                    "REAL_FINANCIAL_STATEMENT_UNAVAILABLE",
+                    "FINANCIAL_STATEMENT_DATA_UNAVAILABLE",
                     "; ".join(statement_errors) or "no financial statement rows returned",
                 )
             )
@@ -643,15 +923,16 @@ def fetch_disclosures(
     tickers: list[str],
     started_at: str,
     request_pause_seconds: float,
-    request_budget: dict[str, int],
+    request_tracker: SourceRequestTracker,
 ) -> tuple[list[dict[str, Any]], list[dict[str, str]]]:
     rows: list[dict[str, Any]] = []
     failed: list[dict[str, str]] = []
     for ticker in tickers:
-        events, events_error = call_real_source(
-            lambda ticker=ticker: Company(source="KBS", symbol=ticker).events(),
-            request_pause_seconds,
-            request_budget,
+        events, events_error = request_tracker.request(
+            source_name="vnstock:kbs",
+            dataset_name="disclosure_status",
+            action=lambda ticker=ticker: Company(source="KBS", symbol=ticker).events(),
+            pause_seconds=request_pause_seconds,
         )
         if events_error:
             events = pd.DataFrame()
@@ -763,6 +1044,36 @@ def load_manual_data(args: argparse.Namespace, started_at: str) -> tuple[dict[st
     return raw_datasets, status
 
 
+def load_real_mode_manual_fallback(
+    *,
+    path: str | None,
+    dataset_name: str,
+    tickers: list[str],
+    mode: str,
+) -> tuple[pd.DataFrame, list[dict[str, str]]]:
+    if not path:
+        return pd.DataFrame(columns=RAW_COLUMNS[dataset_name]), []
+    try:
+        contracts = load_ingestion_contracts()
+        loader = pd.read_excel if Path(path).suffix.lower() in {".xlsx", ".xls"} else pd.read_csv
+        df = loader(path)
+    except Exception as exc:  # noqa: BLE001
+        return pd.DataFrame(columns=RAW_COLUMNS[dataset_name]), [
+            failed_row(ticker, dataset_name, STATUS_FAILED, f"manual fallback read failed: {exc}")
+            for ticker in tickers
+        ]
+    validation = validate_dataset_columns(df, dataset_name, contracts)
+    if not validation["is_valid"]:
+        reason = f"manual fallback validation failed: {validation['missing_required_columns']}"
+        return pd.DataFrame(columns=RAW_COLUMNS[dataset_name]), [
+            failed_row(ticker, dataset_name, STATUS_FAILED, reason)
+            for ticker in tickers
+        ]
+    if "ticker" in df.columns:
+        df = df[df["ticker"].map(clean_ticker).isin(set(tickers))]
+    return ensure_columns(df.copy(), RAW_COLUMNS[dataset_name]), []
+
+
 def write_failure_reports(
     *,
     output_dir: Path,
@@ -774,6 +1085,9 @@ def write_failure_reports(
     reason: str,
     failed_rows: list[dict[str, str]] | None = None,
     requested_limit: int = 0,
+    template_paths: dict[str, str] | None = None,
+    source_request_summary: pd.DataFrame | None = None,
+    source_adapter_status: pd.DataFrame | None = None,
 ) -> dict[str, Any]:
     output_dir.mkdir(parents=True, exist_ok=True)
     failed_df = pd.DataFrame(failed_rows or [], columns=FAILED_TICKER_COLUMNS)
@@ -815,6 +1129,12 @@ def write_failure_reports(
     manual_df.to_csv(output_dir / "manual_review_queue.csv", index=False)
     failed_df.to_csv(output_dir / "failed_tickers.csv", index=False)
     errors_df.to_csv(output_dir / "pipeline_errors.csv", index=False)
+    (source_request_summary if isinstance(source_request_summary, pd.DataFrame) else empty_source_request_summary()).to_csv(
+        output_dir / "source_request_summary.csv", index=False
+    )
+    (source_adapter_status if isinstance(source_adapter_status, pd.DataFrame) else build_source_adapter_status()).to_csv(
+        output_dir / "source_adapter_status.csv", index=False
+    )
     run_summary = render_run_summary(
         run_id=run_id,
         started_at=started_at,
@@ -830,6 +1150,8 @@ def write_failure_reports(
         errors=[reason],
         step19_implemented=False,
         next_action="fix real/manual data source availability first",
+        ticker_selection="",
+        template_paths=template_paths or {},
     )
     (output_dir / "run_summary.md").write_text(run_summary, encoding="utf-8")
     return {
@@ -856,6 +1178,8 @@ def write_real_data_reports(
     started_at: str,
     mode: str,
     requested_limit: int,
+    ticker_selection: str,
+    template_paths: dict[str, str],
 ) -> dict[str, Any]:
     summary = dry_run["summary"]
     dry_status = (
@@ -877,6 +1201,19 @@ def write_real_data_reports(
 
     failed_df = pd.DataFrame(fetch_status["failed_tickers"], columns=FAILED_TICKER_COLUMNS)
     failed_df.to_csv(output_dir / "failed_tickers.csv", index=False)
+
+    source_request_df = fetch_status.get("source_request_summary", empty_source_request_summary())
+    if not isinstance(source_request_df, pd.DataFrame):
+        source_request_df = empty_source_request_summary()
+    source_request_df.to_csv(output_dir / "source_request_summary.csv", index=False)
+
+    source_adapter_df = fetch_status.get("source_adapter_status", empty_source_adapter_status())
+    if not isinstance(source_adapter_df, pd.DataFrame) or source_adapter_df.empty:
+        source_adapter_df = build_source_adapter_status(
+            financial_real_rows=len(raw_datasets.get("financial_statement_summary", pd.DataFrame())),
+            disclosure_real_rows=len(raw_datasets.get("disclosure_status", pd.DataFrame())),
+        )
+    source_adapter_df.to_csv(output_dir / "source_adapter_status.csv", index=False)
 
     ticker_df = build_ticker_level_status(
         tickers=fetch_status["tickers"],
@@ -936,6 +1273,8 @@ def write_real_data_reports(
             if run_status in {STATUS_REAL_INGESTED, STATUS_MANUAL_IMPORTED}
             else "fix real/manual data source availability first"
         ),
+        ticker_selection=ticker_selection,
+        template_paths=template_paths,
     )
     (output_dir / "run_summary.md").write_text(run_summary, encoding="utf-8")
     return {
@@ -1055,6 +1394,8 @@ def render_run_summary(
     errors: list[str],
     step19_implemented: bool,
     next_action: str,
+    ticker_selection: str,
+    template_paths: dict[str, str],
 ) -> str:
     row_counts = {dataset: int(len(df)) for dataset, df in raw_datasets.items()}
     succeeded = [dataset for dataset, status in dataset_status.items() if status in {STATUS_REAL_INGESTED, STATUS_MANUAL_IMPORTED}]
@@ -1065,6 +1406,7 @@ def render_run_summary(
         f"- run_id: {run_id}",
         f"- run_type: {RUN_TYPE}",
         f"- mode: {mode}",
+        f"- ticker_selection: {ticker_selection}",
         f"- data_type: {'real source data' if mode == 'real' else 'manual imported data'}",
         f"- run_status: {run_status}",
         f"- dry_run_status: {dry_run_status}",
@@ -1080,6 +1422,7 @@ def render_run_summary(
         f"- dataset_status: {json.dumps(dataset_status, ensure_ascii=False, sort_keys=True)}",
         f"- output_contains_mock_sample: False",
         f"- step19_implemented: {step19_implemented}",
+        f"- manual_template_paths: {json.dumps(template_paths, ensure_ascii=False, sort_keys=True)}",
         f"- next_recommended_action: {next_action}",
         "",
         "## Pipeline Stages Through Step 18",
@@ -1137,34 +1480,6 @@ def save_manifests(
         save_ingestion_manifest(record, output_dir=output_dir)
 
 
-def call_real_source(
-    action: Any,
-    pause_seconds: float,
-    request_budget: dict[str, int],
-) -> tuple[Any, str]:
-    if request_budget["remaining"] <= 0:
-        return None, "REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED"
-    request_budget["remaining"] -= 1
-    try:
-        return action(), ""
-    except BaseException as exc:  # noqa: BLE001 - third-party API may call sys.exit.
-        if isinstance(exc, KeyboardInterrupt):
-            raise
-        return None, external_error_text(exc)
-    finally:
-        pause_real_source(pause_seconds)
-
-
-def pause_real_source(seconds: float) -> None:
-    if seconds and seconds > 0:
-        time.sleep(float(seconds))
-
-
-def external_error_text(exc: BaseException) -> str:
-    message = str(exc).strip()
-    return f"{type(exc).__name__}: {message}" if message else type(exc).__name__
-
-
 def new_fetch_status(mode: str) -> dict[str, Any]:
     return {
         "mode": mode,
@@ -1174,6 +1489,8 @@ def new_fetch_status(mode: str) -> dict[str, Any]:
         "failed_tickers": [],
         "warnings": [],
         "errors": [],
+        "source_request_summary": empty_source_request_summary(),
+        "source_adapter_status": empty_source_adapter_status(),
     }
 
 
@@ -1293,6 +1610,13 @@ def first_present(row: pd.Series, columns: list[str]) -> Any:
     for column in columns:
         if column in row.index and not is_missing(row[column]):
             return row[column]
+    return ""
+
+
+def first_present_mapping(mapping: dict[str, Any], keys: list[str]) -> Any:
+    for key in keys:
+        if key in mapping and not is_missing(mapping[key]):
+            return mapping[key]
     return ""
 
 

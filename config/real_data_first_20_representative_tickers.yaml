@@ -1,0 +1,28 @@
+version: 1
+selection_mode: representative
+purpose: engineering_coverage_test_only_not_investment_advice
+notes: >
+  Representative tickers are used only to test source coverage across liquid
+  Vietnamese market segments. This file must not be interpreted as buy/sell
+  advice, a watchlist, or valuation output.
+tickers:
+  - VCB
+  - BID
+  - CTG
+  - MBB
+  - ACB
+  - HPG
+  - HSG
+  - VHM
+  - KDH
+  - NLG
+  - SSI
+  - VND
+  - GAS
+  - PVS
+  - FPT
+  - MWG
+  - VGC
+  - GMD
+  - VHC
+  - TCM
