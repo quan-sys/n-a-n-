@@ -1,0 +1,9 @@
+source_name,dataset_name,requests_attempted,requests_succeeded,requests_failed,requests_skipped_due_to_budget,rate_limit_errors,dependency_errors,notes
+vnstock:kbs,universe,1,1,0,0,0,0,
+vnstock:vci,market_price,21,20,1,0,0,1,"ImportError: No charting library available. Please install one of:
+1. vnstock_chart (recommended): pip install --extra-index-url https://vnstocks.com/api/simple vnstock_chart
+2. vnstock_ezchart (fallback): pip install vnstock_ezchart"
+vnstock:kbs,company_profile,20,20,0,0,0,0,
+vnstock:vci,company_profile,20,20,0,0,0,0,
+vnstock:vci,financial_statement_summary,18,18,0,42,0,0,REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED
+vnstock:kbs,disclosure_status,0,0,0,20,0,0,REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED

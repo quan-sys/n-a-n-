@@ -1,0 +1,18 @@
+{
+  "data_quality_status": "REAL_DATA_INGESTED",
+  "dataset_name": "universe",
+  "errors": [],
+  "failed_count": 0,
+  "finished_at": "2026-06-04T03:31:47+00:00",
+  "input_path": "",
+  "missing_required_columns": [],
+  "mode": "real",
+  "notes": "REAL-DATA-01 ingestion manifest",
+  "output_path": "data\\raw\\universe_raw.csv",
+  "row_count": 20,
+  "run_id": "real_data_first_20_2026_06_04T03_25_28_00_00",
+  "started_at": "2026-06-04T03:25:28+00:00",
+  "success_count": 20,
+  "ticker_count": 20,
+  "warnings": []
+}
