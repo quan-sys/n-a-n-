@@ -1,0 +1,67 @@
+ticker,dataset_name,status,reason,notes
+DPP,company_profile,PARTIAL_PROFILE_DATA,industry_raw or business_description unavailable from real source,recorded by REAL-DATA-01; no fabricated data
+SDA,company_profile,PARTIAL_PROFILE_DATA,industry_raw or business_description unavailable from real source,recorded by REAL-DATA-01; no fabricated data
+CLH,company_profile,PARTIAL_PROFILE_DATA,industry_raw or business_description unavailable from real source,recorded by REAL-DATA-01; no fabricated data
+DND,company_profile,PARTIAL_PROFILE_DATA,industry_raw or business_description unavailable from real source,recorded by REAL-DATA-01; no fabricated data
+DBT,company_profile,PARTIAL_PROFILE_DATA,industry_raw or business_description unavailable from real source,recorded by REAL-DATA-01; no fabricated data
+CCR,company_profile,PARTIAL_PROFILE_DATA,industry_raw or business_description unavailable from real source,recorded by REAL-DATA-01; no fabricated data
+NOS,company_profile,PARTIAL_PROFILE_DATA,industry_raw or business_description unavailable from real source,recorded by REAL-DATA-01; no fabricated data
+DPH,company_profile,PARTIAL_PROFILE_DATA,industry_raw or business_description unavailable from real source,recorded by REAL-DATA-01; no fabricated data
+DSN,company_profile,PARTIAL_PROFILE_DATA,industry_raw or business_description unavailable from real source,recorded by REAL-DATA-01; no fabricated data
+WSS,company_profile,PARTIAL_PROFILE_DATA,industry_raw or business_description unavailable from real source,recorded by REAL-DATA-01; no fabricated data
+STC,company_profile,PARTIAL_PROFILE_DATA,industry_raw or business_description unavailable from real source,recorded by REAL-DATA-01; no fabricated data
+CFM,company_profile,PARTIAL_PROFILE_DATA,industry_raw or business_description unavailable from real source,recorded by REAL-DATA-01; no fabricated data
+VPG,company_profile,PARTIAL_PROFILE_DATA,industry_raw or business_description unavailable from real source,recorded by REAL-DATA-01; no fabricated data
+DST,company_profile,PARTIAL_PROFILE_DATA,industry_raw or business_description unavailable from real source,recorded by REAL-DATA-01; no fabricated data
+DCV,company_profile,PARTIAL_PROFILE_DATA,industry_raw or business_description unavailable from real source,recorded by REAL-DATA-01; no fabricated data
+MBN,company_profile,PARTIAL_PROFILE_DATA,industry_raw or business_description unavailable from real source,recorded by REAL-DATA-01; no fabricated data
+HPG,company_profile,PARTIAL_PROFILE_DATA,industry_raw or business_description unavailable from real source,recorded by REAL-DATA-01; no fabricated data
+VGC,company_profile,PARTIAL_PROFILE_DATA,industry_raw or business_description unavailable from real source,recorded by REAL-DATA-01; no fabricated data
+VCS,company_profile,PARTIAL_PROFILE_DATA,industry_raw or business_description unavailable from real source,recorded by REAL-DATA-01; no fabricated data
+HT1,company_profile,PARTIAL_PROFILE_DATA,industry_raw or business_description unavailable from real source,recorded by REAL-DATA-01; no fabricated data
+DPP,market_price,REAL_MARKET_PRICE_UNAVAILABLE,"ImportError: No charting library available. Please install one of:
+1. vnstock_chart (recommended): pip install --extra-index-url https://vnstocks.com/api/simple vnstock_chart
+2. vnstock_ezchart (fallback): pip install vnstock_ezchart",recorded by REAL-DATA-01; no fabricated data
+VGC,market_price,REAL_MARKET_PRICE_UNAVAILABLE,REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+VCS,market_price,REAL_MARKET_PRICE_UNAVAILABLE,REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+HT1,market_price,REAL_MARKET_PRICE_UNAVAILABLE,REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+DPP,financial_statement_summary,REAL_FINANCIAL_STATEMENT_UNAVAILABLE,income_statement:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; balance_sheet:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; cash_flow:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+SDA,financial_statement_summary,REAL_FINANCIAL_STATEMENT_UNAVAILABLE,income_statement:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; balance_sheet:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; cash_flow:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+CLH,financial_statement_summary,REAL_FINANCIAL_STATEMENT_UNAVAILABLE,income_statement:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; balance_sheet:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; cash_flow:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+DND,financial_statement_summary,REAL_FINANCIAL_STATEMENT_UNAVAILABLE,income_statement:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; balance_sheet:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; cash_flow:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+DBT,financial_statement_summary,REAL_FINANCIAL_STATEMENT_UNAVAILABLE,income_statement:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; balance_sheet:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; cash_flow:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+CCR,financial_statement_summary,REAL_FINANCIAL_STATEMENT_UNAVAILABLE,income_statement:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; balance_sheet:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; cash_flow:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+NOS,financial_statement_summary,REAL_FINANCIAL_STATEMENT_UNAVAILABLE,income_statement:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; balance_sheet:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; cash_flow:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+DPH,financial_statement_summary,REAL_FINANCIAL_STATEMENT_UNAVAILABLE,income_statement:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; balance_sheet:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; cash_flow:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+DSN,financial_statement_summary,REAL_FINANCIAL_STATEMENT_UNAVAILABLE,income_statement:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; balance_sheet:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; cash_flow:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+WSS,financial_statement_summary,REAL_FINANCIAL_STATEMENT_UNAVAILABLE,income_statement:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; balance_sheet:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; cash_flow:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+STC,financial_statement_summary,REAL_FINANCIAL_STATEMENT_UNAVAILABLE,income_statement:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; balance_sheet:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; cash_flow:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+CFM,financial_statement_summary,REAL_FINANCIAL_STATEMENT_UNAVAILABLE,income_statement:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; balance_sheet:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; cash_flow:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+VPG,financial_statement_summary,REAL_FINANCIAL_STATEMENT_UNAVAILABLE,income_statement:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; balance_sheet:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; cash_flow:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+DST,financial_statement_summary,REAL_FINANCIAL_STATEMENT_UNAVAILABLE,income_statement:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; balance_sheet:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; cash_flow:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+DCV,financial_statement_summary,REAL_FINANCIAL_STATEMENT_UNAVAILABLE,income_statement:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; balance_sheet:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; cash_flow:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+MBN,financial_statement_summary,REAL_FINANCIAL_STATEMENT_UNAVAILABLE,income_statement:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; balance_sheet:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; cash_flow:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+HPG,financial_statement_summary,REAL_FINANCIAL_STATEMENT_UNAVAILABLE,income_statement:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; balance_sheet:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; cash_flow:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+VGC,financial_statement_summary,REAL_FINANCIAL_STATEMENT_UNAVAILABLE,income_statement:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; balance_sheet:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; cash_flow:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+VCS,financial_statement_summary,REAL_FINANCIAL_STATEMENT_UNAVAILABLE,income_statement:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; balance_sheet:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; cash_flow:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+HT1,financial_statement_summary,REAL_FINANCIAL_STATEMENT_UNAVAILABLE,income_statement:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; balance_sheet:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; cash_flow:REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED,recorded by REAL-DATA-01; no fabricated data
+DPP,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,"REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; absence is unknown, not clean",recorded by REAL-DATA-01; no fabricated data
+SDA,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,"REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; absence is unknown, not clean",recorded by REAL-DATA-01; no fabricated data
+CLH,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,"REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; absence is unknown, not clean",recorded by REAL-DATA-01; no fabricated data
+DND,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,"REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; absence is unknown, not clean",recorded by REAL-DATA-01; no fabricated data
+DBT,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,"REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; absence is unknown, not clean",recorded by REAL-DATA-01; no fabricated data
+CCR,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,"REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; absence is unknown, not clean",recorded by REAL-DATA-01; no fabricated data
+NOS,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,"REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; absence is unknown, not clean",recorded by REAL-DATA-01; no fabricated data
+DPH,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,"REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; absence is unknown, not clean",recorded by REAL-DATA-01; no fabricated data
+DSN,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,"REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; absence is unknown, not clean",recorded by REAL-DATA-01; no fabricated data
+WSS,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,"REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; absence is unknown, not clean",recorded by REAL-DATA-01; no fabricated data
+STC,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,"REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; absence is unknown, not clean",recorded by REAL-DATA-01; no fabricated data
+CFM,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,"REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; absence is unknown, not clean",recorded by REAL-DATA-01; no fabricated data
+VPG,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,"REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; absence is unknown, not clean",recorded by REAL-DATA-01; no fabricated data
+DST,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,"REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; absence is unknown, not clean",recorded by REAL-DATA-01; no fabricated data
+DCV,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,"REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; absence is unknown, not clean",recorded by REAL-DATA-01; no fabricated data
+MBN,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,"REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; absence is unknown, not clean",recorded by REAL-DATA-01; no fabricated data
+HPG,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,"REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; absence is unknown, not clean",recorded by REAL-DATA-01; no fabricated data
+VGC,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,"REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; absence is unknown, not clean",recorded by REAL-DATA-01; no fabricated data
+VCS,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,"REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; absence is unknown, not clean",recorded by REAL-DATA-01; no fabricated data
+HT1,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,"REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED; absence is unknown, not clean",recorded by REAL-DATA-01; no fabricated data

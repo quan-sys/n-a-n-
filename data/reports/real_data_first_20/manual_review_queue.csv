@@ -1,0 +1,288 @@
+ticker,module,issue,severity,status,evidence,confidence,notes
+,coverage_report,MISSING_DATA,MEDIUM,MANUAL_REVIEW_REQUIRED,company_profile,low,"required_fields=ticker,company_name,exchange,industry_raw,business_description; missing required values present; low confidence rows present; manual review rows present"
+,coverage_report,MANUAL_REVIEW,MEDIUM,MANUAL_REVIEW_REQUIRED,market_price,low,"required_fields=ticker,date,close,volume,trading_value; stale data present; low confidence rows present; manual review rows present"
+,coverage_report,EMPTY_DATASET,MEDIUM,MANUAL_REVIEW_REQUIRED,financial_statement_summary,low,"required_fields=ticker,period,revenue,net_profit,equity,total_assets,total_liabilities"
+DPP,production_universe_builder,MISSING_MARKET_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+DPP,production_universe_builder,MISSING_FINANCIAL_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+DPP,production_universe_builder,PROFILE_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+SDA,production_universe_builder,MISSING_FINANCIAL_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+SDA,production_universe_builder,PROFILE_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+SDA,production_universe_builder,MARKET_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+CLH,production_universe_builder,MISSING_FINANCIAL_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+CLH,production_universe_builder,PROFILE_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+CLH,production_universe_builder,MARKET_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+DND,production_universe_builder,MISSING_FINANCIAL_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+DND,production_universe_builder,PROFILE_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+DND,production_universe_builder,MARKET_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+DBT,production_universe_builder,MISSING_FINANCIAL_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+DBT,production_universe_builder,PROFILE_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+DBT,production_universe_builder,MARKET_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+CCR,production_universe_builder,MISSING_FINANCIAL_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+CCR,production_universe_builder,PROFILE_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+CCR,production_universe_builder,MARKET_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+NOS,production_universe_builder,MISSING_FINANCIAL_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+NOS,production_universe_builder,PROFILE_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+NOS,production_universe_builder,MARKET_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+DPH,production_universe_builder,MISSING_FINANCIAL_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+DPH,production_universe_builder,PROFILE_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+DPH,production_universe_builder,MARKET_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+DSN,production_universe_builder,MISSING_FINANCIAL_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+DSN,production_universe_builder,PROFILE_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+DSN,production_universe_builder,MARKET_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+WSS,production_universe_builder,MISSING_FINANCIAL_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+WSS,production_universe_builder,PROFILE_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+WSS,production_universe_builder,MARKET_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+STC,production_universe_builder,MISSING_FINANCIAL_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+STC,production_universe_builder,PROFILE_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+STC,production_universe_builder,MARKET_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+CFM,production_universe_builder,MISSING_FINANCIAL_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+CFM,production_universe_builder,PROFILE_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+CFM,production_universe_builder,MARKET_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+VPG,production_universe_builder,MISSING_FINANCIAL_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+VPG,production_universe_builder,PROFILE_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+VPG,production_universe_builder,MARKET_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+DST,production_universe_builder,MISSING_FINANCIAL_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+DST,production_universe_builder,PROFILE_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+DST,production_universe_builder,MARKET_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+DCV,production_universe_builder,MISSING_FINANCIAL_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+DCV,production_universe_builder,PROFILE_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+DCV,production_universe_builder,MARKET_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+MBN,production_universe_builder,MISSING_FINANCIAL_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+MBN,production_universe_builder,PROFILE_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+MBN,production_universe_builder,MARKET_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+HPG,production_universe_builder,MISSING_FINANCIAL_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+HPG,production_universe_builder,PROFILE_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+HPG,production_universe_builder,MARKET_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+VGC,production_universe_builder,MISSING_MARKET_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+VGC,production_universe_builder,MISSING_FINANCIAL_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+VGC,production_universe_builder,PROFILE_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+VCS,production_universe_builder,MISSING_MARKET_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+VCS,production_universe_builder,MISSING_FINANCIAL_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+VCS,production_universe_builder,PROFILE_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+HT1,production_universe_builder,MISSING_MARKET_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+HT1,production_universe_builder,MISSING_FINANCIAL_DATA,MEDIUM,MANUAL_REVIEW,,MISSING_DATA,
+HT1,production_universe_builder,PROFILE_DATA_QUALITY_REVIEW,LOW,MANUAL_REVIEW,,MISSING_DATA,
+DPP,l0_trash_filter,MISSING_MARKET_DATA,MEDIUM,INSUFFICIENT_DATA_FOR_L0,"['has_market_data', 'has_financial_data', 'market_price', 'financial_statement_summary']",low,
+DPP,l0_trash_filter,MISSING_FINANCIAL_DATA,MEDIUM,INSUFFICIENT_DATA_FOR_L0,"['has_market_data', 'has_financial_data', 'market_price', 'financial_statement_summary']",low,
+SDA,l0_trash_filter,MISSING_FINANCIAL_DATA,MEDIUM,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=386026', 'avg_volume=174472', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+SDA,l0_trash_filter,VERY_LOW_LIQUIDITY,LOW,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=386026', 'avg_volume=174472', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+CLH,l0_trash_filter,MISSING_FINANCIAL_DATA,MEDIUM,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=92899.6', 'avg_volume=4580.19', 'zero_volume_day_ratio=0.0555556', 'market_price:volume,trading_value']",low,
+CLH,l0_trash_filter,VERY_LOW_LIQUIDITY,LOW,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=92899.6', 'avg_volume=4580.19', 'zero_volume_day_ratio=0.0555556', 'market_price:volume,trading_value']",low,
+DND,l0_trash_filter,MISSING_FINANCIAL_DATA,MEDIUM,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=14418.6', 'avg_volume=1777.78', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+DND,l0_trash_filter,VERY_LOW_LIQUIDITY,LOW,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=14418.6', 'avg_volume=1777.78', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+DBT,l0_trash_filter,MISSING_FINANCIAL_DATA,MEDIUM,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=331934', 'avg_volume=27638.9', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+DBT,l0_trash_filter,VERY_LOW_LIQUIDITY,LOW,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=331934', 'avg_volume=27638.9', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+CCR,l0_trash_filter,MISSING_FINANCIAL_DATA,MEDIUM,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=21176.4', 'avg_volume=1519.44', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+CCR,l0_trash_filter,VERY_LOW_LIQUIDITY,LOW,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=21176.4', 'avg_volume=1519.44', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+NOS,l0_trash_filter,MISSING_FINANCIAL_DATA,MEDIUM,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=7310.28', 'avg_volume=8244.44', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+NOS,l0_trash_filter,VERY_LOW_LIQUIDITY,LOW,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=7310.28', 'avg_volume=8244.44', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+DPH,l0_trash_filter,MISSING_FINANCIAL_DATA,MEDIUM,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=16224.5', 'avg_volume=283.25', 'zero_volume_day_ratio=0.416667', 'market_price:volume,trading_value']",low,
+DPH,l0_trash_filter,VERY_LOW_LIQUIDITY,LOW,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=16224.5', 'avg_volume=283.25', 'zero_volume_day_ratio=0.416667', 'market_price:volume,trading_value']",low,
+DSN,l0_trash_filter,MISSING_FINANCIAL_DATA,MEDIUM,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=163034', 'avg_volume=4400.22', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+DSN,l0_trash_filter,VERY_LOW_LIQUIDITY,LOW,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=163034', 'avg_volume=4400.22', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+WSS,l0_trash_filter,MISSING_FINANCIAL_DATA,MEDIUM,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=90978.1', 'avg_volume=14219.4', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+WSS,l0_trash_filter,VERY_LOW_LIQUIDITY,LOW,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=90978.1', 'avg_volume=14219.4', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+STC,l0_trash_filter,MISSING_FINANCIAL_DATA,MEDIUM,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=10424.7', 'avg_volume=750', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+STC,l0_trash_filter,VERY_LOW_LIQUIDITY,LOW,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=10424.7', 'avg_volume=750', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+CFM,l0_trash_filter,MISSING_FINANCIAL_DATA,MEDIUM,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=4356.94', 'avg_volume=497.222', 'zero_volume_day_ratio=0.0833333', 'market_price:volume,trading_value']",low,
+CFM,l0_trash_filter,VERY_LOW_LIQUIDITY,LOW,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=4356.94', 'avg_volume=497.222', 'zero_volume_day_ratio=0.0833333', 'market_price:volume,trading_value']",low,
+VPG,l0_trash_filter,MISSING_FINANCIAL_DATA,MEDIUM,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=1.01779e+06', 'avg_volume=284658', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+VPG,l0_trash_filter,VERY_LOW_LIQUIDITY,LOW,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=1.01779e+06', 'avg_volume=284658', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+DST,l0_trash_filter,MISSING_FINANCIAL_DATA,MEDIUM,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=1.20923e+06', 'avg_volume=221456', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+DST,l0_trash_filter,VERY_LOW_LIQUIDITY,LOW,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=1.20923e+06', 'avg_volume=221456', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+DCV,l0_trash_filter,MISSING_FINANCIAL_DATA,MEDIUM,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=93199.2', 'avg_volume=619.444', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+DCV,l0_trash_filter,VERY_LOW_LIQUIDITY,LOW,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=93199.2', 'avg_volume=619.444', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+MBN,l0_trash_filter,MISSING_FINANCIAL_DATA,MEDIUM,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=0', 'avg_volume=0', 'zero_volume_day_ratio=1', 'market_price:volume,trading_value']",low,
+MBN,l0_trash_filter,VERY_LOW_LIQUIDITY,LOW,L0_REJECT,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=0', 'avg_volume=0', 'zero_volume_day_ratio=1', 'market_price:volume,trading_value']",low,
+HPG,l0_trash_filter,MISSING_FINANCIAL_DATA,MEDIUM,INSUFFICIENT_DATA_FOR_L0,"['has_financial_data', 'financial_statement_summary', 'market:quality_status', 'market:final_confidence', 'avg_trading_value=6.91172e+08', 'avg_volume=2.80737e+07', 'zero_volume_day_ratio=0', 'market_price:volume,trading_value']",low,
+VGC,l0_trash_filter,MISSING_MARKET_DATA,MEDIUM,INSUFFICIENT_DATA_FOR_L0,"['has_market_data', 'has_financial_data', 'market_price', 'financial_statement_summary']",low,
+VGC,l0_trash_filter,MISSING_FINANCIAL_DATA,MEDIUM,INSUFFICIENT_DATA_FOR_L0,"['has_market_data', 'has_financial_data', 'market_price', 'financial_statement_summary']",low,
+VCS,l0_trash_filter,MISSING_MARKET_DATA,MEDIUM,INSUFFICIENT_DATA_FOR_L0,"['has_market_data', 'has_financial_data', 'market_price', 'financial_statement_summary']",low,
+VCS,l0_trash_filter,MISSING_FINANCIAL_DATA,MEDIUM,INSUFFICIENT_DATA_FOR_L0,"['has_market_data', 'has_financial_data', 'market_price', 'financial_statement_summary']",low,
+HT1,l0_trash_filter,MISSING_MARKET_DATA,MEDIUM,INSUFFICIENT_DATA_FOR_L0,"['has_market_data', 'has_financial_data', 'market_price', 'financial_statement_summary']",low,
+HT1,l0_trash_filter,MISSING_FINANCIAL_DATA,MEDIUM,INSUFFICIENT_DATA_FOR_L0,"['has_market_data', 'has_financial_data', 'market_price', 'financial_statement_summary']",low,
+DPP,l0_basic_investability_filter,UPSTREAM_L0_CAUTION,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'market_price=missing', 'market_cap=missing']",low,
+DPP,l0_basic_investability_filter,LOW_DATA_CONFIDENCE,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'market_price=missing', 'market_cap=missing']",low,
+DPP,l0_basic_investability_filter,MARKET_CAP_MISSING,MEDIUM,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'market_price=missing', 'market_cap=missing']",low,
+DPP,l0_basic_investability_filter,UNKNOWN_DISCLOSURE_STATUS,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'market_price=missing', 'market_cap=missing']",low,
+DPP,l0_basic_investability_filter,LOW_DATA_COVERAGE,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'market_price=missing', 'market_cap=missing']",low,
+SDA,l0_basic_investability_filter,L0_REJECT,HIGH,L0_REJECT,['l0_status=L0_REJECT'],low,
+CLH,l0_basic_investability_filter,L0_REJECT,HIGH,L0_REJECT,['l0_status=L0_REJECT'],low,
+DND,l0_basic_investability_filter,L0_REJECT,HIGH,L0_REJECT,['l0_status=L0_REJECT'],low,
+DBT,l0_basic_investability_filter,L0_REJECT,HIGH,L0_REJECT,['l0_status=L0_REJECT'],low,
+CCR,l0_basic_investability_filter,L0_REJECT,HIGH,L0_REJECT,['l0_status=L0_REJECT'],low,
+NOS,l0_basic_investability_filter,L0_REJECT,HIGH,L0_REJECT,['l0_status=L0_REJECT'],low,
+DPH,l0_basic_investability_filter,L0_REJECT,HIGH,L0_REJECT,['l0_status=L0_REJECT'],low,
+DSN,l0_basic_investability_filter,L0_REJECT,HIGH,L0_REJECT,['l0_status=L0_REJECT'],low,
+WSS,l0_basic_investability_filter,L0_REJECT,HIGH,L0_REJECT,['l0_status=L0_REJECT'],low,
+STC,l0_basic_investability_filter,L0_REJECT,HIGH,L0_REJECT,['l0_status=L0_REJECT'],low,
+CFM,l0_basic_investability_filter,L0_REJECT,HIGH,L0_REJECT,['l0_status=L0_REJECT'],low,
+VPG,l0_basic_investability_filter,L0_REJECT,HIGH,L0_REJECT,['l0_status=L0_REJECT'],low,
+DST,l0_basic_investability_filter,L0_REJECT,HIGH,L0_REJECT,['l0_status=L0_REJECT'],low,
+DCV,l0_basic_investability_filter,L0_REJECT,HIGH,L0_REJECT,['l0_status=L0_REJECT'],low,
+MBN,l0_basic_investability_filter,L0_REJECT,HIGH,L0_REJECT,['l0_status=L0_REJECT'],low,
+HPG,l0_basic_investability_filter,UPSTREAM_L0_CAUTION,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'valid_trading_days=36', 'avg_trading_value=6.91172e+08', 'avg_volume=2.80737e+07', 'market_cap=missing']",low,
+HPG,l0_basic_investability_filter,SUSPICIOUS_OUTLIER,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'valid_trading_days=36', 'avg_trading_value=6.91172e+08', 'avg_volume=2.80737e+07', 'market_cap=missing']",low,
+HPG,l0_basic_investability_filter,LOW_DATA_CONFIDENCE,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'valid_trading_days=36', 'avg_trading_value=6.91172e+08', 'avg_volume=2.80737e+07', 'market_cap=missing']",low,
+HPG,l0_basic_investability_filter,STALE_DATA,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'valid_trading_days=36', 'avg_trading_value=6.91172e+08', 'avg_volume=2.80737e+07', 'market_cap=missing']",low,
+HPG,l0_basic_investability_filter,LOW_LIQUIDITY,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'valid_trading_days=36', 'avg_trading_value=6.91172e+08', 'avg_volume=2.80737e+07', 'market_cap=missing']",low,
+HPG,l0_basic_investability_filter,MARKET_DATA_QUALITY_REVIEW,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'valid_trading_days=36', 'avg_trading_value=6.91172e+08', 'avg_volume=2.80737e+07', 'market_cap=missing']",low,
+HPG,l0_basic_investability_filter,MARKET_CAP_MISSING,MEDIUM,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'valid_trading_days=36', 'avg_trading_value=6.91172e+08', 'avg_volume=2.80737e+07', 'market_cap=missing']",low,
+HPG,l0_basic_investability_filter,UNKNOWN_DISCLOSURE_STATUS,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'valid_trading_days=36', 'avg_trading_value=6.91172e+08', 'avg_volume=2.80737e+07', 'market_cap=missing']",low,
+HPG,l0_basic_investability_filter,LOW_DATA_COVERAGE,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'valid_trading_days=36', 'avg_trading_value=6.91172e+08', 'avg_volume=2.80737e+07', 'market_cap=missing']",low,
+VGC,l0_basic_investability_filter,UPSTREAM_L0_CAUTION,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'market_price=missing', 'market_cap=missing']",low,
+VGC,l0_basic_investability_filter,LOW_DATA_CONFIDENCE,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'market_price=missing', 'market_cap=missing']",low,
+VGC,l0_basic_investability_filter,MARKET_CAP_MISSING,MEDIUM,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'market_price=missing', 'market_cap=missing']",low,
+VGC,l0_basic_investability_filter,UNKNOWN_DISCLOSURE_STATUS,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'market_price=missing', 'market_cap=missing']",low,
+VGC,l0_basic_investability_filter,LOW_DATA_COVERAGE,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'market_price=missing', 'market_cap=missing']",low,
+VCS,l0_basic_investability_filter,UPSTREAM_L0_CAUTION,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'market_price=missing', 'market_cap=missing']",low,
+VCS,l0_basic_investability_filter,LOW_DATA_CONFIDENCE,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'market_price=missing', 'market_cap=missing']",low,
+VCS,l0_basic_investability_filter,MARKET_CAP_MISSING,MEDIUM,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'market_price=missing', 'market_cap=missing']",low,
+VCS,l0_basic_investability_filter,UNKNOWN_DISCLOSURE_STATUS,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'market_price=missing', 'market_cap=missing']",low,
+VCS,l0_basic_investability_filter,LOW_DATA_COVERAGE,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'market_price=missing', 'market_cap=missing']",low,
+HT1,l0_basic_investability_filter,UPSTREAM_L0_CAUTION,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'market_price=missing', 'market_cap=missing']",low,
+HT1,l0_basic_investability_filter,LOW_DATA_CONFIDENCE,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'market_price=missing', 'market_cap=missing']",low,
+HT1,l0_basic_investability_filter,MARKET_CAP_MISSING,MEDIUM,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'market_price=missing', 'market_cap=missing']",low,
+HT1,l0_basic_investability_filter,UNKNOWN_DISCLOSURE_STATUS,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'market_price=missing', 'market_cap=missing']",low,
+HT1,l0_basic_investability_filter,LOW_DATA_COVERAGE,LOW,INSUFFICIENT_DATA_FOR_BASIC_INVESTABILITY,"['l0_status=INSUFFICIENT_DATA_FOR_L0', 'market_price=missing', 'market_cap=missing']",low,
+DPP,l1_business_classification,INSUFFICIENT_DATA_FOR_CLASSIFICATION,MEDIUM,NOT_CLASSIFIED,,low,INSUFFICIENT_DATA_FOR_CLASSIFICATION
+SDA,l1_business_classification,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_CLASSIFIED,,low,FAILED_L0_BASIC_INVESTABILITY
+CLH,l1_business_classification,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_CLASSIFIED,,low,FAILED_L0_BASIC_INVESTABILITY
+DND,l1_business_classification,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_CLASSIFIED,,low,FAILED_L0_BASIC_INVESTABILITY
+DBT,l1_business_classification,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_CLASSIFIED,,low,FAILED_L0_BASIC_INVESTABILITY
+CCR,l1_business_classification,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_CLASSIFIED,,low,FAILED_L0_BASIC_INVESTABILITY
+NOS,l1_business_classification,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_CLASSIFIED,,low,FAILED_L0_BASIC_INVESTABILITY
+DPH,l1_business_classification,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_CLASSIFIED,,low,FAILED_L0_BASIC_INVESTABILITY
+DSN,l1_business_classification,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_CLASSIFIED,,low,FAILED_L0_BASIC_INVESTABILITY
+WSS,l1_business_classification,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_CLASSIFIED,,low,FAILED_L0_BASIC_INVESTABILITY
+STC,l1_business_classification,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_CLASSIFIED,,low,FAILED_L0_BASIC_INVESTABILITY
+CFM,l1_business_classification,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_CLASSIFIED,,low,FAILED_L0_BASIC_INVESTABILITY
+VPG,l1_business_classification,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_CLASSIFIED,,low,FAILED_L0_BASIC_INVESTABILITY
+DST,l1_business_classification,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_CLASSIFIED,,low,FAILED_L0_BASIC_INVESTABILITY
+DCV,l1_business_classification,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_CLASSIFIED,,low,FAILED_L0_BASIC_INVESTABILITY
+MBN,l1_business_classification,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_CLASSIFIED,,low,FAILED_L0_BASIC_INVESTABILITY
+HPG,l1_business_classification,INSUFFICIENT_DATA_FOR_CLASSIFICATION,MEDIUM,NOT_CLASSIFIED,,low,INSUFFICIENT_DATA_FOR_CLASSIFICATION
+VGC,l1_business_classification,INSUFFICIENT_DATA_FOR_CLASSIFICATION,MEDIUM,NOT_CLASSIFIED,,low,INSUFFICIENT_DATA_FOR_CLASSIFICATION
+VCS,l1_business_classification,INSUFFICIENT_DATA_FOR_CLASSIFICATION,MEDIUM,NOT_CLASSIFIED,,low,INSUFFICIENT_DATA_FOR_CLASSIFICATION
+HT1,l1_business_classification,INSUFFICIENT_DATA_FOR_CLASSIFICATION,MEDIUM,NOT_CLASSIFIED,,low,INSUFFICIENT_DATA_FOR_CLASSIFICATION
+DPP,archetype_templates,UNKNOWN_ARCHETYPE_TEMPLATE,LOW,UNKNOWN_ARCHETYPE_TEMPLATE,,low,INSUFFICIENT_DATA_FOR_CLASSIFICATION
+SDA,archetype_templates,UNKNOWN_ARCHETYPE_TEMPLATE,LOW,UNKNOWN_ARCHETYPE_TEMPLATE,,low,FAILED_L0_BASIC_INVESTABILITY
+CLH,archetype_templates,UNKNOWN_ARCHETYPE_TEMPLATE,LOW,UNKNOWN_ARCHETYPE_TEMPLATE,,low,FAILED_L0_BASIC_INVESTABILITY
+DND,archetype_templates,UNKNOWN_ARCHETYPE_TEMPLATE,LOW,UNKNOWN_ARCHETYPE_TEMPLATE,,low,FAILED_L0_BASIC_INVESTABILITY
+DBT,archetype_templates,UNKNOWN_ARCHETYPE_TEMPLATE,LOW,UNKNOWN_ARCHETYPE_TEMPLATE,,low,FAILED_L0_BASIC_INVESTABILITY
+CCR,archetype_templates,UNKNOWN_ARCHETYPE_TEMPLATE,LOW,UNKNOWN_ARCHETYPE_TEMPLATE,,low,FAILED_L0_BASIC_INVESTABILITY
+NOS,archetype_templates,UNKNOWN_ARCHETYPE_TEMPLATE,LOW,UNKNOWN_ARCHETYPE_TEMPLATE,,low,FAILED_L0_BASIC_INVESTABILITY
+DPH,archetype_templates,UNKNOWN_ARCHETYPE_TEMPLATE,LOW,UNKNOWN_ARCHETYPE_TEMPLATE,,low,FAILED_L0_BASIC_INVESTABILITY
+DSN,archetype_templates,UNKNOWN_ARCHETYPE_TEMPLATE,LOW,UNKNOWN_ARCHETYPE_TEMPLATE,,low,FAILED_L0_BASIC_INVESTABILITY
+WSS,archetype_templates,UNKNOWN_ARCHETYPE_TEMPLATE,LOW,UNKNOWN_ARCHETYPE_TEMPLATE,,low,FAILED_L0_BASIC_INVESTABILITY
+STC,archetype_templates,UNKNOWN_ARCHETYPE_TEMPLATE,LOW,UNKNOWN_ARCHETYPE_TEMPLATE,,low,FAILED_L0_BASIC_INVESTABILITY
+CFM,archetype_templates,UNKNOWN_ARCHETYPE_TEMPLATE,LOW,UNKNOWN_ARCHETYPE_TEMPLATE,,low,FAILED_L0_BASIC_INVESTABILITY
+VPG,archetype_templates,UNKNOWN_ARCHETYPE_TEMPLATE,LOW,UNKNOWN_ARCHETYPE_TEMPLATE,,low,FAILED_L0_BASIC_INVESTABILITY
+DST,archetype_templates,UNKNOWN_ARCHETYPE_TEMPLATE,LOW,UNKNOWN_ARCHETYPE_TEMPLATE,,low,FAILED_L0_BASIC_INVESTABILITY
+DCV,archetype_templates,UNKNOWN_ARCHETYPE_TEMPLATE,LOW,UNKNOWN_ARCHETYPE_TEMPLATE,,low,FAILED_L0_BASIC_INVESTABILITY
+MBN,archetype_templates,UNKNOWN_ARCHETYPE_TEMPLATE,LOW,UNKNOWN_ARCHETYPE_TEMPLATE,,low,FAILED_L0_BASIC_INVESTABILITY
+HPG,archetype_templates,UNKNOWN_ARCHETYPE_TEMPLATE,LOW,UNKNOWN_ARCHETYPE_TEMPLATE,,low,INSUFFICIENT_DATA_FOR_CLASSIFICATION
+VGC,archetype_templates,UNKNOWN_ARCHETYPE_TEMPLATE,LOW,UNKNOWN_ARCHETYPE_TEMPLATE,,low,INSUFFICIENT_DATA_FOR_CLASSIFICATION
+VCS,archetype_templates,UNKNOWN_ARCHETYPE_TEMPLATE,LOW,UNKNOWN_ARCHETYPE_TEMPLATE,,low,INSUFFICIENT_DATA_FOR_CLASSIFICATION
+HT1,archetype_templates,UNKNOWN_ARCHETYPE_TEMPLATE,LOW,UNKNOWN_ARCHETYPE_TEMPLATE,,low,INSUFFICIENT_DATA_FOR_CLASSIFICATION
+DPP,driver_registry,INSUFFICIENT_DATA_FOR_CLASSIFICATION,MEDIUM,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+DPP,driver_registry,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+SDA,driver_registry,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+SDA,driver_registry,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+CLH,driver_registry,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+CLH,driver_registry,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+DND,driver_registry,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+DND,driver_registry,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+DBT,driver_registry,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+DBT,driver_registry,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+CCR,driver_registry,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+CCR,driver_registry,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+NOS,driver_registry,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+NOS,driver_registry,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+DPH,driver_registry,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+DPH,driver_registry,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+DSN,driver_registry,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+DSN,driver_registry,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+WSS,driver_registry,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+WSS,driver_registry,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+STC,driver_registry,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+STC,driver_registry,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+CFM,driver_registry,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+CFM,driver_registry,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+VPG,driver_registry,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+VPG,driver_registry,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+DST,driver_registry,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+DST,driver_registry,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+DCV,driver_registry,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+DCV,driver_registry,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+MBN,driver_registry,FAILED_L0_BASIC_INVESTABILITY,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+MBN,driver_registry,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+HPG,driver_registry,INSUFFICIENT_DATA_FOR_CLASSIFICATION,MEDIUM,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+HPG,driver_registry,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+VGC,driver_registry,INSUFFICIENT_DATA_FOR_CLASSIFICATION,MEDIUM,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+VGC,driver_registry,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+VCS,driver_registry,INSUFFICIENT_DATA_FOR_CLASSIFICATION,MEDIUM,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+VCS,driver_registry,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+HT1,driver_registry,INSUFFICIENT_DATA_FOR_CLASSIFICATION,MEDIUM,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+HT1,driver_registry,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,LOW,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,,NOT_ELIGIBLE_FOR_DRIVER_RESOLUTION,
+DPP,indicator_registry,UNKNOWN_ARCHETYPE_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+DPP,indicator_registry,UNKNOWN_MICRO_SECTOR_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+SDA,indicator_registry,UNKNOWN_ARCHETYPE_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+SDA,indicator_registry,UNKNOWN_MICRO_SECTOR_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+CLH,indicator_registry,UNKNOWN_ARCHETYPE_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+CLH,indicator_registry,UNKNOWN_MICRO_SECTOR_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+DND,indicator_registry,UNKNOWN_ARCHETYPE_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+DND,indicator_registry,UNKNOWN_MICRO_SECTOR_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+DBT,indicator_registry,UNKNOWN_ARCHETYPE_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+DBT,indicator_registry,UNKNOWN_MICRO_SECTOR_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+CCR,indicator_registry,UNKNOWN_ARCHETYPE_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+CCR,indicator_registry,UNKNOWN_MICRO_SECTOR_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+NOS,indicator_registry,UNKNOWN_ARCHETYPE_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+NOS,indicator_registry,UNKNOWN_MICRO_SECTOR_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+DPH,indicator_registry,UNKNOWN_ARCHETYPE_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+DPH,indicator_registry,UNKNOWN_MICRO_SECTOR_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+DSN,indicator_registry,UNKNOWN_ARCHETYPE_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+DSN,indicator_registry,UNKNOWN_MICRO_SECTOR_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+WSS,indicator_registry,UNKNOWN_ARCHETYPE_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+WSS,indicator_registry,UNKNOWN_MICRO_SECTOR_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+STC,indicator_registry,UNKNOWN_ARCHETYPE_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+STC,indicator_registry,UNKNOWN_MICRO_SECTOR_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+CFM,indicator_registry,UNKNOWN_ARCHETYPE_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+CFM,indicator_registry,UNKNOWN_MICRO_SECTOR_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+VPG,indicator_registry,UNKNOWN_ARCHETYPE_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+VPG,indicator_registry,UNKNOWN_MICRO_SECTOR_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+DST,indicator_registry,UNKNOWN_ARCHETYPE_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+DST,indicator_registry,UNKNOWN_MICRO_SECTOR_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+DCV,indicator_registry,UNKNOWN_ARCHETYPE_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+DCV,indicator_registry,UNKNOWN_MICRO_SECTOR_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+MBN,indicator_registry,UNKNOWN_ARCHETYPE_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+MBN,indicator_registry,UNKNOWN_MICRO_SECTOR_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+HPG,indicator_registry,UNKNOWN_ARCHETYPE_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+HPG,indicator_registry,UNKNOWN_MICRO_SECTOR_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+VGC,indicator_registry,UNKNOWN_ARCHETYPE_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+VGC,indicator_registry,UNKNOWN_MICRO_SECTOR_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+VCS,indicator_registry,UNKNOWN_ARCHETYPE_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+VCS,indicator_registry,UNKNOWN_MICRO_SECTOR_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+HT1,indicator_registry,UNKNOWN_ARCHETYPE_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+HT1,indicator_registry,UNKNOWN_MICRO_SECTOR_FOR_INDICATOR_MAPPING,LOW,PARTIAL_INDICATORS_RESOLVED,,low,
+,sector_cycle_engine,UNKNOWN_MICRO_SECTOR_FOR_SECTOR_CYCLE,MEDIUM,INSUFFICIENT_DATA_FOR_SECTOR_CYCLE,unknown,low,Unknown micro-sector; sector-cycle scoring requires manual review.
+DPP,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,MEDIUM,MANUAL_REVIEW_REQUIRED,disclosure_status=missing,low,"absence of disclosure rows is unknown/unavailable, not clean"
+SDA,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,MEDIUM,MANUAL_REVIEW_REQUIRED,disclosure_status=missing,low,"absence of disclosure rows is unknown/unavailable, not clean"
+CLH,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,MEDIUM,MANUAL_REVIEW_REQUIRED,disclosure_status=missing,low,"absence of disclosure rows is unknown/unavailable, not clean"
+DND,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,MEDIUM,MANUAL_REVIEW_REQUIRED,disclosure_status=missing,low,"absence of disclosure rows is unknown/unavailable, not clean"
+DBT,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,MEDIUM,MANUAL_REVIEW_REQUIRED,disclosure_status=missing,low,"absence of disclosure rows is unknown/unavailable, not clean"
+CCR,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,MEDIUM,MANUAL_REVIEW_REQUIRED,disclosure_status=missing,low,"absence of disclosure rows is unknown/unavailable, not clean"
+NOS,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,MEDIUM,MANUAL_REVIEW_REQUIRED,disclosure_status=missing,low,"absence of disclosure rows is unknown/unavailable, not clean"
+DPH,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,MEDIUM,MANUAL_REVIEW_REQUIRED,disclosure_status=missing,low,"absence of disclosure rows is unknown/unavailable, not clean"
+DSN,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,MEDIUM,MANUAL_REVIEW_REQUIRED,disclosure_status=missing,low,"absence of disclosure rows is unknown/unavailable, not clean"
+WSS,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,MEDIUM,MANUAL_REVIEW_REQUIRED,disclosure_status=missing,low,"absence of disclosure rows is unknown/unavailable, not clean"
+STC,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,MEDIUM,MANUAL_REVIEW_REQUIRED,disclosure_status=missing,low,"absence of disclosure rows is unknown/unavailable, not clean"
+CFM,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,MEDIUM,MANUAL_REVIEW_REQUIRED,disclosure_status=missing,low,"absence of disclosure rows is unknown/unavailable, not clean"
+VPG,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,MEDIUM,MANUAL_REVIEW_REQUIRED,disclosure_status=missing,low,"absence of disclosure rows is unknown/unavailable, not clean"
+DST,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,MEDIUM,MANUAL_REVIEW_REQUIRED,disclosure_status=missing,low,"absence of disclosure rows is unknown/unavailable, not clean"
+DCV,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,MEDIUM,MANUAL_REVIEW_REQUIRED,disclosure_status=missing,low,"absence of disclosure rows is unknown/unavailable, not clean"
+MBN,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,MEDIUM,MANUAL_REVIEW_REQUIRED,disclosure_status=missing,low,"absence of disclosure rows is unknown/unavailable, not clean"
+HPG,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,MEDIUM,MANUAL_REVIEW_REQUIRED,disclosure_status=missing,low,"absence of disclosure rows is unknown/unavailable, not clean"
+VGC,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,MEDIUM,MANUAL_REVIEW_REQUIRED,disclosure_status=missing,low,"absence of disclosure rows is unknown/unavailable, not clean"
+VCS,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,MEDIUM,MANUAL_REVIEW_REQUIRED,disclosure_status=missing,low,"absence of disclosure rows is unknown/unavailable, not clean"
+HT1,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,MEDIUM,MANUAL_REVIEW_REQUIRED,disclosure_status=missing,low,"absence of disclosure rows is unknown/unavailable, not clean"

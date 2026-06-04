@@ -1052,13 +1052,16 @@ def _load_raw_inputs(
     raw_datasets: dict[str, pd.DataFrame | None] | None,
     raw_data_dir: str | Path,
 ) -> dict[str, pd.DataFrame | None]:
-    provided = dict(raw_datasets or {})
+    if raw_datasets is not None:
+        provided = dict(raw_datasets)
+        return {
+            dataset_name: provided.get(dataset_name)
+            for dataset_name in PIPELINE_DATASETS
+        }
+
     output: dict[str, pd.DataFrame | None] = {}
     raw_dir = Path(raw_data_dir)
     for dataset_name in PIPELINE_DATASETS:
-        if dataset_name in provided:
-            output[dataset_name] = provided[dataset_name]
-            continue
         raw_path = raw_dir / RAW_FILENAMES[dataset_name]
         output[dataset_name] = pd.read_csv(raw_path) if raw_path.exists() else None
     return output

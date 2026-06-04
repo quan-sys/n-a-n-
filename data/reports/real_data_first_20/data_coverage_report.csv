@@ -1,0 +1,6 @@
+dataset_name,row_count,ticker_count,min_date,max_date,missing_required_field_count,stale_data_count,data_conflict_count,low_confidence_count,failed_ticker_count,coverage_status,notes
+universe,20,20,2026-06-04,2026-06-04,0,0,0,0,0,VALID_DATA,"required_fields=ticker,exchange,company_name,listing_status"
+company_profile,20,20,2026-06-04,2026-06-04,40,0,0,20,20,MISSING_DATA,"required_fields=ticker,company_name,exchange,industry_raw,business_description; missing required values present; low confidence rows present; manual review rows present"
+market_price,576,16,2024-06-06,2026-06-04,0,487,0,522,4,MANUAL_REVIEW,"required_fields=ticker,date,close,volume,trading_value; stale data present; low confidence rows present; manual review rows present"
+financial_statement_summary,0,0,,,0,0,0,0,20,EMPTY_DATASET,"required_fields=ticker,period,revenue,net_profit,equity,total_assets,total_liabilities"
+disclosure_status,0,0,,,0,0,0,0,20,EMPTY_DATASET,"required_fields=ticker,date,event_type,severity"

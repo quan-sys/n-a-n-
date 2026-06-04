@@ -1,0 +1,23 @@
+{
+  "data_quality_status": "PARTIAL_REAL_DATA_INGESTED",
+  "dataset_name": "market_price",
+  "errors": [],
+  "failed_count": 4,
+  "finished_at": "2026-06-04T02:28:28+00:00",
+  "input_path": "",
+  "missing_required_columns": [],
+  "mode": "real",
+  "notes": "REAL-DATA-01 ingestion manifest",
+  "output_path": "data\\raw\\market_price_raw.csv",
+  "row_count": 576,
+  "run_id": "real_data_first_20_2026_06_04T02_26_27_00_00",
+  "started_at": "2026-06-04T02:26:27+00:00",
+  "success_count": 576,
+  "ticker_count": 16,
+  "warnings": [
+    "ImportError: No charting library available. Please install one of:\n1. vnstock_chart (recommended): pip install --extra-index-url https://vnstocks.com/api/simple vnstock_chart\n2. vnstock_ezchart (fallback): pip install vnstock_ezchart",
+    "REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED",
+    "REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED",
+    "REAL_SOURCE_REQUEST_BUDGET_EXHAUSTED"
+  ]
+}
