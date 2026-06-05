@@ -1,0 +1,291 @@
+version: 1
+description: Deterministic source priority and required-field rules for multi-source evidence reconciliation.
+default_numeric_tolerance_pct: 0.01
+default_source_priority:
+  - hose
+  - hnx
+  - ssc
+  - annual_report_pdf_manual
+  - manual_xlsx
+  - manual_csv
+  - cafef
+  - vietstock
+  - vnstock
+required_readiness:
+  l0:
+    datasets:
+      - universe
+      - company_profile
+      - market_price
+      - financial_statement_summary
+      - disclosure_status
+  step18:
+    datasets:
+      - universe
+      - company_profile
+      - market_price
+      - financial_statement_summary
+      - disclosure_status
+  future_step19:
+    datasets:
+      - universe
+      - company_profile
+      - market_price
+      - financial_statement_summary
+      - disclosure_status
+datasets:
+  universe:
+    key_columns:
+      - ticker
+    source_priority:
+      - hose
+      - hnx
+      - manual_xlsx
+      - manual_csv
+      - vnstock
+    evidence_fields:
+      - ticker
+      - exchange
+      - company_name
+      - listing_status
+      - source
+      - source_url
+      - fetch_time
+      - confidence_raw
+    required_fields:
+      l0:
+        - ticker
+        - exchange
+        - company_name
+        - listing_status
+      step18:
+        - ticker
+        - exchange
+        - company_name
+        - listing_status
+      future_step19:
+        - ticker
+        - exchange
+        - company_name
+        - listing_status
+
+  company_profile:
+    key_columns:
+      - ticker
+    source_priority:
+      - hose
+      - hnx
+      - annual_report_pdf_manual
+      - manual_xlsx
+      - manual_csv
+      - cafef
+      - vietstock
+      - vnstock
+    evidence_fields:
+      - ticker
+      - company_name
+      - exchange
+      - industry_raw
+      - business_description
+      - source
+      - source_url
+      - fetch_time
+      - confidence_raw
+    required_fields:
+      l0:
+        - ticker
+        - company_name
+        - exchange
+      step18:
+        - ticker
+        - company_name
+        - exchange
+        - industry_raw
+        - business_description
+      future_step19:
+        - ticker
+        - company_name
+        - exchange
+        - industry_raw
+        - business_description
+
+  market_price:
+    key_columns:
+      - ticker
+      - date
+    source_priority:
+      - hose
+      - hnx
+      - manual_xlsx
+      - manual_csv
+      - cafef
+      - vietstock
+      - vnstock
+    numeric_tolerance_pct: 0.005
+    evidence_fields:
+      - ticker
+      - date
+      - close
+      - volume
+      - trading_value
+      - market_cap
+      - source
+      - source_url
+      - fetch_time
+      - confidence_raw
+    required_fields:
+      l0:
+        - ticker
+        - date
+        - close
+        - volume
+        - trading_value
+      step18:
+        - ticker
+        - date
+        - close
+        - volume
+        - trading_value
+      future_step19:
+        - ticker
+        - date
+        - close
+        - volume
+        - trading_value
+
+  financial_statement_summary:
+    key_columns:
+      - ticker
+      - period
+    source_priority:
+      - annual_report_pdf_manual
+      - manual_xlsx
+      - manual_csv
+      - cafef
+      - vietstock
+      - vnstock
+    numeric_tolerance_pct: 0.01
+    evidence_fields:
+      - ticker
+      - period
+      - period_type
+      - revenue
+      - gross_profit
+      - operating_profit
+      - net_profit
+      - total_assets
+      - total_liabilities
+      - equity
+      - cash
+      - short_term_debt
+      - long_term_debt
+      - operating_cash_flow
+      - inventory
+      - source
+      - source_url
+      - fetch_time
+      - confidence_raw
+    required_fields:
+      l0:
+        - ticker
+        - period
+        - revenue
+        - net_profit
+        - total_assets
+        - total_liabilities
+        - equity
+      step18:
+        - ticker
+        - period
+        - revenue
+        - net_profit
+        - total_assets
+        - total_liabilities
+        - equity
+      future_step19:
+        - ticker
+        - period
+        - revenue
+        - net_profit
+        - total_assets
+        - total_liabilities
+        - equity
+        - operating_cash_flow
+        - cash
+        - short_term_debt
+        - long_term_debt
+    field_priority_overrides:
+      total_assets:
+        - annual_report_pdf_manual
+        - manual_xlsx
+        - manual_csv
+        - cafef
+        - vietstock
+        - vnstock
+      total_liabilities:
+        - annual_report_pdf_manual
+        - manual_xlsx
+        - manual_csv
+        - cafef
+        - vietstock
+        - vnstock
+      equity:
+        - annual_report_pdf_manual
+        - manual_xlsx
+        - manual_csv
+        - cafef
+        - vietstock
+        - vnstock
+
+  disclosure_status:
+    key_columns:
+      - ticker
+      - event_date
+      - event_type
+    source_priority:
+      - hose
+      - hnx
+      - ssc
+      - annual_report_pdf_manual
+      - manual_xlsx
+      - manual_csv
+      - vietstock
+      - cafef
+      - vnstock
+    requires_evidence_row_per_ticker: true
+    no_row_status: DISCLOSURE_DATA_UNAVAILABLE
+    evidence_fields:
+      - ticker
+      - event_date
+      - event_type
+      - severity
+      - title
+      - description
+      - source
+      - source_url
+      - fetch_time
+      - confidence_raw
+    required_fields:
+      l0:
+        - ticker
+        - event_date
+        - event_type
+        - severity
+        - source
+        - source_url
+      step18:
+        - ticker
+        - event_date
+        - event_type
+        - severity
+        - source
+        - source_url
+      future_step19:
+        - ticker
+        - event_date
+        - event_type
+        - severity
+        - title
+        - description
+        - source
+        - source_url

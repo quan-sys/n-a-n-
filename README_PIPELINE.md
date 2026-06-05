@@ -205,3 +205,36 @@ Manual rows must preserve `source`, `source_url`, `fetch_time`, and confidence.
 If manual and real rows conflict, the pipeline logs
 `DATA_CONFLICT_MANUAL_VS_REAL` and keeps the record in manual review instead of
 silently overwriting source-provided values.
+
+## REAL-DATA-01F Multi-source Evidence
+
+`scripts/run_multi_source_evidence.py` builds a field-level evidence and
+cross-check layer from already-ingested local files. It does not fetch live data
+and does not implement Step 19.
+
+```powershell
+python scripts\run_multi_source_evidence.py `
+  --raw-dir data\raw `
+  --output-dir data\reports\multi_source_evidence_01f `
+  --ticker-list VCB,BID,CTG,MBB,ACB,HPG,HSG,VHM,KDH,NLG,SSI,VND,GAS,PVS,FPT,MWG,VGC,GMD,VHC,TCM `
+  --allow-partial
+```
+
+The source categories and priority rules are defined in:
+
+- `config/multi_source_registry.yaml`
+- `config/source_priority.yaml`
+
+The run writes:
+
+- `source_availability_matrix.csv`
+- `field_level_evidence.csv`
+- `source_conflict_report.csv`
+- `unresolved_required_fields.csv`
+- `multi_source_run_summary.md`
+- `datasource_decision_report.md`
+
+If finance/disclosure evidence is not ready, use source-backed manual CSV/XLSX
+files for the representative 20 tickers. Missing finance values remain missing,
+conflicting values go to manual review, and missing disclosure rows remain
+unknown/unavailable rather than clean.

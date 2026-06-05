@@ -1,0 +1,193 @@
+version: 1
+description: Multi-source evidence registry for field-level reconciliation.
+hard_rules:
+  - do_not_fetch_live_data_from_this_layer
+  - do_not_fabricate_missing_financial_values
+  - do_not_treat_missing_disclosure_as_clean
+  - send_conflicting_values_to_manual_review
+supported_source_categories:
+  - vnstock
+  - cafef
+  - vietstock
+  - hose
+  - hnx
+  - ssc
+  - manual_csv
+  - manual_xlsx
+  - annual_report_pdf_manual
+sources:
+  - source_category: vnstock
+    display_name: Vnstock
+    source_type: python_package
+    reliability_level: medium
+    priority_tier: secondary
+    live_fetch_allowed_by_default: false
+    source_url_required: true
+    aliases:
+      - vnstock
+      - vnstock:vci
+      - vnstock:kbs
+      - vnstock:kbs/vci
+    supported_datasets:
+      - universe
+      - company_profile
+      - market_price
+      - financial_statement_summary
+      - disclosure_status
+    notes: Existing package-backed adapter evidence. This registry does not fetch data.
+
+  - source_category: cafef
+    display_name: CafeF
+    source_type: news_site
+    reliability_level: medium
+    priority_tier: secondary
+    live_fetch_allowed_by_default: false
+    source_url_required: true
+    aliases:
+      - cafef
+      - cafe f
+      - cafe-f
+    supported_datasets:
+      - company_profile
+      - financial_statement_summary
+      - disclosure_status
+      - company_events
+      - sector_news
+    notes: Secondary web-table/news evidence only after legal and technical access is confirmed.
+
+  - source_category: vietstock
+    display_name: Vietstock
+    source_type: news_site
+    reliability_level: medium
+    priority_tier: secondary
+    live_fetch_allowed_by_default: false
+    source_url_required: true
+    aliases:
+      - vietstock
+      - viet stock
+    supported_datasets:
+      - company_profile
+      - financial_statement_summary
+      - disclosure_status
+      - company_events
+      - sector_news
+    notes: Secondary web-table/news evidence only after legal and technical access is confirmed.
+
+  - source_category: hose
+    display_name: HOSE
+    source_type: official_exchange
+    reliability_level: high
+    priority_tier: official
+    live_fetch_allowed_by_default: false
+    source_url_required: true
+    aliases:
+      - hose
+      - hsx
+      - ho chi minh stock exchange
+    supported_datasets:
+      - universe
+      - company_profile
+      - market_price
+      - disclosure_status
+      - company_events
+    notes: Official exchange evidence. Automated access must be implemented separately.
+
+  - source_category: hnx
+    display_name: HNX
+    source_type: official_exchange
+    reliability_level: high
+    priority_tier: official
+    live_fetch_allowed_by_default: false
+    source_url_required: true
+    aliases:
+      - hnx
+      - upcom
+      - hanoi stock exchange
+    supported_datasets:
+      - universe
+      - company_profile
+      - market_price
+      - disclosure_status
+      - company_events
+    notes: Official HNX and UPCoM evidence. Automated access must be implemented separately.
+
+  - source_category: ssc
+    display_name: SSC
+    source_type: official_regulator
+    reliability_level: high
+    priority_tier: official
+    live_fetch_allowed_by_default: false
+    source_url_required: true
+    aliases:
+      - ssc
+      - state securities commission
+      - ubcknn
+    supported_datasets:
+      - disclosure_status
+      - company_events
+    notes: Official regulator evidence for disclosure and enforcement events.
+
+  - source_category: manual_csv
+    display_name: Manual CSV
+    source_type: manual_file
+    reliability_level: medium
+    priority_tier: manual
+    live_fetch_allowed_by_default: false
+    source_url_required: true
+    aliases:
+      - manual_csv
+      - manual csv
+      - user_csv
+    supported_datasets:
+      - universe
+      - company_profile
+      - market_price
+      - financial_statement_summary
+      - disclosure_status
+      - macro_vietnam
+      - commodity_global
+      - sector_news
+      - company_events
+    notes: User-provided source-backed CSV evidence. Source URL or collection note is required.
+
+  - source_category: manual_xlsx
+    display_name: Manual XLSX
+    source_type: manual_file
+    reliability_level: medium
+    priority_tier: manual
+    live_fetch_allowed_by_default: false
+    source_url_required: true
+    aliases:
+      - manual_xlsx
+      - manual excel
+      - manual spreadsheet
+      - user_xlsx
+    supported_datasets:
+      - universe
+      - company_profile
+      - market_price
+      - financial_statement_summary
+      - disclosure_status
+      - macro_vietnam
+      - commodity_global
+      - sector_news
+      - company_events
+    notes: User-provided source-backed spreadsheet evidence. Source URL or collection note is required.
+
+  - source_category: annual_report_pdf_manual
+    display_name: Annual Report PDF Manual Extraction
+    source_type: manual_document
+    reliability_level: high
+    priority_tier: manual_official
+    live_fetch_allowed_by_default: false
+    source_url_required: true
+    aliases:
+      - annual_report_pdf_manual
+      - annual report pdf
+      - audited report pdf
+      - bctc pdf manual
+    supported_datasets:
+      - financial_statement_summary
+      - disclosure_status
+      - company_events
+    notes: Manually extracted values from source-backed annual or audited reports. Missing values remain missing.

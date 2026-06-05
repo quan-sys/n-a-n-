@@ -1,0 +1,46 @@
+dataset_name,source_category,source_names,configured,source_priority_rank,row_count,ticker_count,latest_fetch_time,has_source_url,availability_status,notes
+universe,vnstock,vnstock:kbs,True,5,20,20,2026-06-04T03:25:28+00:00,True,AVAILABLE,source rows present
+universe,cafef,,False,999,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+universe,vietstock,,False,999,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+universe,hose,,True,1,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+universe,hnx,,True,2,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+universe,ssc,,False,999,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+universe,manual_csv,,True,4,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+universe,manual_xlsx,,True,3,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+universe,annual_report_pdf_manual,,False,999,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+company_profile,vnstock,vnstock:kbs/vci,True,8,20,20,2026-06-04T03:25:28+00:00,True,AVAILABLE,source rows present
+company_profile,cafef,,True,6,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+company_profile,vietstock,,True,7,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+company_profile,hose,,True,1,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+company_profile,hnx,,True,2,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+company_profile,ssc,,False,999,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+company_profile,manual_csv,,True,5,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+company_profile,manual_xlsx,,True,4,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+company_profile,annual_report_pdf_manual,,True,3,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+market_price,vnstock,vnstock:vci:quote_history,True,7,1340,20,2026-06-04T03:25:28+00:00,True,AVAILABLE,source rows present
+market_price,cafef,,True,5,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+market_price,vietstock,,True,6,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+market_price,hose,,True,1,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+market_price,hnx,,True,2,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+market_price,ssc,,False,999,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+market_price,manual_csv,,True,4,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+market_price,manual_xlsx,,True,3,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+market_price,annual_report_pdf_manual,,False,999,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+financial_statement_summary,vnstock,vnstock:vci:finance,True,6,20,20,2026-06-04T04:17:02+00:00,True,AVAILABLE,source rows present
+financial_statement_summary,cafef,,True,4,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+financial_statement_summary,vietstock,,True,5,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+financial_statement_summary,hose,,False,999,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+financial_statement_summary,hnx,,False,999,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+financial_statement_summary,ssc,,False,999,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+financial_statement_summary,manual_csv,,True,3,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+financial_statement_summary,manual_xlsx,,True,2,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+financial_statement_summary,annual_report_pdf_manual,,True,1,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+disclosure_status,vnstock,,True,9,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+disclosure_status,cafef,,True,8,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+disclosure_status,vietstock,,True,7,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+disclosure_status,hose,,True,1,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+disclosure_status,hnx,,True,2,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+disclosure_status,ssc,,True,3,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+disclosure_status,manual_csv,,True,6,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+disclosure_status,manual_xlsx,,True,5,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean
+disclosure_status,annual_report_pdf_manual,,True,4,0,0,,False,NO_ROWS,no rows from this source; missing data is not clean

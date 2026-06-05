@@ -1,0 +1,66 @@
+dataset_name,record_key,ticker,field_name,issue,blocked_readiness,manual_review_required,evidence_status,notes
+financial_statement_summary,ticker=VCB|period=2026-Q1,VCB,revenue,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=VCB|period=2026-Q1,VCB,net_profit,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=VCB|period=2026-Q1,VCB,operating_cash_flow,MISSING_REQUIRED_FIELD,future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=VCB|period=2026-Q1,VCB,cash,MISSING_REQUIRED_FIELD,future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=VCB|period=2026-Q1,VCB,short_term_debt,MISSING_REQUIRED_FIELD,future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=VCB|period=2026-Q1,VCB,long_term_debt,MISSING_REQUIRED_FIELD,future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=BID|period=2026-Q1,BID,revenue,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=BID|period=2026-Q1,BID,net_profit,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=BID|period=2026-Q1,BID,operating_cash_flow,MISSING_REQUIRED_FIELD,future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=BID|period=2026-Q1,BID,cash,MISSING_REQUIRED_FIELD,future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=BID|period=2026-Q1,BID,short_term_debt,MISSING_REQUIRED_FIELD,future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=BID|period=2026-Q1,BID,long_term_debt,MISSING_REQUIRED_FIELD,future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=CTG|period=2026-Q1,CTG,revenue,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=CTG|period=2026-Q1,CTG,net_profit,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=CTG|period=2026-Q1,CTG,operating_cash_flow,MISSING_REQUIRED_FIELD,future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=CTG|period=2026-Q1,CTG,cash,MISSING_REQUIRED_FIELD,future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=CTG|period=2026-Q1,CTG,short_term_debt,MISSING_REQUIRED_FIELD,future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=CTG|period=2026-Q1,CTG,long_term_debt,MISSING_REQUIRED_FIELD,future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=MBB|period=2026-Q1,MBB,revenue,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=MBB|period=2026-Q1,MBB,net_profit,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=MBB|period=2026-Q1,MBB,operating_cash_flow,MISSING_REQUIRED_FIELD,future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=MBB|period=2026-Q1,MBB,cash,MISSING_REQUIRED_FIELD,future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=MBB|period=2026-Q1,MBB,short_term_debt,MISSING_REQUIRED_FIELD,future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=MBB|period=2026-Q1,MBB,long_term_debt,MISSING_REQUIRED_FIELD,future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=ACB|period=2026-Q1,ACB,revenue,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=ACB|period=2026-Q1,ACB,net_profit,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=ACB|period=2026-Q1,ACB,operating_cash_flow,MISSING_REQUIRED_FIELD,future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=ACB|period=2026-Q1,ACB,cash,MISSING_REQUIRED_FIELD,future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=ACB|period=2026-Q1,ACB,short_term_debt,MISSING_REQUIRED_FIELD,future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=ACB|period=2026-Q1,ACB,long_term_debt,MISSING_REQUIRED_FIELD,future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=HPG|period=2026-Q1,HPG,net_profit,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=HSG|period=2026-Q1,HSG,net_profit,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=VHM|period=2026-Q1,VHM,net_profit,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=KDH|period=2026-Q1,KDH,net_profit,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=NLG|period=2026-Q1,NLG,net_profit,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=SSI|period=2026-Q1,SSI,net_profit,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=VND|period=2026-Q1,VND,net_profit,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=GAS|period=2026-Q1,GAS,net_profit,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=PVS|period=2026-Q1,PVS,net_profit,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=FPT|period=2026-Q1,FPT,net_profit,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=MWG|period=2026-Q1,MWG,net_profit,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=VGC|period=2026-Q1,VGC,net_profit,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=GMD|period=2026-Q1,GMD,net_profit,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=VHC|period=2026-Q1,VHC,net_profit,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+financial_statement_summary,ticker=TCM|period=2026-Q1,TCM,net_profit,MISSING_REQUIRED_FIELD,l0|step18|future_step19,True,UNRESOLVED,no source evidence for required field; value remains missing
+disclosure_status,ticker=VCB,VCB,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,l0|step18|future_step19,True,UNRESOLVED,"no disclosure row exists for ticker; absence is unknown/unavailable, not clean"
+disclosure_status,ticker=BID,BID,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,l0|step18|future_step19,True,UNRESOLVED,"no disclosure row exists for ticker; absence is unknown/unavailable, not clean"
+disclosure_status,ticker=CTG,CTG,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,l0|step18|future_step19,True,UNRESOLVED,"no disclosure row exists for ticker; absence is unknown/unavailable, not clean"
+disclosure_status,ticker=MBB,MBB,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,l0|step18|future_step19,True,UNRESOLVED,"no disclosure row exists for ticker; absence is unknown/unavailable, not clean"
+disclosure_status,ticker=ACB,ACB,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,l0|step18|future_step19,True,UNRESOLVED,"no disclosure row exists for ticker; absence is unknown/unavailable, not clean"
+disclosure_status,ticker=HPG,HPG,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,l0|step18|future_step19,True,UNRESOLVED,"no disclosure row exists for ticker; absence is unknown/unavailable, not clean"
+disclosure_status,ticker=HSG,HSG,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,l0|step18|future_step19,True,UNRESOLVED,"no disclosure row exists for ticker; absence is unknown/unavailable, not clean"
+disclosure_status,ticker=VHM,VHM,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,l0|step18|future_step19,True,UNRESOLVED,"no disclosure row exists for ticker; absence is unknown/unavailable, not clean"
+disclosure_status,ticker=KDH,KDH,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,l0|step18|future_step19,True,UNRESOLVED,"no disclosure row exists for ticker; absence is unknown/unavailable, not clean"
+disclosure_status,ticker=NLG,NLG,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,l0|step18|future_step19,True,UNRESOLVED,"no disclosure row exists for ticker; absence is unknown/unavailable, not clean"
+disclosure_status,ticker=SSI,SSI,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,l0|step18|future_step19,True,UNRESOLVED,"no disclosure row exists for ticker; absence is unknown/unavailable, not clean"
+disclosure_status,ticker=VND,VND,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,l0|step18|future_step19,True,UNRESOLVED,"no disclosure row exists for ticker; absence is unknown/unavailable, not clean"
+disclosure_status,ticker=GAS,GAS,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,l0|step18|future_step19,True,UNRESOLVED,"no disclosure row exists for ticker; absence is unknown/unavailable, not clean"
+disclosure_status,ticker=PVS,PVS,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,l0|step18|future_step19,True,UNRESOLVED,"no disclosure row exists for ticker; absence is unknown/unavailable, not clean"
+disclosure_status,ticker=FPT,FPT,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,l0|step18|future_step19,True,UNRESOLVED,"no disclosure row exists for ticker; absence is unknown/unavailable, not clean"
+disclosure_status,ticker=MWG,MWG,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,l0|step18|future_step19,True,UNRESOLVED,"no disclosure row exists for ticker; absence is unknown/unavailable, not clean"
+disclosure_status,ticker=VGC,VGC,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,l0|step18|future_step19,True,UNRESOLVED,"no disclosure row exists for ticker; absence is unknown/unavailable, not clean"
+disclosure_status,ticker=GMD,GMD,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,l0|step18|future_step19,True,UNRESOLVED,"no disclosure row exists for ticker; absence is unknown/unavailable, not clean"
+disclosure_status,ticker=VHC,VHC,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,l0|step18|future_step19,True,UNRESOLVED,"no disclosure row exists for ticker; absence is unknown/unavailable, not clean"
+disclosure_status,ticker=TCM,TCM,disclosure_status,DISCLOSURE_DATA_UNAVAILABLE,l0|step18|future_step19,True,UNRESOLVED,"no disclosure row exists for ticker; absence is unknown/unavailable, not clean"
