@@ -1,0 +1,53 @@
+source_name,source_category,dataset_name,ticker,action,status,row_count,http_status_or_error,source_url,notes
+vnstock,vnstock,financial_statement_summary,VCB,fetch_finance,SOURCE_PARSE_FAILED,0,"ImportError:No charting library available. Please install one of:
+1. vnstock_chart (recommended): pip install --extra-index-url https://vnstocks.com/api/simple vnstock_chart
+2. vnstock_ezchart (fallback): pip install vnstock_ezchart",https://vnstocks.com/,vnstock finance fetch failed
+vnstock,vnstock,financial_statement_summary,BID,fetch_finance,ROWS_PARSED,3,,https://vnstocks.com/,FINANCIAL_FIELD_UNMAPPED:revenue;FINANCIAL_FIELD_UNMAPPED:operating_profit;FINANCIAL_FIELD_UNMAPPED:net_profit;FINANCIAL_FIELD_UNMAPPED:cash;FINANCIAL_FIELD_UNMAPPED:short_term_debt;FINANCIAL_FIELD_UNMAPPED:long_term_debt;FINANCIAL_FIELD_UNMAPPED:operating_cash_flow;FINANCIAL_PARTIAL_ROW;BANK_FINANCIAL_SCHEMA_PARTIAL
+vnstock,vnstock,financial_statement_summary,CTG,fetch_finance,ROWS_PARSED,3,,https://vnstocks.com/,FINANCIAL_FIELD_UNMAPPED:revenue;FINANCIAL_FIELD_UNMAPPED:operating_profit;FINANCIAL_FIELD_UNMAPPED:net_profit;FINANCIAL_FIELD_UNMAPPED:cash;FINANCIAL_FIELD_UNMAPPED:short_term_debt;FINANCIAL_FIELD_UNMAPPED:long_term_debt;FINANCIAL_FIELD_UNMAPPED:operating_cash_flow;FINANCIAL_PARTIAL_ROW;BANK_FINANCIAL_SCHEMA_PARTIAL
+vnstock,vnstock,financial_statement_summary,MBB,fetch_finance,ROWS_PARSED,3,,https://vnstocks.com/,FINANCIAL_FIELD_UNMAPPED:revenue;FINANCIAL_FIELD_UNMAPPED:operating_profit;FINANCIAL_FIELD_UNMAPPED:net_profit;FINANCIAL_FIELD_UNMAPPED:cash;FINANCIAL_FIELD_UNMAPPED:short_term_debt;FINANCIAL_FIELD_UNMAPPED:long_term_debt;FINANCIAL_FIELD_UNMAPPED:operating_cash_flow;FINANCIAL_PARTIAL_ROW;BANK_FINANCIAL_SCHEMA_PARTIAL
+vnstock,vnstock,financial_statement_summary,ACB,fetch_finance,ROWS_PARSED,3,,https://vnstocks.com/,FINANCIAL_FIELD_UNMAPPED:revenue;FINANCIAL_FIELD_UNMAPPED:operating_profit;FINANCIAL_FIELD_UNMAPPED:net_profit;FINANCIAL_FIELD_UNMAPPED:cash;FINANCIAL_FIELD_UNMAPPED:short_term_debt;FINANCIAL_FIELD_UNMAPPED:long_term_debt;FINANCIAL_FIELD_UNMAPPED:operating_cash_flow;FINANCIAL_PARTIAL_ROW;BANK_FINANCIAL_SCHEMA_PARTIAL
+vnstock,vnstock,financial_statement_summary,HPG,fetch_finance,ROWS_PARSED,9,,https://vnstocks.com/,FINANCIAL_FIELD_UNMAPPED:net_profit;FINANCIAL_PARTIAL_ROW;BANK_FINANCIAL_SCHEMA_PARTIAL
+vnstock,vnstock,financial_statement_summary,HSG,fetch_finance,ROWS_PARSED,9,,https://vnstocks.com/,FINANCIAL_FIELD_UNMAPPED:net_profit;FINANCIAL_PARTIAL_ROW;BANK_FINANCIAL_SCHEMA_PARTIAL
+vnstock,vnstock,financial_statement_summary,VHM,fetch_finance,ROWS_PARSED,9,,https://vnstocks.com/,FINANCIAL_FIELD_UNMAPPED:net_profit;FINANCIAL_PARTIAL_ROW;BANK_FINANCIAL_SCHEMA_PARTIAL
+vnstock,vnstock,financial_statement_summary,KDH,fetch_finance,ROWS_PARSED,9,,https://vnstocks.com/,FINANCIAL_FIELD_UNMAPPED:net_profit;FINANCIAL_PARTIAL_ROW;BANK_FINANCIAL_SCHEMA_PARTIAL
+vnstock,vnstock,financial_statement_summary,NLG,fetch_finance,ROWS_PARSED,9,,https://vnstocks.com/,FINANCIAL_FIELD_UNMAPPED:net_profit;FINANCIAL_PARTIAL_ROW;BANK_FINANCIAL_SCHEMA_PARTIAL
+vnstock,vnstock,financial_statement_summary,SSI,fetch_finance,ROWS_PARSED,8,,https://vnstocks.com/,FINANCIAL_FIELD_UNMAPPED:net_profit;FINANCIAL_PARTIAL_ROW;BANK_FINANCIAL_SCHEMA_PARTIAL
+vnstock,vnstock,financial_statement_summary,VND,fetch_finance,ROWS_PARSED,8,,https://vnstocks.com/,FINANCIAL_FIELD_UNMAPPED:net_profit;FINANCIAL_PARTIAL_ROW;BANK_FINANCIAL_SCHEMA_PARTIAL
+vnstock,vnstock,financial_statement_summary,GAS,fetch_finance,ROWS_PARSED,9,,https://vnstocks.com/,FINANCIAL_FIELD_UNMAPPED:net_profit;FINANCIAL_PARTIAL_ROW;BANK_FINANCIAL_SCHEMA_PARTIAL
+vnstock,vnstock,financial_statement_summary,PVS,fetch_finance,ROWS_PARSED,9,,https://vnstocks.com/,FINANCIAL_FIELD_UNMAPPED:net_profit;FINANCIAL_PARTIAL_ROW;BANK_FINANCIAL_SCHEMA_PARTIAL
+vnstock,vnstock,financial_statement_summary,FPT,fetch_finance,ROWS_PARSED,9,,https://vnstocks.com/,FINANCIAL_FIELD_UNMAPPED:net_profit;FINANCIAL_PARTIAL_ROW;BANK_FINANCIAL_SCHEMA_PARTIAL
+vnstock,vnstock,financial_statement_summary,MWG,fetch_finance,ROWS_PARSED,9,,https://vnstocks.com/,FINANCIAL_FIELD_UNMAPPED:net_profit;FINANCIAL_PARTIAL_ROW;BANK_FINANCIAL_SCHEMA_PARTIAL
+vnstock,vnstock,financial_statement_summary,VGC,fetch_finance,ROWS_PARSED,9,,https://vnstocks.com/,FINANCIAL_FIELD_UNMAPPED:net_profit;FINANCIAL_PARTIAL_ROW;BANK_FINANCIAL_SCHEMA_PARTIAL
+vnstock,vnstock,financial_statement_summary,GMD,fetch_finance,ROWS_PARSED,9,,https://vnstocks.com/,FINANCIAL_FIELD_UNMAPPED:net_profit;FINANCIAL_PARTIAL_ROW;BANK_FINANCIAL_SCHEMA_PARTIAL
+vnstock,vnstock,financial_statement_summary,VHC,fetch_finance,ROWS_PARSED,9,,https://vnstocks.com/,FINANCIAL_FIELD_UNMAPPED:net_profit;FINANCIAL_PARTIAL_ROW;BANK_FINANCIAL_SCHEMA_PARTIAL
+vnstock,vnstock,financial_statement_summary,TCM,fetch_finance,ROWS_PARSED,9,,https://vnstocks.com/,FINANCIAL_FIELD_UNMAPPED:net_profit;FINANCIAL_PARTIAL_ROW;BANK_FINANCIAL_SCHEMA_PARTIAL
+vnstock,vnstock,disclosure_status,VCB,fetch_disclosure,SOURCE_EMPTY_RESPONSE,0,,https://vnstocks.com/,vnstock returned no disclosure warning rows; not treated as clean
+vnstock,vnstock,disclosure_status,BID,fetch_disclosure,SOURCE_EMPTY_RESPONSE,0,,https://vnstocks.com/,vnstock returned no disclosure warning rows; not treated as clean
+vnstock,vnstock,disclosure_status,CTG,fetch_disclosure,SOURCE_EMPTY_RESPONSE,0,,https://vnstocks.com/,vnstock returned no disclosure warning rows; not treated as clean
+vnstock,vnstock,disclosure_status,MBB,fetch_disclosure,SOURCE_EMPTY_RESPONSE,0,,https://vnstocks.com/,vnstock returned no disclosure warning rows; not treated as clean
+vnstock,vnstock,disclosure_status,ACB,fetch_disclosure,SOURCE_EMPTY_RESPONSE,0,,https://vnstocks.com/,vnstock returned no disclosure warning rows; not treated as clean
+vnstock,vnstock,disclosure_status,HPG,fetch_disclosure,SOURCE_EMPTY_RESPONSE,0,,https://vnstocks.com/,vnstock returned no disclosure warning rows; not treated as clean
+vnstock,vnstock,disclosure_status,HSG,fetch_disclosure,SOURCE_EMPTY_RESPONSE,0,,https://vnstocks.com/,vnstock returned no disclosure warning rows; not treated as clean
+vnstock,vnstock,disclosure_status,VHM,fetch_disclosure,SOURCE_EMPTY_RESPONSE,0,,https://vnstocks.com/,vnstock returned no disclosure warning rows; not treated as clean
+vnstock,vnstock,disclosure_status,KDH,fetch_disclosure,SOURCE_EMPTY_RESPONSE,0,,https://vnstocks.com/,vnstock returned no disclosure warning rows; not treated as clean
+vnstock,vnstock,disclosure_status,NLG,fetch_disclosure,SOURCE_EMPTY_RESPONSE,0,,https://vnstocks.com/,vnstock returned no disclosure warning rows; not treated as clean
+vnstock,vnstock,disclosure_status,SSI,fetch_disclosure,SOURCE_EMPTY_RESPONSE,0,,https://vnstocks.com/,vnstock returned no disclosure warning rows; not treated as clean
+vnstock,vnstock,disclosure_status,VND,fetch_disclosure,SOURCE_EMPTY_RESPONSE,0,,https://vnstocks.com/,vnstock returned no disclosure warning rows; not treated as clean
+vnstock,vnstock,disclosure_status,GAS,fetch_disclosure,SOURCE_EMPTY_RESPONSE,0,,https://vnstocks.com/,vnstock returned no disclosure warning rows; not treated as clean
+vnstock,vnstock,disclosure_status,PVS,fetch_disclosure,SOURCE_EMPTY_RESPONSE,0,,https://vnstocks.com/,vnstock returned no disclosure warning rows; not treated as clean
+vnstock,vnstock,disclosure_status,FPT,fetch_disclosure,SOURCE_EMPTY_RESPONSE,0,,https://vnstocks.com/,vnstock returned no disclosure warning rows; not treated as clean
+vnstock,vnstock,disclosure_status,MWG,fetch_disclosure,SOURCE_EMPTY_RESPONSE,0,,https://vnstocks.com/,vnstock returned no disclosure warning rows; not treated as clean
+vnstock,vnstock,disclosure_status,VGC,fetch_disclosure,SOURCE_EMPTY_RESPONSE,0,,https://vnstocks.com/,vnstock returned no disclosure warning rows; not treated as clean
+vnstock,vnstock,disclosure_status,GMD,fetch_disclosure,SOURCE_EMPTY_RESPONSE,0,,https://vnstocks.com/,vnstock returned no disclosure warning rows; not treated as clean
+vnstock,vnstock,disclosure_status,VHC,fetch_disclosure,SOURCE_EMPTY_RESPONSE,0,,https://vnstocks.com/,vnstock returned no disclosure warning rows; not treated as clean
+vnstock,vnstock,disclosure_status,TCM,fetch_disclosure,SOURCE_EMPTY_RESPONSE,0,,https://vnstocks.com/,vnstock returned no disclosure warning rows; not treated as clean
+cafef,cafef,financial_statement_summary,,fetch_finance,FETCH_SKIPPED,0,,,fetch skipped because probe did not show safe accessibility
+cafef,cafef,disclosure_status,,fetch_disclosure,FETCH_SKIPPED,0,,,fetch skipped because probe did not show safe accessibility
+vietstock,vietstock,financial_statement_summary,,fetch_finance,FETCH_SKIPPED,0,,,fetch skipped because probe did not show safe accessibility
+vietstock,vietstock,disclosure_status,,fetch_disclosure,FETCH_SKIPPED,0,,,fetch skipped because probe did not show safe accessibility
+hose,hose,financial_statement_summary,,fetch_finance,FETCH_SKIPPED,0,,,fetch skipped because probe did not show safe accessibility
+hose,hose,disclosure_status,,fetch_disclosure,SOURCE_SCHEMA_UNKNOWN,0,200,https://www.hsx.vn/,no regulatory warning schema detected
+hnx,hnx,financial_statement_summary,,fetch_finance,FETCH_SKIPPED,0,,,fetch skipped because probe did not show safe accessibility
+hnx,hnx,disclosure_status,,fetch_disclosure,FETCH_SKIPPED,0,,,fetch skipped because probe did not show safe accessibility
+ssc,ssc,financial_statement_summary,,fetch_finance,FETCH_SKIPPED,0,,,fetch skipped because probe did not show safe accessibility
+ssc,ssc,disclosure_status,,fetch_disclosure,FETCH_SKIPPED,0,,,fetch skipped because probe did not show safe accessibility

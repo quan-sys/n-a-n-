@@ -1,0 +1,10 @@
+source_category,source_name,field_name,row_count,ticker_count,period_count,notes
+vnstock,vnstock:vci:finance,cash,15,15,1,source-provided candidate values only
+vnstock,vnstock:vci:finance,equity,19,19,1,source-provided candidate values only
+vnstock,vnstock:vci:finance,inventory,13,13,1,source-provided candidate values only
+vnstock,vnstock:vci:finance,long_term_debt,15,15,1,source-provided candidate values only
+vnstock,vnstock:vci:finance,operating_cash_flow,15,15,1,source-provided candidate values only
+vnstock,vnstock:vci:finance,revenue,15,15,1,source-provided candidate values only
+vnstock,vnstock:vci:finance,short_term_debt,15,15,1,source-provided candidate values only
+vnstock,vnstock:vci:finance,total_assets,19,19,1,source-provided candidate values only
+vnstock,vnstock:vci:finance,total_liabilities,19,19,1,source-provided candidate values only

@@ -1,0 +1,71 @@
+version: 1
+description: Safe public probe targets for REAL-DATA-01G source discovery.
+request_defaults:
+  timeout_seconds: 20
+  user_agent: Mozilla/5.0 compatible; VietnameseStockPipeline/01G; research coverage probe
+  max_probe_bytes: 300000
+hard_rules:
+  - do_not_bypass_login_captcha_or_paywall
+  - do_not_treat_missing_disclosure_as_clean
+  - do_not_fabricate_financial_values
+sources:
+  vnstock:
+    source_category: vnstock
+    source_name: vnstock
+    probe_urls:
+      financial_statement_summary: https://vnstocks.com/
+      disclosure_status: https://vnstocks.com/
+    finance_url_patterns: []
+    disclosure_url_patterns: []
+    notes: Python package adapter; URL probe is dependency/source-homepage context only.
+  cafef:
+    source_category: cafef
+    source_name: cafef
+    probe_urls:
+      financial_statement_summary: https://s.cafef.vn/
+      disclosure_status: https://s.cafef.vn/
+    finance_url_patterns:
+      - https://s.cafef.vn/bao-cao-tai-chinh/{ticker}/bsheet/2026/1/0/0/bang-can-doi-ke-toan.chn
+      - https://s.cafef.vn/bao-cao-tai-chinh/{ticker}/incsta/2026/1/0/0/ket-qua-hoat-dong-kinh-doanh.chn
+      - https://s.cafef.vn/bao-cao-tai-chinh/{ticker}/cashflow/2026/1/0/0/luu-chuyen-tien-te.chn
+    disclosure_url_patterns:
+      - https://s.cafef.vn/tin-doanh-nghiep/{ticker}.chn
+    notes: Public web pages may require JS or change schema; parser records schema failures.
+  vietstock:
+    source_category: vietstock
+    source_name: vietstock
+    probe_urls:
+      financial_statement_summary: https://finance.vietstock.vn/
+      disclosure_status: https://finance.vietstock.vn/
+    finance_url_patterns:
+      - https://finance.vietstock.vn/{ticker}/tai-chinh.htm
+    disclosure_url_patterns:
+      - https://finance.vietstock.vn/{ticker}/tin-tuc.htm
+    notes: Public web pages may require JS or block unauthenticated parsing.
+  hose:
+    source_category: hose
+    source_name: hose
+    probe_urls:
+      disclosure_status: https://www.hsx.vn/
+    finance_url_patterns: []
+    disclosure_url_patterns:
+      - https://www.hsx.vn/
+    notes: Official exchange disclosure source. Search APIs are not bypassed.
+  hnx:
+    source_category: hnx
+    source_name: hnx
+    probe_urls:
+      disclosure_status: https://www.hnx.vn/
+    finance_url_patterns: []
+    disclosure_url_patterns:
+      - https://www.hnx.vn/
+    notes: Official exchange disclosure source. Search APIs are not bypassed.
+  ssc:
+    source_category: ssc
+    source_name: ssc
+    probe_urls:
+      disclosure_status: https://ssc.gov.vn/
+    finance_url_patterns: []
+    disclosure_url_patterns:
+      - https://ssc.gov.vn/
+    notes: Official regulator source. Search APIs are not bypassed.

@@ -238,3 +238,32 @@ If finance/disclosure evidence is not ready, use source-backed manual CSV/XLSX
 files for the representative 20 tickers. Missing finance values remain missing,
 conflicting values go to manual review, and missing disclosure rows remain
 unknown/unavailable rather than clean.
+
+## REAL-DATA-01G Automated Multi-source Probing
+
+`scripts/run_multi_source_probe_01g.py` actively probes configured finance and
+disclosure sources, runs source adapters where safe, writes candidate rows, and
+feeds parsed rows into the existing 01F evidence reconciliation layer.
+
+```powershell
+python scripts\run_multi_source_probe_01g.py `
+  --tickers VCB,BID,CTG,MBB,ACB,HPG,HSG,VHM,KDH,NLG,SSI,VND,GAS,PVS,FPT,MWG,VGC,GMD,VHC,TCM `
+  --datasets financial_statement_summary,disclosure_status `
+  --sources vnstock,cafef,vietstock,hose,hnx,ssc `
+  --output-dir data\reports\multi_source_probe_01g `
+  --raw-output-dir data\raw `
+  --request-sleep-seconds 3.2 `
+  --allow-partial
+```
+
+The probe/adapters report source failures explicitly as
+`SOURCE_UNAVAILABLE`, `SOURCE_SCHEMA_UNKNOWN`,
+`SOURCE_BLOCKED_OR_JS_REQUIRED`, `SOURCE_PARSE_FAILED`,
+`SOURCE_RATE_LIMITED`, or `SOURCE_EMPTY_RESPONSE`. They do not bypass
+login walls, CAPTCHAs, JS-only pages, private APIs, or robots restrictions.
+
+Manual CSV/XLSX remains a source-backed fallback and override path, not the main
+data-entry strategy. No source row does not mean clean: missing disclosure stays
+unknown/unavailable unless an explicit source-backed checked row exists. Step 19
+remains blocked until finance/disclosure readiness improves enough for L0 and
+Step 18 evidence use.

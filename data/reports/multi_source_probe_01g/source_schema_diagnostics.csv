@@ -1,0 +1,53 @@
+source_name,source_category,dataset_name,ticker,source_url,schema_status,detected_fields,unsupported_fields,raw_labels,notes
+vnstock,vnstock,financial_statement_summary,VCB,https://vnstocks.com/,SOURCE_PARSE_FAILED,,revenue|net_profit|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory,,"No charting library available. Please install one of:
+1. vnstock_chart (recommended): pip install --extra-index-url https://vnstocks.com/api/simple vnstock_chart
+2. vnstock_ezchart (fallback): pip install vnstock_ezchart"
+vnstock,vnstock,financial_statement_summary,BID,https://vnstocks.com/,SCHEMA_DETECTED,total_assets|total_liabilities|equity|inventory,revenue|operating_profit|net_profit|cash|short_term_debt|long_term_debt|operating_cash_flow,,"not_applicable_fields=gross_profit,inventory"
+vnstock,vnstock,financial_statement_summary,CTG,https://vnstocks.com/,SCHEMA_DETECTED,total_assets|total_liabilities|equity|inventory,revenue|operating_profit|net_profit|cash|short_term_debt|long_term_debt|operating_cash_flow,,"not_applicable_fields=gross_profit,inventory"
+vnstock,vnstock,financial_statement_summary,MBB,https://vnstocks.com/,SCHEMA_DETECTED,total_assets|total_liabilities|equity|inventory,revenue|operating_profit|net_profit|cash|short_term_debt|long_term_debt|operating_cash_flow,,"not_applicable_fields=gross_profit,inventory"
+vnstock,vnstock,financial_statement_summary,ACB,https://vnstocks.com/,SCHEMA_DETECTED,total_assets|total_liabilities|equity|inventory,revenue|operating_profit|net_profit|cash|short_term_debt|long_term_debt|operating_cash_flow,,"not_applicable_fields=gross_profit,inventory"
+vnstock,vnstock,financial_statement_summary,HPG,https://vnstocks.com/,SCHEMA_DETECTED,revenue|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory,net_profit,,"not_applicable_fields=gross_profit,inventory"
+vnstock,vnstock,financial_statement_summary,HSG,https://vnstocks.com/,SCHEMA_DETECTED,revenue|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory,net_profit,,"not_applicable_fields=gross_profit,inventory"
+vnstock,vnstock,financial_statement_summary,VHM,https://vnstocks.com/,SCHEMA_DETECTED,revenue|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory,net_profit,,"not_applicable_fields=gross_profit,inventory"
+vnstock,vnstock,financial_statement_summary,KDH,https://vnstocks.com/,SCHEMA_DETECTED,revenue|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory,net_profit,,"not_applicable_fields=gross_profit,inventory"
+vnstock,vnstock,financial_statement_summary,NLG,https://vnstocks.com/,SCHEMA_DETECTED,revenue|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory,net_profit,,"not_applicable_fields=gross_profit,inventory"
+vnstock,vnstock,financial_statement_summary,SSI,https://vnstocks.com/,SCHEMA_DETECTED,revenue|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory,net_profit,,"not_applicable_fields=gross_profit,inventory"
+vnstock,vnstock,financial_statement_summary,VND,https://vnstocks.com/,SCHEMA_DETECTED,revenue|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory,net_profit,,"not_applicable_fields=gross_profit,inventory"
+vnstock,vnstock,financial_statement_summary,GAS,https://vnstocks.com/,SCHEMA_DETECTED,revenue|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory,net_profit,,"not_applicable_fields=gross_profit,inventory"
+vnstock,vnstock,financial_statement_summary,PVS,https://vnstocks.com/,SCHEMA_DETECTED,revenue|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory,net_profit,,"not_applicable_fields=gross_profit,inventory"
+vnstock,vnstock,financial_statement_summary,FPT,https://vnstocks.com/,SCHEMA_DETECTED,revenue|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory,net_profit,,"not_applicable_fields=gross_profit,inventory"
+vnstock,vnstock,financial_statement_summary,MWG,https://vnstocks.com/,SCHEMA_DETECTED,revenue|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory,net_profit,,"not_applicable_fields=gross_profit,inventory"
+vnstock,vnstock,financial_statement_summary,VGC,https://vnstocks.com/,SCHEMA_DETECTED,revenue|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory,net_profit,,"not_applicable_fields=gross_profit,inventory"
+vnstock,vnstock,financial_statement_summary,GMD,https://vnstocks.com/,SCHEMA_DETECTED,revenue|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory,net_profit,,"not_applicable_fields=gross_profit,inventory"
+vnstock,vnstock,financial_statement_summary,VHC,https://vnstocks.com/,SCHEMA_DETECTED,revenue|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory,net_profit,,"not_applicable_fields=gross_profit,inventory"
+vnstock,vnstock,financial_statement_summary,TCM,https://vnstocks.com/,SCHEMA_DETECTED,revenue|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory,net_profit,,"not_applicable_fields=gross_profit,inventory"
+vnstock,vnstock,disclosure_status,VCB,https://vnstocks.com/,SOURCE_EMPTY_RESPONSE,,,,"no row is unavailable, not clean"
+vnstock,vnstock,disclosure_status,BID,https://vnstocks.com/,SOURCE_EMPTY_RESPONSE,,,,"no row is unavailable, not clean"
+vnstock,vnstock,disclosure_status,CTG,https://vnstocks.com/,SOURCE_EMPTY_RESPONSE,,,,"no row is unavailable, not clean"
+vnstock,vnstock,disclosure_status,MBB,https://vnstocks.com/,SOURCE_EMPTY_RESPONSE,,,,"no row is unavailable, not clean"
+vnstock,vnstock,disclosure_status,ACB,https://vnstocks.com/,SOURCE_EMPTY_RESPONSE,,,,"no row is unavailable, not clean"
+vnstock,vnstock,disclosure_status,HPG,https://vnstocks.com/,SOURCE_EMPTY_RESPONSE,,,,"no row is unavailable, not clean"
+vnstock,vnstock,disclosure_status,HSG,https://vnstocks.com/,SOURCE_EMPTY_RESPONSE,,,,"no row is unavailable, not clean"
+vnstock,vnstock,disclosure_status,VHM,https://vnstocks.com/,SOURCE_EMPTY_RESPONSE,,,,"no row is unavailable, not clean"
+vnstock,vnstock,disclosure_status,KDH,https://vnstocks.com/,SOURCE_EMPTY_RESPONSE,,,,"no row is unavailable, not clean"
+vnstock,vnstock,disclosure_status,NLG,https://vnstocks.com/,SOURCE_EMPTY_RESPONSE,,,,"no row is unavailable, not clean"
+vnstock,vnstock,disclosure_status,SSI,https://vnstocks.com/,SOURCE_EMPTY_RESPONSE,,,,"no row is unavailable, not clean"
+vnstock,vnstock,disclosure_status,VND,https://vnstocks.com/,SOURCE_EMPTY_RESPONSE,,,,"no row is unavailable, not clean"
+vnstock,vnstock,disclosure_status,GAS,https://vnstocks.com/,SOURCE_EMPTY_RESPONSE,,,,"no row is unavailable, not clean"
+vnstock,vnstock,disclosure_status,PVS,https://vnstocks.com/,SOURCE_EMPTY_RESPONSE,,,,"no row is unavailable, not clean"
+vnstock,vnstock,disclosure_status,FPT,https://vnstocks.com/,SOURCE_EMPTY_RESPONSE,,,,"no row is unavailable, not clean"
+vnstock,vnstock,disclosure_status,MWG,https://vnstocks.com/,SOURCE_EMPTY_RESPONSE,,,,"no row is unavailable, not clean"
+vnstock,vnstock,disclosure_status,VGC,https://vnstocks.com/,SOURCE_EMPTY_RESPONSE,,,,"no row is unavailable, not clean"
+vnstock,vnstock,disclosure_status,GMD,https://vnstocks.com/,SOURCE_EMPTY_RESPONSE,,,,"no row is unavailable, not clean"
+vnstock,vnstock,disclosure_status,VHC,https://vnstocks.com/,SOURCE_EMPTY_RESPONSE,,,,"no row is unavailable, not clean"
+vnstock,vnstock,disclosure_status,TCM,https://vnstocks.com/,SOURCE_EMPTY_RESPONSE,,,,"no row is unavailable, not clean"
+cafef,cafef,financial_statement_summary,,,FETCH_SKIPPED,,,,fetch skipped because probe did not show safe accessibility
+cafef,cafef,disclosure_status,,,FETCH_SKIPPED,,,,fetch skipped because probe did not show safe accessibility
+vietstock,vietstock,financial_statement_summary,,,FETCH_SKIPPED,,,,fetch skipped because probe did not show safe accessibility
+vietstock,vietstock,disclosure_status,,,FETCH_SKIPPED,,,,fetch skipped because probe did not show safe accessibility
+hose,hose,financial_statement_summary,,,FETCH_SKIPPED,,,,fetch skipped because probe did not show safe accessibility
+hose,hose,disclosure_status,,https://www.hsx.vn/,SOURCE_SCHEMA_UNKNOWN,,,,no row means unavailable unless a source-specific checked row is emitted
+hnx,hnx,financial_statement_summary,,,FETCH_SKIPPED,,,,fetch skipped because probe did not show safe accessibility
+hnx,hnx,disclosure_status,,,FETCH_SKIPPED,,,,fetch skipped because probe did not show safe accessibility
+ssc,ssc,financial_statement_summary,,,FETCH_SKIPPED,,,,fetch skipped because probe did not show safe accessibility
+ssc,ssc,disclosure_status,,,FETCH_SKIPPED,,,,fetch skipped because probe did not show safe accessibility

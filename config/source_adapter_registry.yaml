@@ -1,0 +1,49 @@
+version: 1
+description: Adapter registry for REAL-DATA-01G automated source probing.
+adapter_contract_version: 1
+adapters:
+  - adapter_name: vnstock
+    class_path: src.ingestion.source_adapters.vnstock_adapter.VnstockAdapter
+    source_category: vnstock
+    supported_datasets:
+      - financial_statement_summary
+      - disclosure_status
+    live_fetch_allowed_when_explicit: true
+    notes: Uses installed vnstock package only when the 01G command is explicitly run.
+  - adapter_name: cafef
+    class_path: src.ingestion.source_adapters.cafef_adapter.CafeFAdapter
+    source_category: cafef
+    supported_datasets:
+      - financial_statement_summary
+      - disclosure_status
+    live_fetch_allowed_when_explicit: true
+    notes: Safe public page probe and best-effort parser; failures are diagnostics, not fabricated rows.
+  - adapter_name: vietstock
+    class_path: src.ingestion.source_adapters.vietstock_adapter.VietstockAdapter
+    source_category: vietstock
+    supported_datasets:
+      - financial_statement_summary
+      - disclosure_status
+    live_fetch_allowed_when_explicit: true
+    notes: Safe public page probe and best-effort parser; failures are diagnostics, not fabricated rows.
+  - adapter_name: hose
+    class_path: src.ingestion.source_adapters.hose_adapter.HoseAdapter
+    source_category: hose
+    supported_datasets:
+      - disclosure_status
+    live_fetch_allowed_when_explicit: true
+    notes: Official disclosure probe. Does not bypass JS search or anti-bot systems.
+  - adapter_name: hnx
+    class_path: src.ingestion.source_adapters.hnx_adapter.HnxAdapter
+    source_category: hnx
+    supported_datasets:
+      - disclosure_status
+    live_fetch_allowed_when_explicit: true
+    notes: Official disclosure probe. Does not bypass JS search or anti-bot systems.
+  - adapter_name: ssc
+    class_path: src.ingestion.source_adapters.ssc_adapter.SscAdapter
+    source_category: ssc
+    supported_datasets:
+      - disclosure_status
+    live_fetch_allowed_when_explicit: true
+    notes: Official regulator probe. Does not bypass JS search or anti-bot systems.
