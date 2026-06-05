@@ -1,0 +1,25 @@
+source_name,source_category,source_url,list_type,parser_selected,parse_status,rows_parsed,tickers_parsed,status_list_id,notes
+hose,hose,https://api.hsx.vn/l/api/v1/securities/status-list,STATUS_LIST_INDEX,hose_json_status_index,ROWS_PARSED,17,0,,parsed status list ids; not ticker rows
+hose,hose,https://api.hsx.vn/l/api/v1/1/securities/stock-status?pageIndex=1&pageSize=500&statusListId=33,WARNING_LIST,hose_json_stock_status,ROWS_PARSED,44,37,33,parsed source-provided status-list ticker rows
+hose,hose,https://api.hsx.vn/l/api/v1/1/securities/stock-status?pageIndex=1&pageSize=500&statusListId=34,CONTROL_LIST,hose_json_stock_status,ROWS_PARSED,14,8,34,parsed source-provided status-list ticker rows
+hose,hose,https://api.hsx.vn/l/api/v1/1/securities/stock-status?pageIndex=1&pageSize=500&statusListId=35,TRADING_SUSPENSION_LIST,hose_json_stock_status,ROWS_PARSED,0,0,35,parsed source-provided status-list ticker rows
+hose,hose,https://api.hsx.vn/l/api/v1/1/securities/stock-status?pageIndex=1&pageSize=500&statusListId=37,TRADING_SUSPENSION_LIST,hose_json_stock_status,ROWS_PARSED,0,0,37,parsed source-provided status-list ticker rows
+hose,hose,https://api.hsx.vn/l/api/v1/1/securities/stock-status?pageIndex=1&pageSize=500&statusListId=38,TRADING_RESTRICTION_LIST,hose_json_stock_status,ROWS_PARSED,6,6,38,parsed source-provided status-list ticker rows
+hose,hose,https://api.hsx.vn/l/api/v1/1/securities/stock-status?pageIndex=1&pageSize=500&statusListId=47,DISCLOSURE_VIOLATION_LIST,hose_json_stock_status,ROWS_PARSED,0,0,47,parsed source-provided status-list ticker rows
+hose,hose,https://api.hsx.vn/l/api/v1/1/securities/stock-status?pageIndex=1&pageSize=500&statusListId=48,LATE_FINANCIAL_REPORT_LIST,hose_json_stock_status,ROWS_PARSED,0,0,48,parsed source-provided status-list ticker rows
+hose,hose,https://api.hsx.vn/l/api/v1/1/securities/stock-status?pageIndex=1&pageSize=500&statusListId=49,WARNING_LIST,hose_json_stock_status,ROWS_PARSED,0,0,49,parsed source-provided status-list ticker rows
+hose,hose,https://api.hsx.vn/l/api/v1/1/securities/stock-status?pageIndex=1&pageSize=500&statusListId=50,CONTROL_LIST,hose_json_stock_status,ROWS_PARSED,0,0,50,parsed source-provided status-list ticker rows
+hose,hose,https://api.hsx.vn/l/api/v1/1/securities/stock-status?pageIndex=1&pageSize=500&statusListId=51,TRADING_RESTRICTION_LIST,hose_json_stock_status,ROWS_PARSED,0,0,51,parsed source-provided status-list ticker rows
+hose,hose,https://api.hsx.vn/l/api/v1/1/securities/stock-status?pageIndex=1&pageSize=500&statusListId=52,TRADING_RESTRICTION_LIST,hose_json_stock_status,ROWS_PARSED,0,0,52,parsed source-provided status-list ticker rows
+hose,hose,https://api.hsx.vn/l/api/v1/1/securities/stock-status?pageIndex=1&pageSize=500&statusListId=53,TRADING_SUSPENSION_LIST,hose_json_stock_status,ROWS_PARSED,0,0,53,parsed source-provided status-list ticker rows
+hose,hose,https://api.hsx.vn/l/api/v1/1/securities/stock-status?pageIndex=1&pageSize=500&statusListId=57,TRADING_RESTRICTION_LIST,hose_json_stock_status,ROWS_PARSED,0,0,57,parsed source-provided status-list ticker rows
+hose,hose,https://api.hsx.vn/l/api/v1/1/securities/stock-status?pageIndex=1&pageSize=500&statusListId=54,TRADING_SUSPENSION_LIST,hose_json_stock_status,ROWS_PARSED,0,0,54,parsed source-provided status-list ticker rows
+hose,hose,https://api.hsx.vn/l/api/v1/1/securities/violating?pageIndex=1&pageSize=500&year=2026&regType=1,DISCLOSURE_VIOLATION_LIST,hose_json_securities_violating,ROWS_PARSED,73,44,,parsed source-provided violation ticker rows
+hose,hose,https://api.hsx.vn/l/api/v1/1/securities/violating?pageIndex=1&pageSize=500&year=2026&regType=2,SSC_SANCTION_LIST,hose_json_securities_violating,ROWS_PARSED,3,3,,parsed source-provided violation ticker rows
+hnx,hnx,https://www.hnx.vn/co-phieu-etfs/chung-khoan-uc-canh-bao-ndt.html,WARNING_LIST,html_table,SOURCE_SSL_FAILED,0,0,,HTML table status-list parser
+hnx,hnx,https://www.upboard.hnx.vn/co-phieu-etfs/chung-khoan-ny-khong-ky-quy.html,TRADING_RESTRICTION_LIST,html_table,SOURCE_SSL_FAILED,0,0,,HTML table status-list parser
+hnx,hnx,https://www.hnx.vn/co-phieu-etfs/chung-khoan-ny-thong-tin.html,CONTROL_LIST,html_table,SOURCE_SSL_FAILED,0,0,,HTML table status-list parser
+ssc,ssc,https://www.ssc.gov.vn/,SSC_SANCTION_LIST,discovery_only,SOURCE_BLOCKED_OR_JS_REQUIRED,0,0,,not used as official status-list evidence
+cafef,cafef,https://s.cafef.vn/,DISCLOSURE_VIOLATION_LIST,discovery_only,SOURCE_BLOCKED_OR_JS_REQUIRED,0,0,,not used as official status-list evidence
+vietstock,vietstock,https://finance.vietstock.vn/,DISCLOSURE_VIOLATION_LIST,discovery_only,SOURCE_BLOCKED_OR_JS_REQUIRED,0,0,,not used as official status-list evidence
+vnstock,vnstock,https://vnstocks.com/,DISCLOSURE_VIOLATION_LIST,discovery_only,SOURCE_BLOCKED_OR_JS_REQUIRED,0,0,,not used as official status-list evidence

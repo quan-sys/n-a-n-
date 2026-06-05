@@ -1,0 +1,17 @@
+source_category,source_name,event_type,evidence_status,row_count,ticker_count,warning_rows,source_checked_no_warning_rows,unavailable_or_failed_rows,notes
+hnx,hnx,DISCLOSURE_SOURCE_UNAVAILABLE,SOURCE_UNAVAILABLE,60,20,0,0,60,01H disclosure status-list evidence; missing/source failures are not clean
+hose,hose:control_list,CONTROL_LIST,POSITIVE_CONTROL_CONFIRMED,14,8,14,0,0,01H disclosure status-list evidence; missing/source failures are not clean
+hose,hose:control_list,NO_MATERIAL_DISCLOSURE_FOUND_SOURCE_CHECKED,SOURCE_CHECKED_NOT_FOUND,40,20,0,40,0,01H disclosure status-list evidence; missing/source failures are not clean
+hose,hose:disclosure_violation_list,AUDIT_QUALIFIED_OPINION,POSITIVE_CONTROL_CONFIRMED,2,2,2,0,0,01H disclosure status-list evidence; missing/source failures are not clean
+hose,hose:disclosure_violation_list,DISCLOSURE_VIOLATION,POSITIVE_CONTROL_CONFIRMED,34,12,34,0,0,01H disclosure status-list evidence; missing/source failures are not clean
+hose,hose:disclosure_violation_list,NO_MATERIAL_DISCLOSURE_FOUND_SOURCE_CHECKED,SOURCE_CHECKED_NOT_FOUND,40,20,0,40,0,01H disclosure status-list evidence; missing/source failures are not clean
+hose,hose:late_financial_report_list,NO_MATERIAL_DISCLOSURE_FOUND_SOURCE_CHECKED,SOURCE_CHECKED_NOT_FOUND,20,20,0,20,0,01H disclosure status-list evidence; missing/source failures are not clean
+hose,hose:ssc_sanction_list,NO_MATERIAL_DISCLOSURE_FOUND_SOURCE_CHECKED,SOURCE_CHECKED_NOT_FOUND,20,20,0,20,0,01H disclosure status-list evidence; missing/source failures are not clean
+hose,hose:ssc_sanction_list,SSC_SANCTION,POSITIVE_CONTROL_CONFIRMED,3,3,3,0,0,01H disclosure status-list evidence; missing/source failures are not clean
+hose,hose:trading_restriction_list,NO_MATERIAL_DISCLOSURE_FOUND_SOURCE_CHECKED,SOURCE_CHECKED_NOT_FOUND,80,20,0,80,0,01H disclosure status-list evidence; missing/source failures are not clean
+hose,hose:trading_restriction_list,TRADING_RESTRICTION,POSITIVE_CONTROL_CONFIRMED,6,6,6,0,0,01H disclosure status-list evidence; missing/source failures are not clean
+hose,hose:trading_suspension_list,NO_MATERIAL_DISCLOSURE_FOUND_SOURCE_CHECKED,SOURCE_CHECKED_NOT_FOUND,80,20,0,80,0,01H disclosure status-list evidence; missing/source failures are not clean
+hose,hose:warning_list,AUDIT_QUALIFIED_OPINION,POSITIVE_CONTROL_CONFIRMED,1,1,1,0,0,01H disclosure status-list evidence; missing/source failures are not clean
+hose,hose:warning_list,NO_MATERIAL_DISCLOSURE_FOUND_SOURCE_CHECKED,SOURCE_CHECKED_NOT_FOUND,40,20,0,40,0,01H disclosure status-list evidence; missing/source failures are not clean
+hose,hose:warning_list,WARNING_LIST,POSITIVE_CONTROL_CONFIRMED,14,12,14,0,0,01H disclosure status-list evidence; missing/source failures are not clean
+ssc,ssc,DISCLOSURE_SOURCE_UNAVAILABLE,SOURCE_UNAVAILABLE,20,20,0,0,20,01H disclosure status-list evidence; missing/source failures are not clean

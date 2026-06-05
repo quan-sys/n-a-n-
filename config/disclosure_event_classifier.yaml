@@ -1,0 +1,70 @@
+version: 1
+description: Deterministic disclosure/status-list classifier for REAL-DATA-01H.
+guardrails:
+  - do_not_fabricate_disclosure_events
+  - do_not_treat_source_failure_as_clean
+  - source_checked_not_found_is_not_a_clean_guarantee
+events:
+  WARNING_LIST:
+    severity: medium
+    keywords:
+      - canh bao
+      - warning
+  CONTROL_LIST:
+    severity: high
+    keywords:
+      - kiem soat
+      - control
+  TRADING_RESTRICTION:
+    severity: high
+    keywords:
+      - han che giao dich
+      - restricted
+  TRADING_SUSPENSION:
+    severity: critical
+    keywords:
+      - tam ngung
+      - dinh chi
+      - suspension
+  DELISTING_WARNING:
+    severity: high
+    keywords:
+      - canh bao huy niem yet
+      - huy niem yet
+      - delisting warning
+  DELISTING:
+    severity: critical
+    keywords:
+      - huy niem yet bat buoc
+      - delisting
+  LATE_FINANCIAL_REPORT:
+    severity: medium
+    keywords:
+      - cham nop bao cao tai chinh
+      - cham cong bo thong tin bao cao tai chinh
+      - late financial report
+  AUDIT_QUALIFIED_OPINION:
+    severity: high
+    keywords:
+      - y kien ngoai tru
+      - qualified opinion
+      - tu choi dua ra y kien
+  DISCLOSURE_VIOLATION:
+    severity: medium
+    keywords:
+      - vi pham cong bo thong tin
+      - cham cong bo thong tin
+      - disclosure violation
+  SSC_SANCTION:
+    severity: high
+    keywords:
+      - uy ban chung khoan nha nuoc
+      - quyet dinh xu phat
+      - xu phat vi pham hanh chinh
+      - sanction
+  OTHER_REGULATORY_DISCLOSURE:
+    severity: unknown
+    keywords:
+      - cong bo thong tin
+      - niem yet
+      - chung khoan

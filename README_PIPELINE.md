@@ -267,3 +267,62 @@ data-entry strategy. No source row does not mean clean: missing disclosure stays
 unknown/unavailable unless an explicit source-backed checked row exists. Step 19
 remains blocked until finance/disclosure readiness improves enough for L0 and
 Step 18 evidence use.
+
+## REAL-DATA-01H Official Disclosure Status-list Ingestion
+
+`scripts/run_disclosure_status_01h.py` shifts disclosure-risk ingestion away
+from per-company `vnstock` events and toward official/public status lists from
+exchanges and regulators. This matters because L0 disclosure risk needs warning,
+control, restriction, suspension, delisting, late-report, audit, and sanction
+status lists rather than generic company event feeds.
+
+```powershell
+python scripts\run_disclosure_status_01h.py `
+  --representative-tickers VCB,BID,CTG,MBB,ACB,HPG,HSG,VHM,KDH,NLG,SSI,VND,GAS,PVS,FPT,MWG,VGC,GMD,VHC,TCM `
+  --sources hose,hnx,ssc,cafef,vietstock,vnstock `
+  --output-dir data\reports\disclosure_status_01h `
+  --raw-snapshot-dir data\raw\source_snapshots\01h `
+  --request-sleep-seconds 3.2 `
+  --allow-partial
+```
+
+The run discovers/probes source-list URLs, records safe raw snapshot metadata,
+parses accessible official/public lists, creates positive-control tickers from
+the parsed warning/status rows, and then checks both the representative 20 and
+the positive-control tickers. A representative ticker that is absent from a
+successfully parsed list receives `SOURCE_CHECKED_NOT_FOUND`, not a clean bill
+of health. A failed source receives `SOURCE_UNAVAILABLE`,
+`SOURCE_SSL_FAILED`, `SOURCE_SCHEMA_UNKNOWN`, `SOURCE_PARSE_FAILED`, or related
+failure status and must remain manual-review evidence.
+
+The run writes:
+
+- `disclosure_source_probe_matrix.csv`
+- `disclosure_list_parse_diagnostics.csv`
+- `disclosure_status_lists_raw_index.csv`
+- `disclosure_positive_control_tickers.csv`
+- `disclosure_status_by_ticker.csv`
+- `disclosure_candidate_rows.csv`
+- `disclosure_coverage_by_source.csv`
+- `disclosure_source_checked_no_warning.csv`
+- `source_availability_matrix.csv`
+- `field_level_evidence.csv`
+- `source_conflict_report.csv`
+- `unresolved_required_fields.csv`
+- `comparison_vs_01g.md`
+- `disclosure_01h_run_summary.md`
+- `datasource_decision_report.md`
+
+Positive-control is the guardrail against falsely concluding that the disclosure
+adapter works just because the representative 20 have no warning rows. If parsed
+official lists produce positive-control warning rows while representative
+tickers produce source-checked not-found rows, the adapter is working for those
+parsed lists. If no official/public list can be parsed, the run reports
+`POSITIVE_CONTROL_UNAVAILABLE`. If positive-control tickers exist but matching
+does not produce warning rows, it reports
+`DISCLOSURE_ADAPTER_FAILED_POSITIVE_CONTROL`.
+
+REAL-DATA-01H still does not implement Step 19 and does not run REAL-DATA-02.
+Absence from parsed official lists is not guaranteed clean disclosure, and
+finance evidence remains a separate blocker for Step 18 and future Step 19
+readiness.

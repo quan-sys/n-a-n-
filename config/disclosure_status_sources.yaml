@@ -1,0 +1,82 @@
+version: 1
+description: Public disclosure/status-list source targets for REAL-DATA-01H.
+request_defaults:
+  timeout_seconds: 25
+  max_fetch_bytes: 1200000
+  max_snapshot_bytes: 350000
+  user_agent: "Mozilla/5.0 compatible; VietnameseStockPipeline/01H"
+  headers:
+    type: HJ2HNS3SKICV4FNE
+    Content-Type: application/json
+sources:
+  hose:
+    source_category: hose
+    source_name: hose
+    official: true
+    parser: hose_json
+    base_urls:
+      listing: https://api.hsx.vn/l/api/v1
+    status_list_endpoint: https://api.hsx.vn/l/api/v1/securities/status-list
+    stock_status_endpoint: https://api.hsx.vn/l/api/v1/1/securities/stock-status?pageIndex={page_index}&pageSize={page_size}&statusListId={status_list_id}
+    securities_violating_endpoints:
+      - list_type: DISCLOSURE_VIOLATION_LIST
+        reg_type: 1
+        url: https://api.hsx.vn/l/api/v1/1/securities/violating?pageIndex={page_index}&pageSize={page_size}&year={year}&regType=1
+      - list_type: SSC_SANCTION_LIST
+        reg_type: 2
+        url: https://api.hsx.vn/l/api/v1/1/securities/violating?pageIndex={page_index}&pageSize={page_size}&year={year}&regType=2
+    notes: Official HOSE public JSON endpoints discovered from the public HOSE web app.
+
+  hnx:
+    source_category: hnx
+    source_name: hnx
+    official: true
+    parser: html_table
+    probe_urls:
+      - list_type: WARNING_LIST
+        url: https://www.hnx.vn/co-phieu-etfs/chung-khoan-uc-canh-bao-ndt.html
+      - list_type: TRADING_RESTRICTION_LIST
+        url: https://www.upboard.hnx.vn/co-phieu-etfs/chung-khoan-ny-khong-ky-quy.html
+      - list_type: CONTROL_LIST
+        url: https://www.hnx.vn/co-phieu-etfs/chung-khoan-ny-thong-tin.html
+    notes: Official HNX/UPCoM public pages. If local SSL verification fails, keep SOURCE_SSL_FAILED.
+
+  ssc:
+    source_category: ssc
+    source_name: ssc
+    official: true
+    parser: discovery_only
+    probe_urls:
+      - list_type: SSC_SANCTION_LIST
+        url: https://www.ssc.gov.vn/
+    notes: Official regulator site; 01H records schema/JS barriers unless a safe parseable list is discovered.
+
+  cafef:
+    source_category: cafef
+    source_name: cafef
+    official: false
+    parser: discovery_only
+    probe_urls:
+      - list_type: DISCLOSURE_VIOLATION_LIST
+        url: https://s.cafef.vn/
+    notes: Secondary source only; cannot override official exchange/regulator status lists.
+
+  vietstock:
+    source_category: vietstock
+    source_name: vietstock
+    official: false
+    parser: discovery_only
+    probe_urls:
+      - list_type: DISCLOSURE_VIOLATION_LIST
+        url: https://finance.vietstock.vn/
+    notes: Secondary source only; cannot override official exchange/regulator status lists.
+
+  vnstock:
+    source_category: vnstock
+    source_name: vnstock
+    official: false
+    parser: discovery_only
+    probe_urls:
+      - list_type: DISCLOSURE_VIOLATION_LIST
+        url: https://vnstocks.com/
+    notes: Secondary source only; 01H does not use per-company vnstock events as primary disclosure status.
