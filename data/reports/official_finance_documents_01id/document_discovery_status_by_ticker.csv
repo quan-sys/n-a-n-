@@ -1,0 +1,21 @@
+ticker,initial_seed_rows,html_snapshots,blocked_or_failed,high_confidence_candidates,reviewable_candidates,low_confidence_candidates,rejected_candidates,https_candidates,http_candidates,best_candidate_score,best_candidate_url,discovery_status,notes
+ACB,2,1,1,0,0,0,3,3,0,0,https://acb.com.vn/ngan-hang-uu-tien/dac-quyen-khach-hang-uu-tien?utm_source=Homepage&utm_medium=Menu&utm_campaign=Website,NEEDS_MANUAL_SEARCH,document candidates only; finance numbers not parsed
+BID,2,0,2,0,0,0,98,98,0,0,https://bidv.com.vn/vn/ca-nhan/san-pham-dich-vu/ngan-quy,BLOCKED_OR_FAILED,document candidates only; finance numbers not parsed
+CTG,2,0,2,0,0,0,0,0,0,0,,BLOCKED_OR_FAILED,document candidates only; finance numbers not parsed
+FPT,3,0,3,0,0,16,12,28,0,40,https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2026/april/20260424---fpt---bctc-hop-nhat-quy-1-nam-2026.pdf,ONLY_LOW_CONFIDENCE_CANDIDATES,document candidates only; finance numbers not parsed
+GAS,2,0,2,0,0,0,0,0,0,0,,BLOCKED_OR_FAILED,document candidates only; finance numbers not parsed
+GMD,2,0,2,0,0,0,17,17,0,0,https://www.gemadept.com.vn/bao-cao-tai-chinh-6-thang-dau-nam-2025/,BLOCKED_OR_FAILED,document candidates only; finance numbers not parsed
+HPG,2,0,2,0,0,0,0,0,0,0,,BLOCKED_OR_FAILED,document candidates only; finance numbers not parsed
+HSG,2,0,2,0,0,0,38,38,0,0,https://hoasengroup.vn/vi/bai-viet/20260429-hsg-bctc-rieng-cty-me-quy-ii-ndtc-2025-2026/,BLOCKED_OR_FAILED,document candidates only; finance numbers not parsed
+KDH,2,1,1,0,0,0,12,12,0,0,https://www.khangdien.com.vn/co-dong,NEEDS_MANUAL_SEARCH,document candidates only; finance numbers not parsed
+MBB,2,0,2,0,0,0,12,12,0,0,https://www.mbbank.com.vn/26/213/2475/Chi-tiet/the-tin-dung-quoc-te-mb-mastercard-platinum-2025-4-23-14-15-19,BLOCKED_OR_FAILED,document candidates only; finance numbers not parsed
+MWG,3,3,0,0,0,20,0,20,0,25,https://mwg.vn/eng/companys-establishment-and-listing-documents,ONLY_LOW_CONFIDENCE_CANDIDATES,document candidates only; finance numbers not parsed
+NLG,2,0,2,0,0,0,883,883,0,0,https://www.namlongvn.com/en/investor-relations/,BLOCKED_OR_FAILED,document candidates only; finance numbers not parsed
+PVS,2,1,1,0,0,25,125,150,0,45,https://www.ptsc.com.vn/Data/Sites/1/media/codong/2025/1246 PTSC-BTK.pdf,ONLY_LOW_CONFIDENCE_CANDIDATES,document candidates only; finance numbers not parsed
+SSI,2,0,2,0,0,18,33,51,0,40,https://www.ssi.com.vn/upload/files/IR/20251020_SSI_Bao_cao_tai_chinh_rieng_Quy_3_nam_2025.pdf,ONLY_LOW_CONFIDENCE_CANDIDATES,document candidates only; finance numbers not parsed
+TCM,2,1,1,0,0,0,9,9,0,0,https://www.thanhcong.com.vn/vi/ban-tin-tcm-thang-bon-2026/,NEEDS_MANUAL_SEARCH,document candidates only; finance numbers not parsed
+VCB,2,2,0,0,0,0,5,5,0,0,https://www.vietcombank.com.vn/en/Nha-dau-tu,NEEDS_MANUAL_SEARCH,document candidates only; finance numbers not parsed
+VGC,2,1,1,0,0,8,13,21,0,30,https://viglacera.com.vn/document/bao-cao-tai-chinh-hop-nhat-quy-i2026-tieng-anh,ONLY_LOW_CONFIDENCE_CANDIDATES,document candidates only; finance numbers not parsed
+VHC,2,0,2,0,0,0,0,0,0,0,,BLOCKED_OR_FAILED,document candidates only; finance numbers not parsed
+VHM,2,0,2,0,0,0,0,0,0,0,,BLOCKED_OR_FAILED,document candidates only; finance numbers not parsed
+VND,2,1,1,0,2,13,10,23,2,70,https://www.vndirect.com.vn/danh_muc_bao_cao/thong-tin-tai-chinh/?key=bao-cao-tai-chinh-hang-quy,HAS_REVIEWABLE_CANDIDATE,document candidates only; finance numbers not parsed
