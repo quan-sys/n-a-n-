@@ -1,0 +1,60 @@
+version: 1
+description: REAL-DATA-01I-B official finance document seed schema.
+required_columns:
+  - ticker
+  - exchange
+  - company_name
+  - period
+  - document_type
+  - source_type
+  - source_name
+  - source_url
+  - official_domain
+  - expected_file_type
+  - consolidated_status
+  - language
+  - confidence_seed
+  - notes
+allowed_values:
+  exchange:
+    - HOSE
+    - HNX
+    - UPCOM
+    - UNKNOWN
+  document_type:
+    - financial_statement
+    - annual_report
+    - audited_financial_statement
+    - filing_page
+    - ir_page
+  source_type:
+    - exchange_filing
+    - company_ir
+    - official_company_site
+    - official_exchange_site
+    - other_public_official
+  expected_file_type:
+    - pdf
+    - xlsx
+    - xls
+    - html
+    - unknown
+  consolidated_status:
+    - consolidated
+    - standalone
+    - unknown
+  language:
+    - vi
+    - en
+    - mixed
+    - unknown
+  confidence_seed:
+    - high
+    - medium
+    - low
+dedupe_key:
+  - ticker
+  - period
+  - document_type
+  - source_url
+
