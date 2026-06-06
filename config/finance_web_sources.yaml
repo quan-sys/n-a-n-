@@ -1,0 +1,46 @@
+version: 1
+description: REAL-DATA-01I finance web source discovery and parsing targets.
+sources:
+  vnstock:
+    source_category: vnstock
+    source_name: vnstock:vci:finance
+    source_url: https://vnstocks.com/
+    parser_name: vnstock_finance_wide_statement
+    confidence_raw: medium
+    unit: VND
+    live_fetch_allowed_when_explicit: true
+  cafef:
+    source_category: cafef
+    source_name: cafef:finance_web
+    source_url_template: https://s.cafef.vn/hose/{ticker}.chn
+    parser_name: cafef_finance_discovery
+    confidence_raw: low
+    live_fetch_allowed_when_explicit: true
+  vietstock:
+    source_category: vietstock
+    source_name: vietstock:finance_web
+    source_url_template: https://finance.vietstock.vn/{ticker}/tai-chinh.htm
+    parser_name: vietstock_finance_discovery
+    confidence_raw: low
+    live_fetch_allowed_when_explicit: true
+  company_ir:
+    source_category: company_ir
+    source_name: company_ir:discovery
+    source_url_template: ""
+    parser_name: company_ir_manual_discovery_required
+    confidence_raw: low
+    live_fetch_allowed_when_explicit: true
+  annual_report_pdf:
+    source_category: annual_report_pdf
+    source_name: annual_report_pdf:discovery
+    source_url_template: ""
+    parser_name: annual_report_pdf_discovery_required
+    confidence_raw: low
+    live_fetch_allowed_when_explicit: true
+  exchange_filing:
+    source_category: exchange_filing
+    source_name: exchange_filing:discovery
+    source_url_template: ""
+    parser_name: exchange_filing_discovery_required
+    confidence_raw: low
+    live_fetch_allowed_when_explicit: true

@@ -1,0 +1,30 @@
+version: 1
+description: REAL-DATA-01I finance-only source priority used before Step 19 exists.
+source_priority:
+  - annual_report_pdf
+  - company_ir
+  - exchange_filing
+  - annual_report_pdf_manual
+  - manual_xlsx
+  - manual_csv
+  - cafef
+  - vietstock
+  - vnstock
+numeric_tolerance_pct: 0.01
+minor_variance_tolerance_pct: 0.03
+required_fields_l0:
+  - revenue
+  - net_profit
+  - total_assets
+  - total_liabilities
+  - equity
+required_fields_future_step19:
+  - revenue
+  - net_profit
+  - total_assets
+  - total_liabilities
+  - equity
+  - operating_cash_flow
+  - cash
+  - short_term_debt
+  - long_term_debt

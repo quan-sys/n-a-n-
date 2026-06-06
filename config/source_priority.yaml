@@ -76,6 +76,9 @@ datasets:
       - hose
       - hnx
       - annual_report_pdf_manual
+      - company_ir
+      - annual_report_pdf
+      - exchange_filing
       - manual_xlsx
       - manual_csv
       - cafef
@@ -158,6 +161,9 @@ datasets:
       - ticker
       - period
     source_priority:
+      - annual_report_pdf
+      - company_ir
+      - exchange_filing
       - annual_report_pdf_manual
       - manual_xlsx
       - manual_csv
@@ -216,6 +222,9 @@ datasets:
         - long_term_debt
     field_priority_overrides:
       total_assets:
+        - annual_report_pdf
+        - company_ir
+        - exchange_filing
         - annual_report_pdf_manual
         - manual_xlsx
         - manual_csv
@@ -223,6 +232,9 @@ datasets:
         - vietstock
         - vnstock
       total_liabilities:
+        - annual_report_pdf
+        - company_ir
+        - exchange_filing
         - annual_report_pdf_manual
         - manual_xlsx
         - manual_csv
@@ -230,6 +242,9 @@ datasets:
         - vietstock
         - vnstock
       equity:
+        - annual_report_pdf
+        - company_ir
+        - exchange_filing
         - annual_report_pdf_manual
         - manual_xlsx
         - manual_csv
@@ -247,6 +262,9 @@ datasets:
       - hnx
       - ssc
       - annual_report_pdf_manual
+      - company_ir
+      - annual_report_pdf
+      - exchange_filing
       - manual_xlsx
       - manual_csv
       - vietstock

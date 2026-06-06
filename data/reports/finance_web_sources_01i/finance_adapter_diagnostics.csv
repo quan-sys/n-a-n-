@@ -1,0 +1,26 @@
+source_name,source_category,dataset_name,ticker,action,status,row_count,http_status_or_error,source_url,notes
+vnstock:vci:finance,vnstock,financial_statement_summary,VCB,fetch_finance,ROWS_PARSED,14,,https://vnstocks.com/,finance rows parsed from explicit source labels
+vnstock:vci:finance,vnstock,financial_statement_summary,BID,fetch_finance,ROWS_PARSED,14,,https://vnstocks.com/,finance rows parsed from explicit source labels
+vnstock:vci:finance,vnstock,financial_statement_summary,CTG,fetch_finance,ROWS_PARSED,14,,https://vnstocks.com/,finance rows parsed from explicit source labels
+vnstock:vci:finance,vnstock,financial_statement_summary,MBB,fetch_finance,ROWS_PARSED,14,,https://vnstocks.com/,finance rows parsed from explicit source labels
+vnstock:vci:finance,vnstock,financial_statement_summary,ACB,fetch_finance,ROWS_PARSED,14,,https://vnstocks.com/,finance rows parsed from explicit source labels
+vnstock:vci:finance,vnstock,financial_statement_summary,HPG,fetch_finance,ROWS_PARSED,24,,https://vnstocks.com/,finance rows parsed from explicit source labels
+vnstock:vci:finance,vnstock,financial_statement_summary,HSG,fetch_finance,ROWS_PARSED,24,,https://vnstocks.com/,finance rows parsed from explicit source labels
+vnstock:vci:finance,vnstock,financial_statement_summary,VHM,fetch_finance,ROWS_PARSED,24,,https://vnstocks.com/,finance rows parsed from explicit source labels
+vnstock:vci:finance,vnstock,financial_statement_summary,KDH,fetch_finance,ROWS_PARSED,24,,https://vnstocks.com/,finance rows parsed from explicit source labels
+vnstock:vci:finance,vnstock,financial_statement_summary,NLG,fetch_finance,ROWS_PARSED,24,,https://vnstocks.com/,finance rows parsed from explicit source labels
+vnstock:vci:finance,vnstock,financial_statement_summary,SSI,fetch_finance,ROWS_PARSED,20,,https://vnstocks.com/,finance rows parsed from explicit source labels
+vnstock:vci:finance,vnstock,financial_statement_summary,VND,fetch_finance,ROWS_PARSED,20,,https://vnstocks.com/,finance rows parsed from explicit source labels
+vnstock:vci:finance,vnstock,financial_statement_summary,GAS,fetch_finance,ROWS_PARSED,24,,https://vnstocks.com/,finance rows parsed from explicit source labels
+vnstock:vci:finance,vnstock,financial_statement_summary,PVS,fetch_finance,ROWS_PARSED,24,,https://vnstocks.com/,finance rows parsed from explicit source labels
+vnstock:vci:finance,vnstock,financial_statement_summary,FPT,fetch_finance,ROWS_PARSED,24,,https://vnstocks.com/,finance rows parsed from explicit source labels
+vnstock:vci:finance,vnstock,financial_statement_summary,MWG,fetch_finance,ROWS_PARSED,24,,https://vnstocks.com/,finance rows parsed from explicit source labels
+vnstock:vci:finance,vnstock,financial_statement_summary,VGC,fetch_finance,ROWS_PARSED,24,,https://vnstocks.com/,finance rows parsed from explicit source labels
+vnstock:vci:finance,vnstock,financial_statement_summary,GMD,fetch_finance,ROWS_PARSED,24,,https://vnstocks.com/,finance rows parsed from explicit source labels
+vnstock:vci:finance,vnstock,financial_statement_summary,VHC,fetch_finance,ROWS_PARSED,24,,https://vnstocks.com/,finance rows parsed from explicit source labels
+vnstock:vci:finance,vnstock,financial_statement_summary,TCM,fetch_finance,ROWS_PARSED,24,,https://vnstocks.com/,finance rows parsed from explicit source labels
+cafef:finance_web,cafef,financial_statement_summary,VCB,fetch_finance,SOURCE_UNAVAILABLE,0,404,https://s.cafef.vn/hose/VCB.chn,source probed but no deterministic finance parser emitted rows
+vietstock:finance_web,vietstock,financial_statement_summary,VCB,fetch_finance,SOURCE_BLOCKED_OR_JS_REQUIRED,0,200,https://finance.vietstock.vn/VCB/tai-chinh.htm,source probed but no deterministic finance parser emitted rows
+company_ir:discovery,company_ir,financial_statement_summary,,fetch_finance,SOURCE_SCHEMA_UNKNOWN,0,,,no automated URL template configured
+annual_report_pdf:discovery,annual_report_pdf,financial_statement_summary,,fetch_finance,SOURCE_SCHEMA_UNKNOWN,0,,,no automated URL template configured
+exchange_filing:discovery,exchange_filing,financial_statement_summary,,fetch_finance,SOURCE_SCHEMA_UNKNOWN,0,,,no automated URL template configured

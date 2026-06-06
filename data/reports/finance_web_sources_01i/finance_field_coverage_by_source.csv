@@ -1,0 +1,13 @@
+source_category,source_name,field_name,row_count,ticker_count,period_count,notes
+vnstock,vnstock:vci:finance,cash,40,20,2,01I normalized source-provided candidate values only
+vnstock,vnstock:vci:finance,equity,40,20,2,01I normalized source-provided candidate values only
+vnstock,vnstock:vci:finance,gross_profit,30,15,2,01I normalized source-provided candidate values only
+vnstock,vnstock:vci:finance,inventory,26,13,2,01I normalized source-provided candidate values only
+vnstock,vnstock:vci:finance,long_term_debt,30,15,2,01I normalized source-provided candidate values only
+vnstock,vnstock:vci:finance,net_profit,40,20,2,01I normalized source-provided candidate values only
+vnstock,vnstock:vci:finance,operating_cash_flow,40,20,2,01I normalized source-provided candidate values only
+vnstock,vnstock:vci:finance,operating_profit,30,15,2,01I normalized source-provided candidate values only
+vnstock,vnstock:vci:finance,revenue,36,18,2,01I normalized source-provided candidate values only
+vnstock,vnstock:vci:finance,short_term_debt,30,15,2,01I normalized source-provided candidate values only
+vnstock,vnstock:vci:finance,total_assets,40,20,2,01I normalized source-provided candidate values only
+vnstock,vnstock:vci:finance,total_liabilities,40,20,2,01I normalized source-provided candidate values only

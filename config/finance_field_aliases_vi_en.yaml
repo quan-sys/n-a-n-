@@ -1,0 +1,87 @@
+version: 1
+description: Conservative Vietnamese/English aliases for REAL-DATA-01I finance field mapping.
+fields:
+  revenue:
+    aliases:
+      - net_revenue
+      - revenue
+      - sales
+      - doanh_thu_thuan
+      - doanh_thu
+      - interest_and_similar_income
+      - net_interest_income
+    bank_notes: BANK_REVENUE_SCHEMA_EXPLICITLY_MAPPED
+  gross_profit:
+    aliases:
+      - gross_profit
+      - loi_nhuan_gop
+  operating_profit:
+    aliases:
+      - operating_profit
+      - operating_income
+      - operating_profit_loss
+      - profit_loss_from_operating_activities
+  net_profit:
+    aliases:
+      - attributable_to_parent_company
+      - net_profit_loss_after_tax
+      - profit_after_tax
+      - post_tax_profit
+      - net_profit
+      - loi_nhuan_sau_thue
+      - co_dong_cua_cong_ty_me
+      - loi_nhuan_sau_thue_cua_co_dong_cong_ty_me
+  total_assets:
+    aliases:
+      - total_assets
+      - tong_tai_san
+      - assets
+  total_liabilities:
+    aliases:
+      - liabilities
+      - total_liabilities
+      - tong_no_phai_tra
+      - no_phai_tra
+  equity:
+    aliases:
+      - owners_equity
+      - equity
+      - shareholders_equity
+      - capital_and_reserves
+      - von_chu_so_huu
+  cash:
+    aliases:
+      - cash_and_cash_equivalents
+      - cash_and_precious_metals
+      - cash
+      - tien_va_tuong_duong_tien
+      - tien_mat_vang_bac_da_quy
+    bank_notes: BANK_CASH_SCHEMA_EXPLICITLY_MAPPED
+  short_term_debt:
+    aliases:
+      - short_term_borrowings
+      - short_term_debt
+      - vay_va_no_thue_tai_chinh_ngan_han
+      - customer_deposits
+    bank_notes: BANK_DEBT_SCHEMA_DIFFERENT
+  long_term_debt:
+    aliases:
+      - long_term_borrowings
+      - long_term_debt
+      - vay_va_no_thue_tai_chinh_dai_han
+      - valuable_papers_issued
+    bank_notes: BANK_DEBT_SCHEMA_DIFFERENT
+  operating_cash_flow:
+    aliases:
+      - net_cash_from_operating_activities
+      - net_cash_inflows_outflows_from_operating_activities
+      - cash_flows_from_operating_activities
+      - operating_cash_flow
+      - luu_chuyen_tien_thuan_tu_hoat_dong_kinh_doanh
+    bank_notes: BANK_CFO_SCHEMA_EXPLICITLY_MAPPED
+  inventory:
+    aliases:
+      - inventories_net
+      - inventories
+      - inventory
+      - hang_ton_kho

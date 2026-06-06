@@ -326,3 +326,21 @@ REAL-DATA-01H still does not implement Step 19 and does not run REAL-DATA-02.
 Absence from parsed official lists is not guaranteed clean disclosure, and
 finance evidence remains a separate blocker for Step 18 and future Step 19
 readiness.
+
+## REAL-DATA-01I Finance Web Sources
+
+`scripts/run_finance_web_sources_01i.py` improves finance evidence by probing
+web/official source categories and mapping explicit Vietnamese/English statement
+labels into canonical finance fields. It emits source diagnostics, field-level
+evidence, unresolved required fields, and readiness reports under
+`data\reports\finance_web_sources_01i`.
+
+The runner supports bounded parallelism:
+
+- `--source-probe-max-workers` parallelizes non-vnstock discovery probes.
+- `--vnstock-max-workers` parallelizes isolated vnstock ticker workers.
+
+Keep `--vnstock-max-workers 1` unless a higher request budget/API key is
+available. Vnstock Guest access has a low per-minute request limit, and each
+ticker can require multiple statement requests. Missing or rate-limited finance
+fields stay missing; conflicts go to manual review. Step 19 remains blocked.

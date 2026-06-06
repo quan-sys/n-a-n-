@@ -14,6 +14,9 @@ supported_source_categories:
   - ssc
   - manual_csv
   - manual_xlsx
+  - company_ir
+  - annual_report_pdf
+  - exchange_filing
   - annual_report_pdf_manual
 sources:
   - source_category: vnstock
@@ -191,3 +194,56 @@ sources:
       - disclosure_status
       - company_events
     notes: Manually extracted values from source-backed annual or audited reports. Missing values remain missing.
+
+  - source_category: company_ir
+    display_name: Company Investor Relations
+    source_type: company_website
+    reliability_level: high
+    priority_tier: official_company
+    live_fetch_allowed_by_default: false
+    source_url_required: true
+    aliases:
+      - company_ir
+      - investor relations
+      - quan he co dong
+    supported_datasets:
+      - company_profile
+      - financial_statement_summary
+      - disclosure_status
+      - company_events
+    notes: Company-published IR evidence; automated parsing must preserve missing fields.
+
+  - source_category: annual_report_pdf
+    display_name: Annual Report PDF Automated Discovery
+    source_type: official_document
+    reliability_level: high
+    priority_tier: official_company
+    live_fetch_allowed_by_default: false
+    source_url_required: true
+    aliases:
+      - annual_report_pdf
+      - annual report automated
+      - bctc pdf
+    supported_datasets:
+      - financial_statement_summary
+      - disclosure_status
+      - company_events
+    notes: Automated discovery/parser category for official annual or audited report PDFs.
+
+  - source_category: exchange_filing
+    display_name: Exchange Filing
+    source_type: official_exchange
+    reliability_level: high
+    priority_tier: official
+    live_fetch_allowed_by_default: false
+    source_url_required: true
+    aliases:
+      - exchange_filing
+      - exchange filing
+      - hose filing
+      - hnx filing
+    supported_datasets:
+      - financial_statement_summary
+      - disclosure_status
+      - company_events
+    notes: Official exchange filing evidence; no missing value may be inferred from absent filings.
