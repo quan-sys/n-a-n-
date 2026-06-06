@@ -19,6 +19,13 @@ def build_01ib_run_summary_markdown(
     valid_count = int(validation["is_valid"].sum()) if not validation.empty else 0
     invalid_count = int((~validation["is_valid"]).sum()) if not validation.empty else 0
     status_counts = _counts(document_index, "download_status")
+    failed_statuses = [
+        "SOURCE_URL_INVALID",
+        "SOURCE_UNAVAILABLE",
+        "SOURCE_BLOCKED_OR_JS_REQUIRED",
+        "SOURCE_CONTENT_TYPE_UNSUPPORTED",
+        "DOWNLOAD_FAILED",
+    ]
     return "\n".join(
         [
             "# REAL-DATA-01I-B official finance document seed run",
@@ -39,9 +46,10 @@ def build_01ib_run_summary_markdown(
             str(0 if dry_run else len(document_index)),
             "",
             "## Downloaded / HTML saved / failed / manual review",
+            f"- dry-run validated: {status_counts.get('DRY_RUN_VALIDATED', 0)}",
             f"- downloaded: {status_counts.get('DOWNLOADED', 0)}",
             f"- html snapshots: {status_counts.get('HTML_SNAPSHOT_SAVED', 0)}",
-            f"- failed: {sum(status_counts.get(item, 0) for item in ['SOURCE_URL_INVALID','SOURCE_UNAVAILABLE','SOURCE_BLOCKED_OR_JS_REQUIRED','SOURCE_CONTENT_TYPE_UNSUPPORTED','DOWNLOAD_FAILED'])}",
+            f"- failed: {sum(status_counts.get(item, 0) for item in failed_statuses)}",
             f"- manual review: {len(manual_review_queue)}",
             "",
             "## Rows by source_type",
@@ -66,9 +74,10 @@ def build_01ib_decision_report_markdown(*, validation: pd.DataFrame, document_in
     valid_count = int(validation["is_valid"].sum()) if not validation.empty else 0
     invalid_count = int((~validation["is_valid"]).sum()) if not validation.empty else 0
     downloaded = 0 if document_index.empty else int(document_index["download_status"].isin(["DOWNLOADED", "HTML_SNAPSHOT_SAVED"]).sum())
+    dry_run_validated = 0 if document_index.empty else int((document_index["download_status"] == "DRY_RUN_VALIDATED").sum())
     attempted = int(len(document_index))
     seed_ready = "True" if valid_count and not invalid_count else ("Partial" if valid_count else "False")
-    download_ready = "Partial" if attempted and downloaded else ("False" if attempted else "Partial")
+    download_ready = "Partial" if (attempted and (downloaded or dry_run_validated)) else ("False" if attempted else "Partial")
     return "\n".join(
         [
             "# Datasource decision report",
@@ -95,4 +104,3 @@ def _format_counts(counts: dict[str, int]) -> str:
     if not counts:
         return "- none"
     return "\n".join(f"- {key}: {value}" for key, value in counts.items())
-

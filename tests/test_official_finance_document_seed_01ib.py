@@ -61,8 +61,29 @@ def test_01ib_dry_run_does_not_create_raw_download(tmp_path):
 
     index = result["finance_document_index"]
     assert len(index) == 1
-    assert index.iloc[0]["local_path"] == ""
+    row = index.iloc[0]
+    assert row["download_status"] == "DRY_RUN_VALIDATED"
+    assert row["download_status"] != "DOWNLOADED"
+    assert row["local_path"] == ""
+    assert row["file_hash"] == ""
+    assert row["http_status"] == ""
+    assert row["content_type"] == ""
+    assert row["detected_file_type"] == "pdf"
     assert not (tmp_path / "raw").exists()
+
+
+def test_01ib_dry_run_domain_mismatch_requires_review_not_download(tmp_path):
+    seed = validate_document_seed_rows(
+        _seed_df(source_url="https://cdn.example/aaa.pdf", official_domain="official.example")
+    )["valid_seed_rows"]
+
+    result = download_seed_documents(seed, raw_output_dir=tmp_path / "raw", dry_run=True)
+
+    row = result["finance_document_index"].iloc[0]
+    assert row["download_status"] == "DOMAIN_MISMATCH_REVIEW"
+    assert bool(row["manual_review_required"]) is True
+    assert row["local_path"] == ""
+    assert row["file_hash"] == ""
 
 
 def _seed_df(**overrides):
@@ -84,4 +105,3 @@ def _seed_df(**overrides):
     }
     row.update(overrides)
     return pd.DataFrame([row], columns=SEED_COLUMNS)
-

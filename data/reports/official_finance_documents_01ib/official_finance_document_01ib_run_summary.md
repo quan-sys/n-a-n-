@@ -16,7 +16,8 @@
 0
 
 ## Downloaded / HTML saved / failed / manual review
-- downloaded: 2
+- dry-run validated: 2
+- downloaded: 0
 - html snapshots: 0
 - failed: 0
 - manual review: 0
@@ -30,7 +31,7 @@
 - annual_report: 1
 
 ## Rows by status
-- DOWNLOADED: 2
+- DRY_RUN_VALIDATED: 2
 
 ## Main blockers
 Official document infrastructure is ready for seed validation, but finance parsing is not implemented in 01I-B.

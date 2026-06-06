@@ -54,6 +54,7 @@ MANUAL_REVIEW_COLUMNS = [
 ]
 
 VALID_DOWNLOAD_STATUSES = {
+    "DRY_RUN_VALIDATED",
     "DOWNLOADED",
     "HTML_SNAPSHOT_SAVED",
     "SOURCE_URL_INVALID",
@@ -132,8 +133,16 @@ def download_one_seed_document(
     domain_mismatch = bool(expected_domain and source_domain and not _domain_matches(source_domain, expected_domain))
 
     if dry_run:
-        status = "MANUAL_REVIEW" if domain_mismatch else "DOWNLOADED"
-        return _finish(row, status, domain_mismatch, "DOMAIN_MISMATCH_REVIEW" if domain_mismatch else "", "high" if domain_mismatch else "low", "dry-run validation only; no document downloaded")
+        row["detected_file_type"] = str(row.get("expected_file_type", "")).lower() or "unknown"
+        status = "DOMAIN_MISMATCH_REVIEW" if domain_mismatch else "DRY_RUN_VALIDATED"
+        return _finish(
+            row,
+            status,
+            domain_mismatch,
+            "DOMAIN_MISMATCH_REVIEW" if domain_mismatch else "",
+            "high" if domain_mismatch else "low",
+            "dry-run validation only; no document downloaded",
+        )
 
     fetch = http_get or _requests_get
     try:
@@ -278,4 +287,3 @@ def _normalize_domain(value: Any) -> str:
 
 def _safe_token(value: Any) -> str:
     return "".join(char if char.isalnum() else "_" for char in str(value).lower()).strip("_") or "unknown"
-
