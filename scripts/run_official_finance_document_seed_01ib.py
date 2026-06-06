@@ -13,6 +13,7 @@ from src.ingestion.official_finance_document_downloader import download_seed_doc
 from src.ingestion.official_finance_document_index import (  # noqa: E402
     build_01ib_decision_report_markdown,
     build_01ib_run_summary_markdown,
+    build_document_seed_status_by_ticker,
 )
 from src.ingestion.official_finance_document_seed import (  # noqa: E402
     load_document_seed_csv,
@@ -72,11 +73,14 @@ def main() -> int:
     )
     document_index = download_result["finance_document_index"]
     manual_review_queue = download_result["manual_review_queue"]
+    status_by_ticker = build_document_seed_status_by_ticker(document_index)
     document_index.to_csv(output_dir / "finance_document_index.csv", index=False)
     manual_review_queue.to_csv(output_dir / "manual_review_queue.csv", index=False)
+    status_by_ticker.to_csv(output_dir / "document_seed_status_by_ticker.csv", index=False)
 
     command = " ".join([Path(sys.executable).name, *sys.argv])
-    (output_dir / "official_finance_document_01ib_run_summary.md").write_text(
+    run_label = "01ic" if "01ic" in str(output_dir).lower() else "01ib"
+    (output_dir / f"official_finance_document_{run_label}_run_summary.md").write_text(
         build_01ib_run_summary_markdown(
             command=command,
             seed_rows_loaded=len(seed_df),
@@ -84,6 +88,7 @@ def main() -> int:
             document_index=document_index,
             manual_review_queue=manual_review_queue,
             dry_run=args.dry_run,
+            run_label=run_label,
         ),
         encoding="utf-8",
     )
@@ -128,4 +133,3 @@ def load_allowed_domains(path_value: str) -> set[str] | None:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

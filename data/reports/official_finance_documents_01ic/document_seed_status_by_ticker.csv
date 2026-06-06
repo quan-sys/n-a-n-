@@ -1,0 +1,21 @@
+ticker,total_seed_rows,downloaded,html_snapshots,blocked,unavailable,domain_mismatch,file_type_mismatch,manual_review_required,best_status,notes
+ACB,2,0,1,0,1,0,0,True,HAS_OFFICIAL_SNAPSHOT,discovery pages are not confirmed finance evidence; no finance values parsed
+BID,2,0,0,2,0,0,0,True,NEEDS_MANUAL_REVIEW,discovery pages are not confirmed finance evidence; no finance values parsed
+CTG,2,0,0,0,2,0,0,True,NEEDS_MANUAL_REVIEW,discovery pages are not confirmed finance evidence; no finance values parsed
+FPT,3,0,0,1,2,0,0,True,NEEDS_MANUAL_REVIEW,discovery pages are not confirmed finance evidence; no finance values parsed
+GAS,2,0,0,0,2,0,0,True,NEEDS_MANUAL_REVIEW,discovery pages are not confirmed finance evidence; no finance values parsed
+GMD,2,0,0,1,1,0,0,True,NEEDS_MANUAL_REVIEW,discovery pages are not confirmed finance evidence; no finance values parsed
+HPG,2,0,0,0,2,0,0,True,NEEDS_MANUAL_REVIEW,discovery pages are not confirmed finance evidence; no finance values parsed
+HSG,2,0,0,2,0,0,0,True,NEEDS_MANUAL_REVIEW,discovery pages are not confirmed finance evidence; no finance values parsed
+KDH,2,0,1,0,1,0,0,True,HAS_OFFICIAL_SNAPSHOT,discovery pages are not confirmed finance evidence; no finance values parsed
+MBB,2,0,0,2,0,0,0,True,NEEDS_MANUAL_REVIEW,discovery pages are not confirmed finance evidence; no finance values parsed
+MWG,3,0,3,0,0,0,0,False,HAS_OFFICIAL_SNAPSHOT,discovery pages are not confirmed finance evidence; no finance values parsed
+NLG,2,0,0,1,1,0,0,True,NEEDS_MANUAL_REVIEW,discovery pages are not confirmed finance evidence; no finance values parsed
+PVS,2,0,1,0,1,0,0,True,HAS_OFFICIAL_SNAPSHOT,discovery pages are not confirmed finance evidence; no finance values parsed
+SSI,2,0,0,2,0,0,0,True,NEEDS_MANUAL_REVIEW,discovery pages are not confirmed finance evidence; no finance values parsed
+TCM,2,0,1,0,1,0,0,True,HAS_OFFICIAL_SNAPSHOT,discovery pages are not confirmed finance evidence; no finance values parsed
+VCB,2,0,2,0,0,0,0,False,HAS_OFFICIAL_SNAPSHOT,discovery pages are not confirmed finance evidence; no finance values parsed
+VGC,2,0,1,0,1,0,0,True,HAS_OFFICIAL_SNAPSHOT,discovery pages are not confirmed finance evidence; no finance values parsed
+VHC,2,0,0,0,2,0,0,True,NEEDS_MANUAL_REVIEW,discovery pages are not confirmed finance evidence; no finance values parsed
+VHM,2,0,0,0,2,0,0,True,NEEDS_MANUAL_REVIEW,discovery pages are not confirmed finance evidence; no finance values parsed
+VND,2,0,1,0,1,0,0,True,HAS_OFFICIAL_SNAPSHOT,discovery pages are not confirmed finance evidence; no finance values parsed

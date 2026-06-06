@@ -86,6 +86,15 @@ def test_01ib_dry_run_domain_mismatch_requires_review_not_download(tmp_path):
     assert row["file_hash"] == ""
 
 
+def test_01ib_discovery_period_is_valid_for_seed_links():
+    seed = _seed_df(period="DISCOVERY", document_type="ir_page")
+
+    result = validate_document_seed_rows(seed)
+
+    assert len(result["valid_seed_rows"]) == 1
+    assert result["invalid_seed_rows"].empty
+
+
 def _seed_df(**overrides):
     row = {
         "ticker": "AAA",

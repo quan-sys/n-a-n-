@@ -98,7 +98,7 @@ def validate_document_seed_rows(
                 errors.append(f"MISSING_REQUIRED_FIELD:{column}")
         if row["ticker"] and not re.match(r"^[A-Z0-9]{1,12}$", row["ticker"]):
             errors.append("INVALID_TICKER")
-        if row["period"] and not re.match(r"^\d{4}(-Q[1-4])?$", row["period"]):
+        if row["period"] and row["period"].upper() != "DISCOVERY" and not re.match(r"^\d{4}(-Q[1-4])?$", row["period"]):
             errors.append("INVALID_PERIOD")
         for column, allowed in allowed_values.items():
             if row.get(column) and row[column] not in set(allowed):
