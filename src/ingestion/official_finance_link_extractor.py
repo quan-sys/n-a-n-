@@ -436,6 +436,7 @@ def file_extension_from_url(value: str) -> str:
 
 def normalize_text(value: Any) -> str:
     text = unquote_plus(_repair_mojibake(_clean_text(value))).lower()
+    text = text.replace("đ", "d").replace("Đ", "d")
     text = text.replace("-", " ").replace("_", " ").replace("+", " ")
     text = unicodedata.normalize("NFKD", text)
     text = "".join(char for char in text if not unicodedata.combining(char))
