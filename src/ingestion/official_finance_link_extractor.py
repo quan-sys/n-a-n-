@@ -7,7 +7,7 @@ import unicodedata
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
-from urllib.parse import urljoin, urlparse
+from urllib.parse import unquote_plus, urljoin, urlparse
 
 import pandas as pd
 
@@ -34,24 +34,71 @@ LINK_CANDIDATE_COLUMNS = [
 
 FINANCE_KEYWORDS = [
     "bao cao tai chinh",
+    "báo cáo tài chính",
     "bctc",
     "financial statement",
     "financial statements",
     "financial report",
     "financial reports",
+    "audited financial statement",
+    "audited financial statements",
+]
+
+BCTC_KEYWORDS = [
+    "bao cao tai chinh",
+    "báo cáo tài chính",
+    "bctc",
+    "financial statement",
+    "financial statements",
+    "audited financial statement",
+    "audited financial statements",
+]
+
+AUDIT_KEYWORDS = [
     "audited",
     "kiem toan",
+    "kiểm toán",
+    "soat xet",
+    "soát xét",
+]
+
+CONSOLIDATED_KEYWORDS = [
     "hop nhat",
+    "hợp nhất",
     "consolidated",
+]
+
+STANDALONE_KEYWORDS = [
+    "rieng",
+    "riêng",
+    "standalone",
+    "cong ty me",
+    "công ty mẹ",
+    "cty me",
 ]
 
 ANNUAL_KEYWORDS = [
     "annual report",
+    "bctn",
     "bao cao thuong nien",
-    "thuong nien",
+    "báo cáo thường niên",
 ]
 
-PERIOD_KEYWORDS = ["quarter", "quy", "q1", "q2", "q3", "q4", "2026", "2025"]
+QUARTER_KEYWORDS = [
+    "quarter",
+    "quy",
+    "q1",
+    "q2",
+    "q3",
+    "q4",
+    "quy 1",
+    "quy i",
+    "quy ii",
+    "quy iii",
+    "quy iv",
+]
+
+PERIOD_KEYWORDS = [*QUARTER_KEYWORDS, "nam 2026", "nam 2025", "2026", "2025"]
 
 DISCOVERY_HINTS = [
     "nha dau tu",
@@ -191,6 +238,19 @@ def score_official_document_candidate(
     score = 0
     reasons: list[str] = []
     manual_review = False
+    caps: list[int] = []
+
+    non_document_asset = _is_non_document_asset(effective_url) or _is_non_document_asset(candidate_url)
+    if non_document_asset:
+        return {
+            "score": 0,
+            "score_band": "REJECTED_CANDIDATE",
+            "manual_review_required": True,
+            "reason": "NON_DOCUMENT_ASSET",
+            "candidate_document_type": "non_document_asset",
+            "period_guess": "DISCOVERY_REVIEW",
+            "notes": "01ID_PATCH1_CANDIDATE_NOT_FINANCE_EVIDENCE_YET; HTTPS alone is not finance evidence",
+        }
 
     if _domain_matches(final_domain or candidate_domain, official):
         score += 25
@@ -208,52 +268,111 @@ def score_official_document_candidate(
         if parsed_final.scheme == "https" and _domain_matches(final_domain, official):
             manual_review = True
             reasons.append("HTTP_REDIRECTED_TO_HTTPS_REVIEW")
+            caps.append(79)
         else:
             manual_review = True
             reasons.append("HTTP_NOT_REDIRECTED_TO_HTTPS")
+            caps.append(49)
 
     finance_hit = _has_any(normalized, FINANCE_KEYWORDS)
+    bctc_hit = _has_any(normalized, BCTC_KEYWORDS)
+    consolidated_hit = _has_any(normalized, CONSOLIDATED_KEYWORDS)
+    standalone_hit = _has_any(normalized, STANDALONE_KEYWORDS)
+    audit_hit = _has_any(normalized, AUDIT_KEYWORDS)
     annual_hit = _has_any(normalized, ANNUAL_KEYWORDS)
+    direct_document_hit = _is_direct_document_endpoint(combined, extension)
     target_period_hit = _has_target_period(normalized, target_years, target_periods)
+    quarter_hit = _has_quarter_hint(normalized)
+    period_guess = infer_period_guess(combined, target_years, target_periods)
     if finance_hit:
-        score += 25
+        score += 30
         reasons.append("FINANCE_KEYWORD")
+    if bctc_hit:
+        reasons.append("BCTC_KEYWORD_MATCH")
+    if consolidated_hit:
+        reasons.append("CONSOLIDATED_KEYWORD_MATCH")
+    if standalone_hit:
+        manual_review = True
+        reasons.append("STANDALONE_REVIEW_REQUIRED")
+        caps.append(79)
+    if audit_hit:
+        reasons.append("AUDITED_OR_REVIEWED_KEYWORD_MATCH")
     if annual_hit:
-        score += 20
-        reasons.append("ANNUAL_REPORT_KEYWORD")
-    if target_period_hit:
-        score += 10
-        reasons.append("TARGET_PERIOD_HINT")
-    if extension in {"pdf", "xlsx", "xls"}:
+        score += 30
+        reasons.append("ANNUAL_REPORT_KEYWORD_MATCH")
+    if target_period_hit or quarter_hit:
         score += 15
+        reasons.append("TARGET_YEAR_OR_QUARTER_MATCH")
+    if direct_document_hit:
+        score += 20 if (finance_hit or annual_hit) else 5
         reasons.append("DOCUMENT_FILE_EXTENSION")
     if source_download_status == "HTML_SNAPSHOT_SAVED":
         score += 5
         reasons.append("SOURCE_HTML_SNAPSHOT_SAVED")
 
-    if _has_error_url(effective_url) or page_hints.get("error_page", False):
+    hard_error_url = _has_error_url(effective_url)
+    if hard_error_url:
         score -= 50
         manual_review = True
         reasons.append("ERROR_OR_404_PAGE")
+        caps.append(49)
+    elif page_hints.get("error_page", False):
+        manual_review = True
+        reasons.append("SOURCE_FROM_ERROR_PAGE_REVIEW")
+        caps.append(79)
     if _has_any(normalized, GENERIC_NEWS_HINTS) and not (finance_hit or annual_hit):
         score -= 20
         manual_review = True
-        reasons.append("GENERIC_NEWS_PAGE")
+        reasons.append("GENERIC_PAGE_PENALTY")
+        caps.append(49)
     old_year_only = _is_old_year_only(normalized, target_years)
     if old_year_only:
         score -= 35
         manual_review = True
-        reasons.append("OLD_YEAR_ONLY")
+        reasons.append("OLD_YEAR_PENALTY")
+        caps.append(0)
     if source_download_status == "SOURCE_BLOCKED_OR_JS_REQUIRED" or page_hints.get("blocked_or_js", False):
-        score -= 50
         manual_review = True
-        reasons.append("JS_OR_BLOCKED")
-    if not (finance_hit or annual_hit or extension in {"pdf", "xlsx", "xls"}):
+        reasons.append("SOURCE_FROM_BLOCKED_PAGE_REVIEW")
+        caps.append(79)
+    if not (finance_hit or annual_hit):
         score -= 20
         manual_review = True
         reasons.append("NO_FINANCE_KEYWORDS")
+        caps.append(49)
+    if not direct_document_hit:
+        manual_review = True
+        reasons.append("FILE_TYPE_UNCONFIRMED_REVIEW")
+        caps.append(79)
 
-    score = 0 if old_year_only else max(0, min(100, int(score)))
+    strong_official_https = (
+        _domain_matches(final_domain or candidate_domain, official)
+        and (parsed_final.scheme == "https" or (not final_url and parsed_candidate.scheme == "https"))
+    )
+    finance_period_hit = target_period_hit or quarter_hit or period_guess != "DISCOVERY_REVIEW"
+    if strong_official_https and direct_document_hit and finance_hit and finance_period_hit and not hard_error_url and not old_year_only:
+        score = max(score, 70)
+        reasons.append("DIRECT_PDF_FINANCE_KEYWORD")
+    if (
+        strong_official_https
+        and (bctc_hit or annual_hit)
+        and (consolidated_hit or annual_hit or audit_hit)
+        and finance_period_hit
+        and direct_document_hit
+        and not hard_error_url
+        and not old_year_only
+        and source_download_status != "SOURCE_BLOCKED_OR_JS_REQUIRED"
+        and not page_hints.get("blocked_or_js", False)
+        and not page_hints.get("error_page", False)
+    ):
+        score = max(score, 80)
+    if period_guess != "DISCOVERY_REVIEW" and period_guess not in target_periods:
+        manual_review = True
+        reasons.append("PERIOD_NOT_EXACT_TARGET_REVIEW")
+
+    if caps:
+        score = min(score, min(caps))
+    score = max(0, min(100, int(score)))
     if score >= min_high_confidence_score:
         band = "HIGH_CONFIDENCE_CANDIDATE"
     elif score >= min_reviewable_score:
@@ -271,8 +390,8 @@ def score_official_document_candidate(
         "manual_review_required": manual_review,
         "reason": ";".join(_dedupe(reasons)),
         "candidate_document_type": infer_candidate_document_type(combined),
-        "period_guess": infer_period_guess(combined, target_years, target_periods),
-        "notes": "01ID_CANDIDATE_NOT_FINANCE_EVIDENCE_YET; HTTPS alone is not finance evidence",
+        "period_guess": period_guess,
+        "notes": "01ID_PATCH1_CANDIDATE_NOT_FINANCE_EVIDENCE_YET; HTTPS alone is not finance evidence",
     }
 
 
@@ -286,17 +405,23 @@ def infer_candidate_document_type(value: str) -> str:
 
 
 def infer_period_guess(value: str, target_years: list[str] | None = None, target_periods: list[str] | None = None) -> str:
-    normalized = normalize_text(value).upper()
+    normalized = normalize_text(value)
     target_years = [str(item) for item in (target_years or ["2026", "2025"])]
     target_periods = [str(item).upper() for item in (target_periods or ["2026-Q1", "2025-Q4", "2025"])]
-    compact = normalized.replace("_", "-").replace("/", "-")
+    quarter_periods = _period_guesses_from_quarters(normalized)
+    for period in quarter_periods:
+        if period in target_periods:
+            return period
+    if quarter_periods:
+        return quarter_periods[0]
+    upper = normalized.upper()
     for period in target_periods:
         year = period[:4]
         quarter = period[-2:] if "-Q" in period else ""
-        if quarter and year in compact and quarter in compact:
+        if quarter and year in upper and quarter in upper:
             return period
     for year in target_years:
-        if year in compact:
+        if year in upper:
             return year
     return "DISCOVERY_REVIEW"
 
@@ -310,7 +435,8 @@ def file_extension_from_url(value: str) -> str:
 
 
 def normalize_text(value: Any) -> str:
-    text = _clean_text(value).lower()
+    text = unquote_plus(_repair_mojibake(_clean_text(value))).lower()
+    text = text.replace("-", " ").replace("_", " ").replace("+", " ")
     text = unicodedata.normalize("NFKD", text)
     text = "".join(char for char in text if not unicodedata.combining(char))
     text = re.sub(r"[^a-z0-9]+", " ", text)
@@ -338,7 +464,62 @@ def _has_any(normalized_text: str, keywords: list[str]) -> bool:
 
 def _has_target_period(normalized_text: str, target_years: list[str], target_periods: list[str]) -> bool:
     upper = normalized_text.upper()
-    return any(year in upper for year in target_years) or any(period.upper() in upper for period in target_periods)
+    period_guesses = set(_period_guesses_from_quarters(normalized_text))
+    return (
+        any(year in upper for year in target_years)
+        or any(period.upper() in upper for period in target_periods)
+        or bool(period_guesses.intersection({period.upper() for period in target_periods}))
+    )
+
+
+def _has_quarter_hint(normalized_text: str) -> bool:
+    return bool(_period_guesses_from_quarters(normalized_text)) or _has_any(normalized_text, QUARTER_KEYWORDS)
+
+
+def _period_guesses_from_quarters(normalized_text: str) -> list[str]:
+    normalized = normalize_text(normalized_text)
+    quarter_patterns = [
+        r"\bquy\s*(iv|iii|ii|i|[1-4])\s*(?:nam\s*)?(20\d{2})?\b",
+        r"\bq\s*([1-4])\s*(?:nam\s*)?(20\d{2})?\b",
+        r"\bquarter\s*([1-4])\s*(?:nam\s*)?(20\d{2})?\b",
+    ]
+    results: list[tuple[int, str]] = []
+    years = [(match.start(), match.group(0)) for match in re.finditer(r"\b20\d{2}\b", normalized)]
+    for pattern in quarter_patterns:
+        for match in re.finditer(pattern, normalized):
+            quarter = _quarter_token_to_number(match.group(1))
+            if not quarter:
+                continue
+            year = match.group(2) if len(match.groups()) > 1 else ""
+            if not year:
+                year = _nearest_year_after_or_before(years, match.start())
+            if year:
+                results.append((match.start(), f"{year}-Q{quarter}"))
+    return _dedupe([period for _, period in sorted(results, key=lambda item: item[0])])
+
+
+def _nearest_year_after_or_before(years: list[tuple[int, str]], position: int) -> str:
+    if not years:
+        return ""
+    after = [item for item in years if item[0] >= position]
+    if after:
+        return min(after, key=lambda item: item[0])[1]
+    return max(years, key=lambda item: item[0])[1]
+
+
+def _quarter_token_to_number(value: str) -> str:
+    token = normalize_text(value)
+    mapping = {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "i": "1",
+        "ii": "2",
+        "iii": "3",
+        "iv": "4",
+    }
+    return mapping.get(token, "")
 
 
 def _is_old_year_only(normalized_text: str, target_years: list[str]) -> bool:
@@ -346,9 +527,30 @@ def _is_old_year_only(normalized_text: str, target_years: list[str]) -> bool:
     return bool(years) and not any(year in target_years for year in years)
 
 
+def _is_direct_document_endpoint(value: str, extension: str) -> bool:
+    if extension in {"pdf", "xlsx", "xls"}:
+        return True
+    return bool(re.search(r"\.(pdf|xlsx|xls)(?:\b|[?&#\"'>])", _clean_text(value).lower()))
+
+
+def _is_non_document_asset(value: str) -> bool:
+    parsed = urlparse(_clean_text(value))
+    extension = file_extension_from_url(value)
+    normalized = normalize_text(parsed.path or value)
+    return extension in NON_DOCUMENT_EXTENSIONS or bool(re.search(r"\bwcm\b", normalized))
+
+
 def _has_error_url(value: str) -> bool:
     normalized = normalize_text(value)
     return _has_any(normalized, ERROR_HINTS)
+
+
+def _repair_mojibake(value: str) -> str:
+    try:
+        repaired = value.encode("latin1").decode("utf-8")
+    except (UnicodeEncodeError, UnicodeDecodeError):
+        return value
+    return repaired if repaired else value
 
 
 class _LinkParser(HTMLParser):

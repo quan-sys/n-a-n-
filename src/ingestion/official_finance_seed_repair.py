@@ -12,6 +12,8 @@ from src.ingestion.official_finance_document_seed import SEED_COLUMNS, load_docu
 from src.ingestion.official_finance_link_extractor import (
     LINK_CANDIDATE_COLUMNS,
     extract_link_candidates_from_snapshot,
+    infer_candidate_document_type,
+    infer_period_guess,
     normalize_text,
 )
 
@@ -70,6 +72,7 @@ def run_official_finance_seed_repair_01id(
     target_years: list[str] | None = None,
     target_periods: list[str] | None = None,
     https_first: bool = True,
+    previous_candidates_file: str | Path | None = None,
 ) -> dict[str, pd.DataFrame]:
     seed_df = load_document_seed_csv(seed_file)
     index_df = pd.read_csv(index_file, keep_default_na=False)
@@ -89,6 +92,7 @@ def run_official_finance_seed_repair_01id(
         seed_df=seed_df,
         candidates=candidates,
         min_reviewable_score=min_reviewable_score,
+        patch_label=_patch_label(output_dir),
     )
     status_by_ticker = build_document_discovery_status_by_ticker(
         seed_df=seed_df,
@@ -104,8 +108,11 @@ def run_official_finance_seed_repair_01id(
 
     resolved_output_dir = Path(output_dir)
     resolved_output_dir.mkdir(parents=True, exist_ok=True)
+    patch_label = _patch_label(resolved_output_dir)
+    refined_filename = "refined_seed_candidates_01id_patch1.csv" if patch_label == "01id_patch1" else "refined_seed_candidates_01id.csv"
+    previous_candidates = _load_previous_candidates(previous_candidates_file)
     candidates.to_csv(resolved_output_dir / "official_document_link_candidates.csv", index=False)
-    refined.to_csv(resolved_output_dir / "refined_seed_candidates_01id.csv", index=False)
+    refined.to_csv(resolved_output_dir / refined_filename, index=False)
     bad_seed.to_csv(resolved_output_dir / "bad_seed_url_report.csv", index=False)
     manual_review.to_csv(resolved_output_dir / "manual_review_queue.csv", index=False)
     status_by_ticker.to_csv(resolved_output_dir / "document_discovery_status_by_ticker.csv", index=False)
@@ -125,9 +132,17 @@ def run_official_finance_seed_repair_01id(
         build_01id_decision_report_markdown(candidates=candidates),
         encoding="utf-8",
     )
+    (resolved_output_dir / "candidate_scoring_calibration_report.md").write_text(
+        build_candidate_scoring_calibration_report(
+            before_candidates=previous_candidates,
+            after_candidates=candidates,
+        ),
+        encoding="utf-8",
+    )
 
     return {
         "official_document_link_candidates": candidates,
+        refined_filename.removesuffix(".csv"): refined,
         "refined_seed_candidates_01id": refined,
         "bad_seed_url_report": bad_seed,
         "manual_review_queue": manual_review,
@@ -180,6 +195,7 @@ def build_refined_seed_candidates(
     seed_df: pd.DataFrame,
     candidates: pd.DataFrame,
     min_reviewable_score: int = 50,
+    patch_label: str = "01id",
 ) -> pd.DataFrame:
     if not isinstance(candidates, pd.DataFrame) or candidates.empty:
         return pd.DataFrame(columns=SEED_COLUMNS)
@@ -200,22 +216,32 @@ def build_refined_seed_candidates(
         if seed_row is None:
             continue
         extension = _expected_file_type(candidate.get("file_extension"))
+        combined_text = f"{candidate.get('candidate_url', '')} {candidate.get('anchor_text', '')} {candidate.get('reason', '')}"
+        document_type = infer_candidate_document_type(combined_text)
+        consolidated_status = _infer_consolidated_status(combined_text, seed_row.get("consolidated_status", "unknown"))
+        notes = (
+            "01ID_PATCH1_CANDIDATE_NOT_FINANCE_EVIDENCE_YET; HTTPS and official domain checked, finance numbers not parsed"
+            if patch_label == "01id_patch1"
+            else "01ID_CANDIDATE_NOT_FINANCE_EVIDENCE_YET; HTTPS and official domain checked, finance numbers not parsed"
+        )
+        if consolidated_status == "standalone":
+            notes = f"{notes}; standalone/rieng candidate requires manual review"
         rows.append(
             {
                 "ticker": candidate["ticker"],
                 "exchange": seed_row.get("exchange", "UNKNOWN"),
                 "company_name": seed_row.get("company_name", ""),
-                "period": candidate.get("period_guess") or "DISCOVERY_REVIEW",
-                "document_type": candidate.get("candidate_document_type") or "filing_page",
+                "period": candidate.get("period_guess") or infer_period_guess(combined_text),
+                "document_type": document_type,
                 "source_type": seed_row.get("source_type", "company_ir"),
-                "source_name": f"{seed_row.get('source_name', '')} 01ID candidate".strip(),
+                "source_name": f"{seed_row.get('source_name', '')} {patch_label.upper()} candidate".strip(),
                 "source_url": candidate["candidate_url"],
                 "official_domain": candidate["official_domain"],
                 "expected_file_type": extension,
-                "consolidated_status": seed_row.get("consolidated_status", "unknown"),
+                "consolidated_status": consolidated_status,
                 "language": seed_row.get("language", "unknown"),
                 "confidence_seed": "medium" if candidate["score_band"] == "HIGH_CONFIDENCE_CANDIDATE" else "low",
-                "notes": "01ID_CANDIDATE_NOT_FINANCE_EVIDENCE_YET; HTTPS and official domain checked, finance numbers not parsed",
+                "notes": notes,
             }
         )
     return pd.DataFrame(rows, columns=SEED_COLUMNS).drop_duplicates(subset=["ticker", "period", "document_type", "source_url"])
@@ -420,6 +446,54 @@ def build_01id_decision_report_markdown(*, candidates: pd.DataFrame) -> str:
     )
 
 
+def build_candidate_scoring_calibration_report(
+    *,
+    before_candidates: pd.DataFrame,
+    after_candidates: pd.DataFrame,
+) -> str:
+    before_counts = _counts(before_candidates, "score_band")
+    after_counts = _counts(after_candidates, "score_band")
+    before_good = _good_candidate_rows(before_candidates)
+    after_good = _good_candidate_rows(after_candidates)
+    promoted = _promoted_candidates(before_candidates, after_candidates)
+    tickers_good = sorted(after_good["ticker"].astype(str).str.upper().unique().tolist()) if not after_good.empty else []
+    lines = [
+        "# Candidate scoring calibration report",
+        "",
+        "## Before vs after",
+        f"- candidates extracted: {len(before_candidates)} -> {len(after_candidates)}",
+        f"- high confidence candidates: {before_counts.get('HIGH_CONFIDENCE_CANDIDATE', 0)} -> {after_counts.get('HIGH_CONFIDENCE_CANDIDATE', 0)}",
+        f"- reviewable candidates: {before_counts.get('REVIEWABLE_CANDIDATE', 0)} -> {after_counts.get('REVIEWABLE_CANDIDATE', 0)}",
+        f"- low confidence candidates: {before_counts.get('LOW_CONFIDENCE_CANDIDATE', 0)} -> {after_counts.get('LOW_CONFIDENCE_CANDIDATE', 0)}",
+        f"- rejected candidates: {before_counts.get('REJECTED_CANDIDATE', 0)} -> {after_counts.get('REJECTED_CANDIDATE', 0)}",
+        f"- tickers with high/reviewable candidates: {len(tickers_good)} ({', '.join(tickers_good) if tickers_good else 'none'})",
+        "",
+        "## Promoted candidates",
+    ]
+    if promoted.empty:
+        lines.append("- none")
+    else:
+        for _, row in promoted.sort_values(["ticker", "new_score", "candidate_url"], ascending=[True, False, True]).iterrows():
+            lines.extend(
+                [
+                    f"- ticker: {row['ticker']}",
+                    f"  old score: {row['old_score']}",
+                    f"  new score: {row['new_score']}",
+                    f"  score band: {row['new_score_band']}",
+                    f"  candidate_url: {row['candidate_url']}",
+                    f"  reason codes: {row['reason']}",
+                    f"  manual_review_required: {row['manual_review_required']}",
+                ]
+            )
+    lines.extend(
+        [
+            "",
+            "No finance values were parsed. Calibrated candidates remain discovery evidence only.",
+        ]
+    )
+    return "\n".join(lines)
+
+
 def _review_row(ticker: Any, period: Any, document_type: Any, source_url: Any, candidate_url: Any, issue: Any, priority: str, notes: Any) -> dict[str, Any]:
     return {
         "ticker": _clean_text(ticker).upper(),
@@ -437,6 +511,78 @@ def _review_row(ticker: Any, period: Any, document_type: Any, source_url: Any, c
 def _expected_file_type(extension: Any) -> str:
     ext = _clean_text(extension).lower()
     return ext if ext in {"pdf", "xlsx", "xls", "html"} else "unknown"
+
+
+def _infer_consolidated_status(value: str, fallback: Any) -> str:
+    normalized = normalize_text(value)
+    if "hop nhat" in normalized or "consolidated" in normalized:
+        return "consolidated"
+    if "rieng" in normalized or "standalone" in normalized or "cong ty me" in normalized or "cty me" in normalized:
+        return "standalone"
+    fallback_text = _clean_text(fallback).lower()
+    return fallback_text if fallback_text in {"consolidated", "standalone", "unknown"} else "unknown"
+
+
+def _patch_label(output_dir: str | Path) -> str:
+    text = str(output_dir).replace("\\", "/").lower()
+    return "01id_patch1" if "01id_patch1" in text else "01id"
+
+
+def _load_previous_candidates(previous_candidates_file: str | Path | None) -> pd.DataFrame:
+    candidates_path = Path(previous_candidates_file) if previous_candidates_file else Path("data/reports/official_finance_documents_01id/official_document_link_candidates.csv")
+    if not candidates_path.exists():
+        return pd.DataFrame(columns=LINK_CANDIDATE_COLUMNS)
+    return pd.read_csv(candidates_path, keep_default_na=False)
+
+
+def _good_candidate_rows(df: pd.DataFrame) -> pd.DataFrame:
+    if not isinstance(df, pd.DataFrame) or df.empty or "score_band" not in df.columns:
+        return pd.DataFrame(columns=df.columns if isinstance(df, pd.DataFrame) else LINK_CANDIDATE_COLUMNS)
+    return df[df["score_band"].isin(["HIGH_CONFIDENCE_CANDIDATE", "REVIEWABLE_CANDIDATE"])].copy()
+
+
+def _promoted_candidates(before_candidates: pd.DataFrame, after_candidates: pd.DataFrame) -> pd.DataFrame:
+    columns = [
+        "ticker",
+        "candidate_url",
+        "old_score",
+        "new_score",
+        "old_score_band",
+        "new_score_band",
+        "reason",
+        "manual_review_required",
+    ]
+    if not isinstance(after_candidates, pd.DataFrame) or after_candidates.empty:
+        return pd.DataFrame(columns=columns)
+    before_lookup = {}
+    if isinstance(before_candidates, pd.DataFrame) and not before_candidates.empty:
+        for _, row in before_candidates.iterrows():
+            key = (_clean_text(row.get("ticker")).upper(), _clean_text(row.get("candidate_url")))
+            before_lookup[key] = row
+    rows = []
+    for _, row in after_candidates.iterrows():
+        new_band = _clean_text(row.get("score_band"))
+        if new_band not in {"HIGH_CONFIDENCE_CANDIDATE", "REVIEWABLE_CANDIDATE"}:
+            continue
+        key = (_clean_text(row.get("ticker")).upper(), _clean_text(row.get("candidate_url")))
+        old = before_lookup.get(key)
+        old_band = _clean_text(old.get("score_band")) if old is not None else ""
+        old_score = _clean_text(old.get("score")) if old is not None else ""
+        if old_band in {"HIGH_CONFIDENCE_CANDIDATE", "REVIEWABLE_CANDIDATE"}:
+            continue
+        rows.append(
+            {
+                "ticker": key[0],
+                "candidate_url": key[1],
+                "old_score": old_score,
+                "new_score": row.get("score", ""),
+                "old_score_band": old_band,
+                "new_score_band": new_band,
+                "reason": row.get("reason", ""),
+                "manual_review_required": row.get("manual_review_required", ""),
+            }
+        )
+    return pd.DataFrame(rows, columns=columns)
 
 
 def _url_has_error(value: str) -> bool:
@@ -491,4 +637,3 @@ def _clean_text(value: Any) -> str:
 
 def _dedupe(values: list[str]) -> list[str]:
     return list(dict.fromkeys(value for value in values if value))
-

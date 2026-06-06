@@ -18,6 +18,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--index-file", default="data/reports/official_finance_documents_01ic/finance_document_index.csv")
     parser.add_argument("--raw-snapshot-dir", default="data/raw/official_finance_documents/01ic")
     parser.add_argument("--output-dir", default="data/reports/official_finance_documents_01id")
+    parser.add_argument("--previous-candidates-file", default="data/reports/official_finance_documents_01id/official_document_link_candidates.csv")
     parser.add_argument("--allow-partial", action="store_true")
     parser.add_argument("--min-reviewable-score", type=int, default=50)
     parser.add_argument("--min-high-confidence-score", type=int, default=80)
@@ -39,6 +40,7 @@ def main() -> int:
         target_years=parse_csv(args.target_years),
         target_periods=parse_csv(args.target_periods),
         https_first=args.https_first,
+        previous_candidates_file=args.previous_candidates_file,
     )
     candidates = result["official_document_link_candidates"]
     bad_seed = result["bad_seed_url_report"]
@@ -64,4 +66,3 @@ def parse_csv(value: str) -> list[str]:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -75,6 +75,7 @@ def test_01id_penalizes_http_without_https_redirect():
 
     assert result["manual_review_required"] is True
     assert "HTTP_NOT_REDIRECTED_TO_HTTPS" in result["reason"]
+    assert result["score_band"] == "LOW_CONFIDENCE_CANDIDATE"
 
 
 def test_01id_http_redirect_to_https_is_reviewable_not_clean():
@@ -110,7 +111,8 @@ def test_01id_penalizes_generic_news_without_finance_keywords():
     )
 
     assert result["manual_review_required"] is True
-    assert "GENERIC_NEWS_PAGE" in result["reason"]
+    assert result["score_band"] in {"LOW_CONFIDENCE_CANDIDATE", "REJECTED_CANDIDATE"}
+    assert "GENERIC_PAGE_PENALTY" in result["reason"]
 
 
 def test_01id_rejects_old_2015_only_link():
@@ -121,7 +123,7 @@ def test_01id_rejects_old_2015_only_link():
     )
 
     assert result["score_band"] == "REJECTED_CANDIDATE"
-    assert "OLD_YEAR_ONLY" in result["reason"]
+    assert "OLD_YEAR_PENALTY" in result["reason"]
 
 
 def test_01id_domain_mismatch_goes_to_manual_review():
@@ -133,3 +135,86 @@ def test_01id_domain_mismatch_goes_to_manual_review():
 
     assert result["manual_review_required"] is True
     assert "DOMAIN_MISMATCH" in result["reason"]
+
+
+def test_01id_patch1_scores_fpt_bctc_hop_nhat_q1_2026_reviewable_or_high():
+    result = score_official_document_candidate(
+        candidate_url="https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2026/april/20260424---fpt---bctc-hop-nhat-quy-1-nam-2026.pdf",
+        anchor_text="",
+        official_domain="fpt.com",
+        source_download_status="SOURCE_BLOCKED_OR_JS_REQUIRED",
+    )
+
+    assert result["score_band"] in {"REVIEWABLE_CANDIDATE", "HIGH_CONFIDENCE_CANDIDATE"}
+    assert result["period_guess"] == "2026-Q1"
+    assert "DIRECT_PDF_FINANCE_KEYWORD" in result["reason"]
+    assert "SOURCE_FROM_BLOCKED_PAGE_REVIEW" in result["reason"]
+    assert result["manual_review_required"] is True
+
+
+def test_01id_patch1_scores_ssi_standalone_q3_2025_reviewable_with_manual_reason():
+    result = score_official_document_candidate(
+        candidate_url="https://www.ssi.com.vn/upload/files/IR/20251020_SSI_Bao_cao_tai_chinh_rieng_Quy_3_nam_2025.pdf",
+        anchor_text="",
+        official_domain="ssi.com.vn",
+        source_download_status="SOURCE_BLOCKED_OR_JS_REQUIRED",
+    )
+
+    assert result["score_band"] == "REVIEWABLE_CANDIDATE"
+    assert result["period_guess"] == "2025-Q3"
+    assert "STANDALONE_REVIEW_REQUIRED" in result["reason"]
+    assert result["manual_review_required"] is True
+
+
+def test_01id_patch1_scores_vgc_finance_document_endpoint_without_pdf_reviewable():
+    result = score_official_document_candidate(
+        candidate_url="https://viglacera.com.vn/document/bao-cao-tai-chinh-hop-nhat-quy-i2026-tieng-anh",
+        anchor_text="Báo cáo tài chính hợp nhất Quý I/2026",
+        official_domain="viglacera.com.vn",
+        page_hints={"error_page": True},
+    )
+
+    assert result["score_band"] in {"REVIEWABLE_CANDIDATE", "HIGH_CONFIDENCE_CANDIDATE"}
+    assert result["period_guess"] == "2026-Q1"
+    assert "BCTC_KEYWORD_MATCH" in result["reason"]
+    assert "SOURCE_FROM_ERROR_PAGE_REVIEW" in result["reason"]
+    assert result["manual_review_required"] is True
+
+
+def test_01id_patch1_generic_investor_homepage_without_finance_keywords_stays_low_or_rejected():
+    result = score_official_document_candidate(
+        candidate_url="https://official.example/investor-relations",
+        anchor_text="Investor relations",
+        official_domain="official.example",
+    )
+
+    assert result["score_band"] in {"LOW_CONFIDENCE_CANDIDATE", "REJECTED_CANDIDATE"}
+    assert result["manual_review_required"] is True
+    assert "NO_FINANCE_KEYWORDS" in result["reason"]
+
+
+def test_01id_patch1_rejects_css_js_and_wcm_urls():
+    for url in [
+        "https://official.example/assets/site.css",
+        "https://official.example/assets/site.js",
+        "https://official.example/wcm/connect/menu",
+    ]:
+        result = score_official_document_candidate(
+            candidate_url=url,
+            anchor_text="metadata link",
+            official_domain="official.example",
+        )
+        assert result["score_band"] == "REJECTED_CANDIDATE"
+        assert "NON_DOCUMENT_ASSET" in result["reason"]
+
+
+def test_01id_patch1_handles_mojibake_vietnamese_keywords():
+    result = score_official_document_candidate(
+        candidate_url="https://official.example/reports/bao-cao-tai-chinh-hop-nhat-quy-i2026.pdf",
+        anchor_text="bÃ¡o cÃ¡o tÃ i chÃ­nh há»£p nháº¥t quÃ½ I/2026",
+        official_domain="official.example",
+    )
+
+    assert result["score_band"] == "HIGH_CONFIDENCE_CANDIDATE"
+    assert result["period_guess"] == "2026-Q1"
+    assert "CONSOLIDATED_KEYWORD_MATCH" in result["reason"]
