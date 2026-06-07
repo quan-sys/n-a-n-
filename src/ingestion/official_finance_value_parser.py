@@ -104,6 +104,8 @@ def parse_official_finance_values_from_pages(
     pages: list[Any],
     include_status_rows: bool = True,
     usable_only: bool = False,
+    source_name: str = "official_pdf_parser_01if",
+    parser_name: str = "official_pdf_text_line_parser_01if",
 ) -> pd.DataFrame:
     rows = []
     fetch_time = datetime.now(UTC).replace(microsecond=0).isoformat()
@@ -167,7 +169,8 @@ def parse_official_finance_values_from_pages(
                     row_index=row_index,
                     raw_label=line[:180],
                     raw_context=short_context(line),
-                    parser_name="official_pdf_text_line_parser_01if",
+                    source_name=source_name,
+                    parser_name=parser_name,
                     parse_status=parse_status,
                     confidence_raw=confidence,
                     manual_review_required=manual_review,
@@ -194,6 +197,8 @@ def parse_official_finance_values_from_table_rows(
     pages: list[Any] | None = None,
     include_status_rows: bool = True,
     usable_only: bool = False,
+    source_name: str = "official_pdf_parser_01if",
+    parser_name: str = "official_pdf_table_row_parser_01if_patch1",
 ) -> pd.DataFrame:
     rows = []
     fetch_time = datetime.now(UTC).replace(microsecond=0).isoformat()
@@ -277,7 +282,8 @@ def parse_official_finance_values_from_table_rows(
                 row_index=getattr(table_row, "row_index", ""),
                 raw_label=raw_label[:180] if raw_label else row_text[:180],
                 raw_context=short_context(row_text),
-                parser_name="official_pdf_table_row_parser_01if_patch1",
+                source_name=source_name,
+                parser_name=parser_name,
                 parse_status=parse_status,
                 confidence_raw=confidence,
                 manual_review_required=manual_review,
@@ -324,8 +330,12 @@ def detect_unit(text: Any) -> tuple[str, int, str, str]:
 
 
 def extract_numeric_tokens(line: Any) -> list[str]:
-    text = str(line or "")
-    candidates = re.findall(r"\(?-?\d[\d., ]{2,}\)?", text)
+    text = re.sub(r"\(cid:\d+\)", " ", str(line or ""))
+    token_pattern = re.compile(
+        r"\(?-?\d{1,3}(?:[., ]\d{3})+(?:[,.]\d+)?\)?"
+        r"|\(?-?\d{3,}(?:[,.]\d+)?\)?"
+    )
+    candidates = [match.group(0) for match in token_pattern.finditer(text)]
     cleaned = []
     for candidate in candidates:
         value = candidate.strip()
@@ -463,6 +473,7 @@ def _candidate_row(
     row_index: Any,
     raw_label: Any,
     raw_context: Any,
+    source_name: str,
     parser_name: str,
     parse_status: str,
     confidence_raw: str,
@@ -482,7 +493,7 @@ def _candidate_row(
         "unit_multiplier": unit_multiplier,
         "currency": currency,
         "source_category": "official_company_document",
-        "source_name": "official_pdf_parser_01if",
+        "source_name": source_name,
         "source_url": document_row.get("source_url", ""),
         "final_url": document_row.get("final_url", ""),
         "local_path": document_row.get("local_path", ""),
@@ -513,8 +524,7 @@ def _explicit_label_from_cells(cells: list[str]) -> str:
     candidate = " ".join(label_parts).strip()
     if detect_field_name(candidate):
         return candidate
-    full = " ".join(cells).strip()
-    return full if detect_field_name(full) else ""
+    return ""
 
 
 def _numeric_cells(cells: list[str]) -> list[tuple[str, int]]:

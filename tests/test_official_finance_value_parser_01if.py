@@ -125,6 +125,21 @@ def test_01if_patch1_parentheses_negative_value_parsed():
     assert result.iloc[0]["value_vnd"] == -1_234_567
 
 
+def test_01if_patch2_dash_only_value_is_missing_not_zero():
+    table_rows = [_table_row(cells=["Profit after tax", "-"], unit_context="Unit: VND")]
+
+    result = parse_official_finance_values_from_table_rows(
+        document_row=_document_row(),
+        table_rows=table_rows,
+        pages=[_page("Unit: VND")],
+    )
+
+    usable, status = split_usable_and_status_rows(result)
+    assert usable.empty
+    assert status.iloc[0]["value_vnd"] == ""
+    assert status.iloc[0]["parse_status"] == "FIELD_VALUE_AMBIGUOUS"
+
+
 def test_01if_patch1_missing_unit_table_row_goes_to_manual_review():
     table_rows = [_table_row(cells=["Total assets", "9,876,543"], unit_context="")]
 

@@ -17,6 +17,11 @@ from src.ingestion.official_finance_document_selector import (  # noqa: E402
     SELECTED_DOCUMENT_COLUMNS_01IF,
     select_documents_for_official_parse,
 )
+from src.ingestion.official_pdf_backend_registry import (  # noqa: E402
+    PDF_BACKEND_AVAILABILITY_COLUMNS_01IF_PATCH2,
+    build_pdf_backend_availability_rows,
+    get_pdf_backend_availability,
+)
 from src.ingestion.official_finance_parse_evidence import (  # noqa: E402
     FIELD_COVERAGE_COLUMNS_01IF,
     MANUAL_REVIEW_COLUMNS_01IF_PARSE,
@@ -52,6 +57,20 @@ from src.ingestion.official_pdf_text_extractor import (  # noqa: E402
     extract_pdf_document_content,
     extract_pdf_text_pages,
 )
+from src.ingestion.official_pdf_python_extractor import (  # noqa: E402
+    PAGE_TEXT_AUDIT_COLUMNS_01IF_PATCH2,
+    PDF_EXTRACTION_DIAGNOSTIC_COLUMNS_01IF_PATCH2,
+    TABLE_CELL_COLUMNS_01IF_PATCH2,
+    build_python_page_text_audit_rows,
+    build_python_pdf_diagnostic_rows,
+    build_python_table_cell_rows,
+    extract_pdf_with_python_backends,
+    write_markdown_audit,
+)
+from src.ingestion.official_pdf_table_normalizer import (  # noqa: E402
+    NORMALIZED_TABLE_ROW_COLUMNS_01IF_PATCH2,
+    normalize_finance_table_rows,
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -65,10 +84,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--skip-standalone", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--allow-partial", action="store_true")
-    parser.add_argument("--max-pages-per-document", type=int, default=25)
+    parser.add_argument("--max-pages-per-document", type=int, default=120)
     parser.add_argument("--use-table-extraction", action="store_true")
     parser.add_argument("--prefer-table-values", action="store_true")
     parser.add_argument("--diagnose-only", action="store_true")
+    parser.add_argument("--use-python-pdf-backends", action="store_true")
+    parser.add_argument("--emit-markdown-audit", action="store_true")
     return parser.parse_args()
 
 
@@ -85,6 +106,11 @@ def main() -> int:
         skip_standalone=args.skip_standalone,
     )
     selected_documents.to_csv(output_dir / "selected_documents_for_parse.csv", index=False)
+    patch2_mode = args.use_python_pdf_backends or output_suffix(output_dir) == "_01if_patch2"
+    backend_availability = pd.DataFrame(
+        build_pdf_backend_availability_rows(get_pdf_backend_availability()),
+        columns=PDF_BACKEND_AVAILABILITY_COLUMNS_01IF_PATCH2,
+    ) if patch2_mode else pd.DataFrame(columns=PDF_BACKEND_AVAILABILITY_COLUMNS_01IF_PATCH2)
 
     if args.dry_run:
         empty_candidates = pd.DataFrame(columns=OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF)
@@ -96,6 +122,7 @@ def main() -> int:
         empty_diagnostics = pd.DataFrame(columns=PDF_EXTRACTION_DIAGNOSTIC_COLUMNS_01IF_PATCH1)
         empty_page_audit = pd.DataFrame(columns=PAGE_TEXT_AUDIT_COLUMNS_01IF_PATCH1)
         empty_table_cells = pd.DataFrame(columns=TABLE_CELL_COLUMNS_01IF_PATCH1)
+        empty_normalized_table_rows = pd.DataFrame(columns=NORMALIZED_TABLE_ROW_COLUMNS_01IF_PATCH2)
         manual = build_parse_manual_review_queue(
             selected_documents=selected_documents,
             candidate_rows=empty_candidates,
@@ -114,6 +141,9 @@ def main() -> int:
             diagnostics=empty_diagnostics,
             page_audit=empty_page_audit,
             table_cells=empty_table_cells,
+            normalized_table_rows=empty_normalized_table_rows,
+            backend_availability=backend_availability,
+            markdown_audit_files=0,
             manual=manual,
             selected_documents=selected_documents,
             command=command_string(),
@@ -136,13 +166,24 @@ def main() -> int:
     diagnostics_rows = []
     page_audit_rows = []
     table_cell_rows = []
+    normalized_table_frames = []
     text_extractable_pdfs = 0
     non_text_pdfs = 0
+    markdown_audit_files = 0
     for _, document in parse_targets.iterrows():
         if document["detected_file_type"] != "pdf":
-            status_frames.append(pd.DataFrame([_failed_parse_row(document, "TABLE_EXTRACTION_FAILED", "XLSX_XLS_PARSE_NOT_IMPLEMENTED_YET")], columns=OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF))
+            status_frames.append(pd.DataFrame([_failed_parse_row(document, "TABLE_EXTRACTION_FAILED", "XLSX_XLS_PARSE_NOT_IMPLEMENTED_YET", patch2_mode=patch2_mode)], columns=OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF))
             continue
-        if args.use_table_extraction or args.diagnose_only:
+        if patch2_mode:
+            extraction = extract_pdf_with_python_backends(
+                document["local_path"],
+                max_pages=args.max_pages_per_document,
+                use_table_extraction=args.use_table_extraction,
+            )
+            pages = extraction.pages
+            table_cells_from_pdf = extraction.table_cells
+            diagnostics_rows.extend(build_python_pdf_diagnostic_rows(document_row=document, diagnostics=extraction.diagnostics))
+        elif args.use_table_extraction or args.diagnose_only:
             extraction = extract_pdf_document_content(
                 document["local_path"],
                 max_pages=args.max_pages_per_document,
@@ -160,36 +201,75 @@ def main() -> int:
             text_extractable_pdfs += 1
         if not has_text and not has_tables:
             non_text_pdfs += 1
-            status_frames.append(pd.DataFrame([_failed_parse_row(document, "DOCUMENT_NOT_TEXT_EXTRACTABLE", "NO_TEXT_EXTRACTED_NO_OCR")], columns=OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF))
+            status_frames.append(pd.DataFrame([_failed_parse_row(document, "DOCUMENT_NOT_TEXT_EXTRACTABLE", "NO_TEXT_EXTRACTED_NO_OCR", patch2_mode=patch2_mode)], columns=OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF))
         unit_by_page = {}
         for page in pages:
             unit_raw, _, _, unit_status = detect_unit(getattr(page, "text", ""))
             unit_by_page[getattr(page, "page_number", 0)] = unit_raw if unit_status == "UNIT_DETECTED" else ""
         raw_text_rows.extend(build_raw_text_audit_rows(document_row=document, pages=pages, detected_unit_by_page=unit_by_page))
-        page_audit_rows.extend(build_page_text_audit_rows(document_row=document, pages=pages, detected_unit_by_page=unit_by_page))
+        if patch2_mode:
+            page_audit_rows.extend(build_python_page_text_audit_rows(document_row=document, pages=pages))
+        else:
+            page_audit_rows.extend(build_page_text_audit_rows(document_row=document, pages=pages, detected_unit_by_page=unit_by_page))
         raw_table_rows.extend(build_raw_table_audit_rows(document_row=document, pages=pages))
-        table_cell_rows.extend(build_table_cell_audit_rows(document_row=document, table_cells=table_cells_from_pdf, pages=pages))
+        if patch2_mode:
+            table_cell_rows.extend(build_python_table_cell_rows(document_row=document, table_cells=table_cells_from_pdf))
+            normalized_table_rows, normalized_table_frame = normalize_finance_table_rows(
+                document_row=document,
+                pages=pages,
+                table_cells=table_cells_from_pdf,
+            )
+            if not normalized_table_frame.empty:
+                normalized_table_frames.append(normalized_table_frame)
+            if args.emit_markdown_audit:
+                audit_path = write_markdown_audit(
+                    document_row=document,
+                    pages=pages,
+                    normalized_rows=normalized_table_frame,
+                    output_dir=output_dir,
+                )
+                if audit_path:
+                    markdown_audit_files += 1
+        else:
+            table_cell_rows.extend(build_table_cell_audit_rows(document_row=document, table_cells=table_cells_from_pdf, pages=pages))
+            normalized_table_rows = build_finance_table_rows(document_row=document, pages=pages, table_cells=table_cells_from_pdf)
         if args.diagnose_only:
             continue
         parsed_frames = []
         if args.use_table_extraction:
-            table_rows = build_finance_table_rows(document_row=document, pages=pages, table_cells=table_cells_from_pdf)
-            parsed_table = parse_official_finance_values_from_table_rows(document_row=document, table_rows=table_rows, pages=pages)
+            table_rows = normalized_table_rows if patch2_mode else build_finance_table_rows(document_row=document, pages=pages, table_cells=table_cells_from_pdf)
+            parsed_table = parse_official_finance_values_from_table_rows(
+                document_row=document,
+                table_rows=table_rows,
+                pages=pages,
+                source_name="official_python_pdf_parser_01if_patch2" if patch2_mode else "official_pdf_parser_01if",
+                parser_name="official_python_pdf_table_row_parser_01if_patch2" if patch2_mode else "official_pdf_table_row_parser_01if_patch1",
+            )
             if not parsed_table.empty:
                 parsed_frames.append(parsed_table)
             if args.use_table_extraction and not table_cells_from_pdf:
                 status_frames.append(
                     pd.DataFrame(
-                        [_failed_parse_row(document, "TABLE_EXTRACTION_UNAVAILABLE", "NO_TABLE_BACKEND_OR_NO_TABLES_EXTRACTED")],
+                        [_failed_parse_row(document, "TABLE_EXTRACTION_UNAVAILABLE", "NO_TABLE_BACKEND_OR_NO_TABLES_EXTRACTED", patch2_mode=patch2_mode)],
                         columns=OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF,
                     )
                 )
         if not args.prefer_table_values:
-            parsed_line = parse_official_finance_values_from_pages(document_row=document, pages=pages)
+            parsed_line = parse_official_finance_values_from_pages(
+                document_row=document,
+                pages=pages,
+                source_name="official_python_pdf_parser_01if_patch2" if patch2_mode else "official_pdf_parser_01if",
+                parser_name="official_python_pdf_text_line_parser_01if_patch2" if patch2_mode else "official_pdf_text_line_parser_01if",
+            )
             if not parsed_line.empty:
                 parsed_frames.append(parsed_line)
         elif not parsed_frames:
-            parsed_line = parse_official_finance_values_from_pages(document_row=document, pages=pages)
+            parsed_line = parse_official_finance_values_from_pages(
+                document_row=document,
+                pages=pages,
+                source_name="official_python_pdf_parser_01if_patch2" if patch2_mode else "official_pdf_parser_01if",
+                parser_name="official_python_pdf_text_line_parser_01if_patch2" if patch2_mode else "official_pdf_text_line_parser_01if",
+            )
             if not parsed_line.empty:
                 _, line_status = split_usable_and_status_rows(parsed_line)
                 if not line_status.empty:
@@ -226,6 +306,15 @@ def main() -> int:
     diagnostics = pd.DataFrame(diagnostics_rows, columns=PDF_EXTRACTION_DIAGNOSTIC_COLUMNS_01IF_PATCH1)
     page_audit = pd.DataFrame(page_audit_rows, columns=PAGE_TEXT_AUDIT_COLUMNS_01IF_PATCH1)
     table_cells = pd.DataFrame(table_cell_rows, columns=TABLE_CELL_COLUMNS_01IF_PATCH1)
+    if patch2_mode:
+        diagnostics = pd.DataFrame(diagnostics_rows, columns=PDF_EXTRACTION_DIAGNOSTIC_COLUMNS_01IF_PATCH2)
+        page_audit = pd.DataFrame(page_audit_rows, columns=PAGE_TEXT_AUDIT_COLUMNS_01IF_PATCH2)
+        table_cells = pd.DataFrame(table_cell_rows, columns=TABLE_CELL_COLUMNS_01IF_PATCH2)
+    normalized_table_rows_frame = (
+        pd.concat(normalized_table_frames, ignore_index=True)[NORMALIZED_TABLE_ROW_COLUMNS_01IF_PATCH2]
+        if normalized_table_frames
+        else pd.DataFrame(columns=NORMALIZED_TABLE_ROW_COLUMNS_01IF_PATCH2)
+    )
     write_outputs(
         output_dir=output_dir,
         candidate_rows=candidate_rows,
@@ -237,6 +326,9 @@ def main() -> int:
         diagnostics=diagnostics,
         page_audit=page_audit,
         table_cells=table_cells,
+        normalized_table_rows=normalized_table_rows_frame,
+        backend_availability=backend_availability,
+        markdown_audit_files=markdown_audit_files,
         manual=manual,
         selected_documents=selected_documents,
         command=command_string(),
@@ -259,6 +351,9 @@ def write_outputs(
     diagnostics: pd.DataFrame,
     page_audit: pd.DataFrame,
     table_cells: pd.DataFrame,
+    normalized_table_rows: pd.DataFrame,
+    backend_availability: pd.DataFrame,
+    markdown_audit_files: int,
     manual: pd.DataFrame,
     selected_documents: pd.DataFrame,
     command: str,
@@ -276,16 +371,28 @@ def write_outputs(
         diagnostics.to_csv(output_dir / "pdf_extraction_diagnostics_01if_patch1.csv", index=False)
         page_audit.to_csv(output_dir / "official_finance_page_text_audit_01if_patch1.csv", index=False)
         table_cells.to_csv(output_dir / "official_finance_table_cells_01if_patch1.csv", index=False)
+    if suffix == "_01if_patch2":
+        backend_availability.to_csv(output_dir / "pdf_backend_availability_01if_patch2.csv", index=False)
+        diagnostics.to_csv(output_dir / "pdf_extraction_diagnostics_01if_patch2.csv", index=False)
+        page_audit.to_csv(output_dir / "official_finance_page_text_audit_01if_patch2.csv", index=False)
+        table_cells.to_csv(output_dir / "official_finance_table_cells_01if_patch2.csv", index=False)
+        normalized_table_rows.to_csv(output_dir / "official_finance_normalized_table_rows_01if_patch2.csv", index=False)
     manual.to_csv(output_dir / "manual_review_queue.csv", index=False)
     (output_dir / "datasource_decision_report.md").write_text(
         build_01if_decision_report_markdown(
             selected_documents=selected_documents,
             candidate_rows=candidate_rows,
             coverage=coverage,
+            backend_availability=backend_availability if suffix == "_01if_patch2" else None,
         ),
         encoding="utf-8",
     )
-    summary_name = "official_finance_parse_01if_patch1_run_summary.md" if suffix == "_01if_patch1" else "official_finance_parse_01if_run_summary.md"
+    if suffix == "_01if_patch2":
+        summary_name = "official_finance_parse_01if_patch2_run_summary.md"
+    elif suffix == "_01if_patch1":
+        summary_name = "official_finance_parse_01if_patch1_run_summary.md"
+    else:
+        summary_name = "official_finance_parse_01if_run_summary.md"
     (output_dir / summary_name).write_text(
         build_01if_run_summary_markdown(
             command=command,
@@ -298,12 +405,18 @@ def write_outputs(
             diagnostics=diagnostics,
             table_cells=table_cells,
             status_rows=status_rows,
+            backend_availability=backend_availability if suffix == "_01if_patch2" else None,
+            normalized_table_rows=normalized_table_rows,
+            markdown_audit_files=markdown_audit_files,
+            text_extractable_before=3 if suffix == "_01if_patch2" else None,
         ),
         encoding="utf-8",
     )
 
 
-def _failed_parse_row(document: pd.Series, status: str, reason: str) -> dict[str, Any]:
+def _failed_parse_row(document: pd.Series, status: str, reason: str, *, patch2_mode: bool = False) -> dict[str, Any]:
+    source_name = "official_python_pdf_parser_01if_patch2" if patch2_mode else "official_pdf_parser_01if"
+    parser_name = "official_python_pdf_text_line_parser_01if_patch2" if patch2_mode else "official_pdf_text_line_parser_01if"
     return {
         "ticker": document.get("ticker", ""),
         "period": document.get("period", ""),
@@ -315,7 +428,7 @@ def _failed_parse_row(document: pd.Series, status: str, reason: str) -> dict[str
         "unit_multiplier": "",
         "currency": "",
         "source_category": "official_company_document",
-        "source_name": "official_pdf_parser_01if",
+        "source_name": source_name,
         "source_url": document.get("source_url", ""),
         "final_url": document.get("final_url", ""),
         "local_path": document.get("local_path", ""),
@@ -325,7 +438,7 @@ def _failed_parse_row(document: pd.Series, status: str, reason: str) -> dict[str
         "row_index": "",
         "raw_label": "",
         "raw_context": "",
-        "parser_name": "official_pdf_text_line_parser_01if",
+        "parser_name": parser_name,
         "parse_status": status,
         "confidence_raw": "low",
         "manual_review_required": True,
@@ -368,7 +481,12 @@ def command_string() -> str:
 
 
 def output_suffix(output_dir: Path) -> str:
-    return "_01if_patch1" if "patch1" in str(output_dir).lower() else "_01if"
+    lowered = str(output_dir).lower()
+    if "patch2" in lowered:
+        return "_01if_patch2"
+    if "patch1" in lowered:
+        return "_01if_patch1"
+    return "_01if"
 
 
 def parse_csv(value: str) -> list[str]:

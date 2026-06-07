@@ -8,6 +8,7 @@ import pandas as pd
 
 from src.ingestion.official_finance_document_selector import SELECTED_DOCUMENT_COLUMNS_01IF
 from src.ingestion.official_finance_value_parser import CANONICAL_FIELDS_01IF
+from src.ingestion.official_pdf_backend_registry import pdf_python_backend_ready_status
 
 
 FIELD_COVERAGE_COLUMNS_01IF = [
@@ -255,19 +256,24 @@ def build_01if_decision_report_markdown(
     selected_documents: pd.DataFrame,
     candidate_rows: pd.DataFrame,
     coverage: pd.DataFrame,
+    backend_availability: pd.DataFrame | None = None,
 ) -> str:
     selected_count = int((selected_documents["selection_status"] == "SELECTED_FOR_PARSE").sum()) if not selected_documents.empty else 0
     parsed_count = int((candidate_rows["parse_status"] == "FIELD_PARSED").sum()) if not candidate_rows.empty else 0
     tickers_with_parse = int(candidate_rows.loc[candidate_rows["parse_status"] == "FIELD_PARSED", "ticker"].nunique()) if parsed_count else 0
     sufficient = int((coverage["coverage_status"] == "SUFFICIENT_FOR_RECONCILIATION").sum()) if not coverage.empty else 0
     parse_ready = "Partial" if parsed_count else "False"
-    l0_ready = "Partial" if sufficient >= 2 else "unchanged"
+    l0_ready = "Partial" if parsed_count else "unchanged"
     document_file_ready = "True" if selected_count else "Partial"
-    return "\n".join(
+    lines = [
+        "# Datasource decision report",
+        "",
+        f"- official_document_file_ready: {document_file_ready}",
+    ]
+    if backend_availability is not None:
+        lines.append(f"- pdf_python_backend_ready: {pdf_python_backend_ready_status(backend_availability)}")
+    lines.extend(
         [
-            "# Datasource decision report",
-            "",
-            f"- official_document_file_ready: {document_file_ready}",
             f"- official_finance_parse_ready: {parse_ready}",
             f"- official_finance_candidate_rows: {len(candidate_rows)}",
             f"- usable_official_finance_candidate_rows: {parsed_count}",
@@ -281,6 +287,7 @@ def build_01if_decision_report_markdown(
             "01I-F emits source-backed official parser candidate rows only. Do not run 01I-G reconciliation until usable official value rows exist.",
         ]
     )
+    return "\n".join(lines)
 
 
 def build_01if_run_summary_markdown(
@@ -295,6 +302,10 @@ def build_01if_run_summary_markdown(
     diagnostics: pd.DataFrame | None = None,
     table_cells: pd.DataFrame | None = None,
     status_rows: pd.DataFrame | None = None,
+    backend_availability: pd.DataFrame | None = None,
+    normalized_table_rows: pd.DataFrame | None = None,
+    markdown_audit_files: int = 0,
+    text_extractable_before: int | None = None,
 ) -> str:
     selected_count = int((selected_documents["selection_status"] == "SELECTED_FOR_PARSE").sum()) if not selected_documents.empty else 0
     skipped_count = int(len(selected_documents) - selected_count)
@@ -302,12 +313,18 @@ def build_01if_run_summary_markdown(
     status_rows = status_rows if isinstance(status_rows, pd.DataFrame) else pd.DataFrame()
     diagnostics = diagnostics if isinstance(diagnostics, pd.DataFrame) else pd.DataFrame()
     table_cells = table_cells if isinstance(table_cells, pd.DataFrame) else pd.DataFrame()
+    normalized_table_rows = normalized_table_rows if isinstance(normalized_table_rows, pd.DataFrame) else pd.DataFrame()
+    backend_availability = backend_availability if isinstance(backend_availability, pd.DataFrame) else pd.DataFrame()
+    text_extractable_line = str(text_extractable_pdfs) if text_extractable_before is None else f"{text_extractable_before} -> {text_extractable_pdfs}"
     return "\n".join(
         [
             "# REAL-DATA-01I-F official finance parse run",
             "",
             "## Command run",
             f"`{command}`",
+            "",
+            "## Backend availability",
+            _format_backend_availability(backend_availability),
             "",
             "## Documents selected",
             str(selected_count),
@@ -322,13 +339,19 @@ def build_01if_run_summary_markdown(
             str(skipped_count),
             "",
             "## Text-extractable PDFs",
-            str(text_extractable_pdfs),
+            text_extractable_line,
             "",
             "## Non-text/scanned PDFs",
             str(non_text_pdfs),
             "",
             "## Tables extracted",
             str(int(table_cells[["file_hash", "page_number", "table_index"]].drop_duplicates().shape[0]) if not table_cells.empty else 0),
+            "",
+            "## Normalized table rows",
+            str(len(normalized_table_rows)),
+            "",
+            "## Markdown audit files",
+            str(markdown_audit_files),
             "",
             "## Usable candidate rows",
             str(len(candidate_rows)),
@@ -420,7 +443,19 @@ def _format_backend_diagnostics(diagnostics: pd.DataFrame) -> str:
     return "\n".join(f"- {row['backend']} {row['extract_status']}: {int(row['count'])}" for _, row in counts.iterrows())
 
 
+def _format_backend_availability(backend_availability: pd.DataFrame) -> str:
+    if not isinstance(backend_availability, pd.DataFrame) or backend_availability.empty:
+        return "- none"
+    rows = []
+    for _, row in backend_availability.iterrows():
+        installed = str(row.get("installed", ""))
+        version = str(row.get("version", ""))
+        status = "installed" if installed.lower() in {"true", "1", "yes"} else "missing"
+        rows.append(f"- {row.get('backend', '')}: {status} {version}".strip())
+    return "\n".join(rows)
+
+
 def _next_recommended_action(candidate_rows: pd.DataFrame) -> str:
     if not isinstance(candidate_rows, pd.DataFrame) or candidate_rows.empty:
-        return "Do not run 01I-G yet; enable a non-OCR table backend or manually review official PDFs, then rerun 01I-F-PATCH1 until usable official value rows exist."
+        return "Do not run 01I-G yet; current official PDFs still lack explicit parseable label/value/unit rows under non-OCR extraction, so use manual review or find cleaner official XLSX/text PDFs before rerunning this parse step."
     return "Review usable parser evidence and unresolved fields; only then prepare 01I-G reconciliation before any broader scale-up."
