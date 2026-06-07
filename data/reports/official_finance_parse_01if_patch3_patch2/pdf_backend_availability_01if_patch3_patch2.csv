@@ -1,0 +1,4 @@
+backend,installed,version,import_error,notes
+pymupdf,True,1.27.2.3,,available; no OCR capability used
+pdfplumber,True,0.11.9,,available; no OCR capability used
+pypdf,True,6.12.1,,available; no OCR capability used
