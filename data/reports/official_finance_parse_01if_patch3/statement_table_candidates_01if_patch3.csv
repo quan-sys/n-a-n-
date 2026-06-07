@@ -1,0 +1,1 @@
+ticker,document_id,source_url,local_path,file_hash,page_number,statement_type,table_index,rows_count,cols_count,header_guess,unit_detected,numeric_cell_count,numeric_density,selected_for_value_parse,rejection_reason

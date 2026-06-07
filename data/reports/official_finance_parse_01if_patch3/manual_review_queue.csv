@@ -1,0 +1,288 @@
+ticker,period,document_type,source_url,issue,manual_review_required,priority,notes
+VGC,2026-Q1,financial_statement,https://viglacera.com.vn/document/bao-cao-tai-chinh-hop-nhat-quy-i2026-tieng-anh,SKIPPED_UNSUPPORTED_FILE_TYPE,True,low,UNSUPPORTED_FILE_TYPE:html
+VGC,2026-Q1,financial_statement,https://viglacera.com.vn/document/bao-cao-tai-chinh-hop-nhat-quy-i2026-tieng-anh#menu,SKIPPED_UNSUPPORTED_FILE_TYPE,True,low,UNSUPPORTED_FILE_TYPE:html
+VGC,2026-Q1,financial_statement,https://viglacera.com.vn/document/bao-cao-tai-chinh-quy-i-nam-2026-hop-nhat,SKIPPED_UNSUPPORTED_FILE_TYPE,True,low,UNSUPPORTED_FILE_TYPE:html
+VGC,2026-Q1,financial_statement,https://viglacera.com.vn/document/bao-cao-tai-chinh-quy-i-nam-2026-hop-nhat#menu,SKIPPED_UNSUPPORTED_FILE_TYPE,True,low,UNSUPPORTED_FILE_TYPE:html
+HSG,2025-Q2,financial_statement,https://hoasengroup.vn/vi/bai-viet/hsg-bao-cao-tai-chinh-hop-nhat-va-giai-trinh-kqkd-hop-nhat-quy-ii-ndtc-2025-2026/,SKIPPED_UNSUPPORTED_FILE_TYPE,True,low,UNSUPPORTED_FILE_TYPE:html;SOURCE_BLOCKED_OR_JS_REQUIRED
+GMD,2026-Q1,financial_statement,https://www.gemadept.com.vn/bao-cao-tai-chinh-quy-1-2026/,SKIPPED_UNSUPPORTED_FILE_TYPE,True,low,UNSUPPORTED_FILE_TYPE:html;SOURCE_BLOCKED_OR_JS_REQUIRED
+GMD,2025-Q4,financial_statement,https://www.gemadept.com.vn/bao-cao-tai-chinh-quy-4-2025/,SKIPPED_UNSUPPORTED_FILE_TYPE,True,low,UNSUPPORTED_FILE_TYPE:html;SOURCE_BLOCKED_OR_JS_REQUIRED
+GMD,2025,financial_statement,https://www.gemadept.com.vn/bao-cao-tai-chinh-6-thang-dau-nam-2025/,SKIPPED_UNSUPPORTED_FILE_TYPE,True,low,UNSUPPORTED_FILE_TYPE:html;SOURCE_BLOCKED_OR_JS_REQUIRED
+FPT,2025,annual_report,https://bctn2025.fpt.com/bao-cao-esg/hoat-dong-vi-moi-truong-xanh/,SKIPPED_UNSUPPORTED_FILE_TYPE,True,low,UNSUPPORTED_FILE_TYPE:html
+FPT,2025,annual_report,https://bctn2025.fpt.com/vi,SKIPPED_UNSUPPORTED_FILE_TYPE,True,low,UNSUPPORTED_FILE_TYPE:html
+FPT,2025,annual_report,https://bctn2025.fpt.com/vi/,SKIPPED_UNSUPPORTED_FILE_TYPE,True,low,UNSUPPORTED_FILE_TYPE:html
+FPT,2025,annual_report,https://bctn2025.fpt.com/vi/bao-cao-esg/thong-diep-dinh-huong-esg,SKIPPED_UNSUPPORTED_FILE_TYPE,True,low,UNSUPPORTED_FILE_TYPE:html
+KDH,2026-Q1,financial_statement,https://www.khangdien.com.vn/wp-content/uploads/2026/04/20260429-kdh-bctc-cong-ty-me-q12026-giai-trinh-trong-tm-sign.pdf,REVIEW_ONLY_STANDALONE,True,high,STANDALONE_REVIEW_REQUIRED
+NLG,2026-Q1,financial_statement,https://www.namlongvn.com/uploads/2026/04/20260424-NLG-Bao-cao-tai-chinh-Q1.2026-Rieng-EN.pdf,REVIEW_ONLY_STANDALONE,True,high,STANDALONE_REVIEW_REQUIRED
+SSI,2026-Q1,financial_statement,https://www.ssi.com.vn/upload/files/IR/20260420_SSI_Bao_cao_tai_chinh_rieng_Quy_1_nam_2026(2).pdf,REVIEW_ONLY_STANDALONE,True,high,STANDALONE_REVIEW_REQUIRED
+NLG,2025-Q4,financial_statement,https://www.namlongvn.com/uploads/2026/01/20260129-NLG-CBTT-Bao-cao-tai-chinh-Quy-4.2025-Rieng-EN-1.pdf,REVIEW_ONLY_STANDALONE,True,high,STANDALONE_REVIEW_REQUIRED
+PVS,2025-Q4,financial_statement,https://www.ptsc.com.vn/Data/Sites/1/media/codong/2026/BCTC Cty me Quy 4 2025_web.pdf,REVIEW_ONLY_STANDALONE,True,high,STANDALONE_REVIEW_REQUIRED
+SSI,2025-Q4,financial_statement,https://www.ssi.com.vn/upload/files/IR/20260120_SSI_Bao_cao_tai_chinh_rieng_Quy_4_nam_2025.pdf,REVIEW_ONLY_STANDALONE,True,high,STANDALONE_REVIEW_REQUIRED
+PVS,2025,financial_statement,https://www.ptsc.com.vn/Data/Sites/1/media/codong/2025/PTSC_BCTC Cong ty me 6T %C4%90N2025 SKT.pdf,REVIEW_ONLY_STANDALONE,True,high,STANDALONE_REVIEW_REQUIRED
+PVS,2025,financial_statement,https://www.ptsc.com.vn/Data/Sites/1/media/codong/2025/PTSC_BCTC Cong ty me nam 2024_SKT.pdf,REVIEW_ONLY_STANDALONE,True,high,STANDALONE_REVIEW_REQUIRED
+NLG,2025-Q3,financial_statement,https://www.namlongvn.com/uploads/2025/10/20251029_NLG_CBTT-Bao-cao-tai-chinh-Quy-3.2025_Rieng_EN.pdf,REVIEW_ONLY_STANDALONE,True,high,STANDALONE_REVIEW_REQUIRED
+PVS,2025-Q3,financial_statement,https://www.ptsc.com.vn/Data/Sites/1/media/codong/VIE_EN_BCTC Cong ty me_Quy 3.2025.pdf,REVIEW_ONLY_STANDALONE,True,high,STANDALONE_REVIEW_REQUIRED
+SSI,2025-Q3,financial_statement,https://www.ssi.com.vn/upload/files/IR/20251020_SSI_Bao_cao_tai_chinh_rieng_Quy_3_nam_2025.pdf,REVIEW_ONLY_STANDALONE,True,high,STANDALONE_REVIEW_REQUIRED
+NLG,2025-Q2,financial_statement,https://www.namlongvn.com/uploads/2025/07/20250725-nlg-cbtt-bao-cao-tai-chinh-quy-2-2025-rieng-en.pdf,REVIEW_ONLY_STANDALONE,True,high,STANDALONE_REVIEW_REQUIRED
+PVS,2026-Q1,financial_statement,https://www.ptsc.com.vn/Data/Sites/1/media/codong/2026/657 PTSC-BTK.pdf,REVIEW_ONLY_STANDALONE,True,high,STANDALONE_REVIEW_REQUIRED
+NLG,2025,financial_statement,https://www.namlongvn.com/uploads/2025/08/20250804-nlg-bao-cao-soat-xet-ban-nien-2025-rieng-en.pdf,REVIEW_ONLY_STANDALONE,True,high,STANDALONE_REVIEW_REQUIRED
+PVS,2025-Q2,financial_statement,https://www.ptsc.com.vn/Data/Sites/1/media/codong/2025/1246 PTSC-BTK.pdf,REVIEW_ONLY_STANDALONE,True,high,STANDALONE_REVIEW_REQUIRED
+NLG,2025-Q1,financial_statement,https://www.namlongvn.com/uploads/assets/files/Cong-bo-thong-tin/Bao-cao-tai-chinh/20250424-nlg-cbtt-bao-cao-tai-chinh-quy-1-nam-2025-hop-nhat-en.pdf,SKIPPED_OLD_PERIOD,True,low,PERIOD_OUTSIDE_TARGETS
+NLG,2026,financial_statement,https://www.namlongvn.com/uploads/2026/03/20260318-NLG-CBTT-Bao-cao-tai-chinh-nam-2025-da-kiem-toan-Hop-nhat-EN.pdf,SKIPPED_OLD_PERIOD,True,low,PERIOD_OUTSIDE_TARGETS
+PVS,2024-Q4,financial_statement,https://www.ptsc.com.vn/Data/Sites/1/media/codong/2025/2025 01 24_162 PTSC-BTK_CBTT dinh ky BCTC.pdf,SKIPPED_OLD_PERIOD,True,low,PERIOD_OUTSIDE_TARGETS
+PVS,2025-Q1,financial_statement,https://www.ptsc.com.vn/Data/Sites/1/media/codong/2025/Website_BCTC Hop nhat_QUY 1.2025-VN.pdf,SKIPPED_OLD_PERIOD,True,low,PERIOD_OUTSIDE_TARGETS
+SSI,2026,financial_statement,https://www.ssi.com.vn/upload/files/IR/20260327_SSI_Bao_cao_tai_chinh_hop_nhat_nam_2025_da_kiem_toan.pdf,SKIPPED_OLD_PERIOD,True,low,PERIOD_OUTSIDE_TARGETS
+NLG,2026,financial_statement,https://www.namlongvn.com/uploads/2026/04/NLG-AGM-2026-Nam-Long-highlights-in-2025-Audited-consolidated-financial-reports-2025.pdf,SKIPPED_OLD_PERIOD,True,low,PERIOD_OUTSIDE_TARGETS
+PVS,2026,financial_statement,https://www.ptsc.com.vn/Data/Sites/1/media/codong/2026/397 PTSC-BTK.pdf,SKIPPED_OLD_PERIOD,True,low,PERIOD_OUTSIDE_TARGETS
+HSG,2026,financial_statement,https://hoasengroup.vn/vi/bai-viet/hsg-bao-cao-tai-chinh-hop-nhat-va-giai-trinh-kqkd-hop-nhat-giua-nien-do-ndtc-2025-2026-da-soat-xet/,SKIPPED_UNSUPPORTED_FILE_TYPE,True,low,UNSUPPORTED_FILE_TYPE:html;SOURCE_BLOCKED_OR_JS_REQUIRED
+VGC,2026,annual_report,https://cdn.viglacera.com.vn/storage/documents/quan-he-co-dong/bao-cao-thuong-nien/bctc-hop-nhat-va-giai-trinh-q-i-2026.pdf,SKIPPED_OLD_PERIOD,True,low,PERIOD_OUTSIDE_TARGETS
+VGC,2026,annual_report,https://cdn.viglacera.com.vn/storage/documents/quan-he-co-dong/bao-cao-thuong-nien/consolidated-financial-statements-and-explaination-q-i-2026.pdf,SKIPPED_OLD_PERIOD,True,low,PERIOD_OUTSIDE_TARGETS
+FPT,2026,annual_report,https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2026/april/bctn-2025.pdf,SKIPPED_OLD_PERIOD,True,low,PERIOD_OUTSIDE_TARGETS
+FPT,2026,annual_report,https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2026/april/bctn-fpt-2025.pdf,SKIPPED_OLD_PERIOD,True,low,PERIOD_OUTSIDE_TARGETS
+FPT,2026,annual_report,https://bctn2025.fpt.com/wp-content/uploads/2026/04/BAO-CAO-ESG_VI_02042026.pdf,SKIPPED_OLD_PERIOD,True,low,PERIOD_OUTSIDE_TARGETS
+FPT,2026,annual_report,https://bctn2025.fpt.com/wp-content/uploads/2026/04/BCTN-2025.pdf,SKIPPED_OLD_PERIOD,True,low,PERIOD_OUTSIDE_TARGETS
+NLG,2025-Q1,financial_statement,https://www.namlongvn.com/uploads/assets/files/Cong-bo-thong-tin/Bao-cao-tai-chinh/20250424-nlg-cbtt-bao-cao-tai-chinh-quy-1-nam-2025-rieng-en.pdf,SKIPPED_OLD_PERIOD,True,low,PERIOD_OUTSIDE_TARGETS;STANDALONE_REVIEW_REQUIRED
+NLG,2026,financial_statement,https://www.namlongvn.com/uploads/2026/03/20260318-NLG-CBTT-Bao-cao-tai-chinh-nam-2025-da-kiem-toan-Rieng-EN.pdf,SKIPPED_OLD_PERIOD,True,low,PERIOD_OUTSIDE_TARGETS;STANDALONE_REVIEW_REQUIRED
+PVS,2024-Q4,financial_statement,https://www.ptsc.com.vn/Data/Sites/1/media/codong/2025/2025 01 24_161 PTSC-BTK_CBTT Bao cao tai chinh Cong ty me Quy 4 2024.pdf,SKIPPED_OLD_PERIOD,True,low,PERIOD_OUTSIDE_TARGETS;STANDALONE_REVIEW_REQUIRED
+PVS,2025-Q1,financial_statement,https://www.ptsc.com.vn/Data/Sites/1/media/codong/2025/Webiste_BCTC Cong ty me_QUY 1.2025-VN.pdf,SKIPPED_OLD_PERIOD,True,low,PERIOD_OUTSIDE_TARGETS;STANDALONE_REVIEW_REQUIRED
+PVS,2026,financial_statement,https://www.ptsc.com.vn/Data/Sites/1/media/codong/2026/2026 03 19_363 PTSC-BTK_CBTT BCTC Cty me Nam 2025.pdf,SKIPPED_OLD_PERIOD,True,low,PERIOD_OUTSIDE_TARGETS;STANDALONE_REVIEW_REQUIRED
+SSI,2026,financial_statement,https://www.ssi.com.vn/upload/files/IR/20260327_SSI_Bao_cao_tai_chinh_rieng_nam_2025_da_kiem_toan.pdf,SKIPPED_OLD_PERIOD,True,low,PERIOD_OUTSIDE_TARGETS;STANDALONE_REVIEW_REQUIRED
+FPT,2026-Q1,,https://fpt.com/-/media/project/fpt-corporation/fpt/ir/information-disclosures/year-report/2026/april/20260424---fpt---bctc-hop-nhat-quy-1-nam-2026.pdf,MANUAL_REVIEW_REQUIRED,True,low,NO_FORMAL_STATEMENT_PAGE_SELECTED
+KDH,2026-Q1,,https://www.khangdien.com.vn/wp-content/uploads/2026/04/20260429-kdh-bctc-hop-nhat-q12026-giai-trinh-trong-tm-sign.pdf,MANUAL_REVIEW_REQUIRED,True,low,NO_FORMAL_STATEMENT_PAGE_SELECTED
+NLG,2026-Q1,,https://www.namlongvn.com/uploads/2026/04/20260424-NLG-Bao-cao-tai-chinh-Q1.2026-Hop-nhat-EN.pdf,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,high,NO_TEXT_EXTRACTED_NO_OCR
+NLG,2026-Q1,,https://www.namlongvn.com/uploads/2026/04/20260424-NLG-Bao-cao-tai-chinh-Q1.2026-Hop-nhat-EN.pdf,MANUAL_REVIEW_REQUIRED,True,low,NO_FORMAL_STATEMENT_PAGE_SELECTED
+SSI,2026-Q1,,https://www.ssi.com.vn/upload/files/IR/20260423_SSI_Bao_cao_tai_chinh_hop_nhat_Quy_1_nam_2026.pdf,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,high,NO_TEXT_EXTRACTED_NO_OCR
+SSI,2026-Q1,,https://www.ssi.com.vn/upload/files/IR/20260423_SSI_Bao_cao_tai_chinh_hop_nhat_Quy_1_nam_2026.pdf,MANUAL_REVIEW_REQUIRED,True,low,NO_FORMAL_STATEMENT_PAGE_SELECTED
+NLG,2025-Q4,,https://www.namlongvn.com/uploads/2026/01/20260129-NLG-CBTT-Bao-cao-tai-chinh-Quy-4.2025-Hop-nhat-EN.pdf,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,high,NO_TEXT_EXTRACTED_NO_OCR
+NLG,2025-Q4,,https://www.namlongvn.com/uploads/2026/01/20260129-NLG-CBTT-Bao-cao-tai-chinh-Quy-4.2025-Hop-nhat-EN.pdf,MANUAL_REVIEW_REQUIRED,True,low,NO_FORMAL_STATEMENT_PAGE_SELECTED
+PVS,2025-Q4,,https://www.ptsc.com.vn/Data/Sites/1/media/codong/2026/BCTC Hop nhat Q4 2025_web.pdf,MANUAL_REVIEW_REQUIRED,True,low,NO_FORMAL_STATEMENT_PAGE_SELECTED
+SSI,2025-Q4,,https://www.ssi.com.vn/upload/files/IR/20260130_SSI_Bao_cao_tai_chinh_hop_nhat_Quy_4_nam_2025.pdf,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,high,NO_TEXT_EXTRACTED_NO_OCR
+SSI,2025-Q4,,https://www.ssi.com.vn/upload/files/IR/20260130_SSI_Bao_cao_tai_chinh_hop_nhat_Quy_4_nam_2025.pdf,MANUAL_REVIEW_REQUIRED,True,low,NO_FORMAL_STATEMENT_PAGE_SELECTED
+PVS,2025,,https://www.ptsc.com.vn/Data/Sites/1/media/codong/2025/PTSC_BCTC Hop nhat 6T %C4%90N2025 SKT.pdf,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,high,NO_TEXT_EXTRACTED_NO_OCR
+PVS,2025,,https://www.ptsc.com.vn/Data/Sites/1/media/codong/2025/PTSC_BCTC Hop nhat 6T %C4%90N2025 SKT.pdf,MANUAL_REVIEW_REQUIRED,True,low,NO_FORMAL_STATEMENT_PAGE_SELECTED
+PVS,2025,,https://www.ptsc.com.vn/Data/Sites/1/media/codong/2025/PTSC_BCTC Hop nhat nam 2024_SKT.pdf,MANUAL_REVIEW_REQUIRED,True,low,NO_FORMAL_STATEMENT_PAGE_SELECTED
+PVS,2025,,https://www.ptsc.com.vn/Data/Sites/1/media/codong/2025/PTSC_BCTC Hop nhat nam 2024_SKT_EN.pdf,MANUAL_REVIEW_REQUIRED,True,low,NO_FORMAL_STATEMENT_PAGE_SELECTED
+NLG,2025-Q3,,https://www.namlongvn.com/uploads/2025/10/20251029_NLG_CBTT-Bao-cao-tai-chinh-Quy-3.2025_Hop-nhat_EN.pdf,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,high,NO_TEXT_EXTRACTED_NO_OCR
+NLG,2025-Q3,,https://www.namlongvn.com/uploads/2025/10/20251029_NLG_CBTT-Bao-cao-tai-chinh-Quy-3.2025_Hop-nhat_EN.pdf,MANUAL_REVIEW_REQUIRED,True,low,NO_FORMAL_STATEMENT_PAGE_SELECTED
+PVS,2025-Q3,,https://www.ptsc.com.vn/Data/Sites/1/media/codong/VIE EN_BCTC Hop nhat_Quy 3.2025.pdf,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,high,NO_TEXT_EXTRACTED_NO_OCR
+PVS,2025-Q3,,https://www.ptsc.com.vn/Data/Sites/1/media/codong/VIE EN_BCTC Hop nhat_Quy 3.2025.pdf,MANUAL_REVIEW_REQUIRED,True,low,NO_FORMAL_STATEMENT_PAGE_SELECTED
+SSI,2025-Q3,,https://www.ssi.com.vn/upload/files/IR/SSI_Bao_cao_tai_chinh_hop_nhat_Quy_3_nam_2025%20(1).pdf,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,high,NO_TEXT_EXTRACTED_NO_OCR
+SSI,2025-Q3,,https://www.ssi.com.vn/upload/files/IR/SSI_Bao_cao_tai_chinh_hop_nhat_Quy_3_nam_2025%20(1).pdf,MANUAL_REVIEW_REQUIRED,True,low,NO_FORMAL_STATEMENT_PAGE_SELECTED
+NLG,2025-Q2,,https://www.namlongvn.com/uploads/2025/07/20250725-nlg-cbtt-bao-cao-tai-chinh-quy-2-2025-hop-nhat-en.pdf,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,high,NO_TEXT_EXTRACTED_NO_OCR
+NLG,2025-Q2,,https://www.namlongvn.com/uploads/2025/07/20250725-nlg-cbtt-bao-cao-tai-chinh-quy-2-2025-hop-nhat-en.pdf,MANUAL_REVIEW_REQUIRED,True,low,NO_FORMAL_STATEMENT_PAGE_SELECTED
+PVS,2025-Q2,,https://www.ptsc.com.vn/Data/Sites/1/media/codong/2025/BCTC Q2_Webiste.pdf,MANUAL_REVIEW_REQUIRED,True,low,NO_FORMAL_STATEMENT_PAGE_SELECTED
+PVS,2026-Q1,,https://www.ptsc.com.vn/Data/Sites/1/media/codong/2026/658 PTSC-BTK.pdf,MANUAL_REVIEW_REQUIRED,True,low,NO_FORMAL_STATEMENT_PAGE_SELECTED
+NLG,2025,,https://www.namlongvn.com/uploads/2025/08/20250804-nlg-bao-cao-soat-xet-ban-nien-2025-hop-nhat-en.pdf,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,high,NO_TEXT_EXTRACTED_NO_OCR
+NLG,2025,,https://www.namlongvn.com/uploads/2025/08/20250804-nlg-bao-cao-soat-xet-ban-nien-2025-hop-nhat-en.pdf,MANUAL_REVIEW_REQUIRED,True,low,NO_FORMAL_STATEMENT_PAGE_SELECTED
+NLG,2025,,https://www.namlongvn.com/uploads/assets/files/Dai-hoi-dong-co-dong/2025/nlg-agm-2025-nam-long-highlights-in-2024-audited-consolidated-financial-reports-2024.pdf,MANUAL_REVIEW_REQUIRED,True,low,NO_FORMAL_STATEMENT_PAGE_SELECTED
+NLG,2025,,https://www.namlongvn.com/uploads/assets/files/Dai-hoi-dong-co-dong/2025/nlg-agm-2025-submission-audited-financial-report-2024-profit-distribution-plan-2024.pdf,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,high,NO_TEXT_EXTRACTED_NO_OCR
+NLG,2025,,https://www.namlongvn.com/uploads/assets/files/Dai-hoi-dong-co-dong/2025/nlg-agm-2025-submission-audited-financial-report-2024-profit-distribution-plan-2024.pdf,MANUAL_REVIEW_REQUIRED,True,low,NO_FORMAL_STATEMENT_PAGE_SELECTED
+SSI,2025,,https://www.ssi.com.vn/upload/files/IR/Reports/20250814_SSI_Bao_cao_tai_chinh_rieng_soat_xet_ban_nien_2025.pdf,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,high,NO_TEXT_EXTRACTED_NO_OCR
+SSI,2025,,https://www.ssi.com.vn/upload/files/IR/Reports/20250814_SSI_Bao_cao_tai_chinh_rieng_soat_xet_ban_nien_2025.pdf,MANUAL_REVIEW_REQUIRED,True,low,NO_FORMAL_STATEMENT_PAGE_SELECTED
+FPT,2026-Q1,,,MISSING_REQUIRED_FIELDS,True,high,revenue|gross_profit|operating_profit|net_profit|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory
+KDH,2026-Q1,,,MISSING_REQUIRED_FIELDS,True,high,revenue|gross_profit|operating_profit|net_profit|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory
+NLG,2026-Q1,,,MISSING_REQUIRED_FIELDS,True,high,revenue|gross_profit|operating_profit|net_profit|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory
+SSI,2026-Q1,,,MISSING_REQUIRED_FIELDS,True,high,revenue|gross_profit|operating_profit|net_profit|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory
+NLG,2025-Q4,,,MISSING_REQUIRED_FIELDS,True,high,revenue|gross_profit|operating_profit|net_profit|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory
+PVS,2025-Q4,,,MISSING_REQUIRED_FIELDS,True,high,revenue|gross_profit|operating_profit|net_profit|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory
+SSI,2025-Q4,,,MISSING_REQUIRED_FIELDS,True,high,revenue|gross_profit|operating_profit|net_profit|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory
+PVS,2025,,,MISSING_REQUIRED_FIELDS,True,high,revenue|gross_profit|operating_profit|net_profit|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory
+NLG,2025-Q3,,,MISSING_REQUIRED_FIELDS,True,high,revenue|gross_profit|operating_profit|net_profit|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory
+PVS,2025-Q3,,,MISSING_REQUIRED_FIELDS,True,high,revenue|gross_profit|operating_profit|net_profit|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory
+SSI,2025-Q3,,,MISSING_REQUIRED_FIELDS,True,high,revenue|gross_profit|operating_profit|net_profit|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory
+NLG,2025-Q2,,,MISSING_REQUIRED_FIELDS,True,high,revenue|gross_profit|operating_profit|net_profit|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory
+PVS,2025-Q2,,,MISSING_REQUIRED_FIELDS,True,high,revenue|gross_profit|operating_profit|net_profit|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory
+PVS,2026-Q1,,,MISSING_REQUIRED_FIELDS,True,high,revenue|gross_profit|operating_profit|net_profit|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory
+NLG,2025,,,MISSING_REQUIRED_FIELDS,True,high,revenue|gross_profit|operating_profit|net_profit|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory
+SSI,2025,,,MISSING_REQUIRED_FIELDS,True,high,revenue|gross_profit|operating_profit|net_profit|total_assets|total_liabilities|equity|cash|short_term_debt|long_term_debt|operating_cash_flow|inventory
+FPT,2026-Q1,,,FIELD_NOT_FOUND:revenue,True,low,missing field was not inferred or zero-filled
+FPT,2026-Q1,,,FIELD_NOT_FOUND:gross_profit,True,low,missing field was not inferred or zero-filled
+FPT,2026-Q1,,,FIELD_NOT_FOUND:operating_profit,True,low,missing field was not inferred or zero-filled
+FPT,2026-Q1,,,FIELD_NOT_FOUND:net_profit,True,low,missing field was not inferred or zero-filled
+FPT,2026-Q1,,,FIELD_NOT_FOUND:total_assets,True,low,missing field was not inferred or zero-filled
+FPT,2026-Q1,,,FIELD_NOT_FOUND:total_liabilities,True,low,missing field was not inferred or zero-filled
+FPT,2026-Q1,,,FIELD_NOT_FOUND:equity,True,low,missing field was not inferred or zero-filled
+FPT,2026-Q1,,,FIELD_NOT_FOUND:cash,True,low,missing field was not inferred or zero-filled
+FPT,2026-Q1,,,FIELD_NOT_FOUND:short_term_debt,True,low,missing field was not inferred or zero-filled
+FPT,2026-Q1,,,FIELD_NOT_FOUND:long_term_debt,True,low,missing field was not inferred or zero-filled
+FPT,2026-Q1,,,FIELD_NOT_FOUND:operating_cash_flow,True,low,missing field was not inferred or zero-filled
+FPT,2026-Q1,,,FIELD_NOT_FOUND:inventory,True,low,missing field was not inferred or zero-filled
+KDH,2026-Q1,,,FIELD_NOT_FOUND:revenue,True,low,missing field was not inferred or zero-filled
+KDH,2026-Q1,,,FIELD_NOT_FOUND:gross_profit,True,low,missing field was not inferred or zero-filled
+KDH,2026-Q1,,,FIELD_NOT_FOUND:operating_profit,True,low,missing field was not inferred or zero-filled
+KDH,2026-Q1,,,FIELD_NOT_FOUND:net_profit,True,low,missing field was not inferred or zero-filled
+KDH,2026-Q1,,,FIELD_NOT_FOUND:total_assets,True,low,missing field was not inferred or zero-filled
+KDH,2026-Q1,,,FIELD_NOT_FOUND:total_liabilities,True,low,missing field was not inferred or zero-filled
+KDH,2026-Q1,,,FIELD_NOT_FOUND:equity,True,low,missing field was not inferred or zero-filled
+KDH,2026-Q1,,,FIELD_NOT_FOUND:cash,True,low,missing field was not inferred or zero-filled
+KDH,2026-Q1,,,FIELD_NOT_FOUND:short_term_debt,True,low,missing field was not inferred or zero-filled
+KDH,2026-Q1,,,FIELD_NOT_FOUND:long_term_debt,True,low,missing field was not inferred or zero-filled
+KDH,2026-Q1,,,FIELD_NOT_FOUND:operating_cash_flow,True,low,missing field was not inferred or zero-filled
+KDH,2026-Q1,,,FIELD_NOT_FOUND:inventory,True,low,missing field was not inferred or zero-filled
+NLG,2026-Q1,,,FIELD_NOT_FOUND:revenue,True,low,missing field was not inferred or zero-filled
+NLG,2026-Q1,,,FIELD_NOT_FOUND:gross_profit,True,low,missing field was not inferred or zero-filled
+NLG,2026-Q1,,,FIELD_NOT_FOUND:operating_profit,True,low,missing field was not inferred or zero-filled
+NLG,2026-Q1,,,FIELD_NOT_FOUND:net_profit,True,low,missing field was not inferred or zero-filled
+NLG,2026-Q1,,,FIELD_NOT_FOUND:total_assets,True,low,missing field was not inferred or zero-filled
+NLG,2026-Q1,,,FIELD_NOT_FOUND:total_liabilities,True,low,missing field was not inferred or zero-filled
+NLG,2026-Q1,,,FIELD_NOT_FOUND:equity,True,low,missing field was not inferred or zero-filled
+NLG,2026-Q1,,,FIELD_NOT_FOUND:cash,True,low,missing field was not inferred or zero-filled
+NLG,2026-Q1,,,FIELD_NOT_FOUND:short_term_debt,True,low,missing field was not inferred or zero-filled
+NLG,2026-Q1,,,FIELD_NOT_FOUND:long_term_debt,True,low,missing field was not inferred or zero-filled
+NLG,2026-Q1,,,FIELD_NOT_FOUND:operating_cash_flow,True,low,missing field was not inferred or zero-filled
+NLG,2026-Q1,,,FIELD_NOT_FOUND:inventory,True,low,missing field was not inferred or zero-filled
+SSI,2026-Q1,,,FIELD_NOT_FOUND:revenue,True,low,missing field was not inferred or zero-filled
+SSI,2026-Q1,,,FIELD_NOT_FOUND:gross_profit,True,low,missing field was not inferred or zero-filled
+SSI,2026-Q1,,,FIELD_NOT_FOUND:operating_profit,True,low,missing field was not inferred or zero-filled
+SSI,2026-Q1,,,FIELD_NOT_FOUND:net_profit,True,low,missing field was not inferred or zero-filled
+SSI,2026-Q1,,,FIELD_NOT_FOUND:total_assets,True,low,missing field was not inferred or zero-filled
+SSI,2026-Q1,,,FIELD_NOT_FOUND:total_liabilities,True,low,missing field was not inferred or zero-filled
+SSI,2026-Q1,,,FIELD_NOT_FOUND:equity,True,low,missing field was not inferred or zero-filled
+SSI,2026-Q1,,,FIELD_NOT_FOUND:cash,True,low,missing field was not inferred or zero-filled
+SSI,2026-Q1,,,FIELD_NOT_FOUND:short_term_debt,True,low,missing field was not inferred or zero-filled
+SSI,2026-Q1,,,FIELD_NOT_FOUND:long_term_debt,True,low,missing field was not inferred or zero-filled
+SSI,2026-Q1,,,FIELD_NOT_FOUND:operating_cash_flow,True,low,missing field was not inferred or zero-filled
+SSI,2026-Q1,,,FIELD_NOT_FOUND:inventory,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q4,,,FIELD_NOT_FOUND:revenue,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q4,,,FIELD_NOT_FOUND:gross_profit,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q4,,,FIELD_NOT_FOUND:operating_profit,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q4,,,FIELD_NOT_FOUND:net_profit,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q4,,,FIELD_NOT_FOUND:total_assets,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q4,,,FIELD_NOT_FOUND:total_liabilities,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q4,,,FIELD_NOT_FOUND:equity,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q4,,,FIELD_NOT_FOUND:cash,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q4,,,FIELD_NOT_FOUND:short_term_debt,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q4,,,FIELD_NOT_FOUND:long_term_debt,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q4,,,FIELD_NOT_FOUND:operating_cash_flow,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q4,,,FIELD_NOT_FOUND:inventory,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q4,,,FIELD_NOT_FOUND:revenue,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q4,,,FIELD_NOT_FOUND:gross_profit,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q4,,,FIELD_NOT_FOUND:operating_profit,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q4,,,FIELD_NOT_FOUND:net_profit,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q4,,,FIELD_NOT_FOUND:total_assets,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q4,,,FIELD_NOT_FOUND:total_liabilities,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q4,,,FIELD_NOT_FOUND:equity,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q4,,,FIELD_NOT_FOUND:cash,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q4,,,FIELD_NOT_FOUND:short_term_debt,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q4,,,FIELD_NOT_FOUND:long_term_debt,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q4,,,FIELD_NOT_FOUND:operating_cash_flow,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q4,,,FIELD_NOT_FOUND:inventory,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q4,,,FIELD_NOT_FOUND:revenue,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q4,,,FIELD_NOT_FOUND:gross_profit,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q4,,,FIELD_NOT_FOUND:operating_profit,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q4,,,FIELD_NOT_FOUND:net_profit,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q4,,,FIELD_NOT_FOUND:total_assets,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q4,,,FIELD_NOT_FOUND:total_liabilities,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q4,,,FIELD_NOT_FOUND:equity,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q4,,,FIELD_NOT_FOUND:cash,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q4,,,FIELD_NOT_FOUND:short_term_debt,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q4,,,FIELD_NOT_FOUND:long_term_debt,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q4,,,FIELD_NOT_FOUND:operating_cash_flow,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q4,,,FIELD_NOT_FOUND:inventory,True,low,missing field was not inferred or zero-filled
+PVS,2025,,,FIELD_NOT_FOUND:revenue,True,low,missing field was not inferred or zero-filled
+PVS,2025,,,FIELD_NOT_FOUND:gross_profit,True,low,missing field was not inferred or zero-filled
+PVS,2025,,,FIELD_NOT_FOUND:operating_profit,True,low,missing field was not inferred or zero-filled
+PVS,2025,,,FIELD_NOT_FOUND:net_profit,True,low,missing field was not inferred or zero-filled
+PVS,2025,,,FIELD_NOT_FOUND:total_assets,True,low,missing field was not inferred or zero-filled
+PVS,2025,,,FIELD_NOT_FOUND:total_liabilities,True,low,missing field was not inferred or zero-filled
+PVS,2025,,,FIELD_NOT_FOUND:equity,True,low,missing field was not inferred or zero-filled
+PVS,2025,,,FIELD_NOT_FOUND:cash,True,low,missing field was not inferred or zero-filled
+PVS,2025,,,FIELD_NOT_FOUND:short_term_debt,True,low,missing field was not inferred or zero-filled
+PVS,2025,,,FIELD_NOT_FOUND:long_term_debt,True,low,missing field was not inferred or zero-filled
+PVS,2025,,,FIELD_NOT_FOUND:operating_cash_flow,True,low,missing field was not inferred or zero-filled
+PVS,2025,,,FIELD_NOT_FOUND:inventory,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q3,,,FIELD_NOT_FOUND:revenue,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q3,,,FIELD_NOT_FOUND:gross_profit,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q3,,,FIELD_NOT_FOUND:operating_profit,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q3,,,FIELD_NOT_FOUND:net_profit,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q3,,,FIELD_NOT_FOUND:total_assets,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q3,,,FIELD_NOT_FOUND:total_liabilities,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q3,,,FIELD_NOT_FOUND:equity,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q3,,,FIELD_NOT_FOUND:cash,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q3,,,FIELD_NOT_FOUND:short_term_debt,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q3,,,FIELD_NOT_FOUND:long_term_debt,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q3,,,FIELD_NOT_FOUND:operating_cash_flow,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q3,,,FIELD_NOT_FOUND:inventory,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q3,,,FIELD_NOT_FOUND:revenue,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q3,,,FIELD_NOT_FOUND:gross_profit,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q3,,,FIELD_NOT_FOUND:operating_profit,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q3,,,FIELD_NOT_FOUND:net_profit,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q3,,,FIELD_NOT_FOUND:total_assets,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q3,,,FIELD_NOT_FOUND:total_liabilities,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q3,,,FIELD_NOT_FOUND:equity,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q3,,,FIELD_NOT_FOUND:cash,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q3,,,FIELD_NOT_FOUND:short_term_debt,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q3,,,FIELD_NOT_FOUND:long_term_debt,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q3,,,FIELD_NOT_FOUND:operating_cash_flow,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q3,,,FIELD_NOT_FOUND:inventory,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q3,,,FIELD_NOT_FOUND:revenue,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q3,,,FIELD_NOT_FOUND:gross_profit,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q3,,,FIELD_NOT_FOUND:operating_profit,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q3,,,FIELD_NOT_FOUND:net_profit,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q3,,,FIELD_NOT_FOUND:total_assets,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q3,,,FIELD_NOT_FOUND:total_liabilities,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q3,,,FIELD_NOT_FOUND:equity,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q3,,,FIELD_NOT_FOUND:cash,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q3,,,FIELD_NOT_FOUND:short_term_debt,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q3,,,FIELD_NOT_FOUND:long_term_debt,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q3,,,FIELD_NOT_FOUND:operating_cash_flow,True,low,missing field was not inferred or zero-filled
+SSI,2025-Q3,,,FIELD_NOT_FOUND:inventory,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q2,,,FIELD_NOT_FOUND:revenue,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q2,,,FIELD_NOT_FOUND:gross_profit,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q2,,,FIELD_NOT_FOUND:operating_profit,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q2,,,FIELD_NOT_FOUND:net_profit,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q2,,,FIELD_NOT_FOUND:total_assets,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q2,,,FIELD_NOT_FOUND:total_liabilities,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q2,,,FIELD_NOT_FOUND:equity,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q2,,,FIELD_NOT_FOUND:cash,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q2,,,FIELD_NOT_FOUND:short_term_debt,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q2,,,FIELD_NOT_FOUND:long_term_debt,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q2,,,FIELD_NOT_FOUND:operating_cash_flow,True,low,missing field was not inferred or zero-filled
+NLG,2025-Q2,,,FIELD_NOT_FOUND:inventory,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q2,,,FIELD_NOT_FOUND:revenue,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q2,,,FIELD_NOT_FOUND:gross_profit,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q2,,,FIELD_NOT_FOUND:operating_profit,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q2,,,FIELD_NOT_FOUND:net_profit,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q2,,,FIELD_NOT_FOUND:total_assets,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q2,,,FIELD_NOT_FOUND:total_liabilities,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q2,,,FIELD_NOT_FOUND:equity,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q2,,,FIELD_NOT_FOUND:cash,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q2,,,FIELD_NOT_FOUND:short_term_debt,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q2,,,FIELD_NOT_FOUND:long_term_debt,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q2,,,FIELD_NOT_FOUND:operating_cash_flow,True,low,missing field was not inferred or zero-filled
+PVS,2025-Q2,,,FIELD_NOT_FOUND:inventory,True,low,missing field was not inferred or zero-filled
+PVS,2026-Q1,,,FIELD_NOT_FOUND:revenue,True,low,missing field was not inferred or zero-filled
+PVS,2026-Q1,,,FIELD_NOT_FOUND:gross_profit,True,low,missing field was not inferred or zero-filled
+PVS,2026-Q1,,,FIELD_NOT_FOUND:operating_profit,True,low,missing field was not inferred or zero-filled
+PVS,2026-Q1,,,FIELD_NOT_FOUND:net_profit,True,low,missing field was not inferred or zero-filled
+PVS,2026-Q1,,,FIELD_NOT_FOUND:total_assets,True,low,missing field was not inferred or zero-filled
+PVS,2026-Q1,,,FIELD_NOT_FOUND:total_liabilities,True,low,missing field was not inferred or zero-filled
+PVS,2026-Q1,,,FIELD_NOT_FOUND:equity,True,low,missing field was not inferred or zero-filled
+PVS,2026-Q1,,,FIELD_NOT_FOUND:cash,True,low,missing field was not inferred or zero-filled
+PVS,2026-Q1,,,FIELD_NOT_FOUND:short_term_debt,True,low,missing field was not inferred or zero-filled
+PVS,2026-Q1,,,FIELD_NOT_FOUND:long_term_debt,True,low,missing field was not inferred or zero-filled
+PVS,2026-Q1,,,FIELD_NOT_FOUND:operating_cash_flow,True,low,missing field was not inferred or zero-filled
+PVS,2026-Q1,,,FIELD_NOT_FOUND:inventory,True,low,missing field was not inferred or zero-filled
+NLG,2025,,,FIELD_NOT_FOUND:revenue,True,low,missing field was not inferred or zero-filled
+NLG,2025,,,FIELD_NOT_FOUND:gross_profit,True,low,missing field was not inferred or zero-filled
+NLG,2025,,,FIELD_NOT_FOUND:operating_profit,True,low,missing field was not inferred or zero-filled
+NLG,2025,,,FIELD_NOT_FOUND:net_profit,True,low,missing field was not inferred or zero-filled
+NLG,2025,,,FIELD_NOT_FOUND:total_assets,True,low,missing field was not inferred or zero-filled
+NLG,2025,,,FIELD_NOT_FOUND:total_liabilities,True,low,missing field was not inferred or zero-filled
+NLG,2025,,,FIELD_NOT_FOUND:equity,True,low,missing field was not inferred or zero-filled
+NLG,2025,,,FIELD_NOT_FOUND:cash,True,low,missing field was not inferred or zero-filled
+NLG,2025,,,FIELD_NOT_FOUND:short_term_debt,True,low,missing field was not inferred or zero-filled
+NLG,2025,,,FIELD_NOT_FOUND:long_term_debt,True,low,missing field was not inferred or zero-filled
+NLG,2025,,,FIELD_NOT_FOUND:operating_cash_flow,True,low,missing field was not inferred or zero-filled
+NLG,2025,,,FIELD_NOT_FOUND:inventory,True,low,missing field was not inferred or zero-filled
+SSI,2025,,,FIELD_NOT_FOUND:revenue,True,low,missing field was not inferred or zero-filled
+SSI,2025,,,FIELD_NOT_FOUND:gross_profit,True,low,missing field was not inferred or zero-filled
+SSI,2025,,,FIELD_NOT_FOUND:operating_profit,True,low,missing field was not inferred or zero-filled
+SSI,2025,,,FIELD_NOT_FOUND:net_profit,True,low,missing field was not inferred or zero-filled
+SSI,2025,,,FIELD_NOT_FOUND:total_assets,True,low,missing field was not inferred or zero-filled
+SSI,2025,,,FIELD_NOT_FOUND:total_liabilities,True,low,missing field was not inferred or zero-filled
+SSI,2025,,,FIELD_NOT_FOUND:equity,True,low,missing field was not inferred or zero-filled
+SSI,2025,,,FIELD_NOT_FOUND:cash,True,low,missing field was not inferred or zero-filled
+SSI,2025,,,FIELD_NOT_FOUND:short_term_debt,True,low,missing field was not inferred or zero-filled
+SSI,2025,,,FIELD_NOT_FOUND:long_term_debt,True,low,missing field was not inferred or zero-filled
+SSI,2025,,,FIELD_NOT_FOUND:operating_cash_flow,True,low,missing field was not inferred or zero-filled
+SSI,2025,,,FIELD_NOT_FOUND:inventory,True,low,missing field was not inferred or zero-filled

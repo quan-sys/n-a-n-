@@ -22,6 +22,17 @@ from src.ingestion.official_pdf_backend_registry import (  # noqa: E402
     build_pdf_backend_availability_rows,
     get_pdf_backend_availability,
 )
+from src.ingestion.official_finance_statement_targeter import (  # noqa: E402
+    PATCH3_CANDIDATE_COLUMNS,
+    STATEMENT_PAGE_CANDIDATE_COLUMNS_01IF_PATCH3,
+    STATEMENT_TABLE_CANDIDATE_COLUMNS_01IF_PATCH3,
+    build_statement_page_candidates,
+    build_statement_table_candidates,
+    filter_cells_to_selected_statement_tables,
+    parse_patch3_statement_rows,
+    selected_statement_page_numbers,
+    write_statement_audit_files,
+)
 from src.ingestion.official_finance_parse_evidence import (  # noqa: E402
     FIELD_COVERAGE_COLUMNS_01IF,
     MANUAL_REVIEW_COLUMNS_01IF_PARSE,
@@ -64,6 +75,7 @@ from src.ingestion.official_pdf_python_extractor import (  # noqa: E402
     build_python_page_text_audit_rows,
     build_python_pdf_diagnostic_rows,
     build_python_table_cell_rows,
+    extract_pdfplumber_tables_for_pages,
     extract_pdf_with_python_backends,
     write_markdown_audit,
 )
@@ -76,7 +88,9 @@ from src.ingestion.official_pdf_table_normalizer import (  # noqa: E402
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="REAL-DATA-01I-F parse verified official finance PDFs.")
     parser.add_argument("--document-index", default="data/reports/official_finance_documents_01ie/finance_document_index.csv")
+    parser.add_argument("--input-document-index", default="")
     parser.add_argument("--output-dir", default="data/reports/official_finance_parse_01if")
+    parser.add_argument("--patch", default="")
     parser.add_argument("--max-documents", type=int, default=40)
     parser.add_argument("--target-periods", default="2026-Q1,2025-Q4,2025,2025-Q3,2025-Q2")
     parser.add_argument("--tickers", default="")
@@ -90,6 +104,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--diagnose-only", action="store_true")
     parser.add_argument("--use-python-pdf-backends", action="store_true")
     parser.add_argument("--emit-markdown-audit", action="store_true")
+    parser.add_argument("--statement-pages-only", action="store_true")
     return parser.parse_args()
 
 
@@ -97,7 +112,8 @@ def main() -> int:
     args = parse_args()
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
-    document_index = pd.read_csv(args.document_index, keep_default_na=False)
+    document_index_path = args.input_document_index or args.document_index
+    document_index = pd.read_csv(document_index_path, keep_default_na=False)
     selected_documents = select_documents_for_official_parse(
         document_index,
         target_periods=parse_csv(args.target_periods),
@@ -107,6 +123,14 @@ def main() -> int:
     )
     selected_documents.to_csv(output_dir / "selected_documents_for_parse.csv", index=False)
     patch2_mode = args.use_python_pdf_backends or output_suffix(output_dir) == "_01if_patch2"
+    patch3_mode = args.patch.lower() == "01if_patch3" or args.statement_pages_only or output_suffix(output_dir) == "_01if_patch3"
+    if patch3_mode:
+        return run_patch3_statement_page_parse(
+            args=args,
+            output_dir=output_dir,
+            selected_documents=selected_documents,
+            command=command_string(),
+        )
     backend_availability = pd.DataFrame(
         build_pdf_backend_availability_rows(get_pdf_backend_availability()),
         columns=PDF_BACKEND_AVAILABILITY_COLUMNS_01IF_PATCH2,
@@ -339,6 +363,213 @@ def main() -> int:
     return 0
 
 
+def run_patch3_statement_page_parse(
+    *,
+    args: argparse.Namespace,
+    output_dir: Path,
+    selected_documents: pd.DataFrame,
+    command: str,
+) -> int:
+    parse_targets = selected_documents[selected_documents["selection_status"] == "SELECTED_FOR_PARSE"].copy()
+    if args.max_documents:
+        parse_targets = parse_targets.head(args.max_documents)
+    backend_availability = pd.DataFrame(
+        build_pdf_backend_availability_rows(get_pdf_backend_availability()),
+        columns=PDF_BACKEND_AVAILABILITY_COLUMNS_01IF_PATCH2,
+    )
+    candidate_frames = []
+    status_frames = []
+    page_candidate_frames = []
+    table_candidate_frames = []
+    table_cell_rows = []
+    normalized_table_frames = []
+    diagnostics_rows = []
+    page_audit_rows = []
+    statement_audit_files = 0
+    text_extractable_pdfs = 0
+    non_text_pdfs = 0
+
+    for _, document in parse_targets.iterrows():
+        if document["detected_file_type"] != "pdf":
+            status_frames.append(
+                pd.DataFrame(
+                    [_failed_parse_row(document, "TABLE_EXTRACTION_FAILED", "XLSX_XLS_PARSE_NOT_IMPLEMENTED_YET", patch_label="01if_patch3")],
+                    columns=PATCH3_CANDIDATE_COLUMNS,
+                )
+            )
+            continue
+        extraction = extract_pdf_with_python_backends(
+            document["local_path"],
+            max_pages=args.max_pages_per_document,
+            use_table_extraction=False,
+        )
+        pages = extraction.pages
+        diagnostics_rows.extend(build_python_pdf_diagnostic_rows(document_row=document, diagnostics=extraction.diagnostics))
+        page_audit_rows.extend(build_python_page_text_audit_rows(document_row=document, pages=pages))
+        has_text = any(getattr(page, "extraction_status", "") == "TEXT_EXTRACTED" for page in pages)
+        if has_text:
+            text_extractable_pdfs += 1
+        else:
+            non_text_pdfs += 1
+            status_frames.append(
+                pd.DataFrame(
+                    [_failed_parse_row(document, "DOCUMENT_NOT_TEXT_EXTRACTABLE", "NO_TEXT_EXTRACTED_NO_OCR", patch_label="01if_patch3")],
+                    columns=PATCH3_CANDIDATE_COLUMNS,
+                )
+            )
+
+        page_candidates = build_statement_page_candidates(document_row=document, pages=pages)
+        if not page_candidates.empty:
+            page_candidate_frames.append(page_candidates)
+        selected_pages = selected_statement_page_numbers(page_candidates)
+        if not selected_pages:
+            status_frames.append(
+                pd.DataFrame(
+                    [_failed_parse_row(document, "MANUAL_REVIEW_REQUIRED", "NO_FORMAL_STATEMENT_PAGE_SELECTED", patch_label="01if_patch3")],
+                    columns=PATCH3_CANDIDATE_COLUMNS,
+                )
+            )
+            if args.emit_markdown_audit:
+                statement_audit_files += write_statement_audit_files(
+                    document_row=document,
+                    pages=pages,
+                    page_candidates=page_candidates,
+                    table_candidates=pd.DataFrame(columns=STATEMENT_TABLE_CANDIDATE_COLUMNS_01IF_PATCH3),
+                    normalized_rows=[],
+                    output_dir=output_dir,
+                )
+            continue
+        page_text_hints = {int(page.page_number): str(page.text or "") for page in pages}
+        table_cells, table_diagnostic = extract_pdfplumber_tables_for_pages(
+            document["local_path"],
+            selected_page_numbers=selected_pages,
+            page_text_hints=page_text_hints,
+        )
+        diagnostics_rows.extend(build_python_pdf_diagnostic_rows(document_row=document, diagnostics=[table_diagnostic]))
+        table_cell_rows.extend(build_python_table_cell_rows(document_row=document, table_cells=table_cells))
+        table_candidates = build_statement_table_candidates(
+            document_row=document,
+            table_cells=table_cells,
+            page_candidates=page_candidates,
+        )
+        if not table_candidates.empty:
+            table_candidate_frames.append(table_candidates)
+        selected_cells = filter_cells_to_selected_statement_tables(table_cells, table_candidates)
+        if not selected_cells:
+            status_frames.append(
+                pd.DataFrame(
+                    [_failed_parse_row(document, "TABLE_EXTRACTION_FAILED", "NO_STATEMENT_TABLE_SELECTED_FOR_VALUE_PARSE", patch_label="01if_patch3")],
+                    columns=PATCH3_CANDIDATE_COLUMNS,
+                )
+            )
+        normalized_rows, normalized_frame = normalize_finance_table_rows(
+            document_row=document,
+            pages=pages,
+            table_cells=selected_cells,
+        )
+        if not normalized_frame.empty:
+            normalized_table_frames.append(normalized_frame)
+        usable, status = parse_patch3_statement_rows(
+            document_row=document,
+            normalized_rows=normalized_rows,
+            table_candidates=table_candidates,
+        )
+        if not usable.empty:
+            candidate_frames.append(usable)
+        if not status.empty:
+            status_frames.append(status)
+        if args.emit_markdown_audit:
+            statement_audit_files += write_statement_audit_files(
+                document_row=document,
+                pages=pages,
+                page_candidates=page_candidates,
+                table_candidates=table_candidates,
+                normalized_rows=normalized_rows,
+                output_dir=output_dir,
+            )
+
+    candidate_rows = (
+        pd.concat(candidate_frames, ignore_index=True)[PATCH3_CANDIDATE_COLUMNS]
+        if candidate_frames
+        else pd.DataFrame(columns=PATCH3_CANDIDATE_COLUMNS)
+    )
+    status_rows = (
+        pd.concat(status_frames, ignore_index=True)[PATCH3_CANDIDATE_COLUMNS]
+        if status_frames
+        else pd.DataFrame(columns=PATCH3_CANDIDATE_COLUMNS)
+    )
+    page_candidates = (
+        pd.concat(page_candidate_frames, ignore_index=True)[STATEMENT_PAGE_CANDIDATE_COLUMNS_01IF_PATCH3]
+        if page_candidate_frames
+        else pd.DataFrame(columns=STATEMENT_PAGE_CANDIDATE_COLUMNS_01IF_PATCH3)
+    )
+    table_candidates = (
+        pd.concat(table_candidate_frames, ignore_index=True)[STATEMENT_TABLE_CANDIDATE_COLUMNS_01IF_PATCH3]
+        if table_candidate_frames
+        else pd.DataFrame(columns=STATEMENT_TABLE_CANDIDATE_COLUMNS_01IF_PATCH3)
+    )
+    normalized_table_rows = (
+        pd.concat(normalized_table_frames, ignore_index=True)[NORMALIZED_TABLE_ROW_COLUMNS_01IF_PATCH2]
+        if normalized_table_frames
+        else pd.DataFrame(columns=NORMALIZED_TABLE_ROW_COLUMNS_01IF_PATCH2)
+    )
+    diagnostics = pd.DataFrame(diagnostics_rows, columns=PDF_EXTRACTION_DIAGNOSTIC_COLUMNS_01IF_PATCH2)
+    page_audit = pd.DataFrame(page_audit_rows, columns=PAGE_TEXT_AUDIT_COLUMNS_01IF_PATCH2)
+    table_cells = pd.DataFrame(table_cell_rows, columns=TABLE_CELL_COLUMNS_01IF_PATCH2)
+    coverage = build_field_coverage(selected_documents=selected_documents, candidate_rows=candidate_rows, status_rows=status_rows)
+    unresolved = build_unresolved_fields(selected_documents=selected_documents, candidate_rows=candidate_rows, coverage=coverage, status_rows=status_rows)
+    manual = build_parse_manual_review_queue(
+        selected_documents=selected_documents,
+        candidate_rows=candidate_rows,
+        coverage=coverage,
+        unresolved_fields=unresolved,
+        status_rows=status_rows,
+    )
+
+    candidate_rows.to_csv(output_dir / "official_finance_candidate_rows_01if_patch3.csv", index=False)
+    status_rows.to_csv(output_dir / "official_finance_parse_status_rows_01if_patch3.csv", index=False)
+    coverage.to_csv(output_dir / "official_finance_field_coverage_01if_patch3.csv", index=False)
+    unresolved.to_csv(output_dir / "official_finance_unresolved_fields_01if_patch3.csv", index=False)
+    manual.to_csv(output_dir / "manual_review_queue.csv", index=False)
+    backend_availability.to_csv(output_dir / "pdf_backend_availability_01if_patch3.csv", index=False)
+    diagnostics.to_csv(output_dir / "pdf_extraction_diagnostics_01if_patch3.csv", index=False)
+    page_audit.to_csv(output_dir / "official_finance_page_text_audit_01if_patch3.csv", index=False)
+    table_cells.to_csv(output_dir / "official_finance_table_cells_01if_patch3.csv", index=False)
+    normalized_table_rows.to_csv(output_dir / "official_finance_normalized_table_rows_01if_patch3.csv", index=False)
+    page_candidates.to_csv(output_dir / "statement_page_candidates_01if_patch3.csv", index=False)
+    table_candidates.to_csv(output_dir / "statement_table_candidates_01if_patch3.csv", index=False)
+    (output_dir / "datasource_decision_report.md").write_text(
+        build_patch3_decision_report(
+            selected_documents=selected_documents,
+            candidate_rows=candidate_rows,
+            backend_availability=backend_availability,
+            page_candidates=page_candidates,
+            table_candidates=table_candidates,
+        ),
+        encoding="utf-8",
+    )
+    (output_dir / "official_finance_parse_01if_patch3_run_summary.md").write_text(
+        build_patch3_run_summary(
+            command=command,
+            selected_documents=selected_documents,
+            candidate_rows=candidate_rows,
+            status_rows=status_rows,
+            coverage=coverage,
+            manual=manual,
+            diagnostics=diagnostics,
+            page_candidates=page_candidates,
+            table_candidates=table_candidates,
+            table_cells=table_cells,
+            statement_audit_files=statement_audit_files,
+            text_extractable_pdfs=text_extractable_pdfs,
+            non_text_pdfs=non_text_pdfs,
+        ),
+        encoding="utf-8",
+    )
+    print_summary(args, selected_documents, candidate_rows, coverage, manual, text_extractable_pdfs, non_text_pdfs)
+    return 0
+
+
 def write_outputs(
     *,
     output_dir: Path,
@@ -414,10 +645,128 @@ def write_outputs(
     )
 
 
-def _failed_parse_row(document: pd.Series, status: str, reason: str, *, patch2_mode: bool = False) -> dict[str, Any]:
-    source_name = "official_python_pdf_parser_01if_patch2" if patch2_mode else "official_pdf_parser_01if"
-    parser_name = "official_python_pdf_text_line_parser_01if_patch2" if patch2_mode else "official_pdf_text_line_parser_01if"
-    return {
+def build_patch3_decision_report(
+    *,
+    selected_documents: pd.DataFrame,
+    candidate_rows: pd.DataFrame,
+    backend_availability: pd.DataFrame,
+    page_candidates: pd.DataFrame,
+    table_candidates: pd.DataFrame,
+) -> str:
+    selected_count = int((selected_documents["selection_status"] == "SELECTED_FOR_PARSE").sum()) if not selected_documents.empty else 0
+    usable_count = int(len(candidate_rows))
+    tickers_with_parse = int(candidate_rows["ticker"].nunique()) if not candidate_rows.empty else 0
+    backend_ready = _backend_ready(backend_availability)
+    selected_pages = int(page_candidates["selected_for_table_extraction"].astype(bool).sum()) if not page_candidates.empty else 0
+    selected_tables = int(table_candidates["selected_for_value_parse"].astype(bool).sum()) if not table_candidates.empty else 0
+    return "\n".join(
+        [
+            "# Datasource decision report",
+            "",
+            f"- official_document_file_ready: {'True' if selected_count else 'False'}",
+            f"- pdf_python_backend_ready: {backend_ready}",
+            f"- statement_page_targeting_ready: {'True' if selected_pages else 'False'}",
+            f"- statement_tables_isolated: {'True' if selected_tables else 'False'}",
+            f"- official_finance_parse_ready: {'Partial' if usable_count else 'False'}",
+            f"- usable_official_finance_candidate_rows: {usable_count}",
+            f"- tickers_with_usable_official_parse: {tickers_with_parse}",
+            f"- finance_ready_for_l0: {'Partial' if usable_count else 'unchanged'}",
+            "- finance_disclosure_ready_for_step18: False",
+            "- should_run_REAL_DATA_02: No",
+            "- should_implement_Step19_now: No",
+            "",
+            "PATCH3 targets formal statement pages and does not treat downloaded PDFs, HTTPS links, labels, or rejected tables as finance values.",
+        ]
+    )
+
+
+def build_patch3_run_summary(
+    *,
+    command: str,
+    selected_documents: pd.DataFrame,
+    candidate_rows: pd.DataFrame,
+    status_rows: pd.DataFrame,
+    coverage: pd.DataFrame,
+    manual: pd.DataFrame,
+    diagnostics: pd.DataFrame,
+    page_candidates: pd.DataFrame,
+    table_candidates: pd.DataFrame,
+    table_cells: pd.DataFrame,
+    statement_audit_files: int,
+    text_extractable_pdfs: int,
+    non_text_pdfs: int,
+) -> str:
+    selected_count = int((selected_documents["selection_status"] == "SELECTED_FOR_PARSE").sum()) if not selected_documents.empty else 0
+    selected_pages = int(page_candidates["selected_for_table_extraction"].astype(bool).sum()) if not page_candidates.empty else 0
+    selected_tables = int(table_candidates["selected_for_value_parse"].astype(bool).sum()) if not table_candidates.empty else 0
+    return "\n".join(
+        [
+            "# REAL-DATA-01I-F-PATCH3 statement page targeting parse run",
+            "",
+            "## Command run",
+            f"`{command}`",
+            "",
+            "## Documents selected",
+            str(selected_count),
+            "",
+            "## Text-extractable PDFs",
+            str(text_extractable_pdfs),
+            "",
+            "## Non-text/scanned PDFs",
+            str(non_text_pdfs),
+            "",
+            "## Statement pages selected",
+            str(selected_pages),
+            "",
+            "## Statement tables isolated",
+            str(selected_tables),
+            "",
+            "## Table cells extracted from selected pages",
+            str(len(table_cells)),
+            "",
+            "## Usable candidate rows",
+            str(len(candidate_rows)),
+            "",
+            "## Status/error rows separated",
+            str(len(status_rows)),
+            "",
+            "## Rows by field",
+            _format_counts(_counts(candidate_rows, "field_name")),
+            "",
+            "## Rows by ticker",
+            _format_counts(_counts(candidate_rows, "ticker")),
+            "",
+            "## Coverage by ticker/period",
+            _format_coverage(coverage),
+            "",
+            "## Manual review rows",
+            str(len(manual)),
+            "",
+            "## Extraction diagnostics",
+            _format_grouped_counts(diagnostics, ["backend", "extract_status"]),
+            "",
+            "## Main blockers",
+            _format_counts(_counts(manual, "issue")),
+            "",
+            "## Audit files",
+            str(statement_audit_files),
+            "",
+            "## Next recommended action",
+            "Do not run REAL-DATA-02 or Step19. Review statement page/table audit outputs and look for cleaner official XLSX/text PDFs if usable rows remain insufficient.",
+        ]
+    )
+
+
+def _failed_parse_row(document: pd.Series, status: str, reason: str, *, patch2_mode: bool = False, patch_label: str = "") -> dict[str, Any]:
+    if patch_label == "01if_patch3":
+        source_name = "official_statement_page_parser_01if_patch3"
+        parser_name = "statement_page_targeter_01if_patch3"
+        notes = "statement-page targeted parser; no OCR; no values inferred or fabricated"
+    else:
+        source_name = "official_python_pdf_parser_01if_patch2" if patch2_mode else "official_pdf_parser_01if"
+        parser_name = "official_python_pdf_text_line_parser_01if_patch2" if patch2_mode else "official_pdf_text_line_parser_01if"
+        notes = "no values inferred or fabricated"
+    row = {
         "ticker": document.get("ticker", ""),
         "period": document.get("period", ""),
         "period_type": "quarter" if "-Q" in str(document.get("period", "")).upper() else "annual",
@@ -444,8 +793,11 @@ def _failed_parse_row(document: pd.Series, status: str, reason: str, *, patch2_m
         "manual_review_required": True,
         "review_reason": reason,
         "fetch_time": datetime.now(UTC).replace(microsecond=0).isoformat(),
-        "notes": "no values inferred or fabricated",
+        "notes": notes,
     }
+    if patch_label == "01if_patch3":
+        row.update({"statement_type": "", "period_label": "", "parser_backend": ""})
+    return row
 
 
 def print_summary(
@@ -482,11 +834,55 @@ def command_string() -> str:
 
 def output_suffix(output_dir: Path) -> str:
     lowered = str(output_dir).lower()
+    if "patch3" in lowered:
+        return "_01if_patch3"
     if "patch2" in lowered:
         return "_01if_patch2"
     if "patch1" in lowered:
         return "_01if_patch1"
     return "_01if"
+
+
+def _backend_ready(backend_availability: pd.DataFrame) -> str:
+    if not isinstance(backend_availability, pd.DataFrame) or backend_availability.empty:
+        return "False"
+    installed = {
+        str(row.get("backend", "")): str(row.get("installed", "")).lower() in {"true", "1", "yes"}
+        for _, row in backend_availability.iterrows()
+    }
+    return "True" if installed.get("pymupdf") and installed.get("pdfplumber") else "Partial" if any(installed.values()) else "False"
+
+
+def _counts(df: pd.DataFrame, column: str) -> dict[str, int]:
+    if not isinstance(df, pd.DataFrame) or df.empty or column not in df.columns:
+        return {}
+    return {str(key): int(value) for key, value in df[column].value_counts(dropna=False).items()}
+
+
+def _format_counts(counts: dict[str, int]) -> str:
+    if not counts:
+        return "- none"
+    return "\n".join(f"- {key}: {value}" for key, value in counts.items())
+
+
+def _format_coverage(coverage: pd.DataFrame) -> str:
+    if not isinstance(coverage, pd.DataFrame) or coverage.empty:
+        return "- none"
+    return "\n".join(
+        f"- {row['ticker']} {row['period']}: {row['coverage_status']} "
+        f"(found={row['required_fields_found_count']}, missing={row['required_fields_missing_count']})"
+        for _, row in coverage.iterrows()
+    )
+
+
+def _format_grouped_counts(df: pd.DataFrame, columns: list[str]) -> str:
+    if not isinstance(df, pd.DataFrame) or df.empty or any(column not in df.columns for column in columns):
+        return "- none"
+    counts = df.groupby(columns, dropna=False).size().reset_index(name="count")
+    return "\n".join(
+        f"- {' '.join(str(row[column]) for column in columns)}: {int(row['count'])}"
+        for _, row in counts.iterrows()
+    )
 
 
 def parse_csv(value: str) -> list[str]:

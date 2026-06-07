@@ -164,6 +164,88 @@ def extract_pdf_with_python_backends(
     )
 
 
+def extract_pdfplumber_tables_for_pages(
+    local_path: str | Path,
+    *,
+    selected_page_numbers: set[int],
+    page_text_hints: dict[int, str] | None = None,
+) -> tuple[list[ExtractedPdfTableCell], PdfExtractionDiagnostic]:
+    """Extract pdfplumber tables only from selected statement pages."""
+
+    path = Path(local_path)
+    if not path.exists():
+        return [], PdfExtractionDiagnostic(
+            backend="pdfplumber_statement_pages",
+            page_count=0,
+            text_chars=0,
+            table_count=0,
+            extract_status="EXTRACTION_FAILED",
+            error="DOCUMENT_NOT_FOUND",
+            notes=str(path),
+        )
+    availability = {row.backend: row for row in get_pdf_backend_availability()}
+    if not availability["pdfplumber"].installed:
+        return [], PdfExtractionDiagnostic(
+            backend="pdfplumber_statement_pages",
+            page_count=0,
+            text_chars=0,
+            table_count=0,
+            extract_status="BACKEND_UNAVAILABLE",
+            error=availability["pdfplumber"].import_error,
+            notes="pdfplumber unavailable; no OCR fallback attempted",
+        )
+    pdfplumber = import_module("pdfplumber")
+    page_text_hints = page_text_hints or {}
+    table_cells: list[ExtractedPdfTableCell] = []
+    try:
+        with pdfplumber.open(str(path)) as pdf:
+            page_count = len(pdf.pages)
+            for page_number in sorted(number for number in selected_page_numbers if 1 <= number <= page_count):
+                page = pdf.pages[page_number - 1]
+                text = page.extract_text() or ""
+                tables = _extract_pdfplumber_tables(page)
+                retained_tables = _retain_finance_tables(
+                    tables=tables,
+                    page_text=" ".join([page_text_hints.get(page_number, ""), text]),
+                )
+                for table_index, table in retained_tables:
+                    for row_index, row in enumerate(table or [], start=1):
+                        for col_index, cell in enumerate(row or [], start=1):
+                            value = " ".join(str(cell or "").split())
+                            if not value:
+                                continue
+                            table_cells.append(
+                                ExtractedPdfTableCell(
+                                    page_number=page_number,
+                                    backend="pdfplumber_statement_pages",
+                                    table_index=table_index,
+                                    row_index=row_index,
+                                    col_index=col_index,
+                                    cell_text=value,
+                                    notes="pdfplumber extraction limited to selected statement pages; no OCR",
+                                )
+                            )
+        table_count = len({(cell.page_number, cell.table_index) for cell in table_cells})
+        return table_cells, PdfExtractionDiagnostic(
+            backend="pdfplumber_statement_pages",
+            page_count=page_count,
+            text_chars=sum(len(page_text_hints.get(number, "")) for number in selected_page_numbers),
+            table_count=table_count,
+            extract_status="TABLES_EXTRACTED" if table_count else "NO_TABLES_EXTRACTED",
+            notes="statement-page-only table extraction; no OCR",
+        )
+    except Exception as exc:  # noqa: BLE001
+        return [], PdfExtractionDiagnostic(
+            backend="pdfplumber_statement_pages",
+            page_count=0,
+            text_chars=0,
+            table_count=0,
+            extract_status="TABLE_EXTRACTION_FAILED",
+            error=f"{type(exc).__name__}:{exc}",
+            notes="statement-page table extraction failed; no OCR fallback attempted",
+        )
+
+
 def build_python_pdf_diagnostic_rows(
     *,
     document_row: dict[str, Any] | pd.Series,
