@@ -53,6 +53,33 @@ def test_01ib_mock_html_response_saved_as_snapshot(tmp_path):
     assert Path(row["local_path"]).suffix == ".html"
 
 
+def test_01ib_html_snapshot_redacts_public_script_keys_before_saving(tmp_path):
+    key = _google_api_key()
+    seed = _seed_df(expected_file_type="html", source_url="https://official.example/ir")
+
+    def html_response_with_key(**kwargs):
+        url = kwargs["url"]
+        body = (
+            "<!doctype html><html><script "
+            f"src='https://maps.example.test/js?key={key}&libraries=places'></script></html>"
+        ).encode("utf-8")
+        return DocumentFetchResponse(
+            url=url,
+            final_url=url,
+            status_code=200,
+            content_type="text/html; charset=utf-8",
+            body=body,
+        )
+
+    result = download_seed_documents(seed, raw_output_dir=tmp_path, http_get=html_response_with_key)
+    row = result["finance_document_index"].iloc[0]
+    saved = Path(row["local_path"]).read_text(encoding="utf-8")
+
+    assert row["download_status"] == "HTML_SNAPSHOT_SAVED"
+    assert key not in saved
+    assert "[REDACTED_GOOGLE_API_KEY]" in saved
+
+
 def test_01ib_mock_js_block_page_is_blocked_and_manual_review(tmp_path):
     seed = _seed_df(expected_file_type="html", source_url="https://official.example/blocked")
     result = download_seed_documents(seed, raw_output_dir=tmp_path, http_get=_blocked_html_response)
@@ -127,3 +154,6 @@ def _blocked_html_response(**kwargs):
         body=b"<html><body><div id='app-root'></div><script>window.__APP={}</script><p>Enable JavaScript</p></body></html>",
     )
 
+
+def _google_api_key() -> str:
+    return ("AI" + "za") + ("A" * 35)

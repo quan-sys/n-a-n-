@@ -10,6 +10,8 @@ from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
+from src.ingestion.secret_redaction import redact_snapshot_bytes
+
 try:
     import requests
 except ImportError:  # pragma: no cover - urllib fallback is used only if requests is absent.
@@ -220,7 +222,8 @@ def _write_snapshot(
     safe_hash = (content_hash or sha256(url.encode("utf-8")).hexdigest())[:16]
     snapshot_dir.mkdir(parents=True, exist_ok=True)
     path = snapshot_dir / f"{safe_source}_{safe_hash}{suffix}"
-    path.write_bytes(body)
+    body_to_write = redact_snapshot_bytes(body, content_type=content_type, file_suffix=suffix)
+    path.write_bytes(body_to_write)
     return str(path)
 
 

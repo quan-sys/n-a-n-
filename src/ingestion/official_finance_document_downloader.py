@@ -12,6 +12,8 @@ from urllib.parse import urlparse
 
 import pandas as pd
 
+from src.ingestion.secret_redaction import redact_snapshot_bytes
+
 try:
     import requests
 except ImportError:  # pragma: no cover
@@ -202,7 +204,12 @@ def is_blocked_or_js_html(body: bytes) -> bool:
 
 
 def save_document(body: bytes, raw_output_dir: str | Path, row: dict[str, Any], detected_file_type: str) -> tuple[str, str]:
-    digest = sha256(body).hexdigest()
+    body_to_save = (
+        redact_snapshot_bytes(body, content_type="text/html", file_suffix="html")
+        if detected_file_type == "html"
+        else body
+    )
+    digest = sha256(body_to_save).hexdigest()
     directory = Path(raw_output_dir)
     directory.mkdir(parents=True, exist_ok=True)
     ticker = _safe_token(row.get("ticker", "unknown"))
@@ -211,7 +218,7 @@ def save_document(body: bytes, raw_output_dir: str | Path, row: dict[str, Any], 
     suffix = "html" if detected_file_type == "html" else detected_file_type
     path = directory / f"{ticker}_{period}_{doc_type}_{digest[:16]}.{suffix}"
     if not path.exists():
-        path.write_bytes(body)
+        path.write_bytes(body_to_save)
     return str(path), digest
 
 
