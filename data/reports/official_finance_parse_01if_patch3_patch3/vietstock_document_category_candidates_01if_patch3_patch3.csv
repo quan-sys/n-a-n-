@@ -1,0 +1,9 @@
+ticker,source_name,source_category,source_url,document_category_raw,document_category_normalized,document_title,published_at,report_year,period,period_type,file_type,candidate_url,final_url,confidence_raw,manual_review_required,review_reason
+FPT,vietstock_finance_documents,vietstock_public_document_page,https://finance.vietstock.vn/FPT/tai-tai-lieu.htm,,other,,,,,,html,,,low,True,MANUAL_REVIEW_BLOCKED_OR_JS
+GMD,vietstock_finance_documents,vietstock_public_document_page,https://finance.vietstock.vn/GMD/tai-tai-lieu.htm,,other,,,,,,html,,,low,True,MANUAL_REVIEW_BLOCKED_OR_JS
+HSG,vietstock_finance_documents,vietstock_public_document_page,https://finance.vietstock.vn/HSG/tai-tai-lieu.htm,,other,,,,,,html,,,low,True,MANUAL_REVIEW_BLOCKED_OR_JS
+KDH,vietstock_finance_documents,vietstock_public_document_page,https://finance.vietstock.vn/KDH/tai-tai-lieu.htm,,other,,,,,,html,,,low,True,MANUAL_REVIEW_BLOCKED_OR_JS
+NLG,vietstock_finance_documents,vietstock_public_document_page,https://finance.vietstock.vn/NLG/tai-tai-lieu.htm,,other,,,,,,html,,,low,True,MANUAL_REVIEW_BLOCKED_OR_JS
+PVS,vietstock_finance_documents,vietstock_public_document_page,https://finance.vietstock.vn/PVS/tai-tai-lieu.htm,,other,,,,,,html,,,low,True,MANUAL_REVIEW_BLOCKED_OR_JS
+SSI,vietstock_finance_documents,vietstock_public_document_page,https://finance.vietstock.vn/SSI/tai-tai-lieu.htm,,other,,,,,,html,,,low,True,MANUAL_REVIEW_BLOCKED_OR_JS
+VGC,vietstock_finance_documents,vietstock_public_document_page,https://finance.vietstock.vn/VGC/tai-tai-lieu.htm,,other,,,,,,html,,,low,True,MANUAL_REVIEW_BLOCKED_OR_JS

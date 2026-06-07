@@ -1,0 +1,262 @@
+ticker,period,field_name,issue,manual_review_required,notes
+FPT,2026-Q1,revenue,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+FPT,2026-Q1,gross_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+FPT,2026-Q1,operating_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+FPT,2026-Q1,net_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+FPT,2026-Q1,total_assets,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+FPT,2026-Q1,total_liabilities,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+FPT,2026-Q1,equity,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+FPT,2026-Q1,cash,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+FPT,2026-Q1,short_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+FPT,2026-Q1,long_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+FPT,2026-Q1,operating_cash_flow,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+FPT,2026-Q1,inventory,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+KDH,2026-Q1,revenue,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+KDH,2026-Q1,gross_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+KDH,2026-Q1,operating_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+KDH,2026-Q1,net_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+KDH,2026-Q1,total_assets,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+KDH,2026-Q1,total_liabilities,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+KDH,2026-Q1,equity,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+KDH,2026-Q1,cash,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+KDH,2026-Q1,short_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+KDH,2026-Q1,long_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+KDH,2026-Q1,operating_cash_flow,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+KDH,2026-Q1,inventory,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2026-Q1,revenue,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2026-Q1,gross_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2026-Q1,operating_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2026-Q1,net_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2026-Q1,total_assets,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2026-Q1,total_liabilities,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2026-Q1,equity,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2026-Q1,cash,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2026-Q1,short_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2026-Q1,long_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2026-Q1,operating_cash_flow,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2026-Q1,inventory,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2026-Q1,revenue,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2026-Q1,gross_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2026-Q1,operating_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2026-Q1,net_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2026-Q1,total_assets,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2026-Q1,total_liabilities,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2026-Q1,equity,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2026-Q1,cash,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2026-Q1,short_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2026-Q1,long_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2026-Q1,operating_cash_flow,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2026-Q1,inventory,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q4,revenue,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q4,gross_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q4,operating_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q4,net_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q4,total_assets,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q4,total_liabilities,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q4,equity,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q4,cash,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q4,short_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q4,long_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q4,operating_cash_flow,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q4,inventory,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q4,revenue,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q4,gross_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q4,operating_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q4,net_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q4,total_assets,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q4,total_liabilities,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q4,equity,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q4,cash,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q4,short_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q4,long_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q4,operating_cash_flow,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q4,inventory,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q4,revenue,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q4,gross_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q4,operating_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q4,net_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q4,total_assets,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q4,total_liabilities,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q4,equity,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q4,cash,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q4,short_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q4,long_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q4,operating_cash_flow,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q4,inventory,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025,revenue,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025,gross_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025,operating_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025,net_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025,total_assets,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025,total_liabilities,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025,equity,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025,cash,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025,short_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025,long_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025,operating_cash_flow,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025,inventory,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q3,revenue,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q3,gross_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q3,operating_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q3,net_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q3,total_assets,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q3,total_liabilities,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q3,equity,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q3,cash,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q3,short_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q3,long_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q3,operating_cash_flow,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q3,inventory,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q3,revenue,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q3,gross_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q3,operating_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q3,net_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q3,total_assets,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q3,total_liabilities,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q3,equity,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q3,cash,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q3,short_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q3,long_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q3,operating_cash_flow,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q3,inventory,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q3,revenue,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q3,gross_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q3,operating_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q3,net_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q3,total_assets,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q3,total_liabilities,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q3,equity,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q3,cash,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q3,short_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q3,long_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q3,operating_cash_flow,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025-Q3,inventory,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q2,revenue,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q2,gross_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q2,operating_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q2,net_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q2,total_assets,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q2,total_liabilities,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q2,equity,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q2,cash,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q2,short_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q2,long_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q2,operating_cash_flow,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025-Q2,inventory,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q2,revenue,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q2,gross_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q2,operating_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q2,net_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q2,total_assets,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q2,total_liabilities,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q2,equity,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q2,cash,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q2,short_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q2,long_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q2,operating_cash_flow,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2025-Q2,inventory,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2026-Q1,revenue,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2026-Q1,gross_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2026-Q1,operating_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2026-Q1,net_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2026-Q1,total_assets,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2026-Q1,total_liabilities,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2026-Q1,equity,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2026-Q1,cash,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2026-Q1,short_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2026-Q1,long_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2026-Q1,operating_cash_flow,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+PVS,2026-Q1,inventory,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025,revenue,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025,gross_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025,operating_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025,net_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025,total_assets,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025,total_liabilities,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025,equity,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025,cash,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025,short_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025,long_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025,operating_cash_flow,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+NLG,2025,inventory,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025,revenue,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025,gross_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025,operating_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025,net_profit,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025,total_assets,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025,total_liabilities,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025,equity,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025,cash,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025,short_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025,long_term_debt,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025,operating_cash_flow,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+SSI,2025,inventory,FIELD_NOT_FOUND,True,missing field was not inferred or zero-filled
+FPT,2026-Q1,,TABLE_EXTRACTION_UNAVAILABLE,True,NO_TABLES_EXTRACTED_FROM_NUMERIC_PAGES
+NLG,2026-Q1,,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,NO_TEXT_EXTRACTED_NO_OCR
+NLG,2026-Q1,,TABLE_EXTRACTION_UNAVAILABLE,True,NO_TABLES_EXTRACTED_FROM_NUMERIC_PAGES
+SSI,2026-Q1,,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,NO_TEXT_EXTRACTED_NO_OCR
+SSI,2026-Q1,,TABLE_EXTRACTION_UNAVAILABLE,True,NO_TABLES_EXTRACTED_FROM_NUMERIC_PAGES
+PVS,2026-Q1,,TABLE_EXTRACTION_UNAVAILABLE,True,NO_TABLES_EXTRACTED_FROM_NUMERIC_PAGES
+NLG,2026,,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,NO_TEXT_EXTRACTED_NO_OCR
+NLG,2026,,TABLE_EXTRACTION_UNAVAILABLE,True,NO_TABLES_EXTRACTED_FROM_NUMERIC_PAGES
+SSI,2026,,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,NO_TEXT_EXTRACTED_NO_OCR
+SSI,2026,,TABLE_EXTRACTION_UNAVAILABLE,True,NO_TABLES_EXTRACTED_FROM_NUMERIC_PAGES
+PVS,2026,,TABLE_EXTRACTION_UNAVAILABLE,True,NO_TABLES_EXTRACTED_FROM_NUMERIC_PAGES
+NLG,2025-Q4,,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,NO_TEXT_EXTRACTED_NO_OCR
+NLG,2025-Q4,,TABLE_EXTRACTION_UNAVAILABLE,True,NO_TABLES_EXTRACTED_FROM_NUMERIC_PAGES
+PVS,2025-Q4,,TABLE_EXTRACTION_UNAVAILABLE,True,NO_TABLES_EXTRACTED_FROM_NUMERIC_PAGES
+SSI,2025-Q4,,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,NO_TEXT_EXTRACTED_NO_OCR
+SSI,2025-Q4,,TABLE_EXTRACTION_UNAVAILABLE,True,NO_TABLES_EXTRACTED_FROM_NUMERIC_PAGES
+NLG,2025-Q3,,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,NO_TEXT_EXTRACTED_NO_OCR
+NLG,2025-Q3,,TABLE_EXTRACTION_UNAVAILABLE,True,NO_TABLES_EXTRACTED_FROM_NUMERIC_PAGES
+PVS,2025-Q3,,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,NO_TEXT_EXTRACTED_NO_OCR
+PVS,2025-Q3,,TABLE_EXTRACTION_UNAVAILABLE,True,NO_TABLES_EXTRACTED_FROM_NUMERIC_PAGES
+SSI,2025-Q3,,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,NO_TEXT_EXTRACTED_NO_OCR
+SSI,2025-Q3,,TABLE_EXTRACTION_UNAVAILABLE,True,NO_TABLES_EXTRACTED_FROM_NUMERIC_PAGES
+NLG,2025-Q2,,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,NO_TEXT_EXTRACTED_NO_OCR
+NLG,2025-Q2,,TABLE_EXTRACTION_UNAVAILABLE,True,NO_TABLES_EXTRACTED_FROM_NUMERIC_PAGES
+PVS,2025-Q2,,TABLE_EXTRACTION_UNAVAILABLE,True,NO_TABLES_EXTRACTED_FROM_NUMERIC_PAGES
+NLG,2025-Q1,,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,NO_TEXT_EXTRACTED_NO_OCR
+NLG,2025-Q1,,TABLE_EXTRACTION_UNAVAILABLE,True,NO_TABLES_EXTRACTED_FROM_NUMERIC_PAGES
+PVS,2025-Q1,,TABLE_EXTRACTION_UNAVAILABLE,True,NO_TABLES_EXTRACTED_FROM_NUMERIC_PAGES
+NLG,2025,,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,NO_TEXT_EXTRACTED_NO_OCR
+NLG,2025,,TABLE_EXTRACTION_UNAVAILABLE,True,NO_TABLES_EXTRACTED_FROM_NUMERIC_PAGES
+PVS,2025,,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,NO_TEXT_EXTRACTED_NO_OCR
+PVS,2025,,TABLE_EXTRACTION_UNAVAILABLE,True,NO_TABLES_EXTRACTED_FROM_NUMERIC_PAGES
+PVS,2024-Q4,,TABLE_EXTRACTION_UNAVAILABLE,True,NO_TABLES_EXTRACTED_FROM_NUMERIC_PAGES
+PVS,2025-Q4,,DOCUMENT_NOT_TEXT_EXTRACTABLE,True,NO_TEXT_EXTRACTED_NO_OCR
+VGC,2026-Q1,,SKIPPED_UNSUPPORTED_FILE_TYPE,True,UNSUPPORTED_FILE_TYPE:html
+HSG,2025-Q2,,SKIPPED_UNSUPPORTED_FILE_TYPE,True,UNSUPPORTED_FILE_TYPE:html;SOURCE_BLOCKED_OR_JS_REQUIRED
+GMD,2026-Q1,,SKIPPED_UNSUPPORTED_FILE_TYPE,True,UNSUPPORTED_FILE_TYPE:html;SOURCE_BLOCKED_OR_JS_REQUIRED
+GMD,2025-Q4,,SKIPPED_UNSUPPORTED_FILE_TYPE,True,UNSUPPORTED_FILE_TYPE:html;SOURCE_BLOCKED_OR_JS_REQUIRED
+GMD,2025,,SKIPPED_UNSUPPORTED_FILE_TYPE,True,UNSUPPORTED_FILE_TYPE:html;SOURCE_BLOCKED_OR_JS_REQUIRED
+FPT,2025,,SKIPPED_UNSUPPORTED_FILE_TYPE,True,UNSUPPORTED_FILE_TYPE:html
+KDH,2026-Q1,,REVIEW_ONLY_STANDALONE,True,STANDALONE_REVIEW_REQUIRED
+NLG,2026-Q1,,REVIEW_ONLY_STANDALONE,True,STANDALONE_REVIEW_REQUIRED
+SSI,2026-Q1,,REVIEW_ONLY_STANDALONE,True,STANDALONE_REVIEW_REQUIRED
+NLG,2025-Q4,,REVIEW_ONLY_STANDALONE,True,STANDALONE_REVIEW_REQUIRED
+PVS,2025-Q4,,REVIEW_ONLY_STANDALONE,True,STANDALONE_REVIEW_REQUIRED
+SSI,2025-Q4,,REVIEW_ONLY_STANDALONE,True,STANDALONE_REVIEW_REQUIRED
+PVS,2025,,REVIEW_ONLY_STANDALONE,True,STANDALONE_REVIEW_REQUIRED
+NLG,2025-Q3,,REVIEW_ONLY_STANDALONE,True,STANDALONE_REVIEW_REQUIRED
+PVS,2025-Q3,,REVIEW_ONLY_STANDALONE,True,STANDALONE_REVIEW_REQUIRED
+SSI,2025-Q3,,REVIEW_ONLY_STANDALONE,True,STANDALONE_REVIEW_REQUIRED
+NLG,2025-Q2,,REVIEW_ONLY_STANDALONE,True,STANDALONE_REVIEW_REQUIRED
+PVS,2026-Q1,,REVIEW_ONLY_STANDALONE,True,STANDALONE_REVIEW_REQUIRED
+NLG,2025,,REVIEW_ONLY_STANDALONE,True,STANDALONE_REVIEW_REQUIRED
+PVS,2025-Q2,,REVIEW_ONLY_STANDALONE,True,STANDALONE_REVIEW_REQUIRED
+NLG,2025-Q1,,SKIPPED_OLD_PERIOD,True,PERIOD_OUTSIDE_TARGETS
+NLG,2026,,SKIPPED_OLD_PERIOD,True,PERIOD_OUTSIDE_TARGETS
+PVS,2024-Q4,,SKIPPED_OLD_PERIOD,True,PERIOD_OUTSIDE_TARGETS
+PVS,2025-Q1,,SKIPPED_OLD_PERIOD,True,PERIOD_OUTSIDE_TARGETS
+SSI,2026,,SKIPPED_OLD_PERIOD,True,PERIOD_OUTSIDE_TARGETS
+PVS,2026,,SKIPPED_OLD_PERIOD,True,PERIOD_OUTSIDE_TARGETS
+HSG,2026,,SKIPPED_UNSUPPORTED_FILE_TYPE,True,UNSUPPORTED_FILE_TYPE:html;SOURCE_BLOCKED_OR_JS_REQUIRED
+VGC,2026,,SKIPPED_OLD_PERIOD,True,PERIOD_OUTSIDE_TARGETS
+FPT,2026,,SKIPPED_OLD_PERIOD,True,PERIOD_OUTSIDE_TARGETS
+NLG,2025-Q1,,SKIPPED_OLD_PERIOD,True,PERIOD_OUTSIDE_TARGETS;STANDALONE_REVIEW_REQUIRED
+NLG,2026,,SKIPPED_OLD_PERIOD,True,PERIOD_OUTSIDE_TARGETS;STANDALONE_REVIEW_REQUIRED
+PVS,2024-Q4,,SKIPPED_OLD_PERIOD,True,PERIOD_OUTSIDE_TARGETS;STANDALONE_REVIEW_REQUIRED
+PVS,2025-Q1,,SKIPPED_OLD_PERIOD,True,PERIOD_OUTSIDE_TARGETS;STANDALONE_REVIEW_REQUIRED
+PVS,2026,,SKIPPED_OLD_PERIOD,True,PERIOD_OUTSIDE_TARGETS;STANDALONE_REVIEW_REQUIRED
+SSI,2026,,SKIPPED_OLD_PERIOD,True,PERIOD_OUTSIDE_TARGETS;STANDALONE_REVIEW_REQUIRED

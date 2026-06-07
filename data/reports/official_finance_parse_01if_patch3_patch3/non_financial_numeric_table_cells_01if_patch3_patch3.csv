@@ -1,0 +1,1 @@
+ticker,period,period_type,source_document_type,source_url,final_url,local_path,file_hash,page_number,table_index,row_index,col_index,raw_cell,normalized_cell,is_numeric,numeric_value_raw,unit_hint,currency_hint

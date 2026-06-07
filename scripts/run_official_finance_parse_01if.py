@@ -17,6 +17,20 @@ from src.ingestion.official_finance_document_selector import (  # noqa: E402
     SELECTED_DOCUMENT_COLUMNS_01IF,
     select_documents_for_official_parse,
 )
+from src.ingestion.bctc_bctn_document_filter import (  # noqa: E402
+    BCTC_BCTN_DOCUMENT_SCORE_COLUMNS_01IF_PATCH3_PATCH3,
+    build_document_score_inputs,
+    score_document_candidates,
+    select_scored_local_documents_for_parse,
+)
+from src.ingestion.financial_numeric_page_scorer import (  # noqa: E402
+    FINANCE_NUMERIC_PAGE_COLUMNS_01IF_PATCH3_PATCH3,
+    FINANCE_NUMERIC_TABLE_COLUMNS_01IF_PATCH3_PATCH3,
+    build_finance_numeric_page_candidates,
+    build_finance_numeric_table_candidates,
+    finance_table_keys,
+    split_numeric_table_layers,
+)
 from src.ingestion.official_finance_numeric_table_dump import (  # noqa: E402
     NUMERIC_PAGE_CANDIDATE_COLUMNS_01IF_PATCH3_PATCH2,
     NUMERIC_TABLE_CANDIDATE_COLUMNS_01IF_PATCH3_PATCH2,
@@ -27,6 +41,7 @@ from src.ingestion.official_finance_numeric_table_dump import (  # noqa: E402
     build_numeric_page_candidates,
     build_numeric_table_dump_frames,
     coverage_candidate_rows,
+    parse_anchor_field_candidates_from_dumped_tables,
     selected_numeric_page_numbers,
     write_numeric_audit_files,
 )
@@ -97,6 +112,11 @@ from src.ingestion.official_pdf_table_normalizer import (  # noqa: E402
     NORMALIZED_TABLE_ROW_COLUMNS_01IF_PATCH2,
     normalize_finance_table_rows,
 )
+from src.ingestion.vietstock_document_discovery import (  # noqa: E402
+    VIETSTOCK_DOCUMENT_CATEGORY_COLUMNS_01IF_PATCH3_PATCH3,
+    candidates_to_frame,
+    discover_vietstock_documents_for_ticker,
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -147,6 +167,7 @@ def main() -> int:
     )
     selected_documents.to_csv(output_dir / "selected_documents_for_parse.csv", index=False)
     patch_suffix = output_suffix(output_dir)
+    patch3_patch3_mode = args.patch.lower() in {"01if_patch3_patch3", "patch3_patch3"} or patch_suffix == "_01if_patch3_patch3"
     patch3_patch2_mode = (
         args.enable_numeric_table_dump
         or args.patch.lower() in {"01if_patch3_patch2", "patch3_patch2"}
@@ -154,6 +175,14 @@ def main() -> int:
     )
     patch2_mode = args.use_python_pdf_backends or patch_suffix == "_01if_patch2"
     patch3_mode = args.patch.lower() == "01if_patch3" or args.statement_pages_only or args.enable_statement_targeting or patch_suffix == "_01if_patch3"
+    if patch3_patch3_mode:
+        return run_patch3_patch3_category_first_parse(
+            args=args,
+            output_dir=output_dir,
+            document_index=document_index,
+            selected_documents=selected_documents,
+            command=command_string(),
+        )
     if patch3_patch2_mode:
         return run_patch3_patch2_numeric_table_dump(
             args=args,
@@ -607,6 +636,230 @@ def run_patch3_statement_page_parse(
     return 0
 
 
+def run_patch3_patch3_category_first_parse(
+    *,
+    args: argparse.Namespace,
+    output_dir: Path,
+    document_index: pd.DataFrame,
+    selected_documents: pd.DataFrame,
+    command: str,
+) -> int:
+    years = sorted(
+        {
+            int(str(period).split("-")[0])
+            for period in parse_csv(args.target_periods)
+            if str(period).split("-")[0].isdigit()
+        },
+        reverse=True,
+    )
+    tickers = sorted(set(document_index["ticker"].astype(str).str.upper())) if "ticker" in document_index.columns else []
+    if args.tickers:
+        wanted = set(parse_csv(args.tickers))
+        tickers = [ticker for ticker in tickers if ticker in wanted]
+
+    vietstock_frames = []
+    for ticker in tickers:
+        candidates = discover_vietstock_documents_for_ticker(ticker, years)
+        vietstock_frames.append(candidates_to_frame(candidates))
+    vietstock_candidates = _concat_or_empty(vietstock_frames, VIETSTOCK_DOCUMENT_CATEGORY_COLUMNS_01IF_PATCH3_PATCH3)
+    score_inputs = build_document_score_inputs(document_index=document_index, vietstock_candidates=vietstock_candidates)
+    document_scores = score_document_candidates(score_inputs)
+    local_targets = select_scored_local_documents_for_parse(document_scores, max_documents=args.max_documents)
+
+    backend_availability = pd.DataFrame(
+        build_pdf_backend_availability_rows(get_pdf_backend_availability()),
+        columns=PDF_BACKEND_AVAILABILITY_COLUMNS_01IF_PATCH2,
+    )
+    page_candidate_frames = []
+    table_candidate_frames = []
+    finance_page_frames = []
+    finance_table_frames = []
+    raw_cell_frames = []
+    raw_row_frames = []
+    non_fin_cell_frames = []
+    non_fin_row_frames = []
+    candidate_frames = []
+    status_frames = []
+    diagnostics_rows = []
+    text_extractable_pdfs = 0
+    non_text_pdfs = 0
+    audit_files = 0
+
+    for _, document in local_targets.iterrows():
+        if str(document.get("detected_file_type", "")).lower() != "pdf":
+            status_frames.append(
+                pd.DataFrame(
+                    [_numeric_dump_status_row(document, "TABLE_EXTRACTION_FAILED", "XLSX_XLS_PARSE_NOT_IMPLEMENTED_YET")],
+                    columns=OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF,
+                )
+            )
+            continue
+        extraction = extract_pdf_with_python_backends(
+            document["local_path"],
+            max_pages=args.max_pages_per_document,
+            use_table_extraction=False,
+        )
+        pages = extraction.pages
+        diagnostics_rows.extend(build_python_pdf_diagnostic_rows(document_row=document, diagnostics=extraction.diagnostics))
+        has_text = any(getattr(page, "extraction_status", "") == "TEXT_EXTRACTED" for page in pages)
+        if has_text:
+            text_extractable_pdfs += 1
+        else:
+            non_text_pdfs += 1
+            status_frames.append(
+                pd.DataFrame(
+                    [_numeric_dump_status_row(document, "DOCUMENT_NOT_TEXT_EXTRACTABLE", "NO_TEXT_EXTRACTED_NO_OCR")],
+                    columns=OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF,
+                )
+            )
+        page_text_hints = {int(page.page_number): str(page.text or "") for page in pages if int(page.page_number or 0)}
+        page_limit = extraction.page_count or len([page for page in pages if int(page.page_number or 0)])
+        if args.max_pages_per_document and page_limit:
+            page_limit = min(page_limit, args.max_pages_per_document)
+        target_pages = set(range(1, page_limit + 1)) if page_limit else set()
+        table_cells, table_diagnostic = extract_pdfplumber_all_tables_for_pages(
+            document["local_path"],
+            selected_page_numbers=target_pages,
+            page_text_hints=page_text_hints,
+        )
+        diagnostics_rows.extend(build_python_pdf_diagnostic_rows(document_row=document, diagnostics=[table_diagnostic]))
+
+        frames = build_numeric_table_dump_frames(document_row=document, pages=pages, table_cells=table_cells)
+        finance_pages = build_finance_numeric_page_candidates(frames.page_candidates)
+        finance_tables = build_finance_numeric_table_candidates(frames.table_candidates, finance_pages)
+        raw_rows, raw_cells, non_fin_rows, non_fin_cells = split_numeric_table_layers(
+            finance_table_candidates=finance_tables,
+            raw_cells=frames.table_cells,
+            raw_rows=frames.table_rows,
+        )
+        finance_keys = finance_table_keys(finance_tables)
+        finance_raw_table_candidates = _raw_table_candidates_for_keys(frames.table_candidates, finance_keys)
+        strict_candidates, strict_status = parse_anchor_field_candidates_from_dumped_tables(
+            document_row=document,
+            pages=pages,
+            table_cells=table_cells,
+            table_candidates=finance_raw_table_candidates,
+        )
+
+        if not frames.page_candidates.empty:
+            page_candidate_frames.append(frames.page_candidates)
+        if not frames.table_candidates.empty:
+            table_candidate_frames.append(frames.table_candidates)
+        if not finance_pages.empty:
+            finance_page_frames.append(finance_pages)
+        if not finance_tables.empty:
+            finance_table_frames.append(finance_tables)
+        if not raw_cells.empty:
+            raw_cell_frames.append(raw_cells)
+        if not raw_rows.empty:
+            raw_row_frames.append(raw_rows)
+        if not non_fin_cells.empty:
+            non_fin_cell_frames.append(non_fin_cells)
+        if not non_fin_rows.empty:
+            non_fin_row_frames.append(non_fin_rows)
+        if not strict_candidates.empty:
+            candidate_frames.append(strict_candidates)
+        if not strict_status.empty:
+            status_frames.append(strict_status)
+
+        if frames.dump_index.empty:
+            status_frames.append(
+                pd.DataFrame(
+                    [_numeric_dump_status_row(document, "TABLE_EXTRACTION_UNAVAILABLE", "NO_TABLES_EXTRACTED_FROM_NUMERIC_PAGES")],
+                    columns=OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF,
+                )
+            )
+        elif not finance_keys:
+            status_frames.append(
+                pd.DataFrame(
+                    [_numeric_dump_status_row(document, "MANUAL_REVIEW_REQUIRED", "TABLE_DUMP_ONLY_NOT_SEMANTICALLY_PARSED")],
+                    columns=OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF,
+                )
+            )
+        audit_files += write_patch3_patch3_audit_files(
+            document_row=document,
+            page_candidates=frames.page_candidates,
+            finance_pages=finance_pages,
+            raw_tables=frames.table_candidates,
+            finance_tables=finance_tables,
+            output_dir=output_dir,
+        )
+
+    numeric_page_candidates = _concat_or_empty(page_candidate_frames, NUMERIC_PAGE_CANDIDATE_COLUMNS_01IF_PATCH3_PATCH2)
+    numeric_table_candidates = _concat_or_empty(table_candidate_frames, NUMERIC_TABLE_CANDIDATE_COLUMNS_01IF_PATCH3_PATCH2)
+    finance_pages = _concat_or_empty(finance_page_frames, FINANCE_NUMERIC_PAGE_COLUMNS_01IF_PATCH3_PATCH3)
+    finance_tables = _concat_or_empty(finance_table_frames, FINANCE_NUMERIC_TABLE_COLUMNS_01IF_PATCH3_PATCH3)
+    raw_cells = _concat_or_empty(raw_cell_frames, NUMERIC_TABLE_CELL_COLUMNS_01IF_PATCH3_PATCH2)
+    raw_rows = _concat_or_empty(raw_row_frames, NUMERIC_TABLE_ROW_COLUMNS_01IF_PATCH3_PATCH2)
+    non_fin_cells = _concat_or_empty(non_fin_cell_frames, NUMERIC_TABLE_CELL_COLUMNS_01IF_PATCH3_PATCH2)
+    non_fin_rows = _concat_or_empty(non_fin_row_frames, NUMERIC_TABLE_ROW_COLUMNS_01IF_PATCH3_PATCH2)
+    candidate_rows = _concat_or_empty(candidate_frames, OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF)
+    status_rows = _concat_or_empty(status_frames, OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF)
+    diagnostics = pd.DataFrame(diagnostics_rows, columns=PDF_EXTRACTION_DIAGNOSTIC_COLUMNS_01IF_PATCH2)
+    coverage_input = coverage_candidate_rows(candidate_rows)
+    coverage = build_field_coverage(selected_documents=selected_documents, candidate_rows=coverage_input, status_rows=status_rows)
+    unresolved = build_unresolved_fields(selected_documents=selected_documents, candidate_rows=coverage_input, coverage=coverage, status_rows=status_rows)
+    manual = build_parse_manual_review_queue(
+        selected_documents=selected_documents,
+        candidate_rows=coverage_input,
+        coverage=coverage,
+        unresolved_fields=unresolved,
+        status_rows=status_rows,
+    )
+
+    vietstock_candidates.to_csv(output_dir / "vietstock_document_category_candidates_01if_patch3_patch3.csv", index=False)
+    document_scores.to_csv(output_dir / "bctc_bctn_document_scores_01if_patch3_patch3.csv", index=False)
+    local_targets.to_csv(output_dir / "official_document_download_index_01if_patch3_patch3.csv", index=False)
+    finance_pages.to_csv(output_dir / "finance_numeric_page_candidates_01if_patch3_patch3.csv", index=False)
+    finance_tables.to_csv(output_dir / "finance_numeric_table_candidates_01if_patch3_patch3.csv", index=False)
+    raw_rows.to_csv(output_dir / "raw_numeric_table_rows_01if_patch3_patch3.csv", index=False)
+    raw_cells.to_csv(output_dir / "raw_numeric_table_cells_01if_patch3_patch3.csv", index=False)
+    non_fin_rows.to_csv(output_dir / "non_financial_numeric_table_rows_01if_patch3_patch3.csv", index=False)
+    non_fin_cells.to_csv(output_dir / "non_financial_numeric_table_cells_01if_patch3_patch3.csv", index=False)
+    candidate_rows.to_csv(output_dir / "official_finance_candidate_rows_01if_patch3_patch3.csv", index=False)
+    coverage.to_csv(output_dir / "official_finance_field_coverage_01if_patch3_patch3.csv", index=False)
+    status_rows.to_csv(output_dir / "official_finance_parse_status_rows_01if_patch3_patch3.csv", index=False)
+    unresolved.to_csv(output_dir / "official_finance_unresolved_fields_01if_patch3_patch3.csv", index=False)
+    manual.to_csv(output_dir / "manual_review_queue.csv", index=False)
+    numeric_page_candidates.to_csv(output_dir / "raw_numeric_page_candidates_01if_patch3_patch3.csv", index=False)
+    numeric_table_candidates.to_csv(output_dir / "raw_numeric_table_candidates_01if_patch3_patch3.csv", index=False)
+    diagnostics.to_csv(output_dir / "pdf_extraction_diagnostics_01if_patch3_patch3.csv", index=False)
+    backend_availability.to_csv(output_dir / "pdf_backend_availability_01if_patch3_patch3.csv", index=False)
+    (output_dir / "datasource_decision_report.md").write_text(
+        build_patch3_patch3_decision_report(
+            vietstock_candidates=vietstock_candidates,
+            document_scores=document_scores,
+            local_targets=local_targets,
+            finance_pages=finance_pages,
+            finance_tables=finance_tables,
+            raw_rows=raw_rows,
+            non_fin_rows=non_fin_rows,
+            candidate_rows=candidate_rows,
+        ),
+        encoding="utf-8",
+    )
+    (output_dir / "run_summary.md").write_text(
+        build_patch3_patch3_run_summary(
+            command=command,
+            local_targets=local_targets,
+            finance_pages=finance_pages,
+            finance_tables=finance_tables,
+            raw_rows=raw_rows,
+            raw_cells=raw_cells,
+            non_fin_rows=non_fin_rows,
+            candidate_rows=candidate_rows,
+            status_rows=status_rows,
+            diagnostics=diagnostics,
+            audit_files=audit_files,
+            text_extractable_pdfs=text_extractable_pdfs,
+            non_text_pdfs=non_text_pdfs,
+        ),
+        encoding="utf-8",
+    )
+    print_patch3_patch3_summary(args, local_targets, finance_pages, finance_tables, raw_rows, non_fin_rows, candidate_rows, text_extractable_pdfs, non_text_pdfs)
+    return 0
+
+
 def run_patch3_patch2_numeric_table_dump(
     *,
     args: argparse.Namespace,
@@ -1040,6 +1293,225 @@ def build_patch3_patch2_decision_report(
     )
 
 
+def build_patch3_patch3_decision_report(
+    *,
+    vietstock_candidates: pd.DataFrame,
+    document_scores: pd.DataFrame,
+    local_targets: pd.DataFrame,
+    finance_pages: pd.DataFrame,
+    finance_tables: pd.DataFrame,
+    raw_rows: pd.DataFrame,
+    non_fin_rows: pd.DataFrame,
+    candidate_rows: pd.DataFrame,
+) -> str:
+    target_docs = document_scores[document_scores["document_status"].isin(["ACCEPTED_TARGET_BCTC", "ACCEPTED_TARGET_BCTN"])] if not document_scores.empty else pd.DataFrame()
+    bctc_docs = document_scores[document_scores["document_status"].eq("ACCEPTED_TARGET_BCTC")] if not document_scores.empty else pd.DataFrame()
+    bctn_docs = document_scores[document_scores["document_status"].eq("ACCEPTED_TARGET_BCTN")] if not document_scores.empty else pd.DataFrame()
+    usable_count = int(len(candidate_rows))
+    tickers_with_parse = int(candidate_rows["ticker"].nunique()) if not candidate_rows.empty else 0
+    return "\n".join(
+        [
+            "# Datasource decision report",
+            "",
+            f"- vietstock_category_discovery_ready: {'True' if _target_vietstock_count(vietstock_candidates) else 'False'}",
+            f"- target_bctc_bctn_documents_found: {len(target_docs)}",
+            f"- target_bctc_documents_found: {len(bctc_docs)}",
+            f"- target_bctn_documents_found: {len(bctn_docs)}",
+            f"- documents_downloaded: {len(local_targets)}",
+            f"- finance_numeric_pages_selected: {_finance_page_count(finance_pages)}",
+            f"- finance_numeric_tables_selected: {_finance_table_count(finance_tables)}",
+            f"- raw_numeric_table_rows: {len(raw_rows)}",
+            f"- non_financial_numeric_table_rows: {len(non_fin_rows)}",
+            f"- usable_official_finance_candidate_rows: {usable_count}",
+            f"- tickers_with_usable_official_parse: {tickers_with_parse}",
+            f"- official_finance_parse_ready: {'True' if usable_count else 'False'}",
+            "- should_run_REAL_DATA_02: No",
+            "- should_implement_Step19_now: No",
+            "",
+            "PATCH3-PATCH3 scores document category/title before numeric tables and keeps raw/non-financial numeric tables separate from finance candidates.",
+        ]
+    )
+
+
+def build_patch3_patch3_run_summary(
+    *,
+    command: str,
+    local_targets: pd.DataFrame,
+    finance_pages: pd.DataFrame,
+    finance_tables: pd.DataFrame,
+    raw_rows: pd.DataFrame,
+    raw_cells: pd.DataFrame,
+    non_fin_rows: pd.DataFrame,
+    candidate_rows: pd.DataFrame,
+    status_rows: pd.DataFrame,
+    diagnostics: pd.DataFrame,
+    audit_files: int,
+    text_extractable_pdfs: int,
+    non_text_pdfs: int,
+) -> str:
+    return "\n".join(
+        [
+            "# REAL-DATA-01I-F-PATCH3-PATCH3 category-first run",
+            "",
+            "## Command run",
+            f"`{command}`",
+            "",
+            "## Documents downloaded / local parse targets",
+            str(len(local_targets)),
+            "",
+            "## Text-extractable PDFs",
+            str(text_extractable_pdfs),
+            "",
+            "## Non-text/scanned PDFs",
+            str(non_text_pdfs),
+            "",
+            "## Finance numeric pages selected",
+            str(_finance_page_count(finance_pages)),
+            "",
+            "## Finance numeric tables selected",
+            str(_finance_table_count(finance_tables)),
+            "",
+            "## Raw numeric table cells",
+            str(len(raw_cells)),
+            "",
+            "## Raw numeric table rows",
+            str(len(raw_rows)),
+            "",
+            "## Non-financial numeric table rows",
+            str(len(non_fin_rows)),
+            "",
+            "## Strict usable candidate rows",
+            str(len(candidate_rows)),
+            "",
+            "## Status rows",
+            str(len(status_rows)),
+            "",
+            "## Table status counts",
+            _format_counts(_counts(finance_tables, "table_status")),
+            "",
+            "## Rows by field",
+            _format_counts(_counts(candidate_rows, "field_name")),
+            "",
+            "## Extraction diagnostics",
+            _format_grouped_counts(diagnostics, ["backend", "extract_status"]),
+            "",
+            "## Top rejected/non-financial table examples",
+            _format_finance_table_examples(finance_tables),
+            "",
+            "## Audit files",
+            str(audit_files),
+            "",
+            "## Next recommended action",
+            "Do not run REAL-DATA-02 or Step19. Improve category source coverage and target true BCTC PDFs/XLSX before reconciliation.",
+        ]
+    )
+
+
+def print_patch3_patch3_summary(
+    args: argparse.Namespace,
+    local_targets: pd.DataFrame,
+    finance_pages: pd.DataFrame,
+    finance_tables: pd.DataFrame,
+    raw_rows: pd.DataFrame,
+    non_fin_rows: pd.DataFrame,
+    candidate_rows: pd.DataFrame,
+    text_extractable_pdfs: int,
+    non_text_pdfs: int,
+) -> None:
+    print(
+        {
+            "output_dir": args.output_dir,
+            "documents_downloaded": int(len(local_targets)),
+            "text_extractable_pdfs": text_extractable_pdfs,
+            "scanned_unextractable_pdfs": non_text_pdfs,
+            "finance_numeric_pages_selected": _finance_page_count(finance_pages),
+            "finance_numeric_tables_selected": _finance_table_count(finance_tables),
+            "raw_numeric_table_rows": int(len(raw_rows)),
+            "non_financial_numeric_table_rows": int(len(non_fin_rows)),
+            "strict_usable_finance_candidate_rows": int(len(candidate_rows)),
+            "official_finance_parse_ready": bool(len(candidate_rows)),
+            "should_run_REAL_DATA_02": "No",
+            "should_implement_Step19_now": "No",
+        }
+    )
+
+
+def write_patch3_patch3_audit_files(
+    *,
+    document_row: pd.Series | dict[str, Any],
+    page_candidates: pd.DataFrame,
+    finance_pages: pd.DataFrame,
+    raw_tables: pd.DataFrame,
+    finance_tables: pd.DataFrame,
+    output_dir: Path,
+) -> int:
+    base = Path(output_dir)
+    document_dir = base / "document_audit"
+    page_dir = base / "page_audit"
+    table_dir = base / "table_audit"
+    for directory in [document_dir, page_dir, table_dir]:
+        directory.mkdir(parents=True, exist_ok=True)
+    name = _patch3_patch3_audit_name(document_row)
+    document_lines = [
+        f"# Document audit {_audit_value(document_row.get('ticker', ''))} {_audit_value(document_row.get('period', ''))}",
+        "",
+        f"- document_title: {_audit_value(document_row.get('document_title', ''))}",
+        f"- document_category: {_audit_value(document_row.get('document_category_normalized', ''))}",
+        f"- source_url: {_audit_value(document_row.get('source_url', ''))}",
+        f"- final_url: {_audit_value(document_row.get('final_url', ''))}",
+        f"- file_hash: {_audit_value(document_row.get('file_hash', ''))}",
+        f"- document_score: {_audit_value(document_row.get('document_score', ''))}",
+        f"- document_status: {_audit_value(document_row.get('document_status', ''))}",
+        f"- review_reason: {_audit_value(document_row.get('review_reason', ''))}",
+        "",
+    ]
+    (document_dir / name).write_text("\n".join(document_lines), encoding="utf-8")
+    page_lines = ["# Page audit", ""]
+    if isinstance(finance_pages, pd.DataFrame) and not finance_pages.empty:
+        for _, row in finance_pages.sort_values("finance_page_score", ascending=False).head(12).iterrows():
+            page_lines.extend(
+                [
+                    f"## Page {_audit_value(row.get('page_number', ''))}",
+                    "",
+                    f"- status: {_audit_value(row.get('page_status', ''))}",
+                    f"- score: {_audit_value(row.get('finance_page_score', ''))}",
+                    f"- numeric_density: {_audit_value(row.get('numeric_density', ''))}",
+                    f"- finance_anchor_hits: {_audit_value(row.get('finance_anchor_hits', ''))}",
+                    f"- negative_keyword_hits: {_audit_value(row.get('negative_keyword_hits', ''))}",
+                    f"- reject_reason: {_audit_value(row.get('reject_reason', ''))}",
+                    f"- preview: {_audit_value(row.get('text_preview', ''))}",
+                    "",
+                ]
+            )
+    elif isinstance(page_candidates, pd.DataFrame) and not page_candidates.empty:
+        for _, row in page_candidates.sort_values("candidate_score", ascending=False).head(8).iterrows():
+            page_lines.append(f"- page {row.get('page_number', '')}: score={row.get('candidate_score', '')}; reason={row.get('reject_reason', '')}")
+    (page_dir / name).write_text("\n".join(page_lines), encoding="utf-8")
+    table_lines = ["# Table audit", ""]
+    if isinstance(finance_tables, pd.DataFrame) and not finance_tables.empty:
+        for _, row in finance_tables.sort_values("finance_table_score", ascending=False).head(16).iterrows():
+            table_lines.extend(
+                [
+                    f"## Page {_audit_value(row.get('page_number', ''))} Table {_audit_value(row.get('table_index', ''))}",
+                    "",
+                    f"- status: {_audit_value(row.get('table_status', ''))}",
+                    f"- score: {_audit_value(row.get('finance_table_score', ''))}",
+                    f"- numeric_cell_count: {_audit_value(row.get('numeric_cell_count', ''))}",
+                    f"- numeric_cell_ratio: {_audit_value(row.get('numeric_cell_ratio', ''))}",
+                    f"- finance_anchor_hits: {_audit_value(row.get('finance_anchor_hits', ''))}",
+                    f"- negative_keyword_hits: {_audit_value(row.get('negative_keyword_hits', ''))}",
+                    f"- reject_reason: {_audit_value(row.get('reject_reason', ''))}",
+                    f"- preview: {_audit_value(row.get('table_preview', ''))}",
+                    "",
+                ]
+            )
+    elif isinstance(raw_tables, pd.DataFrame) and not raw_tables.empty:
+        for _, row in raw_tables.sort_values("table_score", ascending=False).head(8).iterrows():
+            table_lines.append(f"- p{row.get('page_number', '')} t{row.get('table_index', '')}: raw_score={row.get('table_score', '')}; preview={row.get('table_preview', '')[:240]}")
+    (table_dir / name).write_text("\n".join(table_lines), encoding="utf-8")
+    return 3
+
+
 def build_patch3_patch2_run_summary(
     *,
     command: str,
@@ -1268,6 +1740,8 @@ def command_string() -> str:
 
 def output_suffix(output_dir: Path) -> str:
     lowered = str(output_dir).lower()
+    if "patch3_patch3" in lowered:
+        return "_01if_patch3_patch3"
     if "patch3_patch2" in lowered:
         return "_01if_patch3_patch2"
     if "patch3" in lowered:
@@ -1312,6 +1786,46 @@ def _numeric_pages_selected(page_candidates: pd.DataFrame) -> int:
     )
 
 
+def _finance_page_count(finance_pages: pd.DataFrame) -> int:
+    if not isinstance(finance_pages, pd.DataFrame) or finance_pages.empty:
+        return 0
+    return int(finance_pages["page_status"].astype(str).eq("FINANCE_NUMERIC_PAGE_CANDIDATE").sum())
+
+
+def _finance_table_count(finance_tables: pd.DataFrame) -> int:
+    if not isinstance(finance_tables, pd.DataFrame) or finance_tables.empty:
+        return 0
+    return int(finance_tables["table_status"].astype(str).eq("FINANCE_NUMERIC_TABLE_CANDIDATE").sum())
+
+
+def _target_vietstock_count(vietstock_candidates: pd.DataFrame) -> int:
+    if not isinstance(vietstock_candidates, pd.DataFrame) or vietstock_candidates.empty:
+        return 0
+    return int(vietstock_candidates["document_category_normalized"].astype(str).isin(["financial_statement", "annual_report"]).sum())
+
+
+def _raw_table_candidates_for_keys(raw_table_candidates: pd.DataFrame, keys: set[tuple[str, int, int]]) -> pd.DataFrame:
+    if not isinstance(raw_table_candidates, pd.DataFrame) or raw_table_candidates.empty or not keys:
+        return pd.DataFrame(columns=raw_table_candidates.columns if isinstance(raw_table_candidates, pd.DataFrame) else [])
+    mask = raw_table_candidates.apply(
+        lambda row: (str(row.get("file_hash", "")), int(row.get("page_number", 0) or 0), int(row.get("table_index", 0) or 0)) in keys,
+        axis=1,
+    )
+    return raw_table_candidates[mask].copy()
+
+
+def _patch3_patch3_audit_name(document_row: pd.Series | dict[str, Any]) -> str:
+    ticker = str(document_row.get("ticker", "")).lower() or "unknown"
+    period = str(document_row.get("period", "")).lower().replace("-", "_") or "unknown"
+    short_hash = str(document_row.get("file_hash", ""))[:16] or "nohash"
+    return f"{ticker}_{period}_{short_hash}.md"
+
+
+def _audit_value(value: Any) -> str:
+    text = str(value or "").strip()
+    return text if text else "<empty>"
+
+
 def _format_counts(counts: dict[str, int]) -> str:
     if not counts:
         return "- none"
@@ -1329,6 +1843,21 @@ def _format_dump_examples(dump_index: pd.DataFrame, *, limit: int = 5) -> str:
             f"p{row.get('page_number', '')} t{row.get('table_index', '')}: "
             f"cells={row.get('numeric_cell_count', '')}, ratio={row.get('numeric_cell_ratio', '')}, "
             f"source={row.get('local_path', '')}"
+        )
+    return "\n".join(lines)
+
+
+def _format_finance_table_examples(finance_tables: pd.DataFrame, *, limit: int = 5) -> str:
+    if not isinstance(finance_tables, pd.DataFrame) or finance_tables.empty:
+        return "- none"
+    ordered = finance_tables.sort_values(["finance_table_score", "numeric_cell_count"], ascending=False).head(limit)
+    lines = []
+    for _, row in ordered.iterrows():
+        lines.append(
+            f"- {row.get('ticker', '')} {row.get('period', '')} "
+            f"p{row.get('page_number', '')} t{row.get('table_index', '')}: "
+            f"status={row.get('table_status', '')}, anchors={row.get('finance_anchor_hits', '')}, "
+            f"negative={row.get('negative_keyword_hits', '')}, reason={row.get('reject_reason', '')}"
         )
     return "\n".join(lines)
 
