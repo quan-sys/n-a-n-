@@ -55,6 +55,25 @@ def test_01if_decision_report_keeps_real_data_02_and_step19_off():
     assert "- should_implement_Step19_now: No" in report
 
 
+def test_01if_patch1_coverage_counts_only_rows_with_value_vnd():
+    selected = _selected_document()
+    candidates = pd.DataFrame(
+        [
+            {
+                **_candidate_row("net_profit", ""),
+                "parse_status": "FIELD_PARSED",
+                "value_vnd": "",
+            }
+        ],
+        columns=OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF,
+    )
+
+    coverage = build_field_coverage(selected_documents=selected, candidate_rows=candidates)
+
+    assert coverage.iloc[0]["required_fields_found_count"] == 0
+    assert coverage.iloc[0]["coverage_status"] == "INSUFFICIENT_PARSE"
+
+
 def _selected_document():
     return pd.DataFrame(
         [

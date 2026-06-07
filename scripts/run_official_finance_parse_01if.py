@@ -28,13 +28,30 @@ from src.ingestion.official_finance_parse_evidence import (  # noqa: E402
     build_parse_manual_review_queue,
     build_unresolved_fields,
 )
-from src.ingestion.official_finance_table_extractor import RAW_TABLE_AUDIT_COLUMNS_01IF, build_raw_table_audit_rows  # noqa: E402
+from src.ingestion.official_finance_table_extractor import (  # noqa: E402
+    RAW_TABLE_AUDIT_COLUMNS_01IF,
+    TABLE_CELL_COLUMNS_01IF_PATCH1,
+    build_finance_table_rows,
+    build_raw_table_audit_rows,
+    build_table_cell_audit_rows,
+)
 from src.ingestion.official_finance_value_parser import (  # noqa: E402
     OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF,
     detect_unit,
+    mark_conflicting_duplicate_fields,
     parse_official_finance_values_from_pages,
+    parse_official_finance_values_from_table_rows,
+    split_usable_and_status_rows,
 )
-from src.ingestion.official_pdf_text_extractor import build_raw_text_audit_rows, extract_pdf_text_pages  # noqa: E402
+from src.ingestion.official_pdf_text_extractor import (  # noqa: E402
+    PAGE_TEXT_AUDIT_COLUMNS_01IF_PATCH1,
+    PDF_EXTRACTION_DIAGNOSTIC_COLUMNS_01IF_PATCH1,
+    build_page_text_audit_rows,
+    build_pdf_extraction_diagnostic_rows,
+    build_raw_text_audit_rows,
+    extract_pdf_document_content,
+    extract_pdf_text_pages,
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -49,6 +66,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--allow-partial", action="store_true")
     parser.add_argument("--max-pages-per-document", type=int, default=25)
+    parser.add_argument("--use-table-extraction", action="store_true")
+    parser.add_argument("--prefer-table-values", action="store_true")
+    parser.add_argument("--diagnose-only", action="store_true")
     return parser.parse_args()
 
 
@@ -72,19 +92,28 @@ def main() -> int:
         empty_unresolved = pd.DataFrame(columns=UNRESOLVED_FIELDS_COLUMNS_01IF)
         empty_text = pd.DataFrame(columns=RAW_TEXT_AUDIT_COLUMNS_01IF)
         empty_table = pd.DataFrame(columns=RAW_TABLE_AUDIT_COLUMNS_01IF)
+        empty_status = pd.DataFrame(columns=OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF)
+        empty_diagnostics = pd.DataFrame(columns=PDF_EXTRACTION_DIAGNOSTIC_COLUMNS_01IF_PATCH1)
+        empty_page_audit = pd.DataFrame(columns=PAGE_TEXT_AUDIT_COLUMNS_01IF_PATCH1)
+        empty_table_cells = pd.DataFrame(columns=TABLE_CELL_COLUMNS_01IF_PATCH1)
         manual = build_parse_manual_review_queue(
             selected_documents=selected_documents,
             candidate_rows=empty_candidates,
             coverage=empty_coverage,
             unresolved_fields=empty_unresolved,
+            status_rows=empty_status,
         )
         write_outputs(
             output_dir=output_dir,
             candidate_rows=empty_candidates,
+            status_rows=empty_status,
             coverage=empty_coverage,
             unresolved=empty_unresolved,
             raw_text=empty_text,
             raw_table=empty_table,
+            diagnostics=empty_diagnostics,
+            page_audit=empty_page_audit,
+            table_cells=empty_table_cells,
             manual=manual,
             selected_documents=selected_documents,
             command=command_string(),
@@ -101,53 +130,113 @@ def main() -> int:
         raise SystemExit("No documents selected for parse. Pass --allow-partial to write reports only.")
 
     candidate_frames = []
+    status_frames = []
     raw_text_rows = []
     raw_table_rows = []
+    diagnostics_rows = []
+    page_audit_rows = []
+    table_cell_rows = []
     text_extractable_pdfs = 0
     non_text_pdfs = 0
     for _, document in parse_targets.iterrows():
         if document["detected_file_type"] != "pdf":
-            candidate_frames.append(pd.DataFrame([_failed_parse_row(document, "TABLE_EXTRACTION_FAILED", "XLSX_XLS_PARSE_NOT_IMPLEMENTED_YET")], columns=OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF))
+            status_frames.append(pd.DataFrame([_failed_parse_row(document, "TABLE_EXTRACTION_FAILED", "XLSX_XLS_PARSE_NOT_IMPLEMENTED_YET")], columns=OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF))
             continue
-        pages = extract_pdf_text_pages(document["local_path"], max_pages=args.max_pages_per_document)
+        if args.use_table_extraction or args.diagnose_only:
+            extraction = extract_pdf_document_content(
+                document["local_path"],
+                max_pages=args.max_pages_per_document,
+                use_table_extraction=args.use_table_extraction,
+            )
+            pages = extraction.pages
+            table_cells_from_pdf = extraction.table_cells
+            diagnostics_rows.extend(build_pdf_extraction_diagnostic_rows(document_row=document, diagnostics=extraction.diagnostics))
+        else:
+            pages = extract_pdf_text_pages(document["local_path"], max_pages=args.max_pages_per_document)
+            table_cells_from_pdf = []
         has_text = any(getattr(page, "extraction_status", "") == "TEXT_EXTRACTED" for page in pages)
+        has_tables = bool(table_cells_from_pdf)
         if has_text:
             text_extractable_pdfs += 1
-        else:
+        if not has_text and not has_tables:
             non_text_pdfs += 1
-            candidate_frames.append(pd.DataFrame([_failed_parse_row(document, "DOCUMENT_NOT_TEXT_EXTRACTABLE", "NO_TEXT_EXTRACTED_NO_OCR")], columns=OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF))
+            status_frames.append(pd.DataFrame([_failed_parse_row(document, "DOCUMENT_NOT_TEXT_EXTRACTABLE", "NO_TEXT_EXTRACTED_NO_OCR")], columns=OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF))
         unit_by_page = {}
         for page in pages:
             unit_raw, _, _, unit_status = detect_unit(getattr(page, "text", ""))
             unit_by_page[getattr(page, "page_number", 0)] = unit_raw if unit_status == "UNIT_DETECTED" else ""
         raw_text_rows.extend(build_raw_text_audit_rows(document_row=document, pages=pages, detected_unit_by_page=unit_by_page))
+        page_audit_rows.extend(build_page_text_audit_rows(document_row=document, pages=pages, detected_unit_by_page=unit_by_page))
         raw_table_rows.extend(build_raw_table_audit_rows(document_row=document, pages=pages))
-        parsed = parse_official_finance_values_from_pages(document_row=document, pages=pages)
-        if not parsed.empty:
-            candidate_frames.append(parsed)
+        table_cell_rows.extend(build_table_cell_audit_rows(document_row=document, table_cells=table_cells_from_pdf, pages=pages))
+        if args.diagnose_only:
+            continue
+        parsed_frames = []
+        if args.use_table_extraction:
+            table_rows = build_finance_table_rows(document_row=document, pages=pages, table_cells=table_cells_from_pdf)
+            parsed_table = parse_official_finance_values_from_table_rows(document_row=document, table_rows=table_rows, pages=pages)
+            if not parsed_table.empty:
+                parsed_frames.append(parsed_table)
+            if args.use_table_extraction and not table_cells_from_pdf:
+                status_frames.append(
+                    pd.DataFrame(
+                        [_failed_parse_row(document, "TABLE_EXTRACTION_UNAVAILABLE", "NO_TABLE_BACKEND_OR_NO_TABLES_EXTRACTED")],
+                        columns=OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF,
+                    )
+                )
+        if not args.prefer_table_values:
+            parsed_line = parse_official_finance_values_from_pages(document_row=document, pages=pages)
+            if not parsed_line.empty:
+                parsed_frames.append(parsed_line)
+        elif not parsed_frames:
+            parsed_line = parse_official_finance_values_from_pages(document_row=document, pages=pages)
+            if not parsed_line.empty:
+                _, line_status = split_usable_and_status_rows(parsed_line)
+                if not line_status.empty:
+                    status_frames.append(line_status)
+        if parsed_frames:
+            combined = mark_conflicting_duplicate_fields(pd.concat(parsed_frames, ignore_index=True))
+            usable, status = split_usable_and_status_rows(combined)
+            if not usable.empty:
+                candidate_frames.append(usable)
+            if not status.empty:
+                status_frames.append(status)
 
     candidate_rows = (
         pd.concat(candidate_frames, ignore_index=True)[OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF]
         if candidate_frames
         else pd.DataFrame(columns=OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF)
     )
-    coverage = build_field_coverage(selected_documents=selected_documents, candidate_rows=candidate_rows)
-    unresolved = build_unresolved_fields(selected_documents=selected_documents, candidate_rows=candidate_rows, coverage=coverage)
+    status_rows = (
+        pd.concat(status_frames, ignore_index=True)[OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF]
+        if status_frames
+        else pd.DataFrame(columns=OFFICIAL_FINANCE_CANDIDATE_ROW_COLUMNS_01IF)
+    )
+    coverage = build_field_coverage(selected_documents=selected_documents, candidate_rows=candidate_rows, status_rows=status_rows)
+    unresolved = build_unresolved_fields(selected_documents=selected_documents, candidate_rows=candidate_rows, coverage=coverage, status_rows=status_rows)
     manual = build_parse_manual_review_queue(
         selected_documents=selected_documents,
         candidate_rows=candidate_rows,
         coverage=coverage,
         unresolved_fields=unresolved,
+        status_rows=status_rows,
     )
     raw_text = pd.DataFrame(raw_text_rows, columns=RAW_TEXT_AUDIT_COLUMNS_01IF)
     raw_table = pd.DataFrame(raw_table_rows, columns=RAW_TABLE_AUDIT_COLUMNS_01IF)
+    diagnostics = pd.DataFrame(diagnostics_rows, columns=PDF_EXTRACTION_DIAGNOSTIC_COLUMNS_01IF_PATCH1)
+    page_audit = pd.DataFrame(page_audit_rows, columns=PAGE_TEXT_AUDIT_COLUMNS_01IF_PATCH1)
+    table_cells = pd.DataFrame(table_cell_rows, columns=TABLE_CELL_COLUMNS_01IF_PATCH1)
     write_outputs(
         output_dir=output_dir,
         candidate_rows=candidate_rows,
+        status_rows=status_rows,
         coverage=coverage,
         unresolved=unresolved,
         raw_text=raw_text,
         raw_table=raw_table,
+        diagnostics=diagnostics,
+        page_audit=page_audit,
+        table_cells=table_cells,
         manual=manual,
         selected_documents=selected_documents,
         command=command_string(),
@@ -162,21 +251,31 @@ def write_outputs(
     *,
     output_dir: Path,
     candidate_rows: pd.DataFrame,
+    status_rows: pd.DataFrame,
     coverage: pd.DataFrame,
     unresolved: pd.DataFrame,
     raw_text: pd.DataFrame,
     raw_table: pd.DataFrame,
+    diagnostics: pd.DataFrame,
+    page_audit: pd.DataFrame,
+    table_cells: pd.DataFrame,
     manual: pd.DataFrame,
     selected_documents: pd.DataFrame,
     command: str,
     text_extractable_pdfs: int,
     non_text_pdfs: int,
 ) -> None:
-    candidate_rows.to_csv(output_dir / "official_finance_candidate_rows_01if.csv", index=False)
-    coverage.to_csv(output_dir / "official_finance_field_coverage_01if.csv", index=False)
-    unresolved.to_csv(output_dir / "official_finance_unresolved_fields_01if.csv", index=False)
+    suffix = output_suffix(output_dir)
+    candidate_rows.to_csv(output_dir / f"official_finance_candidate_rows{suffix}.csv", index=False)
+    status_rows.to_csv(output_dir / f"official_finance_parse_status_rows{suffix}.csv", index=False)
+    coverage.to_csv(output_dir / f"official_finance_field_coverage{suffix}.csv", index=False)
+    unresolved.to_csv(output_dir / f"official_finance_unresolved_fields{suffix}.csv", index=False)
     raw_text.to_csv(output_dir / "official_finance_raw_text_audit_01if.csv", index=False)
     raw_table.to_csv(output_dir / "official_finance_raw_table_audit_01if.csv", index=False)
+    if suffix == "_01if_patch1":
+        diagnostics.to_csv(output_dir / "pdf_extraction_diagnostics_01if_patch1.csv", index=False)
+        page_audit.to_csv(output_dir / "official_finance_page_text_audit_01if_patch1.csv", index=False)
+        table_cells.to_csv(output_dir / "official_finance_table_cells_01if_patch1.csv", index=False)
     manual.to_csv(output_dir / "manual_review_queue.csv", index=False)
     (output_dir / "datasource_decision_report.md").write_text(
         build_01if_decision_report_markdown(
@@ -186,7 +285,8 @@ def write_outputs(
         ),
         encoding="utf-8",
     )
-    (output_dir / "official_finance_parse_01if_run_summary.md").write_text(
+    summary_name = "official_finance_parse_01if_patch1_run_summary.md" if suffix == "_01if_patch1" else "official_finance_parse_01if_run_summary.md"
+    (output_dir / summary_name).write_text(
         build_01if_run_summary_markdown(
             command=command,
             selected_documents=selected_documents,
@@ -195,6 +295,9 @@ def write_outputs(
             manual_review_queue=manual,
             text_extractable_pdfs=text_extractable_pdfs,
             non_text_pdfs=non_text_pdfs,
+            diagnostics=diagnostics,
+            table_cells=table_cells,
+            status_rows=status_rows,
         ),
         encoding="utf-8",
     )
@@ -262,6 +365,10 @@ def print_summary(
 
 def command_string() -> str:
     return " ".join([Path(sys.executable).name, *sys.argv])
+
+
+def output_suffix(output_dir: Path) -> str:
+    return "_01if_patch1" if "patch1" in str(output_dir).lower() else "_01if"
 
 
 def parse_csv(value: str) -> list[str]:

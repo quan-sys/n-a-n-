@@ -59,27 +59,43 @@ def build_field_coverage(
     *,
     selected_documents: pd.DataFrame,
     candidate_rows: pd.DataFrame,
+    status_rows: pd.DataFrame | None = None,
     required_fields: list[str] | None = None,
 ) -> pd.DataFrame:
     required_fields = required_fields or CANONICAL_FIELDS_01IF
+    sufficient_minimum_fields = ["net_profit", "total_assets", "total_liabilities", "equity", "operating_cash_flow"]
     rows = []
     selected_for_parse = selected_documents[selected_documents["selection_status"] == "SELECTED_FOR_PARSE"] if not selected_documents.empty else pd.DataFrame(columns=SELECTED_DOCUMENT_COLUMNS_01IF)
     for _, document in selected_for_parse.iterrows():
         doc_rows = _document_candidate_rows(candidate_rows, document)
+        doc_status_rows = _document_candidate_rows(status_rows, document)
         parsed_fields = sorted(
-            set(doc_rows.loc[doc_rows["parse_status"].eq("FIELD_PARSED"), "field_name"].astype(str))
+            set(
+                doc_rows.loc[
+                    doc_rows["parse_status"].eq("FIELD_PARSED")
+                    & doc_rows["field_name"].astype(str).str.strip().ne("")
+                    & doc_rows["value_vnd"].astype(str).str.strip().ne(""),
+                    "field_name",
+                ].astype(str)
+            )
         ) if not doc_rows.empty else []
         missing_fields = [field for field in required_fields if field not in parsed_fields]
-        if not doc_rows.empty and (doc_rows["parse_status"] == "DOCUMENT_NOT_TEXT_EXTRACTABLE").any():
+        if not doc_status_rows.empty and doc_status_rows["parse_status"].isin(["DOCUMENT_NOT_TEXT_EXTRACTABLE", "SCANNED_OR_IMAGE_ONLY_REVIEW"]).any():
             status = "NO_TEXT_EXTRACTED"
-        elif len(parsed_fields) >= 6 and all(field in parsed_fields for field in ["revenue", "net_profit", "total_assets", "equity"]):
+        elif all(field in parsed_fields for field in sufficient_minimum_fields):
             status = "SUFFICIENT_FOR_RECONCILIATION"
         elif parsed_fields:
             status = "PARTIAL_PARSE"
         else:
             status = "INSUFFICIENT_PARSE"
-        manual_review = bool(missing_fields) or bool(doc_rows["manual_review_required"].astype(bool).any()) if not doc_rows.empty else True
-        if manual_review and status == "SUFFICIENT_FOR_RECONCILIATION":
+        manual_review = bool(missing_fields)
+        if not doc_rows.empty:
+            manual_review = manual_review or bool(doc_rows["manual_review_required"].astype(bool).any())
+        if not doc_status_rows.empty:
+            manual_review = manual_review or bool(doc_status_rows["manual_review_required"].astype(bool).any())
+        if doc_rows.empty and doc_status_rows.empty:
+            manual_review = True
+        if manual_review and status == "SUFFICIENT_FOR_RECONCILIATION" and not all(field in parsed_fields for field in sufficient_minimum_fields):
             status = "MANUAL_REVIEW_REQUIRED"
         rows.append(
             {
@@ -103,6 +119,7 @@ def build_unresolved_fields(
     selected_documents: pd.DataFrame,
     candidate_rows: pd.DataFrame,
     coverage: pd.DataFrame,
+    status_rows: pd.DataFrame | None = None,
 ) -> pd.DataFrame:
     rows = []
     for _, row in coverage.iterrows():
@@ -121,6 +138,18 @@ def build_unresolved_fields(
     if isinstance(candidate_rows, pd.DataFrame) and not candidate_rows.empty:
         unresolved = candidate_rows[candidate_rows["parse_status"] != "FIELD_PARSED"]
         for _, row in unresolved.iterrows():
+            rows.append(
+                {
+                    "ticker": row.get("ticker", ""),
+                    "period": row.get("period", ""),
+                    "field_name": row.get("field_name", ""),
+                    "issue": row.get("parse_status", ""),
+                    "manual_review_required": True,
+                    "notes": row.get("review_reason", ""),
+                }
+            )
+    if isinstance(status_rows, pd.DataFrame) and not status_rows.empty:
+        for _, row in status_rows.iterrows():
             rows.append(
                 {
                     "ticker": row.get("ticker", ""),
@@ -154,12 +183,27 @@ def build_parse_manual_review_queue(
     candidate_rows: pd.DataFrame,
     coverage: pd.DataFrame,
     unresolved_fields: pd.DataFrame,
+    status_rows: pd.DataFrame | None = None,
 ) -> pd.DataFrame:
     rows = []
     for _, row in selected_documents[selected_documents["selection_status"] != "SELECTED_FOR_PARSE"].iterrows():
         rows.append(_manual_row(row, row.get("selection_status", ""), _priority_for_issue(row.get("selection_status", "")), row.get("reason", "")))
     if isinstance(candidate_rows, pd.DataFrame) and not candidate_rows.empty:
         for _, row in candidate_rows[candidate_rows["manual_review_required"].astype(bool)].iterrows():
+            rows.append(
+                {
+                    "ticker": row.get("ticker", ""),
+                    "period": row.get("period", ""),
+                    "document_type": "",
+                    "source_url": row.get("source_url", ""),
+                    "issue": row.get("parse_status", ""),
+                    "manual_review_required": True,
+                    "priority": _priority_for_issue(row.get("parse_status", "")),
+                    "notes": row.get("review_reason", ""),
+                }
+            )
+    if isinstance(status_rows, pd.DataFrame) and not status_rows.empty:
+        for _, row in status_rows[status_rows["manual_review_required"].astype(bool)].iterrows():
             rows.append(
                 {
                     "ticker": row.get("ticker", ""),
@@ -226,13 +270,15 @@ def build_01if_decision_report_markdown(
             f"- official_document_file_ready: {document_file_ready}",
             f"- official_finance_parse_ready: {parse_ready}",
             f"- official_finance_candidate_rows: {len(candidate_rows)}",
+            f"- usable_official_finance_candidate_rows: {parsed_count}",
             f"- tickers_with_official_parse: {tickers_with_parse}",
+            f"- tickers_with_usable_official_parse: {tickers_with_parse}",
             f"- finance_ready_for_l0: {l0_ready}",
             "- finance_disclosure_ready_for_step18: False",
             "- should_run_REAL_DATA_02: No",
             "- should_implement_Step19_now: No",
             "",
-            "01I-F emits source-backed official parser candidate rows only. Full reconciliation remains 01I-G.",
+            "01I-F emits source-backed official parser candidate rows only. Do not run 01I-G reconciliation until usable official value rows exist.",
         ]
     )
 
@@ -246,10 +292,16 @@ def build_01if_run_summary_markdown(
     manual_review_queue: pd.DataFrame,
     text_extractable_pdfs: int,
     non_text_pdfs: int,
+    diagnostics: pd.DataFrame | None = None,
+    table_cells: pd.DataFrame | None = None,
+    status_rows: pd.DataFrame | None = None,
 ) -> str:
     selected_count = int((selected_documents["selection_status"] == "SELECTED_FOR_PARSE").sum()) if not selected_documents.empty else 0
     skipped_count = int(len(selected_documents) - selected_count)
     parsed_docs = int(candidate_rows["file_hash"].nunique()) if not candidate_rows.empty else 0
+    status_rows = status_rows if isinstance(status_rows, pd.DataFrame) else pd.DataFrame()
+    diagnostics = diagnostics if isinstance(diagnostics, pd.DataFrame) else pd.DataFrame()
+    table_cells = table_cells if isinstance(table_cells, pd.DataFrame) else pd.DataFrame()
     return "\n".join(
         [
             "# REAL-DATA-01I-F official finance parse run",
@@ -263,6 +315,9 @@ def build_01if_run_summary_markdown(
             "## Documents parsed",
             str(parsed_docs),
             "",
+            "## Extraction backend diagnostics",
+            _format_backend_diagnostics(diagnostics),
+            "",
             "## Documents skipped",
             str(skipped_count),
             "",
@@ -272,8 +327,14 @@ def build_01if_run_summary_markdown(
             "## Non-text/scanned PDFs",
             str(non_text_pdfs),
             "",
-            "## Candidate rows parsed",
+            "## Tables extracted",
+            str(int(table_cells[["file_hash", "page_number", "table_index"]].drop_duplicates().shape[0]) if not table_cells.empty else 0),
+            "",
+            "## Usable candidate rows",
             str(len(candidate_rows)),
+            "",
+            "## Status/error rows separated",
+            str(len(status_rows)),
             "",
             "## Rows by field",
             _format_counts(_counts(candidate_rows, "field_name")),
@@ -291,7 +352,7 @@ def build_01if_run_summary_markdown(
             _format_counts(_counts(manual_review_queue, "issue")),
             "",
             "## Next recommended action",
-            "Review parser evidence and unresolved fields, then implement 01I-G reconciliation before any broader scale-up.",
+            _next_recommended_action(candidate_rows),
         ]
     )
 
@@ -348,3 +409,18 @@ def _format_coverage(coverage: pd.DataFrame) -> str:
         f"(found={row['required_fields_found_count']}, missing={row['required_fields_missing_count']})"
         for _, row in coverage.iterrows()
     )
+
+
+def _format_backend_diagnostics(diagnostics: pd.DataFrame) -> str:
+    if not isinstance(diagnostics, pd.DataFrame) or diagnostics.empty:
+        return "- none"
+    if "backend" not in diagnostics.columns or "extract_status" not in diagnostics.columns:
+        return "- none"
+    counts = diagnostics.groupby(["backend", "extract_status"], dropna=False).size().reset_index(name="count")
+    return "\n".join(f"- {row['backend']} {row['extract_status']}: {int(row['count'])}" for _, row in counts.iterrows())
+
+
+def _next_recommended_action(candidate_rows: pd.DataFrame) -> str:
+    if not isinstance(candidate_rows, pd.DataFrame) or candidate_rows.empty:
+        return "Do not run 01I-G yet; enable a non-OCR table backend or manually review official PDFs, then rerun 01I-F-PATCH1 until usable official value rows exist."
+    return "Review usable parser evidence and unresolved fields; only then prepare 01I-G reconciliation before any broader scale-up."
