@@ -1,0 +1,99 @@
+version: 1
+description: REAL-DATA-EVIDENCE-PACK-01 staged official BCTC/BCTN evidence collection policy.
+
+stages:
+  stage_0_full_universe:
+    target_max_tickers: 1743
+    official_files_per_ticker_min: 0
+    official_files_per_ticker_max: 0
+    purpose: Cheap full-universe screen. No official document collection.
+  stage_1_provisional_shortlist:
+    target_max_tickers: 500
+    official_files_per_ticker_min: 0
+    official_files_per_ticker_max: 0
+    purpose: Provisional shortlist. Keep official collection deferred by default.
+  stage_2_evidence_candidates:
+    target_max_tickers: 200
+    official_files_per_ticker_min: 1
+    official_files_per_ticker_max: 2
+    purpose: Map latest official evidence availability only.
+  stage_3_final_watchlist:
+    target_max_tickers: 50
+    official_files_per_ticker_min: 2
+    official_files_per_ticker_max: 3
+    purpose: Verify key data before serious watchlist inclusion.
+  stage_4_deep_dive_shortlist:
+    target_max_tickers: 10
+    official_files_per_ticker_min: 5
+    official_files_per_ticker_max: 8
+    purpose: Collect deeper history only for the final few names.
+  stage_5_full_historical_research:
+    target_max_tickers: 3
+    official_files_per_ticker_min: 10
+    official_files_per_ticker_max: 15
+    purpose: Manual research and thesis-building only.
+
+document_priorities:
+  P0_latest_consolidated_financial_statement:
+    required_from_stage: stage_2_evidence_candidates
+    max_files_per_ticker: 1
+    document_requirement: Latest consolidated financial statement if available.
+    period_target: latest_available
+    period_type_target: quarterly_or_semiannual
+    preferred_document_category: financial_statement
+  P1_latest_audited_annual_financial_statement:
+    required_from_stage: stage_2_evidence_candidates
+    max_files_per_ticker: 1
+    document_requirement: Latest audited annual financial statement if available.
+    period_target: latest_audited_annual
+    period_type_target: annual
+    preferred_document_category: financial_statement
+  P2_latest_annual_report:
+    required_from_stage: stage_3_final_watchlist
+    max_files_per_ticker: 1
+    document_requirement: Latest annual report / BCTN if needed for business model evidence.
+    period_target: latest_annual
+    period_type_target: annual
+    preferred_document_category: annual_report
+  P3_same_period_previous_year_financial_statement:
+    required_from_stage: stage_4_deep_dive_shortlist
+    max_files_per_ticker: 1
+    document_requirement: Same-period previous-year financial statement.
+    period_target: same_period_previous_year
+    period_type_target: matching_current_period
+    preferred_document_category: financial_statement
+  P4_three_year_audited_annual_statements:
+    required_from_stage: stage_4_deep_dive_shortlist
+    max_files_per_ticker: 3
+    document_requirement: Three-year audited annual financial statements if available.
+    period_target: latest_three_audited_years
+    period_type_target: annual
+    preferred_document_category: financial_statement
+  P5_full_history:
+    required_from_stage: stage_5_full_historical_research
+    max_files_per_ticker: 15
+    document_requirement: Full historical official evidence pack for manual research only.
+    period_target: full_history
+    period_type_target: mixed
+    preferred_document_category: financial_statement_or_annual_report
+
+preferred_source_tiers:
+  - tier: 1
+    name: user_manual_seed_vietstock_category_page
+    description: User/manual seed from Vietstock category page.
+  - tier: 2
+    name: company_ir_direct_bctc_bctn_link
+    description: Company IR direct BCTC/BCTN link.
+  - tier: 3
+    name: vietstock_static_discovery
+    description: Vietstock static discovery if available without bypass.
+  - tier: 4
+    name: exchange_direct_accessible_filing
+    description: Exchange filing only if directly accessible without login/CAPTCHA/bypass.
+  - tier: 5
+    name: paid_manual_export_user_access
+    description: Paid/manual export only if the user has access.
+
+workload_assumptions:
+  manual_minutes_per_file_min: 2
+  manual_minutes_per_file_max: 5

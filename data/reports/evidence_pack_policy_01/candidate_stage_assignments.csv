@@ -1,0 +1,7 @@
+ticker,input_rank,rank_source,stage,stage_assignment_status,assignment_reason,official_files_per_ticker_min,official_files_per_ticker_max,target_max_tickers_for_stage,template_only,manual_review_required,no_financial_claim
+TEMPLATE_STAGE_0_FULL_UNIVERSE,,,stage_0_full_universe,MISSING_RANKING_INPUT,MISSING_RANKING_INPUT; No real investment ranking was inferred.,0,0,1743,True,True,True
+TEMPLATE_STAGE_1_PROVISIONAL_SHORTLIST,,,stage_1_provisional_shortlist,MISSING_RANKING_INPUT,MISSING_RANKING_INPUT; No real investment ranking was inferred.,0,0,500,True,True,True
+TEMPLATE_STAGE_2_EVIDENCE_CANDIDATES,,,stage_2_evidence_candidates,MISSING_RANKING_INPUT,MISSING_RANKING_INPUT; No real investment ranking was inferred.,1,2,200,True,True,True
+TEMPLATE_STAGE_3_FINAL_WATCHLIST,,,stage_3_final_watchlist,MISSING_RANKING_INPUT,MISSING_RANKING_INPUT; No real investment ranking was inferred.,2,3,50,True,True,True
+TEMPLATE_STAGE_4_DEEP_DIVE_SHORTLIST,,,stage_4_deep_dive_shortlist,MISSING_RANKING_INPUT,MISSING_RANKING_INPUT; No real investment ranking was inferred.,5,8,10,True,True,True
+TEMPLATE_STAGE_5_FULL_HISTORICAL_RESEARCH,,,stage_5_full_historical_research,MISSING_RANKING_INPUT,MISSING_RANKING_INPUT; No real investment ranking was inferred.,10,15,3,True,True,True
