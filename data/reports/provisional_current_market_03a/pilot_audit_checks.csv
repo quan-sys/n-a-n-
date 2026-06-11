@@ -1,0 +1,35 @@
+check_id,area,status,severity,expected,actual,message
+FILE_current_market_snapshot,file_existence,PASS,INFO,current_market_snapshot.csv,exists,Required file exists.
+FILE_current_market_refresh_attempt_log,file_existence,PASS,INFO,current_market_refresh_attempt_log.csv,exists,Required file exists.
+FILE_stage2_eligibility_gate,file_existence,PASS,INFO,stage2_eligibility_gate.csv,exists,Required file exists.
+FILE_current_market_balanced_ranked_shortlist,file_existence,PASS,INFO,current_market_balanced_ranked_shortlist.csv,exists,Required file exists.
+FILE_current_market_refresh_summary,file_existence,PASS,INFO,current_market_refresh_summary.md,exists,Optional summary file exists.
+FILE_stage2_eligibility_summary,file_existence,PASS,INFO,stage2_eligibility_summary.md,exists,Optional summary file exists.
+FILE_current_market_balanced_ranking_summary,file_existence,PASS,INFO,current_market_balanced_ranking_summary.md,exists,Optional summary file exists.
+FILE_evidence_collection_queue,file_existence,PASS,INFO,evidence_collection_queue.csv,exists,Evidence file exists.
+FILE_evidence_run_summary,file_existence,PASS,INFO,run_summary.md,exists,Evidence file exists.
+SCHEMA_current_market_snapshot,schema,PASS,INFO,"ticker,fetch_status,last_close,last_price_date,avg_volume_20d,avg_volume_60d,trading_days_60d,missing_market_flag,stale_price_flag",all_present,Required columns present.
+SCHEMA_current_market_refresh_attempt_log,schema,PASS,INFO,"ticker,fetch_status,created_at",all_present,Required columns present.
+SCHEMA_stage2_eligibility_gate,schema,PASS,INFO,"ticker,original_stage,new_stage,eligibility_status,demotion_reason,finance_crosscheck_status,finance_confidence",all_present,Required columns present.
+SCHEMA_current_market_balanced_ranked_shortlist,schema,PASS,INFO,"ticker,evidence_stage,sector_bucket,firm_type",all_present,Required columns present.
+SCHEMA_evidence_collection_queue,schema,PASS,INFO,"ticker,stage,document_priority",all_present,Required columns present.
+ATTEMPT_LOG_TICKER_COUNT,attempt_log,PASS,INFO,pilot around 20,20,Attempt log status counts: {'FETCH_OK': 20}
+ATTEMPT_LOG_DUPLICATES,attempt_log,PASS,INFO,0 duplicates,0,No duplicate ticker attempts.
+ATTEMPT_LOG_TIMESTAMPS,attempt_log,PASS,INFO,all parseable,0,Attempt timestamps are parseable.
+SNAPSHOT_FETCH_OK_ROWS,snapshot,PASS,INFO,all FETCH_OK have snapshot,0,All FETCH_OK tickers have snapshot rows.
+SNAPSHOT_MARKET_FIELDS,snapshot,PASS,INFO,last_close/date present and missing_market_flag false,0,Snapshot market fields are present.
+SNAPSHOT_PRICE_DATE_PARSEABLE,snapshot,PASS,INFO,last_price_date parseable,0,Snapshot price dates are parseable.
+SNAPSHOT_STALE_FLAGS,snapshot,PASS,INFO,stale_price_flag false for fresh pilot,0,No FETCH_OK snapshot is stale.
+RAW_HISTORY_PRESENT,raw_recompute,PASS,INFO,raw history for FETCH_OK,all_present,Raw history exists for all FETCH_OK tickers.
+RAW_RECOMPUTE_MATCH,raw_recompute,PASS,INFO,snapshot equals raw recompute,0,Raw recompute matches snapshot.
+GATE_ROWS_MATCH_RANKING,stage_gate,PASS,INFO,1800,1800,Gate row count matches ranking.
+GATE_FETCH_OK_ROWS,stage_gate,PASS,INFO,FETCH_OK tickers in gate,0,All FETCH_OK tickers have gate rows.
+GATE_BLOCKED_NOT_STAGE2_PLUS,stage_gate,PASS,INFO,blocked tickers demoted below stage_2,0,Blocked tickers are not in stage_2+.
+GATE_UNKNOWN_EXCHANGE_BLOCKED,stage_gate,PASS,INFO,UNKNOWN_EXCHANGE not stage_2+,0,Unknown exchange rows are not silently passed.
+GATE_ONE_SOURCE_LOW_CONFIDENCE,stage_gate,PASS,INFO,ONE_SOURCE_ONLY -> PROVISIONAL_LOW,0,ONE_SOURCE_ONLY finance remains PROVISIONAL_LOW.
+RANKING_GATE_CONSISTENCY,balanced_ranking,PASS,INFO,blocked tickers not stage_2+ in ranking,0,Ranking after gate respects eligibility gate.
+BALANCED_RANKING_STAGE_COUNTS,balanced_ranking,PASS,INFO,stage counts available,"{'stage_0_full_universe': 1300, 'stage_1_provisional_shortlist': 480, 'stage_3_final_watchlist': 10, 'stage_4_deep_dive_shortlist': 10}",Stage distribution after gate is available.
+BALANCED_RANKING_TOP_CAPS,balanced_ranking,PASS,INFO,top caps respected,caps_ok,Top cap check completed.
+EVIDENCE_QUEUE_GATE_ELIGIBLE,evidence_queue,PASS,INFO,queue tickers STAGE2_ELIGIBLE,0,Evidence queue only contains gate-eligible tickers.
+EVIDENCE_QUEUE_STAGE2_PLUS,evidence_queue,PASS,INFO,queue tickers stage_2+,0,Evidence queue only contains stage_2+ tickers.
+SAFETY_FORBIDDEN_OUTPUTS,safety,PASS,INFO,no recommendation/valuation fields,none,No dangerous recommendation/valuation outputs found.

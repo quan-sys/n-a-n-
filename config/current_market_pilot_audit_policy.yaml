@@ -1,0 +1,50 @@
+version: 1
+description: Audit policy for PROVISIONAL-CURRENT-MARKET-03A pilot validation.
+
+input_expectations:
+  expected_pilot_ticker_count: 20
+  expected_scope_note: pilot_20_only_not_top500
+
+market_policy_path: config/current_market_data_policy.yaml
+balance_policy_path: config/evidence_queue_balance_policy.yaml
+
+raw_recompute:
+  last_close_tolerance: 0.000001
+  avg_volume_abs_tolerance: 1
+  avg_volume_rel_tolerance_pct: 0.01
+  missing_raw_history_status: WARN
+  last_close_mismatch_status: FAIL
+  last_price_date_mismatch_status: FAIL
+  trading_days_mismatch_status: FAIL
+  avg_volume_mismatch_status: WARN
+
+safety_keywords:
+  forbidden_columns:
+    - buy
+    - sell
+    - hold
+    - target_price
+    - fair_value
+    - margin_of_safety
+    - mos
+    - recommendation
+    - khuyến nghị mua
+    - khuyen nghi mua
+    - khuyến nghị bán
+    - khuyen nghi ban
+    - giá mục tiêu
+    - gia muc tieu
+    - giá trị hợp lý
+    - gia tri hop ly
+    - biên an toàn
+    - bien an toan
+  allowed_negative_context:
+    - "no "
+    - "no_"
+    - "not "
+    - "did not"
+    - "forbidden"
+    - "blocked"
+    - "không"
+    - "khong"
+    - "none"
