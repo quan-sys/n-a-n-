@@ -1,0 +1,38 @@
+{
+  "generated_at": "2026-06-11T14:40:53+00:00",
+  "task": "PROVISIONAL-CURRENT-MARKET-03C",
+  "scope": "same_20_pilot_tickers_only",
+  "pilot_ticker_count": 20,
+  "pilot_tickers": [
+    "VIX",
+    "VND",
+    "VSC",
+    "VGI",
+    "VCG",
+    "VNM",
+    "TVN",
+    "VJC",
+    "VTZ",
+    "YEG",
+    "VCI",
+    "VFS",
+    "VDS",
+    "VIG",
+    "TVS",
+    "VRE",
+    "VNE",
+    "VOS",
+    "VTP",
+    "TLH"
+  ],
+  "inputs": {
+    "snapshot": "data\\reports\\provisional_current_market_03\\current_market_snapshot.csv",
+    "stage2_gate": "data\\reports\\provisional_current_market_03\\stage2_eligibility_gate.csv",
+    "ranking": "data\\reports\\provisional_current_market_03\\current_market_balanced_ranked_shortlist.csv",
+    "evidence_summary": "data\\reports\\evidence_pack_policy_03_current_market\\run_summary.md",
+    "base_ranking": "data\\reports\\provisional_crosscheck_02\\sector_balanced_ranked_shortlist.csv"
+  },
+  "original_evidence_summary_lines": 66,
+  "no_live_fetch": true,
+  "no_original_output_mutation": true
+}

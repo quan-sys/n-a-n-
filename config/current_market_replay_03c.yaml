@@ -1,0 +1,47 @@
+version: 1
+description: End-to-end local replay policy for PROVISIONAL-CURRENT-MARKET-03C.
+
+replay:
+  expected_pilot_ticker_count: 20
+  wrong_ticker_count_is_no_go: true
+  duplicate_ticker_is_no_go: true
+  require_core_market_columns: true
+  require_primary_not_missing: true
+  require_primary_not_stale: true
+
+core_market_columns:
+  - ticker
+  - last_close
+  - last_price_date
+  - avg_volume_20d
+  - avg_volume_60d
+  - trading_days_60d
+  - missing_market_flag
+  - stale_price_flag
+
+safety:
+  forbidden_terms:
+    - buy
+    - sell
+    - hold
+    - target price
+    - target_price
+    - fair value
+    - fair_value
+    - margin of safety
+    - margin_of_safety
+    - MoS
+    - recommendation
+    - khuyen nghi mua
+    - khuyen nghi ban
+    - gia muc tieu
+    - gia hop ly
+    - bien an toan
+  allowed_context:
+    - not_authorized
+    - no_
+    - "no "
+    - "not "
+    - blocked
+    - forbidden
+    - safety

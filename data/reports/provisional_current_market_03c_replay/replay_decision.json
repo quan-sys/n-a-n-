@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-06-11T14:40:53+00:00",
+  "task": "PROVISIONAL-CURRENT-MARKET-03C",
+  "pilot_ticker_count": 20,
+  "critical_fail_count": 0,
+  "warn_count": 0,
+  "final_decision": "PASS_FOR_REAL_DATA_02_PILOT_20",
+  "allowed_next_step": "REAL-DATA-02-PILOT-20",
+  "stage_distribution_original": {
+    "stage_3_final_watchlist": 10,
+    "stage_4_deep_dive_shortlist": 10
+  },
+  "stage_distribution_replay": {
+    "stage_3_final_watchlist": 10,
+    "stage_4_deep_dive_shortlist": 10
+  },
+  "eligible_count_original": 20,
+  "eligible_count_replay": 20,
+  "evidence_queue_original": 80,
+  "evidence_queue_replay": 80,
+  "not_authorized": [
+    "top500_refresh",
+    "full_universe_live_fetch",
+    "Step19",
+    "official_pdf_fetch",
+    "OCR",
+    "buy_sell_recommendation",
+    "target_price",
+    "fair_value",
+    "margin_of_safety"
+  ]
+}

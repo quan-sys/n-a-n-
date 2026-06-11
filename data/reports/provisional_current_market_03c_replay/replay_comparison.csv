@@ -1,0 +1,20 @@
+check_name,status,original_value,replay_value,diff_value,severity,message
+pilot_ticker_count,PASS,20,20,0,INFO,Pilot ticker count is exactly expected.
+snapshot_duplicate_tickers_absent,PASS,no duplicates,none,0,INFO,No duplicate ticker rows in snapshot.
+core_market_schema_present,PASS,all core market columns,all_present,0,INFO,Core market schema is present.
+primary_market_values_complete,PASS,no missing primary market values,none,0,INFO,Primary market values are complete.
+primary_market_values_fresh,PASS,no stale primary market rows,none,0,INFO,Primary market rows are fresh by gate flags.
+pilot_ticker_set_match,PASS,"VIX,VND,VSC,VGI,VCG,VNM,TVN,VJC,VTZ,YEG,VCI,VFS,VDS,VIG,TVS,VRE,VNE,VOS,VTP,TLH","{""original_gate"": [""TLH"", ""TVN"", ""TVS"", ""VCG"", ""VCI"", ""VDS"", ""VFS"", ""VGI"", ""VIG"", ""VIX"", ""VJC"", ""VND"", ""VNE"", ""VNM"", ""VOS"", ""VRE"", ""VSC"", ""VTP"", ""VTZ"", ""YEG""], ""original_ranking"": [""TLH"", ""TVN"", ""TVS"", ""VCG"", ""VCI"", ""VDS"", ""VFS"", ""VGI"", ""VIG"", ""VIX"", ""VJC"", ""VND"", ""VNE"", ""VNM"", ""VOS"", ""VRE"", ""VSC"", ""VTP"", ""VTZ"", ""YEG""], ""replay_gate"": [""TLH"", ""TVN"", ""TVS"", ""VCG"", ""VCI"", ""VDS"", ""VFS"", ""VGI"", ""VIG"", ""VIX"", ""VJC"", ""VND"", ""VNE"", ""VNM"", ""VOS"", ""VRE"", ""VSC"", ""VTP"", ""VTZ"", ""YEG""], ""replay_ranking"": [""TLH"", ""TVN"", ""TVS"", ""VCG"", ""VCI"", ""VDS"", ""VFS"", ""VGI"", ""VIG"", ""VIX"", ""VJC"", ""VND"", ""VNE"", ""VNM"", ""VOS"", ""VRE"", ""VSC"", ""VTP"", ""VTZ"", ""YEG""]}",,INFO,Original/replay ticker sets match the snapshot pilot set.
+stage_distribution_match,PASS,"{""stage_3_final_watchlist"": 10, ""stage_4_deep_dive_shortlist"": 10}","{""stage_3_final_watchlist"": 10, ""stage_4_deep_dive_shortlist"": 10}","{""stage_3_final_watchlist"": 0, ""stage_4_deep_dive_shortlist"": 0}",INFO,stage_distribution_match matches.
+eligible_count_match,PASS,20,20,0,INFO,eligible_count_match matches.
+blocked_missing_market_count_match,PASS,0,0,0,INFO,blocked_missing_market_count_match matches.
+blocked_stale_market_count_match,PASS,0,0,0,INFO,blocked_stale_market_count_match matches.
+manual_review_count_match,PASS,0,0,0,INFO,manual_review_count_match matches.
+ranking_row_count_match,PASS,20,20,0,INFO,ranking_row_count_match matches.
+top10_ticker_set_match,PASS,"VIX,VND,VSC,VGI,VCG,VNM,TVN,VJC,VTZ,YEG","VIX,VND,VSC,VGI,VCG,VNM,TVN,VJC,VTZ,YEG",,INFO,Top 10 ticker set matches.
+top10_order_match_or_warn,PASS,"VIX,VND,VSC,VGI,VCG,VNM,TVN,VJC,VTZ,YEG","VIX,VND,VSC,VGI,VCG,VNM,TVN,VJC,VTZ,YEG",none,INFO,Top 10 order matches.
+evidence_queue_count_match_or_warn,PASS,80,80,0,INFO,evidence_queue_count_match_or_warn matches.
+no_new_live_fetch_detected,PASS,no live fetch outputs,replay_comparison.csv;replay_comparison_summary.md;replay_current_market_balanced_ranked_shortlist.csv;replay_decision.json;replay_evidence_policy_summary.md;replay_manifest.json;replay_stage2_eligibility_gate.csv,,INFO,Replay output directory contains no refresh attempt/raw-fetch artifacts.
+no_step19_output_detected,PASS,no Step19 output files,replay_comparison.csv;replay_comparison_summary.md;replay_current_market_balanced_ranked_shortlist.csv;replay_decision.json;replay_evidence_policy_summary.md;replay_manifest.json;replay_stage2_eligibility_gate.csv,,INFO,No Step19 output files created.
+no_real_data_02_output_detected,PASS,no REAL-DATA-02 output files,replay_comparison.csv;replay_comparison_summary.md;replay_current_market_balanced_ranked_shortlist.csv;replay_decision.json;replay_evidence_policy_summary.md;replay_manifest.json;replay_stage2_eligibility_gate.csv,,INFO,No REAL-DATA-02 output files created.
+forbidden_terms_absent,PASS,no actionable recommendation/valuation terms,none,0,INFO,Generated outputs contain no actionable forbidden terms.
