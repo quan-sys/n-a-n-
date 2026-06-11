@@ -1,0 +1,11 @@
+version: 1
+description: Optional targeted public price/volume cross-check sources.
+
+sources:
+  vnstock_market_data_github:
+    enabled_by_default: false
+    usage: market_price_volume_crosscheck_only
+    repository: vnstock-official/vnstock_market_data
+    raw_url_template: https://raw.githubusercontent.com/vnstock-official/vnstock_market_data/main/historical_price/all_time/{ticker}.csv
+    download_policy: targeted_tickers_only
+    do_not_download_entire_repo: true

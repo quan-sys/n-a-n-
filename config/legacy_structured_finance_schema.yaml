@@ -1,0 +1,61 @@
+version: 1
+description: Neutral schema for importing legacy m-y-l-c structured finance as provisional evidence input.
+
+source_policy:
+  imported_source_layer: provisional_structured
+  official_verified_allowed: false
+  missing_value_policy: preserve_missing_do_not_infer_or_zero_fill
+  usage: evidence_collection_priority_only
+
+forbidden_bias_fields:
+  - buy_candidate
+  - fair_value
+  - margin_of_safety
+  - mos
+  - target_price
+  - valuation_score
+  - timing_score
+  - rr
+  - rsi_14
+  - composite_score
+  - sector_rank
+  - tier
+  - reason_code
+  - layer_failed
+
+finance_long_required_columns:
+  - ticker
+  - period
+  - period_type
+  - fiscal_year
+  - field_name
+  - raw_value
+  - value
+  - unit_raw
+  - currency
+  - source_name
+  - source_type
+  - source_confidence
+  - source_url
+  - fetched_at
+  - cache_key
+  - legacy_function
+  - missing_flag
+  - parse_status
+  - notes
+
+neutral_finance_fields:
+  - revenue
+  - gross_profit
+  - financial_income
+  - net_income
+  - total_assets
+  - total_liabilities
+  - equity
+  - cash
+  - receivables
+  - inventory
+  - cfo
+  - capex
+  - short_term_debt
+  - long_term_debt
