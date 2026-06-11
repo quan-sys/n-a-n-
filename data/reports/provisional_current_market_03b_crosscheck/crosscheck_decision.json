@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-06-11T13:57:41+00:00",
+  "input_snapshot_path": "data\\reports\\provisional_current_market_03\\current_market_snapshot.csv",
+  "pilot_ticker_count": 20,
+  "reference_sources_found": 4,
+  "reference_source_names_found": [
+    "legacy_cafef_vnstock_cache",
+    "provisional_crosscheck_02_legacy_market",
+    "provisional_crosscheck_02_public_historical",
+    "raw_cache_current_market_03"
+  ],
+  "reference_source_paths_found": [
+    "C:\\Users\\ACER\\OneDrive\\Documents\\máy lọc cổ phiếu\\data\\reports\\legacy_structured_finance_import_01\\provisional_market_liquidity.csv",
+    "C:\\Users\\ACER\\OneDrive\\Documents\\máy lọc cổ phiếu\\data\\reports\\provisional_crosscheck_02\\market_price_crosscheck.csv",
+    "data\\raw\\current_market_03"
+  ],
+  "reference_sources_missing": [],
+  "primary_missing_count": 0,
+  "primary_stale_count": 0,
+  "reference_missing_count": 40,
+  "reference_stale_count": 20,
+  "price_mismatch_count": 0,
+  "volume_mismatch_count": 0,
+  "manual_review_count": 0,
+  "fail_count": 0,
+  "no_current_reference_count": 0,
+  "final_decision": "CONDITIONAL_GO",
+  "allowed_next_step": "PROVISIONAL-CURRENT-MARKET-03C - End-to-End Replay on Same 20 Pilot Tickers",
+  "not_authorized": [
+    "top500_refresh",
+    "full_universe_live_fetch",
+    "REAL-DATA-02",
+    "Step19",
+    "official_pdf_fetch",
+    "OCR"
+  ]
+}

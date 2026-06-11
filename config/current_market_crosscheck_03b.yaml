@@ -1,0 +1,22 @@
+version: 1
+description: Market-only cross-check policy for PROVISIONAL-CURRENT-MARKET-03B.
+
+comparison:
+  max_current_reference_gap_days: 5
+  max_price_pct_diff_for_match: 0.03
+  max_volume_60d_pct_diff_for_match: 0.50
+  fail_if_primary_missing: true
+  fail_if_primary_stale: true
+  fail_if_required_schema_missing: true
+  public_historical_source_is_current_source: false
+  conditional_if_any_reference_stale_or_missing: true
+
+safety:
+  no_recommendation: true
+  no_target_price: true
+  no_fair_value: true
+  no_margin_of_safety: true
+  no_real_data_02: true
+  no_step19: true
+  no_pdf_fetch: true
+  no_ocr: true
