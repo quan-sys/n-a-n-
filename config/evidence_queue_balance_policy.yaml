@@ -1,0 +1,48 @@
+version: 1
+description: Sector and firm-type caps for provisional evidence workload allocation.
+
+balance_policy:
+  enabled: true
+
+  top_stage_caps:
+    stage_4_deep_dive_shortlist:
+      max_total: 10
+      max_per_sector: 2
+      max_per_firm_type: 3
+    stage_3_final_watchlist:
+      max_total: 50
+      max_per_sector: 8
+      max_per_firm_type: 12
+    stage_2_evidence_candidates:
+      max_total: 200
+      max_per_sector: 30
+      max_per_firm_type: 50
+
+  firm_type_rules:
+    bank:
+      keywords:
+        - bank
+        - ngan hang
+        - ngân hàng
+    securities:
+      keywords:
+        - chung khoan
+        - chứng khoán
+        - securities
+        - brokerage
+    insurance:
+      keywords:
+        - bao hiem
+        - bảo hiểm
+        - insurance
+    real_estate:
+      keywords:
+        - bat dong san
+        - bất động sản
+        - real estate
+    non_financial:
+      default: true
+
+  fallback:
+    unknown_sector_bucket: UNKNOWN
+    unknown_firm_type: unknown

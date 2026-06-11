@@ -16,4 +16,4 @@
 - Forbidden legacy valuation/timing/recommendation fields are dropped.
 - No official verification, OCR, PDF parsing, REAL-DATA-02, Step19, or 01I-G was run.
 
-_Generated at 2026-06-11T00:50:35+00:00._
+_Generated at 2026-06-11T01:39:53+00:00._

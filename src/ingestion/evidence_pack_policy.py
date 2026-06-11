@@ -23,7 +23,7 @@ STAGE_4 = "stage_4_deep_dive_shortlist"
 STAGE_5 = "stage_5_full_historical_research"
 
 DEFAULT_STAGE_ORDER = [STAGE_0, STAGE_1, STAGE_2, STAGE_3, STAGE_4, STAGE_5]
-RANK_COLUMNS = ["rank", "rank_position", "ranking", "screen_rank", "watchlist_rank"]
+RANK_COLUMNS = ["rank", "balanced_rank", "rank_position", "ranking", "screen_rank", "watchlist_rank"]
 RANK_SCORE_COLUMNS = ["rank_score", "score", "screen_score", "watchlist_score"]
 
 CANDIDATE_STAGE_ASSIGNMENT_COLUMNS = [

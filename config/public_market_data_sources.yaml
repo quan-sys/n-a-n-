@@ -3,9 +3,16 @@ description: Optional targeted public price/volume cross-check sources.
 
 sources:
   vnstock_market_data_github:
-    enabled_by_default: false
-    usage: market_price_volume_crosscheck_only
-    repository: vnstock-official/vnstock_market_data
+    source_name: vnstock_market_data_github
+    source_tier: public_market_data
+    repo_url: https://github.com/vnstock-official/vnstock_market_data
     raw_url_template: https://raw.githubusercontent.com/vnstock-official/vnstock_market_data/main/historical_price/all_time/{ticker}.csv
-    download_policy: targeted_tickers_only
-    do_not_download_entire_repo: true
+    data_type: ohlcv
+    confidence: provisional_public_market
+    allowed_use:
+      - market_price_crosscheck
+      - liquidity_crosscheck
+    forbidden_use:
+      - financial_statement_values
+      - official_bctc_verification
+    download_policy: targeted_tickers_only_no_repo_clone

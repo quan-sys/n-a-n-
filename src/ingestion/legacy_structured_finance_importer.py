@@ -35,6 +35,8 @@ FORBIDDEN_BIAS_FIELDS = {
     "investment_score",
     "buy_score",
     "sell_score",
+    "upside",
+    "watch_candidate",
 }
 
 LONG_COLUMNS = [
@@ -153,6 +155,7 @@ def import_legacy_structured_finance(input_dir: Path | str, output_dir: Path | s
     crosscheck = build_source_crosscheck_matrix(long_frame)
 
     long_frame.to_csv(output_path / "provisional_structured_finance_long.csv", index=False)
+    long_frame.to_csv(output_path / "provisional_finance_long.csv", index=False)
     wide_frame.to_csv(output_path / "provisional_finance_latest_wide.csv", index=False)
     market_frame.to_csv(output_path / "provisional_market_liquidity.csv", index=False)
     quality_frame.to_csv(output_path / "provisional_data_quality_flags.csv", index=False)
