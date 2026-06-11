@@ -1,0 +1,31 @@
+version: 1
+description: Fresh current market data refresh and stage-2 eligibility policy.
+
+market_refresh:
+  source_name: vnstock_quote_vci_history
+  quote_source: VCI
+  default_top_n: 500
+  default_sleep_seconds: 0.25
+  lookback_calendar_days: 120
+  max_stale_calendar_days: 14
+  cache_max_age_hours: 24
+  min_trading_days_60d_for_stage2: 30
+  min_avg_volume_60d_for_stage2: null
+
+minimum_finance_required:
+  min_years_any_core_metric: 2
+  core_metrics:
+    - revenue
+    - net_income
+    - total_assets
+    - equity
+    - cfo
+  min_core_metrics_present: 3
+  allow_financial_income_for_financial_firms: true
+
+safety:
+  finance_source_layer: provisional_structured
+  one_source_only_confidence: PROVISIONAL_LOW
+  no_recommendation: true
+  no_target_price: true
+  no_official_pdf_fetch: true

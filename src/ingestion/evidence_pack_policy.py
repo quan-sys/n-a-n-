@@ -262,7 +262,7 @@ def build_candidate_stage_assignments(
         if not ticker:
             continue
         rank_value = _to_int(row.get(rank_col, "")) if rank_col else 0
-        stage = assign_evidence_stage({"rank": rank_value}) if rank_col else STAGE_0
+        stage = assign_evidence_stage(row) if rank_col else STAGE_0
         stage_spec = policy["stages"][stage]
         status = "ASSIGNED_FROM_RANK" if rank_col and not str(rank_col).startswith("_derived") else "ASSIGNED_FROM_RANK_SCORE" if rank_col else "MISSING_RANKING_INPUT"
         reason = (

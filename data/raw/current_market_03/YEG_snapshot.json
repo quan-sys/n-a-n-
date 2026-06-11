@@ -1,0 +1,21 @@
+{
+  "ticker": "YEG",
+  "market_source": "vnstock_quote_vci_history",
+  "fetch_status": "FETCH_OK",
+  "fetch_error": "",
+  "last_close": 8.53,
+  "last_price_date": "2026-06-11",
+  "last_volume": 549300.0,
+  "avg_volume_20d": 652105.35,
+  "avg_volume_60d": 924037.0,
+  "trading_days_20d": 20,
+  "trading_days_60d": 60,
+  "lookback_start": "2026-02-11",
+  "lookback_end": "2026-06-11",
+  "missing_market_flag": false,
+  "stale_price_flag": false,
+  "stale_days": 0,
+  "raw_rows": 89,
+  "cache_used": false,
+  "created_at": "2026-06-11T11:31:29+00:00"
+}
