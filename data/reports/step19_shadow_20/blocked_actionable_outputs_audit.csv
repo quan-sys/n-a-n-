@@ -1,0 +1,5 @@
+audit_item,status,observed_value,expected_value,detail
+production_step19_allowed_count,PASS,0,0,Production Step19 must stay blocked.
+investment_recommendation_allowed_count,PASS,0,0,Actionable company output must stay blocked.
+valuation_allowed_count,PASS,0,0,Valuation output must stay blocked.
+forbidden_terms_found_count,PASS,0,0,

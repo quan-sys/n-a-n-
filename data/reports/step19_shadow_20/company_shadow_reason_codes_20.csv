@@ -1,0 +1,174 @@
+ticker,severity,reason_code,reason_message,source_file,field_name
+VIX,INFO,MARKET_PRIMARY_FRESH,Primary market row is fresh in the 04B primary reference.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,primary_status
+VIX,WARN,MARKET_NO_INDEPENDENT_CURRENT_CONFIRMATION,04B found no independent current market source-family for this ticker.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,independent_current_source_family_count
+VIX,INFO,MARKET_RAW_CACHE_NOT_INDEPENDENT,Raw cache is same source-family and is not counted as independent confirmation.,data\reports\alternative_source_consensus_04b\alternative_market_observations_20.csv,source_family
+VIX,WARN,FINANCE_ONE_SOURCE_ONLY,Finance layer remains provisional and one-source-only.,data\reports\provisional_current_market_03\stage2_eligibility_gate.csv,finance_crosscheck_status
+VIX,INFO,READY_FOR_SHADOW_FROM_REAL_DATA_02,REAL-DATA-02 marked this ticker ready for diagnostic shadow.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,readiness_status
+VIX,INFO,ACTIONABLE_OUTPUT_BLOCKED,Actionable company output is blocked in shadow mode.,STEP19-SHADOW-20,investment_recommendation_allowed
+VIX,INFO,VALUATION_BLOCKED,Valuation output is blocked in shadow mode.,STEP19-SHADOW-20,valuation_allowed
+VIX,INFO,PRODUCTION_STEP19_BLOCKED,Production Step19 is blocked; this run is diagnostic only.,STEP19-SHADOW-20,production_step19_allowed
+VND,INFO,MARKET_PRIMARY_FRESH,Primary market row is fresh in the 04B primary reference.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,primary_status
+VND,WARN,MARKET_NO_INDEPENDENT_CURRENT_CONFIRMATION,04B found no independent current market source-family for this ticker.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,independent_current_source_family_count
+VND,INFO,MARKET_RAW_CACHE_NOT_INDEPENDENT,Raw cache is same source-family and is not counted as independent confirmation.,data\reports\alternative_source_consensus_04b\alternative_market_observations_20.csv,source_family
+VND,WARN,FINANCE_ONE_SOURCE_ONLY,Finance layer remains provisional and one-source-only.,data\reports\provisional_current_market_03\stage2_eligibility_gate.csv,finance_crosscheck_status
+VND,INFO,READY_FOR_SHADOW_FROM_REAL_DATA_02,REAL-DATA-02 marked this ticker ready for diagnostic shadow.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,readiness_status
+VND,INFO,ACTIONABLE_OUTPUT_BLOCKED,Actionable company output is blocked in shadow mode.,STEP19-SHADOW-20,investment_recommendation_allowed
+VND,INFO,VALUATION_BLOCKED,Valuation output is blocked in shadow mode.,STEP19-SHADOW-20,valuation_allowed
+VND,INFO,PRODUCTION_STEP19_BLOCKED,Production Step19 is blocked; this run is diagnostic only.,STEP19-SHADOW-20,production_step19_allowed
+VSC,INFO,MARKET_PRIMARY_FRESH,Primary market row is fresh in the 04B primary reference.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,primary_status
+VSC,WARN,MARKET_NO_INDEPENDENT_CURRENT_CONFIRMATION,04B found no independent current market source-family for this ticker.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,independent_current_source_family_count
+VSC,INFO,MARKET_RAW_CACHE_NOT_INDEPENDENT,Raw cache is same source-family and is not counted as independent confirmation.,data\reports\alternative_source_consensus_04b\alternative_market_observations_20.csv,source_family
+VSC,WARN,FINANCE_ONE_SOURCE_ONLY,Finance layer remains provisional and one-source-only.,data\reports\provisional_current_market_03\stage2_eligibility_gate.csv,finance_crosscheck_status
+VSC,WARN,FINANCE_FIELD_MISSING,Required finance field is missing and was not filled.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,net_income
+VSC,WARN,CONDITIONAL_READY_FROM_REAL_DATA_02,REAL-DATA-02 marked this ticker conditionally ready for diagnostic shadow.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,readiness_status
+VSC,INFO,ACTIONABLE_OUTPUT_BLOCKED,Actionable company output is blocked in shadow mode.,STEP19-SHADOW-20,investment_recommendation_allowed
+VSC,INFO,VALUATION_BLOCKED,Valuation output is blocked in shadow mode.,STEP19-SHADOW-20,valuation_allowed
+VSC,INFO,PRODUCTION_STEP19_BLOCKED,Production Step19 is blocked; this run is diagnostic only.,STEP19-SHADOW-20,production_step19_allowed
+VGI,INFO,MARKET_PRIMARY_FRESH,Primary market row is fresh in the 04B primary reference.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,primary_status
+VGI,WARN,MARKET_NO_INDEPENDENT_CURRENT_CONFIRMATION,04B found no independent current market source-family for this ticker.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,independent_current_source_family_count
+VGI,INFO,MARKET_RAW_CACHE_NOT_INDEPENDENT,Raw cache is same source-family and is not counted as independent confirmation.,data\reports\alternative_source_consensus_04b\alternative_market_observations_20.csv,source_family
+VGI,WARN,FINANCE_ONE_SOURCE_ONLY,Finance layer remains provisional and one-source-only.,data\reports\provisional_current_market_03\stage2_eligibility_gate.csv,finance_crosscheck_status
+VGI,WARN,FINANCE_FIELD_MISSING,Required finance field is missing and was not filled.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,net_income
+VGI,WARN,CONDITIONAL_READY_FROM_REAL_DATA_02,REAL-DATA-02 marked this ticker conditionally ready for diagnostic shadow.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,readiness_status
+VGI,INFO,ACTIONABLE_OUTPUT_BLOCKED,Actionable company output is blocked in shadow mode.,STEP19-SHADOW-20,investment_recommendation_allowed
+VGI,INFO,VALUATION_BLOCKED,Valuation output is blocked in shadow mode.,STEP19-SHADOW-20,valuation_allowed
+VGI,INFO,PRODUCTION_STEP19_BLOCKED,Production Step19 is blocked; this run is diagnostic only.,STEP19-SHADOW-20,production_step19_allowed
+VCG,INFO,MARKET_PRIMARY_FRESH,Primary market row is fresh in the 04B primary reference.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,primary_status
+VCG,WARN,MARKET_NO_INDEPENDENT_CURRENT_CONFIRMATION,04B found no independent current market source-family for this ticker.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,independent_current_source_family_count
+VCG,INFO,MARKET_RAW_CACHE_NOT_INDEPENDENT,Raw cache is same source-family and is not counted as independent confirmation.,data\reports\alternative_source_consensus_04b\alternative_market_observations_20.csv,source_family
+VCG,WARN,FINANCE_ONE_SOURCE_ONLY,Finance layer remains provisional and one-source-only.,data\reports\provisional_current_market_03\stage2_eligibility_gate.csv,finance_crosscheck_status
+VCG,WARN,FINANCE_FIELD_MISSING,Required finance field is missing and was not filled.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,net_income
+VCG,WARN,CONDITIONAL_READY_FROM_REAL_DATA_02,REAL-DATA-02 marked this ticker conditionally ready for diagnostic shadow.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,readiness_status
+VCG,INFO,ACTIONABLE_OUTPUT_BLOCKED,Actionable company output is blocked in shadow mode.,STEP19-SHADOW-20,investment_recommendation_allowed
+VCG,INFO,VALUATION_BLOCKED,Valuation output is blocked in shadow mode.,STEP19-SHADOW-20,valuation_allowed
+VCG,INFO,PRODUCTION_STEP19_BLOCKED,Production Step19 is blocked; this run is diagnostic only.,STEP19-SHADOW-20,production_step19_allowed
+VNM,INFO,MARKET_PRIMARY_FRESH,Primary market row is fresh in the 04B primary reference.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,primary_status
+VNM,WARN,MARKET_NO_INDEPENDENT_CURRENT_CONFIRMATION,04B found no independent current market source-family for this ticker.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,independent_current_source_family_count
+VNM,INFO,MARKET_RAW_CACHE_NOT_INDEPENDENT,Raw cache is same source-family and is not counted as independent confirmation.,data\reports\alternative_source_consensus_04b\alternative_market_observations_20.csv,source_family
+VNM,WARN,FINANCE_ONE_SOURCE_ONLY,Finance layer remains provisional and one-source-only.,data\reports\provisional_current_market_03\stage2_eligibility_gate.csv,finance_crosscheck_status
+VNM,WARN,FINANCE_FIELD_MISSING,Required finance field is missing and was not filled.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,net_income
+VNM,WARN,CONDITIONAL_READY_FROM_REAL_DATA_02,REAL-DATA-02 marked this ticker conditionally ready for diagnostic shadow.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,readiness_status
+VNM,INFO,ACTIONABLE_OUTPUT_BLOCKED,Actionable company output is blocked in shadow mode.,STEP19-SHADOW-20,investment_recommendation_allowed
+VNM,INFO,VALUATION_BLOCKED,Valuation output is blocked in shadow mode.,STEP19-SHADOW-20,valuation_allowed
+VNM,INFO,PRODUCTION_STEP19_BLOCKED,Production Step19 is blocked; this run is diagnostic only.,STEP19-SHADOW-20,production_step19_allowed
+TVN,INFO,MARKET_PRIMARY_FRESH,Primary market row is fresh in the 04B primary reference.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,primary_status
+TVN,WARN,MARKET_NO_INDEPENDENT_CURRENT_CONFIRMATION,04B found no independent current market source-family for this ticker.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,independent_current_source_family_count
+TVN,INFO,MARKET_RAW_CACHE_NOT_INDEPENDENT,Raw cache is same source-family and is not counted as independent confirmation.,data\reports\alternative_source_consensus_04b\alternative_market_observations_20.csv,source_family
+TVN,WARN,FINANCE_ONE_SOURCE_ONLY,Finance layer remains provisional and one-source-only.,data\reports\provisional_current_market_03\stage2_eligibility_gate.csv,finance_crosscheck_status
+TVN,WARN,FINANCE_FIELD_MISSING,Required finance field is missing and was not filled.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,net_income
+TVN,WARN,CONDITIONAL_READY_FROM_REAL_DATA_02,REAL-DATA-02 marked this ticker conditionally ready for diagnostic shadow.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,readiness_status
+TVN,INFO,ACTIONABLE_OUTPUT_BLOCKED,Actionable company output is blocked in shadow mode.,STEP19-SHADOW-20,investment_recommendation_allowed
+TVN,INFO,VALUATION_BLOCKED,Valuation output is blocked in shadow mode.,STEP19-SHADOW-20,valuation_allowed
+TVN,INFO,PRODUCTION_STEP19_BLOCKED,Production Step19 is blocked; this run is diagnostic only.,STEP19-SHADOW-20,production_step19_allowed
+VJC,INFO,MARKET_PRIMARY_FRESH,Primary market row is fresh in the 04B primary reference.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,primary_status
+VJC,WARN,MARKET_NO_INDEPENDENT_CURRENT_CONFIRMATION,04B found no independent current market source-family for this ticker.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,independent_current_source_family_count
+VJC,INFO,MARKET_RAW_CACHE_NOT_INDEPENDENT,Raw cache is same source-family and is not counted as independent confirmation.,data\reports\alternative_source_consensus_04b\alternative_market_observations_20.csv,source_family
+VJC,WARN,FINANCE_ONE_SOURCE_ONLY,Finance layer remains provisional and one-source-only.,data\reports\provisional_current_market_03\stage2_eligibility_gate.csv,finance_crosscheck_status
+VJC,WARN,FINANCE_FIELD_MISSING,Required finance field is missing and was not filled.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,net_income
+VJC,WARN,CONDITIONAL_READY_FROM_REAL_DATA_02,REAL-DATA-02 marked this ticker conditionally ready for diagnostic shadow.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,readiness_status
+VJC,INFO,ACTIONABLE_OUTPUT_BLOCKED,Actionable company output is blocked in shadow mode.,STEP19-SHADOW-20,investment_recommendation_allowed
+VJC,INFO,VALUATION_BLOCKED,Valuation output is blocked in shadow mode.,STEP19-SHADOW-20,valuation_allowed
+VJC,INFO,PRODUCTION_STEP19_BLOCKED,Production Step19 is blocked; this run is diagnostic only.,STEP19-SHADOW-20,production_step19_allowed
+VTZ,INFO,MARKET_PRIMARY_FRESH,Primary market row is fresh in the 04B primary reference.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,primary_status
+VTZ,WARN,MARKET_NO_INDEPENDENT_CURRENT_CONFIRMATION,04B found no independent current market source-family for this ticker.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,independent_current_source_family_count
+VTZ,INFO,MARKET_RAW_CACHE_NOT_INDEPENDENT,Raw cache is same source-family and is not counted as independent confirmation.,data\reports\alternative_source_consensus_04b\alternative_market_observations_20.csv,source_family
+VTZ,WARN,FINANCE_ONE_SOURCE_ONLY,Finance layer remains provisional and one-source-only.,data\reports\provisional_current_market_03\stage2_eligibility_gate.csv,finance_crosscheck_status
+VTZ,WARN,FINANCE_FIELD_MISSING,Required finance field is missing and was not filled.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,net_income
+VTZ,WARN,CONDITIONAL_READY_FROM_REAL_DATA_02,REAL-DATA-02 marked this ticker conditionally ready for diagnostic shadow.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,readiness_status
+VTZ,INFO,ACTIONABLE_OUTPUT_BLOCKED,Actionable company output is blocked in shadow mode.,STEP19-SHADOW-20,investment_recommendation_allowed
+VTZ,INFO,VALUATION_BLOCKED,Valuation output is blocked in shadow mode.,STEP19-SHADOW-20,valuation_allowed
+VTZ,INFO,PRODUCTION_STEP19_BLOCKED,Production Step19 is blocked; this run is diagnostic only.,STEP19-SHADOW-20,production_step19_allowed
+YEG,INFO,MARKET_PRIMARY_FRESH,Primary market row is fresh in the 04B primary reference.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,primary_status
+YEG,WARN,MARKET_NO_INDEPENDENT_CURRENT_CONFIRMATION,04B found no independent current market source-family for this ticker.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,independent_current_source_family_count
+YEG,INFO,MARKET_RAW_CACHE_NOT_INDEPENDENT,Raw cache is same source-family and is not counted as independent confirmation.,data\reports\alternative_source_consensus_04b\alternative_market_observations_20.csv,source_family
+YEG,WARN,FINANCE_ONE_SOURCE_ONLY,Finance layer remains provisional and one-source-only.,data\reports\provisional_current_market_03\stage2_eligibility_gate.csv,finance_crosscheck_status
+YEG,WARN,FINANCE_FIELD_MISSING,Required finance field is missing and was not filled.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,net_income
+YEG,WARN,CONDITIONAL_READY_FROM_REAL_DATA_02,REAL-DATA-02 marked this ticker conditionally ready for diagnostic shadow.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,readiness_status
+YEG,INFO,ACTIONABLE_OUTPUT_BLOCKED,Actionable company output is blocked in shadow mode.,STEP19-SHADOW-20,investment_recommendation_allowed
+YEG,INFO,VALUATION_BLOCKED,Valuation output is blocked in shadow mode.,STEP19-SHADOW-20,valuation_allowed
+YEG,INFO,PRODUCTION_STEP19_BLOCKED,Production Step19 is blocked; this run is diagnostic only.,STEP19-SHADOW-20,production_step19_allowed
+VCI,INFO,MARKET_PRIMARY_FRESH,Primary market row is fresh in the 04B primary reference.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,primary_status
+VCI,WARN,MARKET_NO_INDEPENDENT_CURRENT_CONFIRMATION,04B found no independent current market source-family for this ticker.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,independent_current_source_family_count
+VCI,INFO,MARKET_RAW_CACHE_NOT_INDEPENDENT,Raw cache is same source-family and is not counted as independent confirmation.,data\reports\alternative_source_consensus_04b\alternative_market_observations_20.csv,source_family
+VCI,WARN,FINANCE_ONE_SOURCE_ONLY,Finance layer remains provisional and one-source-only.,data\reports\provisional_current_market_03\stage2_eligibility_gate.csv,finance_crosscheck_status
+VCI,INFO,READY_FOR_SHADOW_FROM_REAL_DATA_02,REAL-DATA-02 marked this ticker ready for diagnostic shadow.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,readiness_status
+VCI,INFO,ACTIONABLE_OUTPUT_BLOCKED,Actionable company output is blocked in shadow mode.,STEP19-SHADOW-20,investment_recommendation_allowed
+VCI,INFO,VALUATION_BLOCKED,Valuation output is blocked in shadow mode.,STEP19-SHADOW-20,valuation_allowed
+VCI,INFO,PRODUCTION_STEP19_BLOCKED,Production Step19 is blocked; this run is diagnostic only.,STEP19-SHADOW-20,production_step19_allowed
+VFS,INFO,MARKET_PRIMARY_FRESH,Primary market row is fresh in the 04B primary reference.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,primary_status
+VFS,WARN,MARKET_NO_INDEPENDENT_CURRENT_CONFIRMATION,04B found no independent current market source-family for this ticker.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,independent_current_source_family_count
+VFS,INFO,MARKET_RAW_CACHE_NOT_INDEPENDENT,Raw cache is same source-family and is not counted as independent confirmation.,data\reports\alternative_source_consensus_04b\alternative_market_observations_20.csv,source_family
+VFS,WARN,FINANCE_ONE_SOURCE_ONLY,Finance layer remains provisional and one-source-only.,data\reports\provisional_current_market_03\stage2_eligibility_gate.csv,finance_crosscheck_status
+VFS,INFO,READY_FOR_SHADOW_FROM_REAL_DATA_02,REAL-DATA-02 marked this ticker ready for diagnostic shadow.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,readiness_status
+VFS,INFO,ACTIONABLE_OUTPUT_BLOCKED,Actionable company output is blocked in shadow mode.,STEP19-SHADOW-20,investment_recommendation_allowed
+VFS,INFO,VALUATION_BLOCKED,Valuation output is blocked in shadow mode.,STEP19-SHADOW-20,valuation_allowed
+VFS,INFO,PRODUCTION_STEP19_BLOCKED,Production Step19 is blocked; this run is diagnostic only.,STEP19-SHADOW-20,production_step19_allowed
+VDS,INFO,MARKET_PRIMARY_FRESH,Primary market row is fresh in the 04B primary reference.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,primary_status
+VDS,WARN,MARKET_NO_INDEPENDENT_CURRENT_CONFIRMATION,04B found no independent current market source-family for this ticker.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,independent_current_source_family_count
+VDS,INFO,MARKET_RAW_CACHE_NOT_INDEPENDENT,Raw cache is same source-family and is not counted as independent confirmation.,data\reports\alternative_source_consensus_04b\alternative_market_observations_20.csv,source_family
+VDS,WARN,FINANCE_ONE_SOURCE_ONLY,Finance layer remains provisional and one-source-only.,data\reports\provisional_current_market_03\stage2_eligibility_gate.csv,finance_crosscheck_status
+VDS,INFO,READY_FOR_SHADOW_FROM_REAL_DATA_02,REAL-DATA-02 marked this ticker ready for diagnostic shadow.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,readiness_status
+VDS,INFO,ACTIONABLE_OUTPUT_BLOCKED,Actionable company output is blocked in shadow mode.,STEP19-SHADOW-20,investment_recommendation_allowed
+VDS,INFO,VALUATION_BLOCKED,Valuation output is blocked in shadow mode.,STEP19-SHADOW-20,valuation_allowed
+VDS,INFO,PRODUCTION_STEP19_BLOCKED,Production Step19 is blocked; this run is diagnostic only.,STEP19-SHADOW-20,production_step19_allowed
+VIG,INFO,MARKET_PRIMARY_FRESH,Primary market row is fresh in the 04B primary reference.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,primary_status
+VIG,WARN,MARKET_NO_INDEPENDENT_CURRENT_CONFIRMATION,04B found no independent current market source-family for this ticker.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,independent_current_source_family_count
+VIG,INFO,MARKET_RAW_CACHE_NOT_INDEPENDENT,Raw cache is same source-family and is not counted as independent confirmation.,data\reports\alternative_source_consensus_04b\alternative_market_observations_20.csv,source_family
+VIG,WARN,FINANCE_ONE_SOURCE_ONLY,Finance layer remains provisional and one-source-only.,data\reports\provisional_current_market_03\stage2_eligibility_gate.csv,finance_crosscheck_status
+VIG,INFO,READY_FOR_SHADOW_FROM_REAL_DATA_02,REAL-DATA-02 marked this ticker ready for diagnostic shadow.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,readiness_status
+VIG,INFO,ACTIONABLE_OUTPUT_BLOCKED,Actionable company output is blocked in shadow mode.,STEP19-SHADOW-20,investment_recommendation_allowed
+VIG,INFO,VALUATION_BLOCKED,Valuation output is blocked in shadow mode.,STEP19-SHADOW-20,valuation_allowed
+VIG,INFO,PRODUCTION_STEP19_BLOCKED,Production Step19 is blocked; this run is diagnostic only.,STEP19-SHADOW-20,production_step19_allowed
+TVS,INFO,MARKET_PRIMARY_FRESH,Primary market row is fresh in the 04B primary reference.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,primary_status
+TVS,WARN,MARKET_NO_INDEPENDENT_CURRENT_CONFIRMATION,04B found no independent current market source-family for this ticker.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,independent_current_source_family_count
+TVS,INFO,MARKET_RAW_CACHE_NOT_INDEPENDENT,Raw cache is same source-family and is not counted as independent confirmation.,data\reports\alternative_source_consensus_04b\alternative_market_observations_20.csv,source_family
+TVS,WARN,FINANCE_ONE_SOURCE_ONLY,Finance layer remains provisional and one-source-only.,data\reports\provisional_current_market_03\stage2_eligibility_gate.csv,finance_crosscheck_status
+TVS,INFO,READY_FOR_SHADOW_FROM_REAL_DATA_02,REAL-DATA-02 marked this ticker ready for diagnostic shadow.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,readiness_status
+TVS,INFO,ACTIONABLE_OUTPUT_BLOCKED,Actionable company output is blocked in shadow mode.,STEP19-SHADOW-20,investment_recommendation_allowed
+TVS,INFO,VALUATION_BLOCKED,Valuation output is blocked in shadow mode.,STEP19-SHADOW-20,valuation_allowed
+TVS,INFO,PRODUCTION_STEP19_BLOCKED,Production Step19 is blocked; this run is diagnostic only.,STEP19-SHADOW-20,production_step19_allowed
+VRE,INFO,MARKET_PRIMARY_FRESH,Primary market row is fresh in the 04B primary reference.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,primary_status
+VRE,WARN,MARKET_NO_INDEPENDENT_CURRENT_CONFIRMATION,04B found no independent current market source-family for this ticker.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,independent_current_source_family_count
+VRE,INFO,MARKET_RAW_CACHE_NOT_INDEPENDENT,Raw cache is same source-family and is not counted as independent confirmation.,data\reports\alternative_source_consensus_04b\alternative_market_observations_20.csv,source_family
+VRE,WARN,FINANCE_ONE_SOURCE_ONLY,Finance layer remains provisional and one-source-only.,data\reports\provisional_current_market_03\stage2_eligibility_gate.csv,finance_crosscheck_status
+VRE,WARN,FINANCE_FIELD_MISSING,Required finance field is missing and was not filled.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,net_income
+VRE,WARN,CONDITIONAL_READY_FROM_REAL_DATA_02,REAL-DATA-02 marked this ticker conditionally ready for diagnostic shadow.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,readiness_status
+VRE,INFO,ACTIONABLE_OUTPUT_BLOCKED,Actionable company output is blocked in shadow mode.,STEP19-SHADOW-20,investment_recommendation_allowed
+VRE,INFO,VALUATION_BLOCKED,Valuation output is blocked in shadow mode.,STEP19-SHADOW-20,valuation_allowed
+VRE,INFO,PRODUCTION_STEP19_BLOCKED,Production Step19 is blocked; this run is diagnostic only.,STEP19-SHADOW-20,production_step19_allowed
+VNE,INFO,MARKET_PRIMARY_FRESH,Primary market row is fresh in the 04B primary reference.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,primary_status
+VNE,WARN,MARKET_NO_INDEPENDENT_CURRENT_CONFIRMATION,04B found no independent current market source-family for this ticker.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,independent_current_source_family_count
+VNE,INFO,MARKET_RAW_CACHE_NOT_INDEPENDENT,Raw cache is same source-family and is not counted as independent confirmation.,data\reports\alternative_source_consensus_04b\alternative_market_observations_20.csv,source_family
+VNE,WARN,FINANCE_ONE_SOURCE_ONLY,Finance layer remains provisional and one-source-only.,data\reports\provisional_current_market_03\stage2_eligibility_gate.csv,finance_crosscheck_status
+VNE,WARN,FINANCE_FIELD_MISSING,Required finance field is missing and was not filled.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,net_income
+VNE,WARN,CONDITIONAL_READY_FROM_REAL_DATA_02,REAL-DATA-02 marked this ticker conditionally ready for diagnostic shadow.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,readiness_status
+VNE,INFO,ACTIONABLE_OUTPUT_BLOCKED,Actionable company output is blocked in shadow mode.,STEP19-SHADOW-20,investment_recommendation_allowed
+VNE,INFO,VALUATION_BLOCKED,Valuation output is blocked in shadow mode.,STEP19-SHADOW-20,valuation_allowed
+VNE,INFO,PRODUCTION_STEP19_BLOCKED,Production Step19 is blocked; this run is diagnostic only.,STEP19-SHADOW-20,production_step19_allowed
+VOS,INFO,MARKET_PRIMARY_FRESH,Primary market row is fresh in the 04B primary reference.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,primary_status
+VOS,WARN,MARKET_NO_INDEPENDENT_CURRENT_CONFIRMATION,04B found no independent current market source-family for this ticker.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,independent_current_source_family_count
+VOS,INFO,MARKET_RAW_CACHE_NOT_INDEPENDENT,Raw cache is same source-family and is not counted as independent confirmation.,data\reports\alternative_source_consensus_04b\alternative_market_observations_20.csv,source_family
+VOS,WARN,FINANCE_ONE_SOURCE_ONLY,Finance layer remains provisional and one-source-only.,data\reports\provisional_current_market_03\stage2_eligibility_gate.csv,finance_crosscheck_status
+VOS,WARN,FINANCE_FIELD_MISSING,Required finance field is missing and was not filled.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,net_income
+VOS,WARN,CONDITIONAL_READY_FROM_REAL_DATA_02,REAL-DATA-02 marked this ticker conditionally ready for diagnostic shadow.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,readiness_status
+VOS,INFO,ACTIONABLE_OUTPUT_BLOCKED,Actionable company output is blocked in shadow mode.,STEP19-SHADOW-20,investment_recommendation_allowed
+VOS,INFO,VALUATION_BLOCKED,Valuation output is blocked in shadow mode.,STEP19-SHADOW-20,valuation_allowed
+VOS,INFO,PRODUCTION_STEP19_BLOCKED,Production Step19 is blocked; this run is diagnostic only.,STEP19-SHADOW-20,production_step19_allowed
+VTP,INFO,MARKET_PRIMARY_FRESH,Primary market row is fresh in the 04B primary reference.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,primary_status
+VTP,WARN,MARKET_NO_INDEPENDENT_CURRENT_CONFIRMATION,04B found no independent current market source-family for this ticker.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,independent_current_source_family_count
+VTP,INFO,MARKET_RAW_CACHE_NOT_INDEPENDENT,Raw cache is same source-family and is not counted as independent confirmation.,data\reports\alternative_source_consensus_04b\alternative_market_observations_20.csv,source_family
+VTP,WARN,FINANCE_ONE_SOURCE_ONLY,Finance layer remains provisional and one-source-only.,data\reports\provisional_current_market_03\stage2_eligibility_gate.csv,finance_crosscheck_status
+VTP,WARN,FINANCE_FIELD_MISSING,Required finance field is missing and was not filled.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,net_income
+VTP,WARN,CONDITIONAL_READY_FROM_REAL_DATA_02,REAL-DATA-02 marked this ticker conditionally ready for diagnostic shadow.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,readiness_status
+VTP,INFO,ACTIONABLE_OUTPUT_BLOCKED,Actionable company output is blocked in shadow mode.,STEP19-SHADOW-20,investment_recommendation_allowed
+VTP,INFO,VALUATION_BLOCKED,Valuation output is blocked in shadow mode.,STEP19-SHADOW-20,valuation_allowed
+VTP,INFO,PRODUCTION_STEP19_BLOCKED,Production Step19 is blocked; this run is diagnostic only.,STEP19-SHADOW-20,production_step19_allowed
+TLH,INFO,MARKET_PRIMARY_FRESH,Primary market row is fresh in the 04B primary reference.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,primary_status
+TLH,WARN,MARKET_NO_INDEPENDENT_CURRENT_CONFIRMATION,04B found no independent current market source-family for this ticker.,data\reports\alternative_source_consensus_04b\source_family_consensus_20.csv,independent_current_source_family_count
+TLH,INFO,MARKET_RAW_CACHE_NOT_INDEPENDENT,Raw cache is same source-family and is not counted as independent confirmation.,data\reports\alternative_source_consensus_04b\alternative_market_observations_20.csv,source_family
+TLH,WARN,FINANCE_ONE_SOURCE_ONLY,Finance layer remains provisional and one-source-only.,data\reports\provisional_current_market_03\stage2_eligibility_gate.csv,finance_crosscheck_status
+TLH,WARN,FINANCE_FIELD_MISSING,Required finance field is missing and was not filled.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,net_income
+TLH,WARN,CONDITIONAL_READY_FROM_REAL_DATA_02,REAL-DATA-02 marked this ticker conditionally ready for diagnostic shadow.,data\reports\real_data_02_pilot_20\real_data_02_pilot_readiness.csv,readiness_status
+TLH,INFO,ACTIONABLE_OUTPUT_BLOCKED,Actionable company output is blocked in shadow mode.,STEP19-SHADOW-20,investment_recommendation_allowed
+TLH,INFO,VALUATION_BLOCKED,Valuation output is blocked in shadow mode.,STEP19-SHADOW-20,valuation_allowed
+TLH,INFO,PRODUCTION_STEP19_BLOCKED,Production Step19 is blocked; this run is diagnostic only.,STEP19-SHADOW-20,production_step19_allowed

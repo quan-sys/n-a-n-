@@ -1,0 +1,16 @@
+metric,value
+generated_at,2026-06-12T04:29:11+00:00
+pilot_ticker_count,20
+shadow_ready_count,0
+shadow_conditional_count,20
+shadow_blocked_count,0
+critical_issue_count,0
+warning_count,66
+forbidden_terms_found,0
+production_step19_allowed_count,0
+investment_recommendation_allowed_count,0
+valuation_allowed_count,0
+market_source_confidence_distribution,"{""PROVISIONAL_PRIMARY_ONLY"": 20}"
+finance_source_confidence_distribution,"{""PROVISIONAL_LOW"": 20}"
+finance_field_missing_count,13
+final_decision,CONDITIONAL_GO_FOR_ALT_SOURCE_FIX_OR_SCALE_PILOT

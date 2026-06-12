@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-06-12T04:29:11+00:00",
+  "pilot_ticker_count": 20,
+  "expected_pilot_ticker_count": 20,
+  "shadow_ready_count": 0,
+  "shadow_conditional_count": 20,
+  "shadow_blocked_count": 0,
+  "critical_issue_count": 0,
+  "warning_count": 66,
+  "forbidden_terms_found": [],
+  "production_step19_allowed_count": 0,
+  "investment_recommendation_allowed_count": 0,
+  "valuation_allowed_count": 0,
+  "market_source_confidence_distribution": {
+    "PROVISIONAL_PRIMARY_ONLY": 20
+  },
+  "finance_source_confidence_distribution": {
+    "PROVISIONAL_LOW": 20
+  },
+  "missing_inputs": [],
+  "config_errors": [],
+  "no_go_reasons": [],
+  "core_outputs_modified": false,
+  "final_decision": "CONDITIONAL_GO_FOR_ALT_SOURCE_FIX_OR_SCALE_PILOT",
+  "allowed_next_step": "Fix alternative source importability and rerun 04B, or scale pilot only with explicit approval; do not run production Step19 yet.",
+  "not_authorized": [
+    "production_step19",
+    "REAL-DATA-02_rerun",
+    "top500_refresh",
+    "full_universe_live_fetch",
+    "official_pdf_fetch",
+    "OCR",
+    "valuation",
+    "target_price",
+    "buy_sell_hold_recommendation"
+  ]
+}

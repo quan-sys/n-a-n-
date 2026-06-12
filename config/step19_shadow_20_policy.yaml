@@ -1,0 +1,64 @@
+version: 1
+description: Diagnostic-only Step19 shadow run on the same 20 pilot tickers.
+
+safety:
+  shadow_only: true
+  no_production_step19: true
+  no_core_pipeline_mutation: true
+  no_ranking_mutation: true
+  no_stage_promotion: true
+  no_real_data_02_rerun: true
+  no_top500_refresh: true
+  no_full_universe_fetch: true
+  no_official_pdf_fetch: true
+  no_ocr: true
+  no_web_scraping: true
+  no_live_market_fetch: true
+  no_finance_fetch: true
+  no_recommendation: true
+  no_target_price: true
+  no_fair_value: true
+  no_margin_of_safety: true
+  no_portfolio_weight: true
+  no_entry_exit_signal: true
+
+run_policy:
+  expected_pilot_ticker_count: 20
+  finance_source_layer: provisional_structured
+  finance_source_confidence: PROVISIONAL_LOW
+  market_primary_source_family: vnstock_vci
+  market_source_confidence_when_no_independent: PROVISIONAL_PRIMARY_ONLY
+  market_consensus_note: No independent current market source confirmed in 04B.
+
+inputs:
+  current_market_snapshot:
+    - data/reports/provisional_current_market_03/current_market_snapshot.csv
+  stage2_eligibility_gate:
+    - data/reports/provisional_current_market_03/stage2_eligibility_gate.csv
+  current_market_ranked_shortlist:
+    - data/reports/provisional_current_market_03/current_market_balanced_ranked_shortlist.csv
+  evidence_pack_summary:
+    - data/reports/evidence_pack_policy_03_current_market/run_summary.md
+  real_data_02_readiness:
+    - data/reports/real_data_02_pilot_20/pilot_readiness.csv
+    - data/reports/real_data_02_pilot_20/real_data_02_pilot_readiness.csv
+  real_data_02_summary:
+    - data/reports/real_data_02_pilot_20/pilot_summary.md
+    - data/reports/real_data_02_pilot_20/run_summary.md
+  alt_source_04b_observations:
+    - data/reports/provisional_alt_source_04b_consensus/cross_source_market_observations_20.csv
+    - data/reports/alternative_source_consensus_04b/alternative_market_observations_20.csv
+  alt_source_04b_consensus:
+    - data/reports/provisional_alt_source_04b_consensus/source_family_consensus_20.csv
+    - data/reports/alternative_source_consensus_04b/source_family_consensus_20.csv
+  alt_source_04b_summary:
+    - data/reports/provisional_alt_source_04b_consensus/cross_source_consensus_summary.md
+    - data/reports/alternative_source_consensus_04b/alternative_market_consensus_summary.md
+
+core_output_watchlist:
+  - data/reports/provisional_current_market_03/current_market_snapshot.csv
+  - data/reports/provisional_current_market_03/stage2_eligibility_gate.csv
+  - data/reports/provisional_current_market_03/current_market_balanced_ranked_shortlist.csv
+  - data/reports/evidence_pack_policy_03_current_market/evidence_collection_queue.csv
+  - data/reports/real_data_02_pilot_20/real_data_02_pilot_readiness.csv
+  - data/reports/alternative_source_consensus_04b/source_family_consensus_20.csv
