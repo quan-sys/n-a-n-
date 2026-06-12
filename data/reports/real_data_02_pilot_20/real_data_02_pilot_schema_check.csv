@@ -1,0 +1,5 @@
+output_name,required_columns,missing_columns,status,severity,message
+market_snapshot,ticker;last_close;last_price_date;avg_volume_20d;avg_volume_60d;trading_days_60d;missing_market_flag;stale_price_flag,,PASS,INFO,Required schema present.
+finance_long,ticker;period;field_name;value;source_name;source_confidence,,PASS,INFO,Required schema present.
+finance_snapshot_wide,ticker;source_name;source_confidence;source_layer,,PASS,INFO,Required schema present.
+company_profile_or_metadata,ticker;exchange;sector_raw;sector_bucket;firm_type,,PASS,INFO,Required schema present.

@@ -1,0 +1,14 @@
+ticker,data_category,failure_type,severity,message
+VSC,structured_finance,FINANCE_FIELD_MISSING,WARN,Missing provisional finance fields: net_income.
+VGI,structured_finance,FINANCE_FIELD_MISSING,WARN,Missing provisional finance fields: net_income.
+VCG,structured_finance,FINANCE_FIELD_MISSING,WARN,Missing provisional finance fields: net_income.
+VNM,structured_finance,FINANCE_FIELD_MISSING,WARN,Missing provisional finance fields: net_income.
+TVN,structured_finance,FINANCE_FIELD_MISSING,WARN,Missing provisional finance fields: net_income.
+VJC,structured_finance,FINANCE_FIELD_MISSING,WARN,Missing provisional finance fields: net_income.
+VTZ,structured_finance,FINANCE_FIELD_MISSING,WARN,Missing provisional finance fields: net_income.
+YEG,structured_finance,FINANCE_FIELD_MISSING,WARN,Missing provisional finance fields: net_income.
+VRE,structured_finance,FINANCE_FIELD_MISSING,WARN,Missing provisional finance fields: net_income.
+VNE,structured_finance,FINANCE_FIELD_MISSING,WARN,Missing provisional finance fields: net_income.
+VOS,structured_finance,FINANCE_FIELD_MISSING,WARN,Missing provisional finance fields: net_income.
+VTP,structured_finance,FINANCE_FIELD_MISSING,WARN,Missing provisional finance fields: net_income.
+TLH,structured_finance,FINANCE_FIELD_MISSING,WARN,Missing provisional finance fields: net_income.

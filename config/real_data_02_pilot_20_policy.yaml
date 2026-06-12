@@ -1,0 +1,76 @@
+version: 1
+description: Controlled REAL-DATA-02 pilot policy for the same 20 tickers.
+
+pilot:
+  expected_ticker_count: 20
+  allow_partial: true
+  require_market_snapshot: true
+  require_no_market_missing: true
+  require_no_market_stale: true
+  finance_source_layer: provisional_structured
+
+market_minimum_fields:
+  - ticker
+  - last_close
+  - last_price_date
+  - avg_volume_20d
+  - avg_volume_60d
+  - trading_days_60d
+  - missing_market_flag
+  - stale_price_flag
+
+finance_minimum_fields:
+  - ticker
+  - period
+  - field_name
+  - value
+  - source_name
+  - source_confidence
+
+finance_snapshot_fields:
+  - revenue
+  - gross_profit
+  - net_income
+  - total_assets
+  - total_liabilities
+  - equity
+  - cfo
+  - capex
+
+data_confidence:
+  market_ok: PROVISIONAL_PRIMARY
+  market_missing: MISSING
+  market_stale: MANUAL_REVIEW
+  finance_present: ONE_SOURCE_ONLY
+  finance_partial: PROVISIONAL_LOW
+  finance_missing: MISSING
+  metadata_present: PROVISIONAL_LOW
+  metadata_missing: MISSING
+
+safety:
+  forbidden_terms:
+    - buy
+    - sell
+    - hold
+    - target price
+    - target_price
+    - fair value
+    - fair_value
+    - margin of safety
+    - margin_of_safety
+    - MoS
+    - recommendation
+    - khuyen nghi mua
+    - khuyen nghi ban
+    - gia muc tieu
+    - gia hop ly
+    - bien an toan
+  allowed_context:
+    - not_authorized
+    - no_
+    - "no "
+    - "not "
+    - forbidden
+    - blocked
+    - safety
+    - does not permit

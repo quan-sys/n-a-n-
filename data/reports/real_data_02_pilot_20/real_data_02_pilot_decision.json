@@ -1,0 +1,27 @@
+{
+  "generated_at": "2026-06-11T15:33:05+00:00",
+  "task": "REAL-DATA-02-PILOT-20",
+  "pilot_ticker_count": 20,
+  "final_decision": "CONDITIONAL_GO_FOR_STEP19_SHADOW_20",
+  "critical_fail_count": 0,
+  "warn_count": 13,
+  "source_failure_count": 0,
+  "tickers_succeeded": 20,
+  "tickers_failed": 0,
+  "failed_tickers": [],
+  "missing_market_count": 0,
+  "stale_market_count": 0,
+  "finance_one_source_only_count": 20,
+  "finance_missing_count": 0,
+  "forbidden_terms_found": [],
+  "allowed_next_step": "STEP19-SHADOW-20",
+  "not_authorized": [
+    "top500_refresh",
+    "full_universe_live_fetch",
+    "official_pdf_fetch",
+    "OCR",
+    "valuation",
+    "target_price",
+    "buy_sell_hold_recommendation"
+  ]
+}
