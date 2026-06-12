@@ -1,0 +1,73 @@
+step_id: STEP05A-PRIMARY-ONLY-SCREENING-MODE
+mode: primary_only_screening
+
+run:
+  sandbox_only: true
+  allow_partial: true
+  dry_run_default: false
+
+limits:
+  max_tickers: 100
+  full_universe_allowed: false
+  top500_allowed: false
+  allow_limit_override: true
+
+source_confidence:
+  market_source_confidence: PROVISIONAL_PRIMARY_ONLY
+  finance_source_confidence_default: PROVISIONAL_LOW
+  crosscheck_status: NOT_AVAILABLE
+  verification_status: NEEDS_MANUAL_BCTC_REVIEW
+
+primary_sources:
+  market_primary: vnstock
+  market_primary_family: vnstock_vci_or_existing_primary_family
+  finance_primary: vnstock_or_existing_structured_source
+  independent_crosscheck_required: false
+  independent_crosscheck_status: NOT_AVAILABLE
+
+safety:
+  no_recommendation: true
+  no_valuation: true
+  no_target_price: true
+  no_fair_value: true
+  no_margin_of_safety: true
+  no_zero_fill: true
+  no_missing_finance_inference: true
+  no_pdf_ocr: true
+  no_official_bctc_scrape: true
+  no_core_output_mutation: true
+  no_stage_promotion_to_investment_ready: true
+
+filters:
+  stale_price_max_days: 10
+  min_market_rows: 1
+  min_recent_volume: 1
+  min_recent_trading_value: 1
+  block_if_market_missing: true
+  block_if_stale_market: true
+  block_if_extreme_missingness: true
+  require_minimum_finance_presence: false
+
+inputs:
+  market_snapshot: data/reports/provisional_current_market_03/current_market_snapshot.csv
+  finance_latest_wide: data/reports/legacy_structured_finance_import_01/provisional_finance_latest_wide.csv
+  finance_quality_flags: data/reports/legacy_structured_finance_import_01/provisional_data_quality_flags.csv
+
+exports:
+  output_dir: data/reports/step05a_primary_only_screening
+  write_summary_json: true
+  write_rows_csv: true
+  write_watchlist_csv: true
+  write_manual_bctc_queue_csv: true
+  write_blocked_csv: true
+  write_evidence_debt_json: true
+  write_run_manifest_json: true
+
+core_output_watchlist:
+  - data/reports/provisional_current_market_03/current_market_snapshot.csv
+  - data/reports/provisional_current_market_03/stage2_eligibility_gate.csv
+  - data/reports/provisional_current_market_03/current_market_balanced_ranked_shortlist.csv
+  - data/reports/evidence_pack_policy_03_current_market/evidence_collection_queue.csv
+  - data/reports/real_data_02_pilot_20/real_data_02_pilot_readiness.csv
+  - data/reports/provisional_alt_source_04d_v2_network_probe/provider_network_probe_decision.json
+  - data/reports/step19_shadow_20/step19_shadow_decision.json

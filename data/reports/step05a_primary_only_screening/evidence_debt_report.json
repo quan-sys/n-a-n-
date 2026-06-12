@@ -1,0 +1,19 @@
+{
+  "step_id": "STEP05A-PRIMARY-ONLY-SCREENING-MODE",
+  "created_at": "2026-06-12T10:13:39+00:00",
+  "limitations": [
+    "No independent current market source-family confirmation.",
+    "Financial data not checked against official BCTC.",
+    "Manual BCTC review required for surviving candidates.",
+    "No trade-advice or value-estimate output produced."
+  ],
+  "processed_ticker_count": 20,
+  "watchlist_candidate_count": 20,
+  "manual_bctc_review_queue_count": 20,
+  "missing_field_counts": {
+    "net_income": 13
+  },
+  "crosscheck_status": "NOT_AVAILABLE",
+  "market_source_confidence": "PROVISIONAL_PRIMARY_ONLY",
+  "finance_source_confidence_default": "PROVISIONAL_LOW"
+}

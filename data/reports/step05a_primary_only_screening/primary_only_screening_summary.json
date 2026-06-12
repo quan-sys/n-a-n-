@@ -1,0 +1,29 @@
+{
+  "step_id": "STEP05A-PRIMARY-ONLY-SCREENING-MODE",
+  "created_at": "2026-06-12T10:13:39+00:00",
+  "mode": "primary_only_screening",
+  "requested_ticker_count": 20,
+  "processed_ticker_count": 20,
+  "blocked_count": 0,
+  "watchlist_candidate_count": 20,
+  "manual_bctc_review_queue_count": 20,
+  "market_source_confidence": "PROVISIONAL_PRIMARY_ONLY",
+  "finance_source_confidence_default": "PROVISIONAL_LOW",
+  "crosscheck_status": "NOT_AVAILABLE",
+  "verification_status": "NEEDS_MANUAL_BCTC_REVIEW",
+  "final_decision": "CONDITIONAL_GO_FOR_MANUAL_BCTC_REVIEW",
+  "warnings": [
+    "Primary-only mode; no independent current source-family confirmation.",
+    "Manual official BCTC review required before deeper company analysis.",
+    "Finance layer remains provisional low."
+  ],
+  "safety_flags": {
+    "no_trade_advice_label": true,
+    "no_value_estimate": true,
+    "no_price_objective": true,
+    "no_missing_fill": true,
+    "no_pdf_or_ocr": true,
+    "no_stage_promotion": true
+  },
+  "forbidden_terms_found": []
+}
