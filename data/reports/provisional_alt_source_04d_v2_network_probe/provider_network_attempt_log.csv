@@ -1,0 +1,81 @@
+provider_name,source_family,ticker,attempt_status,network_allowed,network_used,optional_install_used,request_count,error_type,error_message,attempted_at,elapsed_seconds
+vnquant,cafef_structured_or_market,VIX,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,cafef_structured_or_market,VND,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,cafef_structured_or_market,VSC,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,cafef_structured_or_market,VGI,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,cafef_structured_or_market,VCG,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,cafef_structured_or_market,VNM,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,cafef_structured_or_market,TVN,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,cafef_structured_or_market,VJC,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,cafef_structured_or_market,VTZ,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,cafef_structured_or_market,YEG,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,cafef_structured_or_market,VCI,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,cafef_structured_or_market,VFS,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,cafef_structured_or_market,VDS,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,cafef_structured_or_market,VIG,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,cafef_structured_or_market,TVS,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,cafef_structured_or_market,VRE,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,cafef_structured_or_market,VNE,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,cafef_structured_or_market,VOS,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,cafef_structured_or_market,VTP,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,cafef_structured_or_market,TLH,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,vndirect_market,VIX,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,vndirect_market,VND,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,vndirect_market,VSC,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,vndirect_market,VGI,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,vndirect_market,VCG,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,vndirect_market,VNM,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,vndirect_market,TVN,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,vndirect_market,VJC,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,vndirect_market,VTZ,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,vndirect_market,YEG,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,vndirect_market,VCI,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,vndirect_market,VFS,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,vndirect_market,VDS,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,vndirect_market,VIG,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,vndirect_market,TVS,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,vndirect_market,VRE,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,vndirect_market,VNE,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,vndirect_market,VOS,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,vndirect_market,VTP,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vnquant,vndirect_market,TLH,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vnquant is not importable.,2026-06-12T06:40:50+00:00,0.000255
+vietfin,unknown_brokerage_api,VIX,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vietfin is not importable.,2026-06-12T06:40:50+00:00,0.000222
+vietfin,unknown_brokerage_api,VND,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vietfin is not importable.,2026-06-12T06:40:50+00:00,0.000222
+vietfin,unknown_brokerage_api,VSC,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vietfin is not importable.,2026-06-12T06:40:50+00:00,0.000222
+vietfin,unknown_brokerage_api,VGI,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vietfin is not importable.,2026-06-12T06:40:50+00:00,0.000222
+vietfin,unknown_brokerage_api,VCG,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vietfin is not importable.,2026-06-12T06:40:50+00:00,0.000222
+vietfin,unknown_brokerage_api,VNM,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vietfin is not importable.,2026-06-12T06:40:50+00:00,0.000222
+vietfin,unknown_brokerage_api,TVN,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vietfin is not importable.,2026-06-12T06:40:50+00:00,0.000222
+vietfin,unknown_brokerage_api,VJC,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vietfin is not importable.,2026-06-12T06:40:50+00:00,0.000222
+vietfin,unknown_brokerage_api,VTZ,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vietfin is not importable.,2026-06-12T06:40:50+00:00,0.000222
+vietfin,unknown_brokerage_api,YEG,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vietfin is not importable.,2026-06-12T06:40:50+00:00,0.000222
+vietfin,unknown_brokerage_api,VCI,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vietfin is not importable.,2026-06-12T06:40:50+00:00,0.000222
+vietfin,unknown_brokerage_api,VFS,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vietfin is not importable.,2026-06-12T06:40:50+00:00,0.000222
+vietfin,unknown_brokerage_api,VDS,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vietfin is not importable.,2026-06-12T06:40:50+00:00,0.000222
+vietfin,unknown_brokerage_api,VIG,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vietfin is not importable.,2026-06-12T06:40:50+00:00,0.000222
+vietfin,unknown_brokerage_api,TVS,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vietfin is not importable.,2026-06-12T06:40:50+00:00,0.000222
+vietfin,unknown_brokerage_api,VRE,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vietfin is not importable.,2026-06-12T06:40:50+00:00,0.000222
+vietfin,unknown_brokerage_api,VNE,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vietfin is not importable.,2026-06-12T06:40:50+00:00,0.000222
+vietfin,unknown_brokerage_api,VOS,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vietfin is not importable.,2026-06-12T06:40:50+00:00,0.000222
+vietfin,unknown_brokerage_api,VTP,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vietfin is not importable.,2026-06-12T06:40:50+00:00,0.000222
+vietfin,unknown_brokerage_api,TLH,NOT_IMPORTABLE,True,False,False,0,NOT_IMPORTABLE,Package vietfin is not importable.,2026-06-12T06:40:50+00:00,0.000222
+vnstock_market_data,static_github_historical,VIX,HISTORICAL_FALLBACK_ONLY,True,False,False,0,HistoricalFallbackOnly,Static GitHub historical fallback is not current confirmation.,2026-06-12T06:40:50+00:00,0.0
+vnstock_market_data,static_github_historical,VND,HISTORICAL_FALLBACK_ONLY,True,False,False,0,HistoricalFallbackOnly,Static GitHub historical fallback is not current confirmation.,2026-06-12T06:40:50+00:00,0.0
+vnstock_market_data,static_github_historical,VSC,HISTORICAL_FALLBACK_ONLY,True,False,False,0,HistoricalFallbackOnly,Static GitHub historical fallback is not current confirmation.,2026-06-12T06:40:50+00:00,0.0
+vnstock_market_data,static_github_historical,VGI,HISTORICAL_FALLBACK_ONLY,True,False,False,0,HistoricalFallbackOnly,Static GitHub historical fallback is not current confirmation.,2026-06-12T06:40:50+00:00,0.0
+vnstock_market_data,static_github_historical,VCG,HISTORICAL_FALLBACK_ONLY,True,False,False,0,HistoricalFallbackOnly,Static GitHub historical fallback is not current confirmation.,2026-06-12T06:40:50+00:00,0.0
+vnstock_market_data,static_github_historical,VNM,HISTORICAL_FALLBACK_ONLY,True,False,False,0,HistoricalFallbackOnly,Static GitHub historical fallback is not current confirmation.,2026-06-12T06:40:50+00:00,0.0
+vnstock_market_data,static_github_historical,TVN,HISTORICAL_FALLBACK_ONLY,True,False,False,0,HistoricalFallbackOnly,Static GitHub historical fallback is not current confirmation.,2026-06-12T06:40:50+00:00,0.0
+vnstock_market_data,static_github_historical,VJC,HISTORICAL_FALLBACK_ONLY,True,False,False,0,HistoricalFallbackOnly,Static GitHub historical fallback is not current confirmation.,2026-06-12T06:40:50+00:00,0.0
+vnstock_market_data,static_github_historical,VTZ,HISTORICAL_FALLBACK_ONLY,True,False,False,0,HistoricalFallbackOnly,Static GitHub historical fallback is not current confirmation.,2026-06-12T06:40:50+00:00,0.0
+vnstock_market_data,static_github_historical,YEG,HISTORICAL_FALLBACK_ONLY,True,False,False,0,HistoricalFallbackOnly,Static GitHub historical fallback is not current confirmation.,2026-06-12T06:40:50+00:00,0.0
+vnstock_market_data,static_github_historical,VCI,HISTORICAL_FALLBACK_ONLY,True,False,False,0,HistoricalFallbackOnly,Static GitHub historical fallback is not current confirmation.,2026-06-12T06:40:50+00:00,0.0
+vnstock_market_data,static_github_historical,VFS,HISTORICAL_FALLBACK_ONLY,True,False,False,0,HistoricalFallbackOnly,Static GitHub historical fallback is not current confirmation.,2026-06-12T06:40:50+00:00,0.0
+vnstock_market_data,static_github_historical,VDS,HISTORICAL_FALLBACK_ONLY,True,False,False,0,HistoricalFallbackOnly,Static GitHub historical fallback is not current confirmation.,2026-06-12T06:40:50+00:00,0.0
+vnstock_market_data,static_github_historical,VIG,HISTORICAL_FALLBACK_ONLY,True,False,False,0,HistoricalFallbackOnly,Static GitHub historical fallback is not current confirmation.,2026-06-12T06:40:50+00:00,0.0
+vnstock_market_data,static_github_historical,TVS,HISTORICAL_FALLBACK_ONLY,True,False,False,0,HistoricalFallbackOnly,Static GitHub historical fallback is not current confirmation.,2026-06-12T06:40:50+00:00,0.0
+vnstock_market_data,static_github_historical,VRE,HISTORICAL_FALLBACK_ONLY,True,False,False,0,HistoricalFallbackOnly,Static GitHub historical fallback is not current confirmation.,2026-06-12T06:40:50+00:00,0.0
+vnstock_market_data,static_github_historical,VNE,HISTORICAL_FALLBACK_ONLY,True,False,False,0,HistoricalFallbackOnly,Static GitHub historical fallback is not current confirmation.,2026-06-12T06:40:50+00:00,0.0
+vnstock_market_data,static_github_historical,VOS,HISTORICAL_FALLBACK_ONLY,True,False,False,0,HistoricalFallbackOnly,Static GitHub historical fallback is not current confirmation.,2026-06-12T06:40:50+00:00,0.0
+vnstock_market_data,static_github_historical,VTP,HISTORICAL_FALLBACK_ONLY,True,False,False,0,HistoricalFallbackOnly,Static GitHub historical fallback is not current confirmation.,2026-06-12T06:40:50+00:00,0.0
+vnstock_market_data,static_github_historical,TLH,HISTORICAL_FALLBACK_ONLY,True,False,False,0,HistoricalFallbackOnly,Static GitHub historical fallback is not current confirmation.,2026-06-12T06:40:50+00:00,0.0
