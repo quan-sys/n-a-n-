@@ -1,0 +1,12 @@
+{
+  "batch_id": "batch_0014",
+  "batch_start_index": 1300,
+  "batch_end_index": 1399,
+  "ticker_count": 100,
+  "success_count": 100,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "warning_count": 100,
+  "cache_used": false,
+  "created_at": "2026-06-12T11:53:57+00:00"
+}

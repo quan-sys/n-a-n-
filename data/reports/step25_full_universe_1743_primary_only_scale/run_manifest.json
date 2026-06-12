@@ -1,0 +1,20 @@
+{
+  "step_id": "STEP25-FULL-UNIVERSE-1743-PRIMARY-ONLY-SCALE",
+  "created_at": "2026-06-12T11:53:59+00:00",
+  "commit_hash": "5a5199b0dd71e27695db03e1ae6e27b9b88b8e17",
+  "command_used": "scripts\\run_step25_full_universe_1743_primary_only_scale.py --config config\\step25_full_universe_1743_primary_only_scale.yaml --max-tickers 1743 --batch-size 100 --output-dir data\\reports\\step25_full_universe_1743_primary_only_scale --allow-partial --resume-from-cache",
+  "config_path": "config\\step25_full_universe_1743_primary_only_scale.yaml",
+  "output_dir": "data\\reports\\step25_full_universe_1743_primary_only_scale",
+  "raw_cache_dir": "data\\raw\\step25_full_universe_1743",
+  "batch_dir": "data\\reports\\step25_full_universe_1743_primary_only_scale\\batches",
+  "requested_max_tickers": 1743,
+  "actual_universe_count": 1800,
+  "batch_size": 100,
+  "allow_partial": true,
+  "resume_from_cache": true,
+  "universe_source": "data/reports/legacy_structured_finance_import_01/provisional_finance_latest_wide.csv",
+  "raw_universe_path": "data\\raw\\step25_full_universe_1743\\resolved_universe.csv",
+  "network_usage_if_known": "none",
+  "core_outputs_modified": false,
+  "previous_step_outputs_mutated": false
+}

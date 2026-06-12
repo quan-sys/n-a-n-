@@ -1,0 +1,5 @@
+field,value,ticker_count
+market_source_confidence,PROVISIONAL_PRIMARY_ONLY,1743
+finance_source_confidence,PROVISIONAL_LOW,1743
+crosscheck_status,NOT_AVAILABLE,1743
+verification_status,NEEDS_MANUAL_BCTC_REVIEW,1743

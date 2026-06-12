@@ -1,0 +1,30 @@
+{
+  "step_id": "STEP25-FULL-UNIVERSE-1743-PRIMARY-ONLY-SCALE",
+  "created_at": "2026-06-12T11:53:59+00:00",
+  "universe_source": "data/reports/legacy_structured_finance_import_01/provisional_finance_latest_wide.csv",
+  "limitations": [
+    "Full-universe pass remains primary-only and provisional.",
+    "Independent source-family confirmation is not available.",
+    "Official BCTC review remains required for surviving candidates.",
+    "Missing values were not filled."
+  ],
+  "processed_ticker_count": 1743,
+  "watchlist_candidate_count": 16,
+  "manual_bctc_review_queue_count": 16,
+  "missing_field_counts": {
+    "avg_volume_20d": 728,
+    "capex": 1457,
+    "cfo": 1448,
+    "equity": 1450,
+    "gross_profit": 1454,
+    "last_close": 1682,
+    "last_price_date": 1727,
+    "net_income": 1721,
+    "revenue": 1454,
+    "total_assets": 1450,
+    "total_liabilities": 1447
+  },
+  "crosscheck_status": "NOT_AVAILABLE",
+  "market_source_confidence": "PROVISIONAL_PRIMARY_ONLY",
+  "finance_source_confidence_default": "PROVISIONAL_LOW"
+}

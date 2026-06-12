@@ -1,0 +1,83 @@
+step_id: STEP25-FULL-UNIVERSE-1743-PRIMARY-ONLY-SCALE
+mode: full_universe_primary_only_scale
+
+run:
+  sandbox_only: false
+  allow_partial: true
+  dry_run_default: false
+  resume_from_cache: true
+
+limits:
+  max_tickers: 1743
+  batch_size: 100
+  full_universe_allowed: true
+  allow_limit_override: false
+
+source_confidence:
+  market_source_confidence: PROVISIONAL_PRIMARY_ONLY
+  finance_source_confidence_default: PROVISIONAL_LOW
+  crosscheck_status: NOT_AVAILABLE
+  verification_status: NEEDS_MANUAL_BCTC_REVIEW
+
+primary_sources:
+  universe_provider: existing_artifact
+  market_primary: existing_structured_or_current_snapshot_if_available
+  finance_primary: existing_structured_or_vnstock_if_available
+  independent_crosscheck_required: false
+  independent_crosscheck_status: NOT_AVAILABLE
+
+safety:
+  no_recommendation: true
+  no_buy_sell_hold: true
+  no_target_price: true
+  no_fair_value: true
+  no_intrinsic_value: true
+  no_margin_of_safety: true
+  no_expected_return: true
+  no_entry_exit_price: true
+  no_portfolio_recommendation: true
+  no_strategy_claim: true
+  no_pdf_ocr: true
+  no_official_bctc_scrape: true
+  no_zero_fill: true
+  no_previous_report_mutation: true
+  no_stage_promotion_to_investment_ready: true
+
+batching:
+  batch_size: 100
+  resume_from_cache: true
+  checkpoint_every_batch: true
+  failed_ticker_policy: LOG_AND_CONTINUE
+  retry_failed_tickers_once: true
+
+filters:
+  stale_price_max_days: 10
+  min_recent_volume: 1
+  min_recent_trading_value: 1
+  require_minimum_finance_presence: false
+
+inputs:
+  universe_candidates:
+    - data/reports/legacy_structured_finance_import_01/provisional_finance_latest_wide.csv
+    - data/reports/legacy_structured_finance_import_01/provisional_market_liquidity.csv
+    - data/raw/universe_raw.csv
+  market_primary:
+    - data/reports/provisional_current_market_03/current_market_snapshot.csv
+    - data/reports/legacy_structured_finance_import_01/provisional_market_liquidity.csv
+  market_fallback: data/reports/legacy_structured_finance_import_01/provisional_market_liquidity.csv
+  finance_latest_wide: data/reports/legacy_structured_finance_import_01/provisional_finance_latest_wide.csv
+  finance_quality_flags: data/reports/legacy_structured_finance_import_01/provisional_data_quality_flags.csv
+  step24_readiness: data/reports/step24_final_integration_scale_readiness/final_integration_summary.json
+
+outputs:
+  output_dir: data/reports/step25_full_universe_1743_primary_only_scale
+  raw_cache_dir: data/raw/step25_full_universe_1743
+  batch_manifest_dir: data/reports/step25_full_universe_1743_primary_only_scale/batches
+
+core_output_watchlist:
+  - data/reports/step19_shadow_20/step19_shadow_decision.json
+  - data/reports/step20_l5_valuation_risk_context/step20_valuation_risk_summary.json
+  - data/reports/step21_l6_timing_liquidity_context/timing_liquidity_context_summary.json
+  - data/reports/step22_l7_weekly_report_manual_review/weekly_report_summary.json
+  - data/reports/step23_backtest_monitoring_module/monitoring_summary.json
+  - data/reports/step24_final_integration_scale_readiness/final_integration_summary.json

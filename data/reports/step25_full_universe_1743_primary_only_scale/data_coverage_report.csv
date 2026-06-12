@@ -1,0 +1,10 @@
+metric,value,unit
+processed_ticker_count,1743,count
+status_count:BLOCKED_INSUFFICIENT_MARKET_DATA,1727,count
+status_count:WATCHLIST_CANDIDATE,16,count
+rows_with_missing_fields,1736,count
+missing_field_observation_count,16018,count
+market_price_present_count,61,count
+market_date_present_count,16,count
+volume_present_count,1015,count
+manual_bctc_required_count,16,count
