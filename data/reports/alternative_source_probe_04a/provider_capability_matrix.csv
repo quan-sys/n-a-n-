@@ -1,0 +1,11 @@
+provider_id,capability,configured_expected,probe_supported,support_status,notes
+vnstock_primary_reference,current_market,True,False,PACKAGE_FOUND_CAPABILITY_UNVERIFIED,Package spec was found; module import was deliberately skipped to avoid provider side effects.
+vnstock_primary_reference,historical_market,True,False,PACKAGE_FOUND_CAPABILITY_UNVERIFIED,Package spec was found; module import was deliberately skipped to avoid provider side effects.
+vnstock_primary_reference,structured_finance,True,False,PACKAGE_FOUND_CAPABILITY_UNVERIFIED,Package spec was found; module import was deliberately skipped to avoid provider side effects.
+vnstock_primary_reference,company_profile,True,False,PACKAGE_FOUND_CAPABILITY_UNVERIFIED,Package spec was found; module import was deliberately skipped to avoid provider side effects.
+vnquant_secondary_candidate,historical_market,True,False,PACKAGE_NOT_IMPORTABLE_CAPABILITY_UNVERIFIED,Configured capability only; provider must be validated in a later sandbox step.
+vnquant_secondary_candidate,structured_finance_candidate,True,False,PACKAGE_NOT_IMPORTABLE_CAPABILITY_UNVERIFIED,Configured capability only; provider must be validated in a later sandbox step.
+vietfin_experimental_candidate,historical_market,True,False,PACKAGE_NOT_IMPORTABLE_CAPABILITY_UNVERIFIED,Configured capability only; provider must be validated in a later sandbox step.
+vietfin_experimental_candidate,structured_finance_candidate,True,False,PACKAGE_NOT_IMPORTABLE_CAPABILITY_UNVERIFIED,Configured capability only; provider must be validated in a later sandbox step.
+vietfin_experimental_candidate,company_profile_candidate,True,False,PACKAGE_NOT_IMPORTABLE_CAPABILITY_UNVERIFIED,Configured capability only; provider must be validated in a later sandbox step.
+vnstock_market_data_historical_fallback,historical_market,True,False,HISTORICAL_FALLBACK_CONFIGURED,Static historical fallback only; not current confirmation.

@@ -1,0 +1,9 @@
+provider_id,source_family,is_independent_candidate,is_current_confirmation_allowed,is_historical_fallback_only,independence_note,confidence_ceiling
+vnstock_primary_reference,vnstock_vci,False,true,False,Primary source already used; raw cache from this provider is not independent.,PROVISIONAL_PRIMARY
+vnstock_primary_reference,vnstock_tcbs,False,true,False,Primary source already used; raw cache from this provider is not independent.,PROVISIONAL_PRIMARY
+vnstock_primary_reference,vnstock_other,False,true,False,Primary source already used; raw cache from this provider is not independent.,PROVISIONAL_PRIMARY
+vnquant_secondary_candidate,cafef,True,conditional,False,Potentially useful if upstream is CafeF/VNDIRECT and not same as vnstock VCI.,PROVISIONAL_SECONDARY
+vnquant_secondary_candidate,vndirect,True,conditional,False,Potentially useful if upstream is CafeF/VNDIRECT and not same as vnstock VCI.,PROVISIONAL_SECONDARY
+vietfin_experimental_candidate,unknown_brokerage_api,False,conditional,False,Must inspect upstream provider before counting as independent.,PROVISIONAL_EXPERIMENTAL
+vietfin_experimental_candidate,possible_vnstock_related,False,conditional,False,Must inspect upstream provider before counting as independent.,PROVISIONAL_EXPERIMENTAL
+vnstock_market_data_historical_fallback,static_github_historical,False,false,True,Static GitHub historical dataset; stale in prior checks; not current confirmation.,HISTORICAL_FALLBACK_ONLY

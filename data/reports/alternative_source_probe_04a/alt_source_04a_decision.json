@@ -1,0 +1,29 @@
+{
+  "generated_at": "2026-06-12T03:32:29+00:00",
+  "provider_count": 4,
+  "importable_provider_count": 1,
+  "non_importable_provider_count": 2,
+  "source_family_count": 8,
+  "independent_candidate_family_count": 2,
+  "historical_fallback_only_count": 1,
+  "network_used": false,
+  "market_data_fetched": false,
+  "finance_data_fetched": false,
+  "core_outputs_modified": false,
+  "registry_errors": [],
+  "schema_errors": [],
+  "forbidden_terms_found": [],
+  "final_decision": "CONDITIONAL_GO_FOR_ALT_SOURCE_04B",
+  "allowed_next_step": "PROVISIONAL-ALT-SOURCE-04B - 20-Ticker Market Consensus Cross-Check",
+  "not_authorized": [
+    "Step19",
+    "REAL-DATA-02",
+    "top500_refresh",
+    "full_universe_live_fetch",
+    "official_pdf_fetch",
+    "OCR",
+    "valuation",
+    "target_price",
+    "buy_sell_hold_recommendation"
+  ]
+}

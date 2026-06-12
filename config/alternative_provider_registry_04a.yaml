@@ -1,0 +1,86 @@
+version: 1
+description: Alternative provider sandbox registry for source-family probing only.
+
+safety:
+  sandbox_only: true
+  no_core_pipeline_mutation: true
+  no_ranking_mutation: true
+  no_stage_promotion: true
+  no_step19: true
+  no_real_data_02: true
+  no_top500_refresh: true
+  no_full_universe_fetch: true
+  no_official_pdf_fetch: true
+  no_ocr: true
+  no_recommendation: true
+  no_target_price: true
+  no_fair_value: true
+  no_margin_of_safety: true
+
+probe_policy:
+  allow_import_probe: false
+  allow_package_metadata_probe: true
+  allow_network_fetch: false
+  allow_market_data_fetch: false
+  allow_finance_data_fetch: false
+  allow_auto_install: false
+  max_probe_tickers: 0
+
+providers:
+  - provider_id: vnstock_primary_reference
+    package_name: vnstock
+    repo: thinh-vu/vnstock
+    role: PRIMARY_PROVIDER_REFERENCE
+    source_families:
+      - vnstock_vci
+      - vnstock_tcbs
+      - vnstock_other
+    expected_capabilities:
+      - current_market
+      - historical_market
+      - structured_finance
+      - company_profile
+    independence_note: Primary source already used; raw cache from this provider is not independent.
+    current_confirmation_allowed: true
+    confidence_ceiling: PROVISIONAL_PRIMARY
+
+  - provider_id: vnquant_secondary_candidate
+    package_name: vnquant
+    repo: phamdinhkhanh/vnquant
+    role: SECONDARY_PROVIDER_CANDIDATE
+    source_families:
+      - cafef
+      - vndirect
+    expected_capabilities:
+      - historical_market
+      - structured_finance_candidate
+    independence_note: Potentially useful if upstream is CafeF/VNDIRECT and not same as vnstock VCI.
+    current_confirmation_allowed: conditional
+    confidence_ceiling: PROVISIONAL_SECONDARY
+
+  - provider_id: vietfin_experimental_candidate
+    package_name: vietfin
+    repo: vietfin/vietfin
+    role: EXPERIMENTAL_SECONDARY_PROVIDER_CANDIDATE
+    source_families:
+      - unknown_brokerage_api
+      - possible_vnstock_related
+    expected_capabilities:
+      - historical_market
+      - structured_finance_candidate
+      - company_profile_candidate
+    independence_note: Must inspect upstream provider before counting as independent.
+    current_confirmation_allowed: conditional
+    confidence_ceiling: PROVISIONAL_EXPERIMENTAL
+
+  - provider_id: vnstock_market_data_historical_fallback
+    package_name: null
+    repo: vnstock-official/vnstock_market_data
+    role: HISTORICAL_FALLBACK_ONLY
+    source_families:
+      - static_github_historical
+    expected_capabilities:
+      - historical_market
+    independence_note: Static GitHub historical dataset; stale in prior checks; not current confirmation.
+    current_confirmation_allowed: false
+    confidence_ceiling: HISTORICAL_FALLBACK_ONLY

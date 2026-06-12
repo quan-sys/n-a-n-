@@ -1,0 +1,5 @@
+provider_id,package_name,probe_attempted,import_status,installed_version,error_type,error_message,network_used,market_data_fetched,finance_data_fetched
+vnstock_primary_reference,vnstock,True,PACKAGE_FOUND_IMPORT_SKIPPED,4.0.3,,,False,False,False
+vnquant_secondary_candidate,vnquant,True,NOT_IMPORTABLE,,,,False,False,False
+vietfin_experimental_candidate,vietfin,True,NOT_IMPORTABLE,,,,False,False,False
+vnstock_market_data_historical_fallback,,False,SKIPPED_NO_PACKAGE,,,,False,False,False
