@@ -1,0 +1,22 @@
+{
+  "step_id": "STEP20-L5-VALUATION-RISK-CONTEXT",
+  "created_at": "2026-06-12T10:44:27+00:00",
+  "processed_ticker_count": 20,
+  "context_ready_count": 0,
+  "manual_review_count": 20,
+  "insufficient_data_count": 15,
+  "blocked_guardrail_count": 0,
+  "missing_input_files": [],
+  "market_source_confidence": "PROVISIONAL_PRIMARY_ONLY",
+  "finance_source_confidence_default": "PROVISIONAL_LOW",
+  "crosscheck_status": "NOT_AVAILABLE",
+  "verification_status": "NEEDS_MANUAL_BCTC_REVIEW",
+  "final_decision": "PASS_WITH_MANUAL_REVIEW_WARNINGS",
+  "warnings": [
+    "Primary-only market confidence remains in force.",
+    "Finance confidence remains low and provisional.",
+    "Official BCTC review remains required."
+  ],
+  "forbidden_terms_found": [],
+  "core_outputs_modified": false
+}

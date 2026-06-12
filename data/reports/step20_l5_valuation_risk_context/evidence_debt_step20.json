@@ -1,0 +1,22 @@
+{
+  "step_id": "STEP20-L5-VALUATION-RISK-CONTEXT",
+  "created_at": "2026-06-12T10:44:27+00:00",
+  "limitations": [
+    "No independent current market source-family confirmation.",
+    "Official BCTC evidence has not been checked.",
+    "Peer context may be unavailable when peer group or fields are insufficient.",
+    "No action label or price objective is produced."
+  ],
+  "missing_input_files": [],
+  "processed_ticker_count": 20,
+  "manual_review_count": 20,
+  "risk_flag_counts": {
+    "FINANCE_DATA_LOW_CONFIDENCE": 20,
+    "MISSING_REQUIRED_FINANCE_FIELD": 13,
+    "NO_INDEPENDENT_MARKET_CROSSCHECK": 20,
+    "OFFICIAL_BCTC_NOT_VERIFIED": 20,
+    "PEER_GROUP_TOO_SMALL": 5,
+    "SURVIVAL_WEAK_OR_UNKNOWN": 20,
+    "VALUATION_CONTEXT_INSUFFICIENT": 20
+  }
+}

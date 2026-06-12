@@ -1,0 +1,63 @@
+step_id: STEP20-L5-VALUATION-RISK-CONTEXT
+mode: valuation_risk_context_only
+
+run:
+  sandbox_only: true
+  allow_partial: true
+  dry_run_default: false
+
+limits:
+  max_tickers: 100
+  full_universe_allowed: false
+  allow_limit_override: true
+
+source_confidence:
+  market_source_confidence: PROVISIONAL_PRIMARY_ONLY
+  finance_source_confidence_default: PROVISIONAL_LOW
+  crosscheck_status: NOT_AVAILABLE
+  verification_status: NEEDS_MANUAL_BCTC_REVIEW
+
+safety:
+  no_recommendation: true
+  no_buy_sell_hold: true
+  no_target_price: true
+  no_fair_value: true
+  no_intrinsic_value: true
+  no_margin_of_safety: true
+  no_expected_return: true
+  no_entry_exit_price: true
+  no_portfolio_recommendation: true
+  no_zero_fill: true
+  no_missing_finance_inference: true
+  no_pdf_ocr: true
+  no_official_bctc_scrape: true
+  no_core_output_mutation: true
+  no_stage_promotion_to_investment_ready: true
+  no_cross_sector_comparison: true
+
+inputs:
+  step19_rows:
+    - data/reports/step19_shadow_20/step19_shadow_rows.csv
+    - data/reports/step19_shadow_20/company_shadow_diagnostics_20.csv
+  step19_decision: data/reports/step19_shadow_20/step19_shadow_decision.json
+  step05a_rows: data/reports/step05a_primary_only_screening/primary_only_screening_rows.csv
+  watchlist_candidates: data/reports/step05a_primary_only_screening/watchlist_candidates.csv
+  manual_bctc_queue: data/reports/step05a_primary_only_screening/manual_bctc_review_queue.csv
+  finance_latest_wide: data/reports/legacy_structured_finance_import_01/provisional_finance_latest_wide.csv
+  finance_quality_flags: data/reports/legacy_structured_finance_import_01/provisional_data_quality_flags.csv
+  market_snapshot: data/reports/provisional_current_market_03/current_market_snapshot.csv
+  ranking_metadata: data/reports/provisional_current_market_03/current_market_balanced_ranked_shortlist.csv
+
+outputs:
+  output_dir: data/reports/step20_l5_valuation_risk_context
+
+peer_context:
+  min_peer_group_size: 3
+
+core_output_watchlist:
+  - data/reports/step19_shadow_20/step19_shadow_decision.json
+  - data/reports/step19_shadow_20/company_shadow_diagnostics_20.csv
+  - data/reports/step05a_primary_only_screening/primary_only_screening_summary.json
+  - data/reports/step05a_primary_only_screening/primary_only_screening_rows.csv
+  - data/reports/step05a_primary_only_screening/watchlist_candidates.csv
+  - data/reports/step05a_primary_only_screening/manual_bctc_review_queue.csv

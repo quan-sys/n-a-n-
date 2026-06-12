@@ -1,0 +1,8 @@
+peer_group_id,primary_micro_sector,archetype,peer_group_size,ticker_count,context_ready_count,manual_review_count
+công_nghiệp_non_financial__non_financial,Công nghiệp::non_financial,non_financial,5,5,0,5
+dịch_vụ_tiêu_dùng_non_financial__non_financial,Dịch vụ Tiêu dùng::non_financial,non_financial,2,2,0,2
+hàng_tiêu_dùng_non_financial__non_financial,Hàng Tiêu dùng::non_financial,non_financial,1,1,0,1
+nguyên_vật_liệu_non_financial__non_financial,Nguyên vật liệu::non_financial,non_financial,3,3,0,3
+tài_chính_real_estate__real_estate,Tài chính::real_estate,real_estate,1,1,0,1
+tài_chính_securities__securities,Tài chính::securities,securities,7,7,0,7
+viễn_thông_non_financial__non_financial,Viễn thông::non_financial,non_financial,1,1,0,1
