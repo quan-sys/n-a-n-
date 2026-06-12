@@ -1,0 +1,29 @@
+{
+  "step_id": "STEP21-L6-TIMING-LIQUIDITY-CONTEXT",
+  "created_at": "2026-06-12T10:55:20+00:00",
+  "mode": "timing_liquidity_context_only",
+  "processed_ticker_count": 20,
+  "timing_insufficient_count": 0,
+  "liquidity_insufficient_count": 0,
+  "manual_review_count": 20,
+  "market_source_confidence": "PROVISIONAL_PRIMARY_ONLY",
+  "finance_source_confidence_default": "PROVISIONAL_LOW",
+  "crosscheck_status": "NOT_AVAILABLE",
+  "verification_status": "NEEDS_MANUAL_BCTC_REVIEW",
+  "missing_input_files": [],
+  "timing_risk_bucket_counts": {
+    "TIMING_RISK_MODERATE": 20
+  },
+  "liquidity_risk_bucket_counts": {
+    "LIQUIDITY_RISK_LOW": 6,
+    "LIQUIDITY_RISK_MODERATE": 14
+  },
+  "final_decision": "PASS_TIMING_LIQUIDITY_CONTEXT_WITH_WARNINGS",
+  "warnings": [
+    "Timing/liquidity context remains provisional.",
+    "Market confidence remains primary-only.",
+    "No trade action or price-level output was produced."
+  ],
+  "forbidden_terms_found": [],
+  "core_outputs_modified": false
+}

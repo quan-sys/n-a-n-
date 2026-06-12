@@ -1,0 +1,24 @@
+{
+  "step_id": "STEP21-L6-TIMING-LIQUIDITY-CONTEXT",
+  "created_at": "2026-06-12T10:55:20+00:00",
+  "commit_hash": "50e6d57e288306d8fcf205a50239b9126383256b",
+  "command_used": "scripts/run_step21_l6_timing_liquidity_context.py --config config/step21_l6_timing_liquidity_context.yaml --limit 100 --output-dir data/reports/step21_l6_timing_liquidity_context --allow-partial",
+  "config_path": "config\\step21_l6_timing_liquidity_context.yaml",
+  "output_dir": "data\\reports\\step21_l6_timing_liquidity_context",
+  "max_tickers": 100,
+  "allow_partial": true,
+  "full_universe_allowed": false,
+  "network_usage_if_known": "none",
+  "core_outputs_modified": false,
+  "previous_step_outputs_mutated": false,
+  "resolved_inputs": {
+    "step20_rows": "data\\reports\\step20_l5_valuation_risk_context\\step20_valuation_risk_rows.csv",
+    "step20_summary": "data\\reports\\step20_l5_valuation_risk_context\\step20_valuation_risk_summary.json",
+    "step19_rows": "data\\reports\\step19_shadow_20\\company_shadow_diagnostics_20.csv",
+    "step05a_rows": "data\\reports\\step05a_primary_only_screening\\primary_only_screening_rows.csv",
+    "watchlist_candidates": "data\\reports\\step05a_primary_only_screening\\watchlist_candidates.csv",
+    "market_snapshot": "data\\reports\\provisional_current_market_03\\current_market_snapshot.csv",
+    "finance_latest_wide": "data\\reports\\legacy_structured_finance_import_01\\provisional_finance_latest_wide.csv"
+  },
+  "missing_input_files": []
+}

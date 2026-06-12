@@ -1,0 +1,20 @@
+{
+  "step_id": "STEP21-L6-TIMING-LIQUIDITY-CONTEXT",
+  "created_at": "2026-06-12T10:55:20+00:00",
+  "limitations": [
+    "Only existing primary market artifacts were used.",
+    "No independent current market source-family confirmation.",
+    "No price level or trade action output was produced.",
+    "Manual review remains required when evidence is incomplete."
+  ],
+  "missing_input_files": [],
+  "processed_ticker_count": 20,
+  "timing_risk_bucket_counts": {
+    "TIMING_RISK_MODERATE": 20
+  },
+  "liquidity_risk_bucket_counts": {
+    "LIQUIDITY_RISK_LOW": 6,
+    "LIQUIDITY_RISK_MODERATE": 14
+  },
+  "manual_review_count": 20
+}

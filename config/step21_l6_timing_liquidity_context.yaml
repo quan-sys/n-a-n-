@@ -1,0 +1,75 @@
+step_id: STEP21-L6-TIMING-LIQUIDITY-CONTEXT
+mode: timing_liquidity_context_only
+
+run:
+  sandbox_only: true
+  allow_partial: true
+  dry_run_default: false
+
+limits:
+  max_tickers: 100
+  full_universe_allowed: false
+  allow_limit_override: true
+
+source_confidence:
+  market_source_confidence: PROVISIONAL_PRIMARY_ONLY
+  finance_source_confidence_default: PROVISIONAL_LOW
+  crosscheck_status: NOT_AVAILABLE
+  verification_status: NEEDS_MANUAL_BCTC_REVIEW
+
+safety:
+  no_recommendation: true
+  no_buy_sell_hold: true
+  no_entry_exit_price: true
+  no_stoploss_takeprofit: true
+  no_target_price: true
+  no_fair_value: true
+  no_expected_return: true
+  no_portfolio_recommendation: true
+  no_pdf_ocr: true
+  no_official_bctc_scrape: true
+  no_zero_fill: true
+  no_core_output_mutation: true
+  no_stage_promotion_to_investment_ready: true
+
+metrics:
+  use_relative_strength_if_available: true
+  use_drawdown_if_available: true
+  use_volume_trend_if_available: true
+  use_trading_value_if_available: true
+  use_volatility_if_available: true
+  use_abnormal_volume_if_available: true
+  use_price_momentum_vs_sector_if_available: true
+
+thresholds:
+  min_avg_volume_20d: 1
+  min_recent_trading_value: 1
+  stale_price_max_days: 10
+  high_volatility_warning_quantile: 0.80
+  abnormal_volume_warning_ratio: 2.0
+
+inputs:
+  step20_rows:
+    - data/reports/step20_l5_valuation_risk_context/valuation_risk_context_rows.csv
+    - data/reports/step20_l5_valuation_risk_context/step20_valuation_risk_rows.csv
+  step20_summary:
+    - data/reports/step20_l5_valuation_risk_context/valuation_risk_context_summary.json
+    - data/reports/step20_l5_valuation_risk_context/step20_valuation_risk_summary.json
+  step19_rows:
+    - data/reports/step19_shadow_20/step19_shadow_rows.csv
+    - data/reports/step19_shadow_20/company_shadow_diagnostics_20.csv
+  step05a_rows: data/reports/step05a_primary_only_screening/primary_only_screening_rows.csv
+  watchlist_candidates: data/reports/step05a_primary_only_screening/watchlist_candidates.csv
+  market_snapshot: data/reports/provisional_current_market_03/current_market_snapshot.csv
+  finance_latest_wide: data/reports/legacy_structured_finance_import_01/provisional_finance_latest_wide.csv
+
+exports:
+  output_dir: data/reports/step21_l6_timing_liquidity_context
+
+core_output_watchlist:
+  - data/reports/step20_l5_valuation_risk_context/step20_valuation_risk_summary.json
+  - data/reports/step20_l5_valuation_risk_context/step20_valuation_risk_rows.csv
+  - data/reports/step19_shadow_20/step19_shadow_decision.json
+  - data/reports/step05a_primary_only_screening/primary_only_screening_summary.json
+  - data/reports/step05a_primary_only_screening/primary_only_screening_rows.csv
+  - data/reports/step05a_primary_only_screening/watchlist_candidates.csv
