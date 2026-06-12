@@ -1,0 +1,15 @@
+{
+  "step_id": "STEP24-FINAL-INTEGRATION-CONTRACT-SCALE-READINESS",
+  "created_at": "2026-06-12T11:41:48+00:00",
+  "commit_hash": "196ea51cf4b1f71f47ee34834e41464d9c96841b",
+  "command_used": "scripts\\run_step24_final_integration_scale_readiness.py --config config\\step24_final_integration_scale_readiness.yaml --output-dir data\\reports\\step24_final_integration_scale_readiness --allow-partial",
+  "config_path": "config\\step24_final_integration_scale_readiness.yaml",
+  "output_dir": "data\\reports\\step24_final_integration_scale_readiness",
+  "allow_partial": true,
+  "full_universe_allowed": false,
+  "scale_1743_allowed": false,
+  "network_usage_if_known": "none",
+  "core_outputs_modified": false,
+  "previous_step_outputs_mutated": false,
+  "missing_artifacts": []
+}

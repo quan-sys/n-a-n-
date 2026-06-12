@@ -1,0 +1,121 @@
+step_id: STEP24-FINAL-INTEGRATION-CONTRACT-SCALE-READINESS
+mode: final_integration_scale_readiness_only
+
+run:
+  sandbox_only: true
+  allow_partial: true
+  dry_run_default: false
+
+limits:
+  full_universe_allowed: false
+  scale_1743_allowed: false
+  max_tickers_for_integration_check: 100
+
+source_confidence:
+  market_source_confidence: PROVISIONAL_PRIMARY_ONLY
+  finance_source_confidence_default: PROVISIONAL_LOW
+  crosscheck_status: NOT_AVAILABLE
+  verification_status: NEEDS_MANUAL_BCTC_REVIEW
+
+safety:
+  no_recommendation: true
+  no_buy_sell_hold: true
+  no_target_price: true
+  no_fair_value: true
+  no_intrinsic_value: true
+  no_margin_of_safety: true
+  no_expected_return: true
+  no_entry_exit_price: true
+  no_portfolio_recommendation: true
+  no_strategy_claim: true
+  no_pdf_ocr: true
+  no_official_bctc_scrape: true
+  no_zero_fill: true
+  no_core_output_mutation: true
+  no_stage_promotion_to_investment_ready: true
+
+required_artifacts:
+  step05a_summary: data/reports/step05a_primary_only_screening/primary_only_screening_summary.json
+  step05a_manual_queue: data/reports/step05a_primary_only_screening/manual_bctc_review_queue.csv
+  step19_decision: data/reports/step19_shadow_20/step19_shadow_decision.json
+  step20_summary:
+    - data/reports/step20_l5_valuation_risk_context/valuation_risk_context_summary.json
+    - data/reports/step20_l5_valuation_risk_context/step20_valuation_risk_summary.json
+  step21_summary: data/reports/step21_l6_timing_liquidity_context/timing_liquidity_context_summary.json
+  step22_summary: data/reports/step22_l7_weekly_report_manual_review/weekly_report_summary.json
+  step23_summary: data/reports/step23_backtest_monitoring_module/monitoring_summary.json
+
+schema_contracts:
+  step05a_manual_queue:
+    path: data/reports/step05a_primary_only_screening/manual_bctc_review_queue.csv
+    required_columns:
+      - ticker
+      - missing_fields
+      - market_source_confidence
+      - finance_source_confidence
+      - crosscheck_status
+      - verification_status
+  step20_rows:
+    path:
+      - data/reports/step20_l5_valuation_risk_context/valuation_risk_context_rows.csv
+      - data/reports/step20_l5_valuation_risk_context/step20_valuation_risk_rows.csv
+    required_columns:
+      - ticker
+      - valuation_context
+      - valuation_confidence
+      - manual_review_required
+      - market_source_confidence
+      - finance_source_confidence
+      - crosscheck_status
+      - verification_status
+  step21_rows:
+    path: data/reports/step21_l6_timing_liquidity_context/timing_liquidity_context_rows.csv
+    required_columns:
+      - ticker
+      - timing_risk_bucket
+      - liquidity_risk_bucket
+      - manual_review_required
+      - market_source_confidence
+      - finance_source_confidence
+      - crosscheck_status
+      - verification_status
+  step22_watchlist:
+    path: data/reports/step22_l7_weekly_report_manual_review/watchlist_candidates.csv
+    required_columns:
+      - ticker
+      - watchlist_status
+      - confidence_score
+      - manual_review_required
+      - market_source_confidence
+      - finance_source_confidence
+      - crosscheck_status
+      - verification_status
+  step23_dashboard:
+    path: data/reports/step23_backtest_monitoring_module/monitoring_dashboard.csv
+    required_columns:
+      - metric_name
+      - current_value
+      - previous_value
+      - trend_direction
+      - interpretation
+      - confidence
+      - manual_review_required
+
+forbidden_scan_dirs:
+  - data/reports/step19_shadow_20
+  - data/reports/step20_l5_valuation_risk_context
+  - data/reports/step21_l6_timing_liquidity_context
+  - data/reports/step22_l7_weekly_report_manual_review
+  - data/reports/step23_backtest_monitoring_module
+
+exports:
+  output_dir: data/reports/step24_final_integration_scale_readiness
+
+core_output_watchlist:
+  - data/reports/step05a_primary_only_screening/primary_only_screening_summary.json
+  - data/reports/step05a_primary_only_screening/manual_bctc_review_queue.csv
+  - data/reports/step19_shadow_20/step19_shadow_decision.json
+  - data/reports/step20_l5_valuation_risk_context/step20_valuation_risk_summary.json
+  - data/reports/step21_l6_timing_liquidity_context/timing_liquidity_context_summary.json
+  - data/reports/step22_l7_weekly_report_manual_review/weekly_report_summary.json
+  - data/reports/step23_backtest_monitoring_module/monitoring_summary.json

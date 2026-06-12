@@ -1,0 +1,6 @@
+scanned_path,forbidden_terms_found,status
+data\reports\step19_shadow_20,[],PASS
+data\reports\step20_l5_valuation_risk_context,[],PASS
+data\reports\step21_l6_timing_liquidity_context,[],PASS
+data\reports\step22_l7_weekly_report_manual_review,[],PASS
+data\reports\step23_backtest_monitoring_module,[],PASS
