@@ -1,0 +1,131 @@
+version: 1
+description: Sandbox-only alternative provider importability and 20-ticker market probe.
+
+safety:
+  sandbox_only: true
+  no_core_pipeline_mutation: true
+  no_ranking_mutation: true
+  no_stage_promotion: true
+  no_production_step19: true
+  no_real_data_02_rerun: true
+  no_top500_refresh: true
+  no_full_universe_fetch: true
+  no_official_pdf_fetch: true
+  no_ocr: true
+  no_recommendation: true
+  no_target_price: true
+  no_fair_value: true
+  no_margin_of_safety: true
+  no_portfolio_weight: true
+  no_entry_exit_signal: true
+  no_finance_fetch: true
+  no_zero_fill: true
+
+run_policy:
+  expected_pilot_ticker_count: 20
+  allow_network: false
+  allow_auto_install: false
+  max_requests: 20
+  sleep_seconds: 0.5
+  cache_provider_attempts: true
+
+comparison:
+  max_current_reference_gap_days: 5
+  max_price_pct_diff_for_match: 0.03
+  max_volume_60d_pct_diff_for_match: 0.50
+
+source_family_rules:
+  primary_source_family: vnstock_vci
+  raw_cache_is_independent: false
+  static_github_historical_is_current_confirmation: false
+  same_upstream_family_counts_once: true
+
+providers:
+  - provider_name: vnstock
+    package_name: vnstock
+    role: primary_reference
+    source_families:
+      - source_family: vnstock_vci
+        candidate_independent_from_vnstock_vci: false
+        market_current_candidate: true
+        historical_candidate: true
+        finance_candidate: false
+        requires_network: false
+        requires_optional_install: false
+        default_enabled: false
+        confidence_ceiling: PROVISIONAL_PRIMARY
+        notes: Primary source already used; raw cache is not independent.
+
+  - provider_name: vnquant
+    package_name: vnquant
+    role: secondary_candidate
+    source_families:
+      - source_family: cafef_structured_or_market
+        candidate_independent_from_vnstock_vci: true
+        market_current_candidate: true
+        historical_candidate: true
+        finance_candidate: false
+        requires_network: true
+        requires_optional_install: true
+        default_enabled: true
+        confidence_ceiling: PROVISIONAL_SECONDARY
+        notes: Candidate CafeF family; must be observed before confidence upgrade.
+      - source_family: vndirect_market
+        candidate_independent_from_vnstock_vci: true
+        market_current_candidate: true
+        historical_candidate: true
+        finance_candidate: false
+        requires_network: true
+        requires_optional_install: true
+        default_enabled: true
+        confidence_ceiling: PROVISIONAL_SECONDARY
+        notes: Candidate VNDirect market family; must be observed before confidence upgrade.
+
+  - provider_name: vietfin
+    package_name: vietfin
+    role: experimental_secondary_candidate
+    source_families:
+      - source_family: unknown_brokerage_api
+        candidate_independent_from_vnstock_vci: false
+        market_current_candidate: true
+        historical_candidate: false
+        finance_candidate: false
+        requires_network: true
+        requires_optional_install: true
+        default_enabled: true
+        confidence_ceiling: PROVISIONAL_EXPERIMENTAL
+        notes: Upstream must be inspected before counting as independent.
+      - source_family: possible_vnstock_related
+        candidate_independent_from_vnstock_vci: false
+        market_current_candidate: true
+        historical_candidate: false
+        finance_candidate: false
+        requires_network: true
+        requires_optional_install: true
+        default_enabled: false
+        confidence_ceiling: PROVISIONAL_EXPERIMENTAL
+        notes: Possible shared upstream; do not count as independent.
+
+  - provider_name: vnstock_market_data
+    package_name: null
+    role: static_historical_fallback_only
+    source_families:
+      - source_family: static_github_historical
+        candidate_independent_from_vnstock_vci: false
+        market_current_candidate: false
+        historical_candidate: true
+        finance_candidate: false
+        requires_network: false
+        requires_optional_install: false
+        default_enabled: true
+        confidence_ceiling: HISTORICAL_FALLBACK_ONLY
+        notes: Static historical fallback only; never current confirmation when stale.
+
+core_output_watchlist:
+  - data/reports/provisional_current_market_03/current_market_snapshot.csv
+  - data/reports/provisional_current_market_03/stage2_eligibility_gate.csv
+  - data/reports/provisional_current_market_03/current_market_balanced_ranked_shortlist.csv
+  - data/reports/evidence_pack_policy_03_current_market/evidence_collection_queue.csv
+  - data/reports/real_data_02_pilot_20/real_data_02_pilot_readiness.csv
+  - data/reports/alternative_source_consensus_04b/source_family_consensus_20.csv
+  - data/reports/step19_shadow_20/step19_shadow_decision.json

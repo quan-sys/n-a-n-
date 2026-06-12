@@ -1,0 +1,101 @@
+ticker,source_family,provider_count,current_observation_count,current_match_with_primary_count,independent_current_confirmation,independence_reason,confidence_contribution
+TLH,cafef_structured_or_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+TLH,static_github_historical,1,0,0,False,Static historical fallback is not current confirmation.,NO_CURRENT_CONFIDENCE_UPGRADE
+TLH,unknown_brokerage_api,1,0,0,False,Source-family is not cleared as independent from vnstock VCI.,NO_CURRENT_CONFIDENCE_UPGRADE
+TLH,vndirect_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+TLH,vnstock_vci,1,1,0,False,Same primary source-family as vnstock VCI; not independent.,NO_CURRENT_CONFIDENCE_UPGRADE
+TVN,cafef_structured_or_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+TVN,static_github_historical,1,0,0,False,Static historical fallback is not current confirmation.,NO_CURRENT_CONFIDENCE_UPGRADE
+TVN,unknown_brokerage_api,1,0,0,False,Source-family is not cleared as independent from vnstock VCI.,NO_CURRENT_CONFIDENCE_UPGRADE
+TVN,vndirect_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+TVN,vnstock_vci,1,1,0,False,Same primary source-family as vnstock VCI; not independent.,NO_CURRENT_CONFIDENCE_UPGRADE
+TVS,cafef_structured_or_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+TVS,static_github_historical,1,0,0,False,Static historical fallback is not current confirmation.,NO_CURRENT_CONFIDENCE_UPGRADE
+TVS,unknown_brokerage_api,1,0,0,False,Source-family is not cleared as independent from vnstock VCI.,NO_CURRENT_CONFIDENCE_UPGRADE
+TVS,vndirect_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+TVS,vnstock_vci,1,1,0,False,Same primary source-family as vnstock VCI; not independent.,NO_CURRENT_CONFIDENCE_UPGRADE
+VCG,cafef_structured_or_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VCG,static_github_historical,1,0,0,False,Static historical fallback is not current confirmation.,NO_CURRENT_CONFIDENCE_UPGRADE
+VCG,unknown_brokerage_api,1,0,0,False,Source-family is not cleared as independent from vnstock VCI.,NO_CURRENT_CONFIDENCE_UPGRADE
+VCG,vndirect_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VCG,vnstock_vci,1,1,0,False,Same primary source-family as vnstock VCI; not independent.,NO_CURRENT_CONFIDENCE_UPGRADE
+VCI,cafef_structured_or_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VCI,static_github_historical,1,0,0,False,Static historical fallback is not current confirmation.,NO_CURRENT_CONFIDENCE_UPGRADE
+VCI,unknown_brokerage_api,1,0,0,False,Source-family is not cleared as independent from vnstock VCI.,NO_CURRENT_CONFIDENCE_UPGRADE
+VCI,vndirect_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VCI,vnstock_vci,1,1,0,False,Same primary source-family as vnstock VCI; not independent.,NO_CURRENT_CONFIDENCE_UPGRADE
+VDS,cafef_structured_or_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VDS,static_github_historical,1,0,0,False,Static historical fallback is not current confirmation.,NO_CURRENT_CONFIDENCE_UPGRADE
+VDS,unknown_brokerage_api,1,0,0,False,Source-family is not cleared as independent from vnstock VCI.,NO_CURRENT_CONFIDENCE_UPGRADE
+VDS,vndirect_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VDS,vnstock_vci,1,1,0,False,Same primary source-family as vnstock VCI; not independent.,NO_CURRENT_CONFIDENCE_UPGRADE
+VFS,cafef_structured_or_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VFS,static_github_historical,1,0,0,False,Static historical fallback is not current confirmation.,NO_CURRENT_CONFIDENCE_UPGRADE
+VFS,unknown_brokerage_api,1,0,0,False,Source-family is not cleared as independent from vnstock VCI.,NO_CURRENT_CONFIDENCE_UPGRADE
+VFS,vndirect_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VFS,vnstock_vci,1,1,0,False,Same primary source-family as vnstock VCI; not independent.,NO_CURRENT_CONFIDENCE_UPGRADE
+VGI,cafef_structured_or_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VGI,static_github_historical,1,0,0,False,Static historical fallback is not current confirmation.,NO_CURRENT_CONFIDENCE_UPGRADE
+VGI,unknown_brokerage_api,1,0,0,False,Source-family is not cleared as independent from vnstock VCI.,NO_CURRENT_CONFIDENCE_UPGRADE
+VGI,vndirect_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VGI,vnstock_vci,1,1,0,False,Same primary source-family as vnstock VCI; not independent.,NO_CURRENT_CONFIDENCE_UPGRADE
+VIG,cafef_structured_or_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VIG,static_github_historical,1,0,0,False,Static historical fallback is not current confirmation.,NO_CURRENT_CONFIDENCE_UPGRADE
+VIG,unknown_brokerage_api,1,0,0,False,Source-family is not cleared as independent from vnstock VCI.,NO_CURRENT_CONFIDENCE_UPGRADE
+VIG,vndirect_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VIG,vnstock_vci,1,1,0,False,Same primary source-family as vnstock VCI; not independent.,NO_CURRENT_CONFIDENCE_UPGRADE
+VIX,cafef_structured_or_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VIX,static_github_historical,1,0,0,False,Static historical fallback is not current confirmation.,NO_CURRENT_CONFIDENCE_UPGRADE
+VIX,unknown_brokerage_api,1,0,0,False,Source-family is not cleared as independent from vnstock VCI.,NO_CURRENT_CONFIDENCE_UPGRADE
+VIX,vndirect_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VIX,vnstock_vci,1,1,0,False,Same primary source-family as vnstock VCI; not independent.,NO_CURRENT_CONFIDENCE_UPGRADE
+VJC,cafef_structured_or_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VJC,static_github_historical,1,0,0,False,Static historical fallback is not current confirmation.,NO_CURRENT_CONFIDENCE_UPGRADE
+VJC,unknown_brokerage_api,1,0,0,False,Source-family is not cleared as independent from vnstock VCI.,NO_CURRENT_CONFIDENCE_UPGRADE
+VJC,vndirect_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VJC,vnstock_vci,1,1,0,False,Same primary source-family as vnstock VCI; not independent.,NO_CURRENT_CONFIDENCE_UPGRADE
+VND,cafef_structured_or_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VND,static_github_historical,1,0,0,False,Static historical fallback is not current confirmation.,NO_CURRENT_CONFIDENCE_UPGRADE
+VND,unknown_brokerage_api,1,0,0,False,Source-family is not cleared as independent from vnstock VCI.,NO_CURRENT_CONFIDENCE_UPGRADE
+VND,vndirect_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VND,vnstock_vci,1,1,0,False,Same primary source-family as vnstock VCI; not independent.,NO_CURRENT_CONFIDENCE_UPGRADE
+VNE,cafef_structured_or_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VNE,static_github_historical,1,0,0,False,Static historical fallback is not current confirmation.,NO_CURRENT_CONFIDENCE_UPGRADE
+VNE,unknown_brokerage_api,1,0,0,False,Source-family is not cleared as independent from vnstock VCI.,NO_CURRENT_CONFIDENCE_UPGRADE
+VNE,vndirect_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VNE,vnstock_vci,1,1,0,False,Same primary source-family as vnstock VCI; not independent.,NO_CURRENT_CONFIDENCE_UPGRADE
+VNM,cafef_structured_or_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VNM,static_github_historical,1,0,0,False,Static historical fallback is not current confirmation.,NO_CURRENT_CONFIDENCE_UPGRADE
+VNM,unknown_brokerage_api,1,0,0,False,Source-family is not cleared as independent from vnstock VCI.,NO_CURRENT_CONFIDENCE_UPGRADE
+VNM,vndirect_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VNM,vnstock_vci,1,1,0,False,Same primary source-family as vnstock VCI; not independent.,NO_CURRENT_CONFIDENCE_UPGRADE
+VOS,cafef_structured_or_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VOS,static_github_historical,1,0,0,False,Static historical fallback is not current confirmation.,NO_CURRENT_CONFIDENCE_UPGRADE
+VOS,unknown_brokerage_api,1,0,0,False,Source-family is not cleared as independent from vnstock VCI.,NO_CURRENT_CONFIDENCE_UPGRADE
+VOS,vndirect_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VOS,vnstock_vci,1,1,0,False,Same primary source-family as vnstock VCI; not independent.,NO_CURRENT_CONFIDENCE_UPGRADE
+VRE,cafef_structured_or_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VRE,static_github_historical,1,0,0,False,Static historical fallback is not current confirmation.,NO_CURRENT_CONFIDENCE_UPGRADE
+VRE,unknown_brokerage_api,1,0,0,False,Source-family is not cleared as independent from vnstock VCI.,NO_CURRENT_CONFIDENCE_UPGRADE
+VRE,vndirect_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VRE,vnstock_vci,1,1,0,False,Same primary source-family as vnstock VCI; not independent.,NO_CURRENT_CONFIDENCE_UPGRADE
+VSC,cafef_structured_or_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VSC,static_github_historical,1,0,0,False,Static historical fallback is not current confirmation.,NO_CURRENT_CONFIDENCE_UPGRADE
+VSC,unknown_brokerage_api,1,0,0,False,Source-family is not cleared as independent from vnstock VCI.,NO_CURRENT_CONFIDENCE_UPGRADE
+VSC,vndirect_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VSC,vnstock_vci,1,1,0,False,Same primary source-family as vnstock VCI; not independent.,NO_CURRENT_CONFIDENCE_UPGRADE
+VTP,cafef_structured_or_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VTP,static_github_historical,1,0,0,False,Static historical fallback is not current confirmation.,NO_CURRENT_CONFIDENCE_UPGRADE
+VTP,unknown_brokerage_api,1,0,0,False,Source-family is not cleared as independent from vnstock VCI.,NO_CURRENT_CONFIDENCE_UPGRADE
+VTP,vndirect_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VTP,vnstock_vci,1,1,0,False,Same primary source-family as vnstock VCI; not independent.,NO_CURRENT_CONFIDENCE_UPGRADE
+VTZ,cafef_structured_or_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VTZ,static_github_historical,1,0,0,False,Static historical fallback is not current confirmation.,NO_CURRENT_CONFIDENCE_UPGRADE
+VTZ,unknown_brokerage_api,1,0,0,False,Source-family is not cleared as independent from vnstock VCI.,NO_CURRENT_CONFIDENCE_UPGRADE
+VTZ,vndirect_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+VTZ,vnstock_vci,1,1,0,False,Same primary source-family as vnstock VCI; not independent.,NO_CURRENT_CONFIDENCE_UPGRADE
+YEG,cafef_structured_or_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+YEG,static_github_historical,1,0,0,False,Static historical fallback is not current confirmation.,NO_CURRENT_CONFIDENCE_UPGRADE
+YEG,unknown_brokerage_api,1,0,0,False,Source-family is not cleared as independent from vnstock VCI.,NO_CURRENT_CONFIDENCE_UPGRADE
+YEG,vndirect_market,1,0,0,False,No current observation was available.,NO_CURRENT_CONFIDENCE_UPGRADE
+YEG,vnstock_vci,1,1,0,False,Same primary source-family as vnstock VCI; not independent.,NO_CURRENT_CONFIDENCE_UPGRADE

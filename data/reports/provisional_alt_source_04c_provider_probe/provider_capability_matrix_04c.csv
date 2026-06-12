@@ -1,0 +1,7 @@
+provider_name,source_family,candidate_independent_from_vnstock_vci,market_current_candidate,historical_candidate,finance_candidate,requires_network,requires_optional_install,default_enabled,confidence_ceiling,notes
+vnstock,vnstock_vci,False,True,True,False,False,False,False,PROVISIONAL_PRIMARY,Primary source already used; raw cache is not independent.
+vnquant,cafef_structured_or_market,True,True,True,False,True,True,True,PROVISIONAL_SECONDARY,Candidate CafeF family; must be observed before confidence upgrade.
+vnquant,vndirect_market,True,True,True,False,True,True,True,PROVISIONAL_SECONDARY,Candidate VNDirect market family; must be observed before confidence upgrade.
+vietfin,unknown_brokerage_api,False,True,False,False,True,True,True,PROVISIONAL_EXPERIMENTAL,Upstream must be inspected before counting as independent.
+vietfin,possible_vnstock_related,False,True,False,False,True,True,False,PROVISIONAL_EXPERIMENTAL,Possible shared upstream; do not count as independent.
+vnstock_market_data,static_github_historical,False,False,True,False,False,False,True,HISTORICAL_FALLBACK_ONLY,Static historical fallback only; never current confirmation when stale.

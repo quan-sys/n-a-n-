@@ -1,0 +1,5 @@
+provider_name,package_name,package_found,import_attempted,import_status,import_error_type,import_error_message,version_detected,usable_for_04c,notes
+vnstock,vnstock,True,False,PACKAGE_FOUND_IMPORT_SKIPPED_PRIMARY,,,4.0.3,True,Primary provider package import is skipped to avoid side effects; primary data comes from the existing snapshot.
+vnquant,vnquant,False,False,PACKAGE_NOT_FOUND,,,,False,Optional provider package is not installed; 04C records this without failing.
+vietfin,vietfin,False,False,PACKAGE_NOT_FOUND,,,,False,Optional provider package is not installed; 04C records this without failing.
+vnstock_market_data,,False,False,NO_PACKAGE_STATIC_SOURCE,,,,True,No Python package configured; static/local source only.

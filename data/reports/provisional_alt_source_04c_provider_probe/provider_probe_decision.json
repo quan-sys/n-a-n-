@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-06-12T05:25:44+00:00",
+  "pilot_ticker_count": 20,
+  "expected_pilot_ticker_count": 20,
+  "providers_registered": 4,
+  "provider_importable_count": 1,
+  "provider_not_importable_count": 2,
+  "network_used": false,
+  "provider_fetch_attempt_count": 0,
+  "independent_current_source_family_count": 0,
+  "independent_current_source_families": [],
+  "tickers_with_independent_confirmation_count": 0,
+  "manual_review_count": 0,
+  "critical_fail_count": 0,
+  "config_errors": [],
+  "snapshot_errors": [],
+  "schema_errors": [],
+  "forbidden_terms_found": [],
+  "core_outputs_modified": false,
+  "final_decision": "CONDITIONAL_GO_NO_INDEPENDENT_CONFIRMATION",
+  "allowed_next_step": "Fix optional provider importability or enable guarded network probe; do not run production Step19.",
+  "not_authorized": [
+    "production_step19",
+    "top500_refresh",
+    "full_universe_live_fetch",
+    "official_pdf_fetch",
+    "OCR",
+    "valuation",
+    "target_price",
+    "buy_sell_hold_recommendation"
+  ]
+}
