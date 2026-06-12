@@ -1,0 +1,2 @@
+metric_name,current_value,previous_value,change,trend_direction,interpretation,confidence,manual_review_required
+manual_review_count,20,INSUFFICIENT_HISTORY,INSUFFICIENT_HISTORY,insufficient_history,insufficient_history,LOW,True

@@ -1,0 +1,72 @@
+step_id: STEP23-BACKTEST-MONITORING-MODULE
+mode: monitoring_filter_stability_only
+
+run:
+  sandbox_only: true
+  allow_partial: true
+  dry_run_default: false
+
+limits:
+  max_tickers: 100
+  full_universe_allowed: false
+  allow_limit_override: true
+
+source_confidence:
+  market_source_confidence: PROVISIONAL_PRIMARY_ONLY
+  finance_source_confidence_default: PROVISIONAL_LOW
+  crosscheck_status: NOT_AVAILABLE
+  verification_status: NEEDS_MANUAL_BCTC_REVIEW
+
+safety:
+  no_recommendation: true
+  no_buy_sell_hold: true
+  no_strategy_claim: true
+  no_alpha_claim: true
+  no_expected_profit: true
+  no_expected_return: true
+  no_target_price: true
+  no_fair_value: true
+  no_margin_of_safety: true
+  no_entry_exit_price: true
+  no_portfolio_recommendation: true
+  no_zero_fill: true
+  no_core_output_mutation: true
+
+monitoring:
+  snapshot_frequency: weekly
+  initialize_snapshot_if_missing: true
+  compare_to_previous_snapshot_if_available: true
+  track_watchlist_change: true
+  track_reject_reason_trend: true
+  track_manual_review_trend: true
+  track_data_coverage_trend: true
+  track_source_conflict_trend: true
+  track_sector_signal_drift: true
+  track_company_score_drift: true
+
+inputs:
+  step22_watchlist: data/reports/step22_l7_weekly_report_manual_review/watchlist_candidates.csv
+  step22_manual_review_queue: data/reports/step22_l7_weekly_report_manual_review/manual_review_queue.csv
+  step22_reject_log: data/reports/step22_l7_weekly_report_manual_review/reject_log.csv
+  step22_data_quality_summary: data/reports/step22_l7_weekly_report_manual_review/data_quality_summary.csv
+  step21_rows: data/reports/step21_l6_timing_liquidity_context/timing_liquidity_context_rows.csv
+  step20_rows:
+    - data/reports/step20_l5_valuation_risk_context/valuation_risk_context_rows.csv
+    - data/reports/step20_l5_valuation_risk_context/step20_valuation_risk_rows.csv
+  step19_rows:
+    - data/reports/step19_shadow_20/step19_shadow_rows.csv
+    - data/reports/step19_shadow_20/company_shadow_diagnostics_20.csv
+  market_snapshot: data/reports/provisional_current_market_03/current_market_snapshot.csv
+  monitoring_snapshots_dir: data/reports/monitoring_snapshots
+
+exports:
+  output_dir: data/reports/step23_backtest_monitoring_module
+
+core_output_watchlist:
+  - data/reports/step22_l7_weekly_report_manual_review/watchlist_candidates.csv
+  - data/reports/step22_l7_weekly_report_manual_review/manual_review_queue.csv
+  - data/reports/step22_l7_weekly_report_manual_review/reject_log.csv
+  - data/reports/step22_l7_weekly_report_manual_review/data_quality_summary.csv
+  - data/reports/step21_l6_timing_liquidity_context/timing_liquidity_context_rows.csv
+  - data/reports/step20_l5_valuation_risk_context/step20_valuation_risk_rows.csv
+  - data/reports/step19_shadow_20/company_shadow_diagnostics_20.csv

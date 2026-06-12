@@ -1,0 +1,2 @@
+reject_reason,current_count,previous_count,change,trend_direction,confidence
+NO_REJECTED_ROWS,0,INSUFFICIENT_HISTORY,INSUFFICIENT_HISTORY,insufficient_history,LOW

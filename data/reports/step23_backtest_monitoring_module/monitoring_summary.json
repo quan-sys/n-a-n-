@@ -1,0 +1,26 @@
+{
+  "step_id": "STEP23-BACKTEST-MONITORING-MODULE",
+  "created_at": "2026-06-12T11:25:32+00:00",
+  "mode": "monitoring_filter_stability_only",
+  "snapshot_created": true,
+  "previous_snapshot_found": false,
+  "processed_ticker_count": 20,
+  "watchlist_change_count": 0,
+  "manual_review_trend_available": false,
+  "data_coverage_trend_available": false,
+  "source_conflict_trend_available": false,
+  "missing_input_files": [],
+  "market_source_confidence": "PROVISIONAL_PRIMARY_ONLY",
+  "finance_source_confidence_default": "PROVISIONAL_LOW",
+  "crosscheck_status": "NOT_AVAILABLE",
+  "verification_status": "NEEDS_MANUAL_BCTC_REVIEW",
+  "final_decision": "PASS_MONITORING_WITH_WARNINGS",
+  "forbidden_terms_found": [],
+  "warnings": [
+    "This module monitors filter stability and data quality. It does not make performance claims and it does not provide trade guidance.",
+    "Monitoring uses existing provisional artifacts only.",
+    "Missing historical context is reported as INSUFFICIENT_HISTORY.",
+    "Manual BCTC and independent source verification remain required."
+  ],
+  "core_outputs_modified": false
+}

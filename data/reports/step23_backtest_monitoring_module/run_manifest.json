@@ -1,0 +1,29 @@
+{
+  "step_id": "STEP23-BACKTEST-MONITORING-MODULE",
+  "created_at": "2026-06-12T11:25:32+00:00",
+  "commit_hash": "eff8b25c174ce7a708ebe3ab7cd3858996755acf",
+  "command_used": "scripts\\run_step23_backtest_monitoring_module.py --config config\\step23_backtest_monitoring_module.yaml --limit 100 --output-dir data\\reports\\step23_backtest_monitoring_module --allow-partial",
+  "config_path": "config\\step23_backtest_monitoring_module.yaml",
+  "output_dir": "data\\reports\\step23_backtest_monitoring_module",
+  "snapshots_dir": "data\\reports\\monitoring_snapshots",
+  "snapshot_path": "data\\reports\\monitoring_snapshots\\snapshot_20260612_112532+0000.csv",
+  "previous_snapshot_path": "",
+  "max_tickers": 100,
+  "allow_partial": true,
+  "full_universe_allowed": false,
+  "network_usage_if_known": "none",
+  "core_outputs_modified": false,
+  "previous_step_outputs_mutated": false,
+  "resolved_inputs": {
+    "step22_watchlist": "data\\reports\\step22_l7_weekly_report_manual_review\\watchlist_candidates.csv",
+    "step22_manual_review_queue": "data\\reports\\step22_l7_weekly_report_manual_review\\manual_review_queue.csv",
+    "step22_reject_log": "data\\reports\\step22_l7_weekly_report_manual_review\\reject_log.csv",
+    "step22_data_quality_summary": "data\\reports\\step22_l7_weekly_report_manual_review\\data_quality_summary.csv",
+    "step21_rows": "data\\reports\\step21_l6_timing_liquidity_context\\timing_liquidity_context_rows.csv",
+    "step20_rows": "data\\reports\\step20_l5_valuation_risk_context\\step20_valuation_risk_rows.csv",
+    "step19_rows": "data\\reports\\step19_shadow_20\\company_shadow_diagnostics_20.csv",
+    "market_snapshot": "data\\reports\\provisional_current_market_03\\current_market_snapshot.csv",
+    "monitoring_snapshots_dir": "data\\reports\\monitoring_snapshots"
+  },
+  "missing_input_files": []
+}
