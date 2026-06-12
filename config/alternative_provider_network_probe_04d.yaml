@@ -1,0 +1,96 @@
+version: 1
+description: Controlled alternative provider network probe for the same 20 pilot tickers.
+
+safety:
+  sandbox_only: true
+  no_core_pipeline_mutation: true
+  no_ranking_mutation: true
+  no_stage_promotion: true
+  no_production_step19: true
+  no_step19_output_mutation: true
+  no_real_data_02_rerun: true
+  no_top500_refresh: true
+  no_full_universe_fetch: true
+  no_finance_fetch: true
+  no_official_pdf_fetch: true
+  no_ocr: true
+  no_recommendation: true
+  no_target_price: true
+  no_fair_value: true
+  no_margin_of_safety: true
+  no_zero_fill: true
+
+run_policy:
+  expected_pilot_ticker_count: 20
+  allow_network: false
+  allow_optional_install: false
+  allow_partial: false
+  max_requests: 40
+  sleep_seconds: 0.5
+  cache_provider_attempts: true
+  optional_install_strategy: report_only_no_environment_mutation
+
+comparison:
+  max_current_reference_gap_days: 5
+  max_price_pct_diff_for_match: 0.03
+  max_volume_60d_pct_diff_for_match: 0.50
+  pass_min_independent_match_tickers: 15
+
+inputs:
+  ticker_sources:
+    - data/reports/provisional_current_market_03/current_market_snapshot.csv
+    - data/reports/real_data_02_pilot_20/real_data_02_pilot_readiness.csv
+    - data/reports/step19_shadow_20/step19_shadow_diagnostic.csv
+  primary_snapshot: data/reports/provisional_current_market_03/current_market_snapshot.csv
+
+source_family_rules:
+  primary_source_family: vnstock_vci
+  raw_cache_is_independent: false
+  static_github_historical_is_current_confirmation: false
+  same_upstream_family_counts_once: true
+
+providers:
+  - provider_name: vnquant
+    package_name: vnquant
+    role: secondary_candidate
+    source_families:
+      - source_family: cafef_structured_or_market
+        data_source: cafe
+        candidate_independent_from_primary: true
+        default_enabled: true
+        source_url_or_endpoint_family: vnquant_cafef
+      - source_family: vndirect_market
+        data_source: vnd
+        candidate_independent_from_primary: true
+        default_enabled: true
+        source_url_or_endpoint_family: vnquant_vndirect
+
+  - provider_name: vietfin
+    package_name: vietfin
+    role: experimental_secondary_candidate
+    source_families:
+      - source_family: unknown_brokerage_api
+        data_source: unknown
+        candidate_independent_from_primary: false
+        default_enabled: true
+        source_url_or_endpoint_family: vietfin_unknown
+
+  - provider_name: vnstock_market_data
+    package_name: null
+    role: static_historical_fallback_only
+    source_families:
+      - source_family: static_github_historical
+        data_source: static_github
+        candidate_independent_from_primary: false
+        default_enabled: true
+        source_url_or_endpoint_family: vnstock_market_data_static
+
+core_output_watchlist:
+  - data/reports/provisional_current_market_03/current_market_snapshot.csv
+  - data/reports/provisional_current_market_03/stage2_eligibility_gate.csv
+  - data/reports/provisional_current_market_03/current_market_balanced_ranked_shortlist.csv
+  - data/reports/evidence_pack_policy_03_current_market/evidence_collection_queue.csv
+  - data/reports/real_data_02_pilot_20/real_data_02_pilot_readiness.csv
+  - data/reports/alternative_source_consensus_04b/source_family_consensus_20.csv
+  - data/reports/provisional_alt_source_04c_provider_probe/provider_probe_decision.json
+  - data/reports/step19_shadow_20/step19_shadow_decision.json

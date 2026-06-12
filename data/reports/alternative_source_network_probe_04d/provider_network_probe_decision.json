@@ -1,0 +1,41 @@
+{
+  "task": "PROVISIONAL-ALT-SOURCE-04D",
+  "generated_at": "2026-06-12T06:24:03+00:00",
+  "ticker_source_path": "data\\reports\\provisional_current_market_03\\current_market_snapshot.csv",
+  "pilot_ticker_count": 20,
+  "expected_pilot_ticker_count": 20,
+  "network_used": false,
+  "optional_install_used": false,
+  "provider_count_attempted": 0,
+  "provider_count_fetch_ok": 0,
+  "independent_current_source_family_count": 0,
+  "independent_current_source_families": [],
+  "tickers_with_independent_match_count": 0,
+  "tickers_with_independent_mismatch_count": 0,
+  "manual_review_count": 0,
+  "critical_fail_count": 0,
+  "core_outputs_modified": false,
+  "config_errors": [],
+  "primary_errors": [],
+  "schema_errors": [],
+  "forbidden_terms_found": [],
+  "safety_context_terms": [
+    "provider_network_probe_summary.md:31:buy",
+    "provider_network_probe_summary.md:31:sell",
+    "provider_network_probe_summary.md:31:hold",
+    "provider_network_probe_summary.md:31:recommendation"
+  ],
+  "final_decision": "CONDITIONAL_GO_FOR_SCALE_DECISION_WITH_PRIMARY_ONLY_MARKET_CONFIDENCE",
+  "allowed_next_step": "SCALE-DECISION-05A with explicit primary-only warning",
+  "not_authorized": [
+    "production_step19",
+    "top500_refresh",
+    "full_universe_live_fetch",
+    "REAL-DATA-02-rerun",
+    "official_pdf_fetch",
+    "OCR",
+    "valuation",
+    "target_price",
+    "buy_sell_hold_recommendation"
+  ]
+}
