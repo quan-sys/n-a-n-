@@ -1,0 +1,1 @@
+ticker,source_provider_id,source_family,mismatch_status,primary_last_price_date,primary_last_close,alternative_last_price_date,alternative_last_close,price_date_gap_days,price_pct_diff,volume_60d_pct_diff,reason

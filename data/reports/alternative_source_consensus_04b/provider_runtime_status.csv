@@ -1,0 +1,5 @@
+provider_id,package_name,source_families,runtime_status,import_status,provider_importable,attempted_market_fetch,network_used,market_data_fetched,finance_data_fetched,usable_observation_count,error_type,error_message
+vnstock_primary_reference,,vnstock_vci,PRIMARY_SNAPSHOT_AVAILABLE,LOCAL_FILE,True,False,False,False,False,20,,
+vnquant_secondary_candidate,vnquant,cafef;vndirect,PROVIDER_NOT_IMPORTABLE,NOT_IMPORTABLE,False,False,False,False,False,0,ModuleNotFoundError,No module named 'vnquant'
+vietfin_experimental_candidate,vietfin,unknown_brokerage_api;possible_vnstock_related,PROVIDER_NOT_IMPORTABLE,NOT_IMPORTABLE,False,False,False,False,False,0,ModuleNotFoundError,No module named 'vietfin'
+vnstock_market_data_historical_fallback,,static_github_historical,HISTORICAL_FALLBACK_ONLY,NO_PACKAGE,False,False,False,False,False,0,,

@@ -1,0 +1,141 @@
+ticker,source_provider_id,source_family,observation_status,last_price_date,last_close,avg_volume_20d,avg_volume_60d,trading_days_60d,price_basis,is_current_enough,is_independent_current_candidate,is_historical_fallback_only,error_type,error_message,price_date_gap_days,price_pct_diff,volume_60d_pct_diff,price_match_status,volume_match_status,manual_review_flag
+VIX,vnstock_primary_reference,vnstock_vci,PRIMARY_OK,2026-06-11,16.85,37589135.0,38012534.3167,60,unadjusted,True,False,False,,,,,,,,False
+VND,vnstock_primary_reference,vnstock_vci,PRIMARY_OK,2026-06-11,17.2,19177213.55,13594958.6667,60,unadjusted,True,False,False,,,,,,,,False
+VSC,vnstock_primary_reference,vnstock_vci,PRIMARY_OK,2026-06-11,18.45,3310805.0,4819121.6667,60,unadjusted,True,False,False,,,,,,,,False
+VGI,vnstock_primary_reference,vnstock_vci,PRIMARY_OK,2026-06-11,89.4,811425.0,749600.0,60,unadjusted,True,False,False,,,,,,,,False
+VCG,vnstock_primary_reference,vnstock_vci,PRIMARY_OK,2026-06-11,19.6,3771185.0,8778986.6667,60,unadjusted,True,False,False,,,,,,,,False
+VNM,vnstock_primary_reference,vnstock_vci,PRIMARY_OK,2026-06-11,59.2,2920120.0,3562053.3333,60,unadjusted,True,False,False,,,,,,,,False
+TVN,vnstock_primary_reference,vnstock_vci,PRIMARY_OK,2026-06-11,11.6,1312470.0,792523.3333,60,unadjusted,True,False,False,,,,,,,,False
+VJC,vnstock_primary_reference,vnstock_vci,PRIMARY_OK,2026-06-11,177.5,1103555.0,1256716.6667,60,unadjusted,True,False,False,,,,,,,,False
+VTZ,vnstock_primary_reference,vnstock_vci,PRIMARY_OK,2026-06-11,20.5,1022065.0,1063093.3333,60,unadjusted,True,False,False,,,,,,,,False
+YEG,vnstock_primary_reference,vnstock_vci,PRIMARY_OK,2026-06-11,8.53,652105.35,924037.0,60,unadjusted,True,False,False,,,,,,,,False
+VCI,vnstock_primary_reference,vnstock_vci,PRIMARY_OK,2026-06-11,23.4,6277985.0,8458236.95,60,unadjusted,True,False,False,,,,,,,,False
+VFS,vnstock_primary_reference,vnstock_vci,PRIMARY_OK,2026-06-11,10.3,1456764.5,1405374.4,60,unadjusted,True,False,False,,,,,,,,False
+VDS,vnstock_primary_reference,vnstock_vci,PRIMARY_OK,2026-06-11,13.85,496080.0,672768.3333,60,unadjusted,True,False,False,,,,,,,,False
+VIG,vnstock_primary_reference,vnstock_vci,PRIMARY_OK,2026-06-11,4.4,46965.0,61148.3333,60,unadjusted,True,False,False,,,,,,,,False
+TVS,vnstock_primary_reference,vnstock_vci,PRIMARY_OK,2026-06-11,12.95,44445.0,66781.6667,60,unadjusted,True,False,False,,,,,,,,False
+VRE,vnstock_primary_reference,vnstock_vci,PRIMARY_OK,2026-06-11,29.15,5038620.0,6965415.0,60,unadjusted,True,False,False,,,,,,,,False
+VNE,vnstock_primary_reference,vnstock_vci,PRIMARY_OK,2026-06-11,3.01,1593910.0,844325.0,60,unadjusted,True,False,False,,,,,,,,False
+VOS,vnstock_primary_reference,vnstock_vci,PRIMARY_OK,2026-06-11,11.8,655025.0,1005491.6667,60,unadjusted,True,False,False,,,,,,,,False
+VTP,vnstock_primary_reference,vnstock_vci,PRIMARY_OK,2026-06-11,64.0,559980.0,539107.8333,60,unadjusted,True,False,False,,,,,,,,False
+TLH,vnstock_primary_reference,vnstock_vci,PRIMARY_OK,2026-06-11,4.38,157870.0,181486.6667,60,unadjusted,True,False,False,,,,,,,,False
+VIX,raw_cache_current_market_03,vnstock_vci,NOT_INDEPENDENT_SAME_SOURCE_FAMILY,2026-06-11,16.85,37589135.0,38012534.3167,60,unadjusted,True,False,False,,,0,0.0,0.0,PRICE_MATCH,VOLUME_MATCH,False
+VND,raw_cache_current_market_03,vnstock_vci,NOT_INDEPENDENT_SAME_SOURCE_FAMILY,2026-06-11,17.2,19177213.55,13594958.6667,60,unadjusted,True,False,False,,,0,0.0,0.0,PRICE_MATCH,VOLUME_MATCH,False
+VSC,raw_cache_current_market_03,vnstock_vci,NOT_INDEPENDENT_SAME_SOURCE_FAMILY,2026-06-11,18.45,3310805.0,4819121.6667,60,unadjusted,True,False,False,,,0,0.0,0.0,PRICE_MATCH,VOLUME_MATCH,False
+VGI,raw_cache_current_market_03,vnstock_vci,NOT_INDEPENDENT_SAME_SOURCE_FAMILY,2026-06-11,89.4,811425.0,749600.0,60,unadjusted,True,False,False,,,0,0.0,0.0,PRICE_MATCH,VOLUME_MATCH,False
+VCG,raw_cache_current_market_03,vnstock_vci,NOT_INDEPENDENT_SAME_SOURCE_FAMILY,2026-06-11,19.6,3771185.0,8778986.6667,60,unadjusted,True,False,False,,,0,0.0,0.0,PRICE_MATCH,VOLUME_MATCH,False
+VNM,raw_cache_current_market_03,vnstock_vci,NOT_INDEPENDENT_SAME_SOURCE_FAMILY,2026-06-11,59.2,2920120.0,3562053.3333,60,unadjusted,True,False,False,,,0,0.0,0.0,PRICE_MATCH,VOLUME_MATCH,False
+TVN,raw_cache_current_market_03,vnstock_vci,NOT_INDEPENDENT_SAME_SOURCE_FAMILY,2026-06-11,11.6,1312470.0,792523.3333,60,unadjusted,True,False,False,,,0,0.0,0.0,PRICE_MATCH,VOLUME_MATCH,False
+VJC,raw_cache_current_market_03,vnstock_vci,NOT_INDEPENDENT_SAME_SOURCE_FAMILY,2026-06-11,177.5,1103555.0,1256716.6667,60,unadjusted,True,False,False,,,0,0.0,0.0,PRICE_MATCH,VOLUME_MATCH,False
+VTZ,raw_cache_current_market_03,vnstock_vci,NOT_INDEPENDENT_SAME_SOURCE_FAMILY,2026-06-11,20.5,1022065.0,1063093.3333,60,unadjusted,True,False,False,,,0,0.0,0.0,PRICE_MATCH,VOLUME_MATCH,False
+YEG,raw_cache_current_market_03,vnstock_vci,NOT_INDEPENDENT_SAME_SOURCE_FAMILY,2026-06-11,8.53,652105.35,924037.0,60,unadjusted,True,False,False,,,0,0.0,0.0,PRICE_MATCH,VOLUME_MATCH,False
+VCI,raw_cache_current_market_03,vnstock_vci,NOT_INDEPENDENT_SAME_SOURCE_FAMILY,2026-06-11,23.4,6277985.0,8458236.95,60,unadjusted,True,False,False,,,0,0.0,0.0,PRICE_MATCH,VOLUME_MATCH,False
+VFS,raw_cache_current_market_03,vnstock_vci,NOT_INDEPENDENT_SAME_SOURCE_FAMILY,2026-06-11,10.3,1456764.5,1405374.4,60,unadjusted,True,False,False,,,0,0.0,0.0,PRICE_MATCH,VOLUME_MATCH,False
+VDS,raw_cache_current_market_03,vnstock_vci,NOT_INDEPENDENT_SAME_SOURCE_FAMILY,2026-06-11,13.85,496080.0,672768.3333,60,unadjusted,True,False,False,,,0,0.0,0.0,PRICE_MATCH,VOLUME_MATCH,False
+VIG,raw_cache_current_market_03,vnstock_vci,NOT_INDEPENDENT_SAME_SOURCE_FAMILY,2026-06-11,4.4,46965.0,61148.3333,60,unadjusted,True,False,False,,,0,0.0,0.0,PRICE_MATCH,VOLUME_MATCH,False
+TVS,raw_cache_current_market_03,vnstock_vci,NOT_INDEPENDENT_SAME_SOURCE_FAMILY,2026-06-11,12.95,44445.0,66781.6667,60,unadjusted,True,False,False,,,0,0.0,0.0,PRICE_MATCH,VOLUME_MATCH,False
+VRE,raw_cache_current_market_03,vnstock_vci,NOT_INDEPENDENT_SAME_SOURCE_FAMILY,2026-06-11,29.15,5038620.0,6965415.0,60,unadjusted,True,False,False,,,0,0.0,0.0,PRICE_MATCH,VOLUME_MATCH,False
+VNE,raw_cache_current_market_03,vnstock_vci,NOT_INDEPENDENT_SAME_SOURCE_FAMILY,2026-06-11,3.01,1593910.0,844325.0,60,unadjusted,True,False,False,,,0,0.0,0.0,PRICE_MATCH,VOLUME_MATCH,False
+VOS,raw_cache_current_market_03,vnstock_vci,NOT_INDEPENDENT_SAME_SOURCE_FAMILY,2026-06-11,11.8,655025.0,1005491.6667,60,unadjusted,True,False,False,,,0,0.0,0.0,PRICE_MATCH,VOLUME_MATCH,False
+VTP,raw_cache_current_market_03,vnstock_vci,NOT_INDEPENDENT_SAME_SOURCE_FAMILY,2026-06-11,64.0,559980.0,539107.8333,60,unadjusted,True,False,False,,,0,0.0,0.0,PRICE_MATCH,VOLUME_MATCH,False
+TLH,raw_cache_current_market_03,vnstock_vci,NOT_INDEPENDENT_SAME_SOURCE_FAMILY,2026-06-11,4.38,157870.0,181486.6667,60,unadjusted,True,False,False,,,0,0.0,0.0,PRICE_MATCH,VOLUME_MATCH,False
+VIX,vnquant_secondary_candidate,cafef,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VIX,vnquant_secondary_candidate,vndirect,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VND,vnquant_secondary_candidate,cafef,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VND,vnquant_secondary_candidate,vndirect,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VSC,vnquant_secondary_candidate,cafef,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VSC,vnquant_secondary_candidate,vndirect,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VGI,vnquant_secondary_candidate,cafef,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VGI,vnquant_secondary_candidate,vndirect,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VCG,vnquant_secondary_candidate,cafef,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VCG,vnquant_secondary_candidate,vndirect,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VNM,vnquant_secondary_candidate,cafef,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VNM,vnquant_secondary_candidate,vndirect,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+TVN,vnquant_secondary_candidate,cafef,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+TVN,vnquant_secondary_candidate,vndirect,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VJC,vnquant_secondary_candidate,cafef,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VJC,vnquant_secondary_candidate,vndirect,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VTZ,vnquant_secondary_candidate,cafef,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VTZ,vnquant_secondary_candidate,vndirect,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+YEG,vnquant_secondary_candidate,cafef,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+YEG,vnquant_secondary_candidate,vndirect,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VCI,vnquant_secondary_candidate,cafef,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VCI,vnquant_secondary_candidate,vndirect,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VFS,vnquant_secondary_candidate,cafef,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VFS,vnquant_secondary_candidate,vndirect,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VDS,vnquant_secondary_candidate,cafef,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VDS,vnquant_secondary_candidate,vndirect,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VIG,vnquant_secondary_candidate,cafef,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VIG,vnquant_secondary_candidate,vndirect,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+TVS,vnquant_secondary_candidate,cafef,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+TVS,vnquant_secondary_candidate,vndirect,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VRE,vnquant_secondary_candidate,cafef,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VRE,vnquant_secondary_candidate,vndirect,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VNE,vnquant_secondary_candidate,cafef,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VNE,vnquant_secondary_candidate,vndirect,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VOS,vnquant_secondary_candidate,cafef,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VOS,vnquant_secondary_candidate,vndirect,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VTP,vnquant_secondary_candidate,cafef,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VTP,vnquant_secondary_candidate,vndirect,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+TLH,vnquant_secondary_candidate,cafef,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+TLH,vnquant_secondary_candidate,vndirect,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vnquant',,,,,,False
+VIX,vietfin_experimental_candidate,unknown_brokerage_api,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VIX,vietfin_experimental_candidate,possible_vnstock_related,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VND,vietfin_experimental_candidate,unknown_brokerage_api,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VND,vietfin_experimental_candidate,possible_vnstock_related,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VSC,vietfin_experimental_candidate,unknown_brokerage_api,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VSC,vietfin_experimental_candidate,possible_vnstock_related,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VGI,vietfin_experimental_candidate,unknown_brokerage_api,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VGI,vietfin_experimental_candidate,possible_vnstock_related,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VCG,vietfin_experimental_candidate,unknown_brokerage_api,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VCG,vietfin_experimental_candidate,possible_vnstock_related,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VNM,vietfin_experimental_candidate,unknown_brokerage_api,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VNM,vietfin_experimental_candidate,possible_vnstock_related,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+TVN,vietfin_experimental_candidate,unknown_brokerage_api,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+TVN,vietfin_experimental_candidate,possible_vnstock_related,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VJC,vietfin_experimental_candidate,unknown_brokerage_api,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VJC,vietfin_experimental_candidate,possible_vnstock_related,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VTZ,vietfin_experimental_candidate,unknown_brokerage_api,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VTZ,vietfin_experimental_candidate,possible_vnstock_related,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+YEG,vietfin_experimental_candidate,unknown_brokerage_api,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+YEG,vietfin_experimental_candidate,possible_vnstock_related,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VCI,vietfin_experimental_candidate,unknown_brokerage_api,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VCI,vietfin_experimental_candidate,possible_vnstock_related,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VFS,vietfin_experimental_candidate,unknown_brokerage_api,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VFS,vietfin_experimental_candidate,possible_vnstock_related,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VDS,vietfin_experimental_candidate,unknown_brokerage_api,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VDS,vietfin_experimental_candidate,possible_vnstock_related,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VIG,vietfin_experimental_candidate,unknown_brokerage_api,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VIG,vietfin_experimental_candidate,possible_vnstock_related,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+TVS,vietfin_experimental_candidate,unknown_brokerage_api,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+TVS,vietfin_experimental_candidate,possible_vnstock_related,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VRE,vietfin_experimental_candidate,unknown_brokerage_api,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VRE,vietfin_experimental_candidate,possible_vnstock_related,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VNE,vietfin_experimental_candidate,unknown_brokerage_api,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VNE,vietfin_experimental_candidate,possible_vnstock_related,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VOS,vietfin_experimental_candidate,unknown_brokerage_api,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VOS,vietfin_experimental_candidate,possible_vnstock_related,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VTP,vietfin_experimental_candidate,unknown_brokerage_api,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VTP,vietfin_experimental_candidate,possible_vnstock_related,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+TLH,vietfin_experimental_candidate,unknown_brokerage_api,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+TLH,vietfin_experimental_candidate,possible_vnstock_related,PROVIDER_NOT_IMPORTABLE,,,,,,,False,False,False,ModuleNotFoundError,No module named 'vietfin',,,,,,False
+VIX,vnstock_market_data_historical_fallback,static_github_historical,HISTORICAL_FALLBACK_ONLY,2023-06-30,10800.0,21138920.0,18557321.6667,,unknown,False,False,True,,,,,,,,False
+VND,vnstock_market_data_historical_fallback,static_github_historical,HISTORICAL_FALLBACK_ONLY,2023-06-30,18900.0,34590290.0,27268383.3333,,unknown,False,False,True,,,,,,,,False
+VSC,vnstock_market_data_historical_fallback,static_github_historical,HISTORICAL_FALLBACK_ONLY,2023-06-30,35550.0,1395310.0,635756.6667,,unknown,False,False,True,,,,,,,,False
+VGI,vnstock_market_data_historical_fallback,static_github_historical,HISTORICAL_FALLBACK_ONLY,2023-06-30,23400.0,698825.0,589195.0,,unknown,False,False,True,,,,,,,,False
+VCG,vnstock_market_data_historical_fallback,static_github_historical,HISTORICAL_FALLBACK_ONLY,2023-06-30,20850.0,11205840.0,9264398.3333,,unknown,False,False,True,,,,,,,,False
+VNM,vnstock_market_data_historical_fallback,static_github_historical,HISTORICAL_FALLBACK_ONLY,2023-06-30,71000.0,5254155.0,2628806.6667,,unknown,False,False,True,,,,,,,,False
+TVN,vnstock_market_data_historical_fallback,static_github_historical,HISTORICAL_FALLBACK_ONLY,2023-06-30,6200.0,675870.0,463705.0,,unknown,False,False,True,,,,,,,,False
+VJC,vnstock_market_data_historical_fallback,static_github_historical,HISTORICAL_FALLBACK_ONLY,2023-06-30,94300.0,756090.0,534961.6667,,unknown,False,False,True,,,,,,,,False
+VTZ,vnstock_market_data_historical_fallback,static_github_historical,HISTORICAL_FALLBACK_ONLY,2023-06-30,8200.0,33235.0,29993.3333,,unknown,False,False,True,,,,,,,,False
+YEG,vnstock_market_data_historical_fallback,static_github_historical,HISTORICAL_FALLBACK_ONLY,2023-06-30,14000.0,127085.0,97916.6667,,unknown,False,False,True,,,,,,,,False
+VCI,vnstock_market_data_historical_fallback,static_github_historical,HISTORICAL_FALLBACK_ONLY,2023-06-30,36600.0,5320650.0,5030320.0,,unknown,False,False,True,,,,,,,,False
+VFS,vnstock_market_data_historical_fallback,static_github_historical,HISTORICAL_FALLBACK_ONLY,2023-06-30,21400.0,200220.0,146956.6667,,unknown,False,False,True,,,,,,,,False
+VDS,vnstock_market_data_historical_fallback,static_github_historical,HISTORICAL_FALLBACK_ONLY,2023-06-30,13650.0,848545.0,1003775.0,,unknown,False,False,True,,,,,,,,False
+VIG,vnstock_market_data_historical_fallback,static_github_historical,HISTORICAL_FALLBACK_ONLY,2023-06-30,7600.0,717395.0,666396.6667,,unknown,False,False,True,,,,,,,,False
+TVS,vnstock_market_data_historical_fallback,static_github_historical,HISTORICAL_FALLBACK_ONLY,2023-06-30,23400.0,109880.0,60266.6667,,unknown,False,False,True,,,,,,,,False
+VRE,vnstock_market_data_historical_fallback,static_github_historical,HISTORICAL_FALLBACK_ONLY,2023-06-30,26800.0,3600260.0,3029891.6667,,unknown,False,False,True,,,,,,,,False
+VNE,vnstock_market_data_historical_fallback,static_github_historical,HISTORICAL_FALLBACK_ONLY,2023-06-30,12050.0,355710.0,375796.6667,,unknown,False,False,True,,,,,,,,False
+VOS,vnstock_market_data_historical_fallback,static_github_historical,HISTORICAL_FALLBACK_ONLY,2023-06-30,12650.0,2573040.0,2062201.6667,,unknown,False,False,True,,,,,,,,False
+VTP,vnstock_market_data_historical_fallback,static_github_historical,HISTORICAL_FALLBACK_ONLY,2023-06-30,39800.0,777295.0,740021.6667,,unknown,False,False,True,,,,,,,,False
+TLH,vnstock_market_data_historical_fallback,static_github_historical,HISTORICAL_FALLBACK_ONLY,2023-06-30,7890.0,1242480.0,1165110.0,,unknown,False,False,True,,,,,,,,False

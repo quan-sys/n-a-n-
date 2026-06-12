@@ -1,0 +1,21 @@
+ticker,primary_status,primary_last_price_date,primary_last_close,provider_observation_count,independent_current_source_family_count,matching_independent_source_family_count,matching_source_families,non_independent_current_source_family_count,historical_fallback_observation_count,severe_mismatch_count,consensus_confidence,consensus_status,consensus_reason
+VIX,PRIMARY_OK,2026-06-11,16.85,6,0,0,,1,1,0,PROVISIONAL_LOW_PLUS,PRIMARY_WITH_RAW_CACHE_ONLY,Only same-family raw cache consistency is available.
+VND,PRIMARY_OK,2026-06-11,17.2,6,0,0,,1,1,0,PROVISIONAL_LOW_PLUS,PRIMARY_WITH_RAW_CACHE_ONLY,Only same-family raw cache consistency is available.
+VSC,PRIMARY_OK,2026-06-11,18.45,6,0,0,,1,1,0,PROVISIONAL_LOW_PLUS,PRIMARY_WITH_RAW_CACHE_ONLY,Only same-family raw cache consistency is available.
+VGI,PRIMARY_OK,2026-06-11,89.4,6,0,0,,1,1,0,PROVISIONAL_LOW_PLUS,PRIMARY_WITH_RAW_CACHE_ONLY,Only same-family raw cache consistency is available.
+VCG,PRIMARY_OK,2026-06-11,19.6,6,0,0,,1,1,0,PROVISIONAL_LOW_PLUS,PRIMARY_WITH_RAW_CACHE_ONLY,Only same-family raw cache consistency is available.
+VNM,PRIMARY_OK,2026-06-11,59.2,6,0,0,,1,1,0,PROVISIONAL_LOW_PLUS,PRIMARY_WITH_RAW_CACHE_ONLY,Only same-family raw cache consistency is available.
+TVN,PRIMARY_OK,2026-06-11,11.6,6,0,0,,1,1,0,PROVISIONAL_LOW_PLUS,PRIMARY_WITH_RAW_CACHE_ONLY,Only same-family raw cache consistency is available.
+VJC,PRIMARY_OK,2026-06-11,177.5,6,0,0,,1,1,0,PROVISIONAL_LOW_PLUS,PRIMARY_WITH_RAW_CACHE_ONLY,Only same-family raw cache consistency is available.
+VTZ,PRIMARY_OK,2026-06-11,20.5,6,0,0,,1,1,0,PROVISIONAL_LOW_PLUS,PRIMARY_WITH_RAW_CACHE_ONLY,Only same-family raw cache consistency is available.
+YEG,PRIMARY_OK,2026-06-11,8.53,6,0,0,,1,1,0,PROVISIONAL_LOW_PLUS,PRIMARY_WITH_RAW_CACHE_ONLY,Only same-family raw cache consistency is available.
+VCI,PRIMARY_OK,2026-06-11,23.4,6,0,0,,1,1,0,PROVISIONAL_LOW_PLUS,PRIMARY_WITH_RAW_CACHE_ONLY,Only same-family raw cache consistency is available.
+VFS,PRIMARY_OK,2026-06-11,10.3,6,0,0,,1,1,0,PROVISIONAL_LOW_PLUS,PRIMARY_WITH_RAW_CACHE_ONLY,Only same-family raw cache consistency is available.
+VDS,PRIMARY_OK,2026-06-11,13.85,6,0,0,,1,1,0,PROVISIONAL_LOW_PLUS,PRIMARY_WITH_RAW_CACHE_ONLY,Only same-family raw cache consistency is available.
+VIG,PRIMARY_OK,2026-06-11,4.4,6,0,0,,1,1,0,PROVISIONAL_LOW_PLUS,PRIMARY_WITH_RAW_CACHE_ONLY,Only same-family raw cache consistency is available.
+TVS,PRIMARY_OK,2026-06-11,12.95,6,0,0,,1,1,0,PROVISIONAL_LOW_PLUS,PRIMARY_WITH_RAW_CACHE_ONLY,Only same-family raw cache consistency is available.
+VRE,PRIMARY_OK,2026-06-11,29.15,6,0,0,,1,1,0,PROVISIONAL_LOW_PLUS,PRIMARY_WITH_RAW_CACHE_ONLY,Only same-family raw cache consistency is available.
+VNE,PRIMARY_OK,2026-06-11,3.01,6,0,0,,1,1,0,PROVISIONAL_LOW_PLUS,PRIMARY_WITH_RAW_CACHE_ONLY,Only same-family raw cache consistency is available.
+VOS,PRIMARY_OK,2026-06-11,11.8,6,0,0,,1,1,0,PROVISIONAL_LOW_PLUS,PRIMARY_WITH_RAW_CACHE_ONLY,Only same-family raw cache consistency is available.
+VTP,PRIMARY_OK,2026-06-11,64.0,6,0,0,,1,1,0,PROVISIONAL_LOW_PLUS,PRIMARY_WITH_RAW_CACHE_ONLY,Only same-family raw cache consistency is available.
+TLH,PRIMARY_OK,2026-06-11,4.38,6,0,0,,1,1,0,PROVISIONAL_LOW_PLUS,PRIMARY_WITH_RAW_CACHE_ONLY,Only same-family raw cache consistency is available.

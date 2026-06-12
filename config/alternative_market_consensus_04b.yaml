@@ -1,0 +1,42 @@
+version: 1
+description: Sandbox-only 20 ticker market consensus against alternative source families.
+
+safety:
+  sandbox_only: true
+  no_core_pipeline_mutation: true
+  no_ranking_mutation: true
+  no_stage_promotion: true
+  no_step19: true
+  no_real_data_02: true
+  no_top500_refresh: true
+  no_full_universe_fetch: true
+  no_official_pdf_fetch: true
+  no_ocr: true
+  no_recommendation: true
+  no_target_price: true
+  no_fair_value: true
+  no_margin_of_safety: true
+
+run_policy:
+  max_tickers: 20
+  allow_network_fetch: true
+  allow_market_data_fetch: true
+  allow_finance_data_fetch: false
+  allow_auto_install: false
+  continue_if_provider_missing: true
+  continue_if_provider_error: true
+  sleep_seconds_between_provider_calls: 0.25
+  provider_timeout_seconds: 30
+
+comparison:
+  max_current_reference_gap_days: 5
+  max_price_pct_diff_for_match: 0.03
+  max_volume_60d_pct_diff_for_match: 0.50
+  min_independent_current_source_families_for_medium_confidence: 1
+  min_independent_current_source_families_for_medium_high_confidence: 2
+
+source_family_rules:
+  primary_source_family: vnstock_vci
+  raw_cache_is_independent: false
+  static_github_historical_is_current_confirmation: false
+  same_upstream_family_counts_once: true
