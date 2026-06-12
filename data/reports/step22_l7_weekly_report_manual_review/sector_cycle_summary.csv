@@ -1,0 +1,8 @@
+micro_sector,ticker_count,cycle_status,top_improving_count,distressed_without_recovery_count,overheating_count,structural_warning_count,anomaly_alert_count,data_quality_warning_count,confidence_status
+Công nghiệp::non_financial,5,INSUFFICIENT_DATA,0,0,0,0,0,5,INSUFFICIENT_DATA
+Dịch vụ Tiêu dùng::non_financial,2,INSUFFICIENT_DATA,0,0,0,0,0,2,INSUFFICIENT_DATA
+Hàng Tiêu dùng::non_financial,1,INSUFFICIENT_DATA,0,0,0,0,0,1,INSUFFICIENT_DATA
+Nguyên vật liệu::non_financial,3,INSUFFICIENT_DATA,0,0,0,0,0,3,INSUFFICIENT_DATA
+Tài chính::real_estate,1,INSUFFICIENT_DATA,0,0,0,0,0,1,INSUFFICIENT_DATA
+Tài chính::securities,7,INSUFFICIENT_DATA,0,0,0,0,0,7,INSUFFICIENT_DATA
+Viễn thông::non_financial,1,INSUFFICIENT_DATA,0,0,0,0,0,1,INSUFFICIENT_DATA

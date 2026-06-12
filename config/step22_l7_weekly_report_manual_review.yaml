@@ -1,0 +1,67 @@
+step_id: STEP22-L7-WEEKLY-REPORT-MANUAL-REVIEW
+mode: weekly_report_manual_review_only
+
+run:
+  sandbox_only: true
+  allow_partial: true
+  dry_run_default: false
+
+limits:
+  max_tickers: 100
+  full_universe_allowed: false
+  allow_limit_override: true
+
+source_confidence:
+  market_source_confidence: PROVISIONAL_PRIMARY_ONLY
+  finance_source_confidence_default: PROVISIONAL_LOW
+  crosscheck_status: NOT_AVAILABLE
+  verification_status: NEEDS_MANUAL_BCTC_REVIEW
+
+safety:
+  no_recommendation: true
+  no_buy_sell_hold: true
+  no_target_price: true
+  no_fair_value: true
+  no_intrinsic_value: true
+  no_margin_of_safety: true
+  no_expected_return: true
+  no_entry_exit_price: true
+  no_stoploss_takeprofit: true
+  no_portfolio_recommendation: true
+  no_pdf_ocr: true
+  no_official_bctc_scrape: true
+  no_zero_fill: true
+  no_core_output_mutation: true
+  no_stage_promotion_to_investment_ready: true
+
+watchlist_policy:
+  allow_high_confidence_watchlist: true
+  high_confidence_requires_manual_review_false: false
+  all_watchlist_still_provisional: true
+
+inputs:
+  step21_rows: data/reports/step21_l6_timing_liquidity_context/timing_liquidity_context_rows.csv
+  step21_manual_queue: data/reports/step21_l6_timing_liquidity_context/manual_review_queue.csv
+  step20_rows:
+    - data/reports/step20_l5_valuation_risk_context/valuation_risk_context_rows.csv
+    - data/reports/step20_l5_valuation_risk_context/step20_valuation_risk_rows.csv
+  step19_rows:
+    - data/reports/step19_shadow_20/step19_shadow_rows.csv
+    - data/reports/step19_shadow_20/company_shadow_diagnostics_20.csv
+  step05a_rows: data/reports/step05a_primary_only_screening/primary_only_screening_rows.csv
+  step05a_manual_queue: data/reports/step05a_primary_only_screening/manual_bctc_review_queue.csv
+  provisional_data_quality_flags: data/reports/legacy_structured_finance_import_01/provisional_data_quality_flags.csv
+  market_snapshot: data/reports/provisional_current_market_03/current_market_snapshot.csv
+
+exports:
+  output_dir: data/reports/step22_l7_weekly_report_manual_review
+
+core_output_watchlist:
+  - data/reports/step21_l6_timing_liquidity_context/timing_liquidity_context_rows.csv
+  - data/reports/step21_l6_timing_liquidity_context/manual_review_queue.csv
+  - data/reports/step20_l5_valuation_risk_context/step20_valuation_risk_rows.csv
+  - data/reports/step20_l5_valuation_risk_context/step20_valuation_risk_summary.json
+  - data/reports/step19_shadow_20/company_shadow_diagnostics_20.csv
+  - data/reports/step19_shadow_20/step19_shadow_decision.json
+  - data/reports/step05a_primary_only_screening/primary_only_screening_rows.csv
+  - data/reports/step05a_primary_only_screening/manual_bctc_review_queue.csv

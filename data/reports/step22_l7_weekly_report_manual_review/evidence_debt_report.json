@@ -1,0 +1,22 @@
+{
+  "step_id": "STEP22-L7-WEEKLY-REPORT-MANUAL-REVIEW",
+  "created_at": "2026-06-12T11:10:44+00:00",
+  "limitations": [
+    "Only existing provisional artifacts were used.",
+    "No official filing retrieval or OCR was performed.",
+    "No trade action labels or price levels were produced.",
+    "Manual BCTC and source verification remain required."
+  ],
+  "missing_input_files": [],
+  "processed_ticker_count": 20,
+  "watchlist_status_counts": {
+    "MANUAL_REVIEW": 14,
+    "WATCH_ONLY": 6
+  },
+  "manual_review_count": 20,
+  "unresolved_field_count": 13,
+  "market_source_confidence": "PROVISIONAL_PRIMARY_ONLY",
+  "finance_source_confidence_default": "PROVISIONAL_LOW",
+  "crosscheck_status": "NOT_AVAILABLE",
+  "verification_status": "NEEDS_MANUAL_BCTC_REVIEW"
+}

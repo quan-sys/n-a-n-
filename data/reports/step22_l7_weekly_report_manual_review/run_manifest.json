@@ -1,0 +1,25 @@
+{
+  "step_id": "STEP22-L7-WEEKLY-REPORT-MANUAL-REVIEW",
+  "created_at": "2026-06-12T11:10:44+00:00",
+  "commit_hash": "374a23b53662aceed9f6ba7d4f6e25546b3cc760",
+  "command_used": "scripts\\run_step22_l7_weekly_report_manual_review.py --config config\\step22_l7_weekly_report_manual_review.yaml --limit 100 --output-dir data\\reports\\step22_l7_weekly_report_manual_review --allow-partial",
+  "config_path": "config\\step22_l7_weekly_report_manual_review.yaml",
+  "output_dir": "data\\reports\\step22_l7_weekly_report_manual_review",
+  "max_tickers": 100,
+  "allow_partial": true,
+  "full_universe_allowed": false,
+  "network_usage_if_known": "none",
+  "core_outputs_modified": false,
+  "previous_step_outputs_mutated": false,
+  "resolved_inputs": {
+    "step21_rows": "data\\reports\\step21_l6_timing_liquidity_context\\timing_liquidity_context_rows.csv",
+    "step21_manual_queue": "data\\reports\\step21_l6_timing_liquidity_context\\manual_review_queue.csv",
+    "step20_rows": "data\\reports\\step20_l5_valuation_risk_context\\step20_valuation_risk_rows.csv",
+    "step19_rows": "data\\reports\\step19_shadow_20\\company_shadow_diagnostics_20.csv",
+    "step05a_rows": "data\\reports\\step05a_primary_only_screening\\primary_only_screening_rows.csv",
+    "step05a_manual_queue": "data\\reports\\step05a_primary_only_screening\\manual_bctc_review_queue.csv",
+    "provisional_data_quality_flags": "data\\reports\\legacy_structured_finance_import_01\\provisional_data_quality_flags.csv",
+    "market_snapshot": "data\\reports\\provisional_current_market_03\\current_market_snapshot.csv"
+  },
+  "missing_input_files": []
+}

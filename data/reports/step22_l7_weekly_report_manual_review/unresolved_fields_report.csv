@@ -1,0 +1,54 @@
+ticker,field_name,status,reason,source_layer
+VIX,official_bctc_verification,NEEDS_MANUAL_BCTC_REVIEW,Official filing evidence has not been manually checked.,manual_review
+VIX,independent_crosscheck,NOT_AVAILABLE,Independent source-family confirmation is not available.,crosscheck
+VND,official_bctc_verification,NEEDS_MANUAL_BCTC_REVIEW,Official filing evidence has not been manually checked.,manual_review
+VND,independent_crosscheck,NOT_AVAILABLE,Independent source-family confirmation is not available.,crosscheck
+VSC,net_income,UNRESOLVED,Input artifact reported this field as missing.,previous_layer
+VSC,official_bctc_verification,NEEDS_MANUAL_BCTC_REVIEW,Official filing evidence has not been manually checked.,manual_review
+VSC,independent_crosscheck,NOT_AVAILABLE,Independent source-family confirmation is not available.,crosscheck
+VGI,net_income,UNRESOLVED,Input artifact reported this field as missing.,previous_layer
+VGI,official_bctc_verification,NEEDS_MANUAL_BCTC_REVIEW,Official filing evidence has not been manually checked.,manual_review
+VGI,independent_crosscheck,NOT_AVAILABLE,Independent source-family confirmation is not available.,crosscheck
+VCG,net_income,UNRESOLVED,Input artifact reported this field as missing.,previous_layer
+VCG,official_bctc_verification,NEEDS_MANUAL_BCTC_REVIEW,Official filing evidence has not been manually checked.,manual_review
+VCG,independent_crosscheck,NOT_AVAILABLE,Independent source-family confirmation is not available.,crosscheck
+VNM,net_income,UNRESOLVED,Input artifact reported this field as missing.,previous_layer
+VNM,official_bctc_verification,NEEDS_MANUAL_BCTC_REVIEW,Official filing evidence has not been manually checked.,manual_review
+VNM,independent_crosscheck,NOT_AVAILABLE,Independent source-family confirmation is not available.,crosscheck
+TVN,net_income,UNRESOLVED,Input artifact reported this field as missing.,previous_layer
+TVN,official_bctc_verification,NEEDS_MANUAL_BCTC_REVIEW,Official filing evidence has not been manually checked.,manual_review
+TVN,independent_crosscheck,NOT_AVAILABLE,Independent source-family confirmation is not available.,crosscheck
+VJC,net_income,UNRESOLVED,Input artifact reported this field as missing.,previous_layer
+VJC,official_bctc_verification,NEEDS_MANUAL_BCTC_REVIEW,Official filing evidence has not been manually checked.,manual_review
+VJC,independent_crosscheck,NOT_AVAILABLE,Independent source-family confirmation is not available.,crosscheck
+VTZ,net_income,UNRESOLVED,Input artifact reported this field as missing.,previous_layer
+VTZ,official_bctc_verification,NEEDS_MANUAL_BCTC_REVIEW,Official filing evidence has not been manually checked.,manual_review
+VTZ,independent_crosscheck,NOT_AVAILABLE,Independent source-family confirmation is not available.,crosscheck
+YEG,net_income,UNRESOLVED,Input artifact reported this field as missing.,previous_layer
+YEG,official_bctc_verification,NEEDS_MANUAL_BCTC_REVIEW,Official filing evidence has not been manually checked.,manual_review
+YEG,independent_crosscheck,NOT_AVAILABLE,Independent source-family confirmation is not available.,crosscheck
+VCI,official_bctc_verification,NEEDS_MANUAL_BCTC_REVIEW,Official filing evidence has not been manually checked.,manual_review
+VCI,independent_crosscheck,NOT_AVAILABLE,Independent source-family confirmation is not available.,crosscheck
+VFS,official_bctc_verification,NEEDS_MANUAL_BCTC_REVIEW,Official filing evidence has not been manually checked.,manual_review
+VFS,independent_crosscheck,NOT_AVAILABLE,Independent source-family confirmation is not available.,crosscheck
+VDS,official_bctc_verification,NEEDS_MANUAL_BCTC_REVIEW,Official filing evidence has not been manually checked.,manual_review
+VDS,independent_crosscheck,NOT_AVAILABLE,Independent source-family confirmation is not available.,crosscheck
+VIG,official_bctc_verification,NEEDS_MANUAL_BCTC_REVIEW,Official filing evidence has not been manually checked.,manual_review
+VIG,independent_crosscheck,NOT_AVAILABLE,Independent source-family confirmation is not available.,crosscheck
+TVS,official_bctc_verification,NEEDS_MANUAL_BCTC_REVIEW,Official filing evidence has not been manually checked.,manual_review
+TVS,independent_crosscheck,NOT_AVAILABLE,Independent source-family confirmation is not available.,crosscheck
+VRE,net_income,UNRESOLVED,Input artifact reported this field as missing.,previous_layer
+VRE,official_bctc_verification,NEEDS_MANUAL_BCTC_REVIEW,Official filing evidence has not been manually checked.,manual_review
+VRE,independent_crosscheck,NOT_AVAILABLE,Independent source-family confirmation is not available.,crosscheck
+VNE,net_income,UNRESOLVED,Input artifact reported this field as missing.,previous_layer
+VNE,official_bctc_verification,NEEDS_MANUAL_BCTC_REVIEW,Official filing evidence has not been manually checked.,manual_review
+VNE,independent_crosscheck,NOT_AVAILABLE,Independent source-family confirmation is not available.,crosscheck
+VOS,net_income,UNRESOLVED,Input artifact reported this field as missing.,previous_layer
+VOS,official_bctc_verification,NEEDS_MANUAL_BCTC_REVIEW,Official filing evidence has not been manually checked.,manual_review
+VOS,independent_crosscheck,NOT_AVAILABLE,Independent source-family confirmation is not available.,crosscheck
+VTP,net_income,UNRESOLVED,Input artifact reported this field as missing.,previous_layer
+VTP,official_bctc_verification,NEEDS_MANUAL_BCTC_REVIEW,Official filing evidence has not been manually checked.,manual_review
+VTP,independent_crosscheck,NOT_AVAILABLE,Independent source-family confirmation is not available.,crosscheck
+TLH,net_income,UNRESOLVED,Input artifact reported this field as missing.,previous_layer
+TLH,official_bctc_verification,NEEDS_MANUAL_BCTC_REVIEW,Official filing evidence has not been manually checked.,manual_review
+TLH,independent_crosscheck,NOT_AVAILABLE,Independent source-family confirmation is not available.,crosscheck

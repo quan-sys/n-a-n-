@@ -1,0 +1,12 @@
+metric,value
+processed_ticker_count,20
+missing_input_file_count,0
+missing_input_files,[]
+manual_review_count,20
+rejected_count,0
+insufficient_data_count,0
+unresolved_field_count,13
+market_source_confidence,PROVISIONAL_PRIMARY_ONLY
+finance_source_confidence,PROVISIONAL_LOW
+crosscheck_status,NOT_AVAILABLE
+verification_status,NEEDS_MANUAL_BCTC_REVIEW
