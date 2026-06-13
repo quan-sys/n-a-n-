@@ -1,0 +1,77 @@
+step_id: STEP27-DATA-COVERAGE-REPAIR-PROBE
+mode: data_coverage_repair_probe
+
+run:
+  sandbox_only: true
+  allow_partial: true
+  allow_network: true
+  dry_run_default: false
+
+limits:
+  sample_blocked_tickers: 100
+  sample_watchlist_control_tickers: 20
+  sample_random_universe_tickers: 50
+  max_total_probe_tickers: 166
+  max_requests: 200
+  timeout_seconds: 25
+  full_universe_probe_allowed: false
+
+source_policy:
+  provider: vnstock
+  market_source: VCI
+  allowed_sources:
+    - VCI
+  allow_fallback_sources: false
+  crosscheck_status: NOT_AVAILABLE
+  market_source_confidence: PROVISIONAL_PRIMARY_ONLY
+  finance_source_confidence_default: PROVISIONAL_LOW
+  verification_status: NEEDS_MANUAL_BCTC_REVIEW
+
+history_probe:
+  lookback_days: 120
+  min_rows_for_fetch_ok: 1
+  required_normalized_fields:
+    - ticker
+    - date
+    - close
+    - volume
+  optional_normalized_fields:
+    - open
+    - high
+    - low
+    - value
+
+inputs:
+  step25_rows: data/reports/step25_full_universe_1743_primary_only_scale/full_universe_screening_rows.csv
+  step26_audit_rows: data/reports/step26_full_universe_output_audit_first_shortlist/normalized_universe_rows.csv
+  step26_blocked_rows: data/reports/step26_full_universe_output_audit_first_shortlist/data_repair_priority_queue.csv
+  step26_shortlist: data/reports/step26_full_universe_output_audit_first_shortlist/first_review_shortlist_50.csv
+  step26_manual_bctc_queue: data/reports/step26_full_universe_output_audit_first_shortlist/manual_bctc_priority_queue_100.csv
+
+exports:
+  output_dir: data/reports/step27_data_coverage_repair_probe
+  write_summary_json: true
+  write_probe_rows_csv: true
+  write_raw_observation_manifest_csv: true
+  write_fetch_success_examples_csv: true
+  write_fetch_failure_examples_csv: true
+  write_repair_queue_csv: true
+  write_source_limitation_queue_csv: true
+  write_schema_bug_candidates_csv: true
+  write_run_manifest_json: true
+
+safety:
+  no_recommendation: true
+  no_buy_sell_hold: true
+  no_valuation: true
+  no_target_price: true
+  no_fair_value: true
+  no_intrinsic_value: true
+  no_margin_of_safety: true
+  no_expected_return: true
+  no_zero_fill: true
+  no_missing_data_inference: true
+  no_pdf_ocr: true
+  no_official_bctc_scrape: true
+  no_core_output_mutation: true
+  no_stage_promotion_to_investment_ready: true

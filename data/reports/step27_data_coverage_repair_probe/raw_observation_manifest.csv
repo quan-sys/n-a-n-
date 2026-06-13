@@ -1,0 +1,167 @@
+ticker,sample_group,provider,source,raw_columns,raw_row_count,first_date,last_date,sample_close_value_present_boolean,sample_volume_value_present_boolean
+A32,BLOCKED_SAMPLE,vnstock,VCI,"[""time"", ""open"", ""high"", ""low"", ""close"", ""volume""]",87,2025-10-06,2026-06-12,True,True
+AAA,BLOCKED_SAMPLE,vnstock,VCI,"[""time"", ""open"", ""high"", ""low"", ""close"", ""volume""]",87,2026-02-02,2026-06-12,True,True
+AAH,BLOCKED_SAMPLE,vnstock,VCI,"[""time"", ""open"", ""high"", ""low"", ""close"", ""volume""]",87,2026-02-02,2026-06-12,True,True
+AAM,BLOCKED_SAMPLE,vnstock,VCI,"[""time"", ""open"", ""high"", ""low"", ""close"", ""volume""]",87,2026-01-28,2026-06-11,True,True
+AAN,BLOCKED_SAMPLE,vnstock,VCI,"[""time"", ""open"", ""high"", ""low"", ""close"", ""volume""]",16,2026-05-22,2026-06-12,True,True
+AAS,BLOCKED_SAMPLE,vnstock,VCI,"[""time"", ""open"", ""high"", ""low"", ""close"", ""volume""]",87,2026-02-02,2026-06-12,True,True
+AAT,BLOCKED_SAMPLE,vnstock,VCI,"[""time"", ""open"", ""high"", ""low"", ""close"", ""volume""]",87,2026-02-02,2026-06-12,True,True
+AAV,BLOCKED_SAMPLE,vnstock,VCI,"[""time"", ""open"", ""high"", ""low"", ""close"", ""volume""]",87,2026-01-22,2026-06-12,True,True
+ABB,BLOCKED_SAMPLE,vnstock,VCI,"[""time"", ""open"", ""high"", ""low"", ""close"", ""volume""]",87,2026-02-02,2026-06-12,True,True
+ABC,BLOCKED_SAMPLE,vnstock,VCI,"[""time"", ""open"", ""high"", ""low"", ""close"", ""volume""]",87,2026-02-02,2026-06-12,True,True
+ABI,BLOCKED_SAMPLE,vnstock,VCI,"[""time"", ""open"", ""high"", ""low"", ""close"", ""volume""]",87,2026-02-02,2026-06-12,True,True
+ABR,BLOCKED_SAMPLE,vnstock,VCI,"[""time"", ""open"", ""high"", ""low"", ""close"", ""volume""]",87,2026-01-15,2026-06-11,True,True
+ABS,BLOCKED_SAMPLE,vnstock,VCI,"[""time"", ""open"", ""high"", ""low"", ""close"", ""volume""]",87,2026-02-02,2026-06-12,True,True
+ABT,BLOCKED_SAMPLE,vnstock,VCI,"[""time"", ""open"", ""high"", ""low"", ""close"", ""volume""]",87,2026-02-02,2026-06-12,True,True
+ABW,BLOCKED_SAMPLE,vnstock,VCI,"[""time"", ""open"", ""high"", ""low"", ""close"", ""volume""]",87,2026-02-02,2026-06-12,True,True
+AC4,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ACB,BLOCKED_SAMPLE,vnstock,VCI,"[""time"", ""open"", ""high"", ""low"", ""close"", ""volume""]",87,2026-02-02,2026-06-12,True,True
+ACC,BLOCKED_SAMPLE,vnstock,VCI,"[""time"", ""open"", ""high"", ""low"", ""close"", ""volume""]",87,2026-01-23,2026-06-12,True,True
+ACE,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ACG,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ACL,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ACM,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ACS,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ACV,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ADC,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ADG,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ADP,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ADS,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AFC,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AFX,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AG1,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AGC,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AGD,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AGE,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AGF,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AGG,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AGM,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AGP,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AGR,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AGX,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AIC,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AIG,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ALC,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ALP,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ALT,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ALV,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AMC,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AMD,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AME,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AMP,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AMS,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AMV,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ANC11601,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ANT,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ANV,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+APC,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+APF,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+APG,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+APH,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+API,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+APL,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+APP,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+APS,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+APT,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AQN,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ARM,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ART,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ASA,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ASD,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ASG,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ASIAGF,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ASM,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ASP,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AST,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ATA,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ATB,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ATD,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ATG,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+ATS,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AUM,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AVC,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AVF,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AVG,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+AVS,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+B82,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+BAB,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+BAF,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+BAL,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+BAM,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+BAOMINH,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+BAS,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+BAX,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+BB,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+BBC,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+BBH,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+BBM,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+BBS,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+BBT,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+BCA,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+BCB,BLOCKED_SAMPLE,vnstock,VCI,[],0,,,False,False
+TLH,WATCHLIST_CONTROL,vnstock,VCI,[],0,,,False,False
+TVN,WATCHLIST_CONTROL,vnstock,VCI,[],0,,,False,False
+TVS,WATCHLIST_CONTROL,vnstock,VCI,[],0,,,False,False
+VCG,WATCHLIST_CONTROL,vnstock,VCI,[],0,,,False,False
+VCI,WATCHLIST_CONTROL,vnstock,VCI,[],0,,,False,False
+VDS,WATCHLIST_CONTROL,vnstock,VCI,[],0,,,False,False
+VFS,WATCHLIST_CONTROL,vnstock,VCI,[],0,,,False,False
+VGI,WATCHLIST_CONTROL,vnstock,VCI,[],0,,,False,False
+VIG,WATCHLIST_CONTROL,vnstock,VCI,[],0,,,False,False
+VIX,WATCHLIST_CONTROL,vnstock,VCI,[],0,,,False,False
+VJC,WATCHLIST_CONTROL,vnstock,VCI,[],0,,,False,False
+VND,WATCHLIST_CONTROL,vnstock,VCI,[],0,,,False,False
+VNE,WATCHLIST_CONTROL,vnstock,VCI,[],0,,,False,False
+VNM,WATCHLIST_CONTROL,vnstock,VCI,[],0,,,False,False
+VOS,WATCHLIST_CONTROL,vnstock,VCI,[],0,,,False,False
+VRE,WATCHLIST_CONTROL,vnstock,VCI,[],0,,,False,False
+BHP,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+BTU,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+CCP,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+CL1,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+CRV,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+CSC,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+DAG,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+DKG,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+ELC,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+EMG,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+FRM,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+HDB,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+HGW,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+HHN,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+HTI,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+HU4,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+IBC,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+INN,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+ITD,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+ITS,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+KLM,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+L18,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+L43,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+L62,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+LCG,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+LIX,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+LMH,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+MC3,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+NHH,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+NNG,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+OIL,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+PBT,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+PCC,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+PJS,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+PNP,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+PVM,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+QNC,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+SDH,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+SHA,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+SHN,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+SHS,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+TAB,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+TNS,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+TVM,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+TYA,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+UDL,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+VDB,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+VGP,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+VGT,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False
+VLB,RANDOM_UNIVERSE_SAMPLE,vnstock,VCI,[],0,,,False,False

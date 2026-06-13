@@ -1,0 +1,44 @@
+{
+  "step_id": "STEP27-DATA-COVERAGE-REPAIR-PROBE",
+  "created_at": "2026-06-13T01:31:46+00:00",
+  "missing_input_files": [],
+  "input_resolution_notes": [
+    {
+      "input_name": "step25_rows_path",
+      "configured_path": "data/reports/step25_full_universe_1743_primary_only_scale/full_universe_screening_rows.csv",
+      "resolved_path": "data\\reports\\step25_full_universe_1743_primary_only_scale\\full_universe_screening_rows.csv",
+      "status": "FOUND"
+    },
+    {
+      "input_name": "step26_audit_rows_path",
+      "configured_path": "data/reports/step26_full_universe_output_audit_first_shortlist/normalized_universe_rows.csv",
+      "resolved_path": "data\\reports\\step26_full_universe_output_audit_first_shortlist\\normalized_universe_rows.csv",
+      "status": "FOUND"
+    },
+    {
+      "input_name": "step26_blocked_rows_path",
+      "configured_path": "data/reports/step26_full_universe_output_audit_first_shortlist/data_repair_priority_queue.csv",
+      "resolved_path": "data\\reports\\step26_full_universe_output_audit_first_shortlist\\data_repair_priority_queue.csv",
+      "status": "FOUND"
+    },
+    {
+      "input_name": "step26_shortlist_path",
+      "configured_path": "data/reports/step26_full_universe_output_audit_first_shortlist/first_review_shortlist_50.csv",
+      "resolved_path": "data\\reports\\step26_full_universe_output_audit_first_shortlist\\first_review_shortlist_50.csv",
+      "status": "FOUND"
+    },
+    {
+      "input_name": "step26_manual_bctc_queue_path",
+      "configured_path": "data/reports/step26_full_universe_output_audit_first_shortlist/manual_bctc_priority_queue_100.csv",
+      "resolved_path": "data\\reports\\step26_full_universe_output_audit_first_shortlist\\manual_bctc_priority_queue_100.csv",
+      "status": "FOUND"
+    }
+  ],
+  "resolved_paths": {
+    "step25_rows_path": "data\\reports\\step25_full_universe_1743_primary_only_scale\\full_universe_screening_rows.csv",
+    "step26_audit_rows_path": "data\\reports\\step26_full_universe_output_audit_first_shortlist\\normalized_universe_rows.csv",
+    "step26_blocked_rows_path": "data\\reports\\step26_full_universe_output_audit_first_shortlist\\data_repair_priority_queue.csv",
+    "step26_shortlist_path": "data\\reports\\step26_full_universe_output_audit_first_shortlist\\first_review_shortlist_50.csv",
+    "step26_manual_bctc_queue_path": "data\\reports\\step26_full_universe_output_audit_first_shortlist\\manual_bctc_priority_queue_100.csv"
+  }
+}
