@@ -1,0 +1,46 @@
+step_id: STEP29-FULL-UNIVERSE-AUDIT-AFTER-MARKET-REFRESH
+mode: rerun_audit_after_market_refresh
+
+run:
+  sandbox_only: true
+  no_new_data_fetch: true
+
+limits:
+  expected_universe_size: 1743
+  shortlist_size: 50
+
+source_confidence:
+  market_source_confidence: PROVISIONAL_PRIMARY_ONLY
+  finance_source_confidence_default: PROVISIONAL_LOW
+  crosscheck_status: NOT_AVAILABLE
+  verification_status: NEEDS_MANUAL_BCTC_REVIEW
+
+safety:
+  no_recommendation: true
+  no_buy_sell_hold: true
+  no_target_price: true
+  no_fair_value: true
+  no_intrinsic_value: true
+  no_margin_of_safety: true
+  no_expected_return: true
+  no_zero_fill: true
+  no_mock_sample_data: true
+  no_new_data_fetch: true
+  no_missing_finance_inference: true
+
+inputs:
+  step25_universe_rows: data/reports/step25_full_universe_1743_primary_only_scale/full_universe_screening_rows.csv
+  step26_audit_rows: data/reports/step26_full_universe_output_audit_first_shortlist/normalized_universe_rows.csv
+  step26_summary: data/reports/step26_full_universe_output_audit_first_shortlist/step26_audit_summary.json
+  step28_market_snapshot_rows: data/reports/step28_full_universe_market_snapshot_refresh_vnstock/market_snapshot_rows.csv
+  step28_summary: data/reports/step28_full_universe_market_snapshot_refresh_vnstock/step28_market_refresh_summary.json
+
+exports:
+  output_dir: data/reports/step29_full_universe_audit_after_market_refresh
+
+core_output_watchlist:
+  - data/reports/step25_full_universe_1743_primary_only_scale/full_universe_screening_rows.csv
+  - data/reports/step26_full_universe_output_audit_first_shortlist/normalized_universe_rows.csv
+  - data/reports/step26_full_universe_output_audit_first_shortlist/step26_audit_summary.json
+  - data/reports/step28_full_universe_market_snapshot_refresh_vnstock/market_snapshot_rows.csv
+  - data/reports/step28_full_universe_market_snapshot_refresh_vnstock/step28_market_refresh_summary.json

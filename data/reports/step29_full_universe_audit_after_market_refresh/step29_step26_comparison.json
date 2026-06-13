@@ -1,0 +1,16 @@
+{
+  "step26_total_universe": 1743,
+  "step29_total_universe": 1743,
+  "step26_blocked_insufficient_market_data": 1727,
+  "step29_still_blocked_insufficient_market_data": 1699,
+  "recovered_from_step26_blocked": 28,
+  "step26_watchlist_candidate_count": 16,
+  "step29_watchlist_candidate_count": 16,
+  "watchlist_candidate_delta": 0,
+  "market_data_available_after_step28": 44,
+  "step28_snapshot_tickers_used": 30,
+  "step28_fetch_ok_count": 28,
+  "step28_fetch_failed_count": 2,
+  "step28_not_attempted_or_not_in_snapshot": 1713,
+  "step28_summary_final_decision": "PASS_MARKET_REFRESH_WITH_PARTIAL_RECOVERY"
+}
