@@ -1,0 +1,14 @@
+field_name,field_value,count,percentage_of_universe
+screening_status,BLOCKED_INSUFFICIENT_MARKET_DATA,1727,99.082
+screening_status,WATCHLIST_CANDIDATE,16,0.918
+watchlist_status,REJECTED,1727,99.082
+watchlist_status,WATCH_ONLY,16,0.918
+manual_review_required,True,1743,100.0
+manual_bctc_required,False,1727,99.082
+manual_bctc_required,True,16,0.918
+market_fetch_status,BLANK,1727,99.082
+market_fetch_status,FETCH_OK,16,0.918
+finance_quality_status,CACHE_MISSING,57,3.2702
+finance_quality_status,INSUFFICIENT_DATA,590,33.8497
+finance_quality_status,OK_FOR_PROVISIONAL_SCREEN,3,0.1721
+finance_quality_status,PARTIAL_PROVISIONAL_DATA,1093,62.708

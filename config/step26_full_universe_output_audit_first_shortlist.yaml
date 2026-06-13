@@ -1,0 +1,74 @@
+step_id: STEP26-FULL-UNIVERSE-OUTPUT-AUDIT-FIRST-SHORTLIST
+mode: output_audit_first_shortlist
+
+run:
+  sandbox_only: true
+  allow_partial: true
+  dry_run_default: false
+
+limits:
+  expected_universe_size: 1743
+  max_rows_to_read: 2000
+  first_shortlist_size: 50
+  bctc_priority_queue_size: 100
+  full_universe_allowed: true
+
+source_confidence:
+  market_source_confidence: PROVISIONAL_PRIMARY_ONLY
+  finance_source_confidence_default: PROVISIONAL_LOW
+  crosscheck_status: NOT_AVAILABLE
+  verification_status: NEEDS_MANUAL_BCTC_REVIEW
+
+safety:
+  no_recommendation: true
+  no_buy_sell_hold: true
+  no_target_price: true
+  no_fair_value: true
+  no_intrinsic_value: true
+  no_margin_of_safety: true
+  no_expected_return: true
+  no_entry_exit_price: true
+  no_portfolio_recommendation: true
+  no_zero_fill: true
+  no_missing_finance_inference: true
+  no_pdf_ocr: true
+  no_official_bctc_scrape: true
+  no_core_output_mutation: true
+  no_stage_promotion_to_investment_ready: true
+
+shortlist_policy:
+  require_market_data: true
+  require_recent_price: true
+  prefer_non_blocked: true
+  prefer_watch_only_over_manual_review: true
+  prefer_lower_missing_field_count: true
+  prefer_higher_liquidity: true
+  prefer_available_sector_classification: true
+  require_manual_bctc_required: true
+
+inputs:
+  step25_search_dirs:
+    - data/reports/step25_full_universe_1743_primary_only_scale
+    - data/reports/step25_full_universe_primary_only_scale
+    - data/reports/step25_full_universe_1743
+  supporting:
+    step24_summary:
+      - data/reports/step24_final_integration_readiness/final_integration_summary.json
+      - data/reports/step24_final_integration_scale_readiness/final_integration_summary.json
+    step22_watchlist: data/reports/step22_l7_weekly_report_manual_review/watchlist_candidates.csv
+    step21_rows: data/reports/step21_l6_timing_liquidity_context/timing_liquidity_context_rows.csv
+    step20_rows:
+      - data/reports/step20_l5_valuation_risk_context/valuation_risk_context_rows.csv
+      - data/reports/step20_l5_valuation_risk_context/step20_valuation_risk_rows.csv
+    finance_latest_wide: data/reports/legacy_structured_finance_import_01/provisional_finance_latest_wide.csv
+    current_market_snapshot: data/reports/provisional_current_market_03/current_market_snapshot.csv
+
+exports:
+  output_dir: data/reports/step26_full_universe_output_audit_first_shortlist
+
+core_output_watchlist:
+  - data/reports/step25_full_universe_1743_primary_only_scale/full_universe_screening_rows.csv
+  - data/reports/step25_full_universe_1743_primary_only_scale/full_universe_scale_summary.json
+  - data/reports/step25_full_universe_1743_primary_only_scale/watchlist_candidates.csv
+  - data/reports/step25_full_universe_1743_primary_only_scale/manual_bctc_review_queue.csv
+  - data/reports/step25_full_universe_1743_primary_only_scale/blocked_tickers.csv

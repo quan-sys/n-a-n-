@@ -1,0 +1,12 @@
+reason_or_field,count,percentage_of_universe,example_tickers
+last_price_date,1727,99.082,"[""A32"", ""AAA"", ""AAH"", ""AAM"", ""AAN""]"
+net_income,1721,98.7378,"[""A32"", ""AAA"", ""AAH"", ""AAM"", ""AAN""]"
+last_close,1682,96.5003,"[""A32"", ""AAA"", ""AAH"", ""AAN"", ""AAS""]"
+capex,1457,83.5915,"[""A32"", ""AAA"", ""AAH"", ""AAM"", ""AAN""]"
+gross_profit,1454,83.4194,"[""A32"", ""AAA"", ""AAH"", ""AAM"", ""AAN""]"
+revenue,1454,83.4194,"[""A32"", ""AAA"", ""AAH"", ""AAM"", ""AAN""]"
+equity,1450,83.1899,"[""A32"", ""AAA"", ""AAH"", ""AAM"", ""AAN""]"
+total_assets,1450,83.1899,"[""A32"", ""AAA"", ""AAH"", ""AAM"", ""AAN""]"
+cfo,1448,83.0752,"[""A32"", ""AAA"", ""AAH"", ""AAM"", ""AAN""]"
+total_liabilities,1447,83.0178,"[""A32"", ""AAA"", ""AAH"", ""AAM"", ""AAN""]"
+avg_volume_20d,728,41.7671,"[""AAH"", ""AAN"", ""ABW"", ""AC4"", ""AFC""]"

@@ -1,0 +1,5 @@
+field_name,field_value,count,percentage_of_universe
+market_source_confidence,PROVISIONAL_PRIMARY_ONLY,1743,100.0
+finance_source_confidence,PROVISIONAL_LOW,1743,100.0
+crosscheck_status,NOT_AVAILABLE,1743,100.0
+verification_status,NEEDS_MANUAL_BCTC_REVIEW,1743,100.0

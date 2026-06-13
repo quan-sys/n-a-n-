@@ -1,0 +1,19 @@
+gap_type,affected_count,details
+market_data_available,1727,availability_flag_false
+recent_price_available,1727,availability_flag_false
+liquidity_data_available,728,availability_flag_false
+finance_data_available,590,availability_flag_false
+sector_classification_available,1743,availability_flag_false
+missing_field:last_price_date,1727,"[""A32"", ""AAA"", ""AAH"", ""AAM"", ""AAN""]"
+missing_field:net_income,1721,"[""A32"", ""AAA"", ""AAH"", ""AAM"", ""AAN""]"
+missing_field:last_close,1682,"[""A32"", ""AAA"", ""AAH"", ""AAN"", ""AAS""]"
+missing_field:capex,1457,"[""A32"", ""AAA"", ""AAH"", ""AAM"", ""AAN""]"
+missing_field:gross_profit,1454,"[""A32"", ""AAA"", ""AAH"", ""AAM"", ""AAN""]"
+missing_field:revenue,1454,"[""A32"", ""AAA"", ""AAH"", ""AAM"", ""AAN""]"
+missing_field:equity,1450,"[""A32"", ""AAA"", ""AAH"", ""AAM"", ""AAN""]"
+missing_field:total_assets,1450,"[""A32"", ""AAA"", ""AAH"", ""AAM"", ""AAN""]"
+missing_field:cfo,1448,"[""A32"", ""AAA"", ""AAH"", ""AAM"", ""AAN""]"
+missing_field:total_liabilities,1447,"[""A32"", ""AAA"", ""AAH"", ""AAM"", ""AAN""]"
+missing_field:avg_volume_20d,728,"[""AAH"", ""AAN"", ""ABW"", ""AC4"", ""AFC""]"
+block_reason:Primary market data missing or incomplete.,1727,"[""A32"", ""AAA"", ""AAH"", ""AAM"", ""AAN""]"
+block_reason:Survived primary-only scale filters; manual BCTC/source verification remains required.,16,"[""TLH"", ""TVN"", ""TVS"", ""VCG"", ""VCI""]"

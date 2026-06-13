@@ -1,0 +1,4 @@
+field_name,field_value,count,percentage_of_universe
+manual_review_required,True,1743,100.0
+manual_bctc_required,False,1727,99.082
+manual_bctc_required,True,16,0.918
