@@ -1,0 +1,6 @@
+missing_market_field,count,example_tickers
+avg_volume_20d,2,"[""AC4"", ""AFC""]"
+avg_volume_60d,2,"[""AC4"", ""AFC""]"
+last_close,2,"[""AC4"", ""AFC""]"
+last_price_date,2,"[""AC4"", ""AFC""]"
+last_volume,2,"[""AC4"", ""AFC""]"

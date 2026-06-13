@@ -1,0 +1,43 @@
+{
+  "step_id": "STEP28-FULL-UNIVERSE-MARKET-SNAPSHOT-REFRESH-VNSTOCK",
+  "created_at": "2026-06-13T03:21:41+00:00",
+  "commit_hash": "85aad9f80e26f84de8983f33dc21ac4cbba0f7ab",
+  "command_used": "scripts\\run_step28_full_universe_market_snapshot_refresh_vnstock.py --config config\\step28_full_universe_market_snapshot_refresh_vnstock.yaml --limit 30",
+  "config_path": "config\\step28_full_universe_market_snapshot_refresh_vnstock.yaml",
+  "output_dir": "data\\reports\\step28_full_universe_market_snapshot_refresh_vnstock",
+  "raw_cache_dir": "data\\raw\\vnstock_vci_market_history\\2026-06-13",
+  "raw_cache_committed": false,
+  "universe_count": 30,
+  "started_at": "2026-06-13T03:19:05+00:00",
+  "finished_at": "2026-06-13T03:21:41+00:00",
+  "network_usage_if_known": "vnstock_vci_only",
+  "core_outputs_modified": false,
+  "previous_step_outputs_mutated": false,
+  "input_resolution": {
+    "step25_universe_rows_path": "data\\reports\\step25_full_universe_1743_primary_only_scale\\full_universe_screening_rows.csv",
+    "step26_audit_rows_path": "data\\reports\\step26_full_universe_output_audit_first_shortlist\\normalized_universe_rows.csv",
+    "step27_repair_queue_path": "data\\reports\\step27_data_coverage_repair_probe\\fetch_recovered_tickers.csv",
+    "missing_input_files": [],
+    "duplicate_tickers": [],
+    "notes": [
+      {
+        "input_name": "step25_universe_rows_path",
+        "configured_path": "data/reports/step25_full_universe_1743_primary_only_scale/full_universe_screening_rows.csv",
+        "resolved_path": "data\\reports\\step25_full_universe_1743_primary_only_scale\\full_universe_screening_rows.csv",
+        "status": "FOUND"
+      },
+      {
+        "input_name": "step26_audit_rows_path",
+        "configured_path": "data/reports/step26_full_universe_output_audit_first_shortlist/normalized_universe_rows.csv",
+        "resolved_path": "data\\reports\\step26_full_universe_output_audit_first_shortlist\\normalized_universe_rows.csv",
+        "status": "FOUND"
+      },
+      {
+        "input_name": "step27_repair_queue_path",
+        "configured_path": "data/reports/step27_data_coverage_repair_probe/fetch_recovered_tickers.csv",
+        "resolved_path": "data\\reports\\step27_data_coverage_repair_probe\\fetch_recovered_tickers.csv",
+        "status": "FOUND"
+      }
+    ]
+  }
+}

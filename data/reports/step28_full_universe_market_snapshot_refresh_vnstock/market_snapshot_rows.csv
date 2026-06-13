@@ -1,0 +1,31 @@
+ticker,exchange_if_available,market_source,fetch_status,fetch_error_type,fetch_error_message,history_row_count,first_price_date,last_price_date,last_close,last_volume,last_value_if_available,avg_volume_20d,avg_volume_60d,avg_value_20d_if_available,avg_value_60d_if_available,recent_price_available,market_data_available,liquidity_data_available,stale_market_data,calendar_days_since_last_price,missing_market_fields,cache_used,attempt_count,batch_id,created_at
+A32,UPCoM,vnstock:VCI,OK,OK,,641,2023-07-17,2026-06-12,30.0,500.0,,5405.0,1904.6,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:07:03+00:00
+AAA,HOSE,vnstock:VCI,OK,OK,,641,2023-11-13,2026-06-12,7.26,2401200.0,,708575.0,907658.3333,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:07:04+00:00
+AAH,UPCoM,vnstock:VCI,OK,OK,,599,2024-01-11,2026-06-12,2.9,115600.0,,270135.0,477420.0,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:07:05+00:00
+AAM,HOSE,vnstock:VCI,OK,OK,,641,2023-10-25,2026-06-11,6.8,1200.0,,2880.0,5148.3333,,,True,True,True,False,2,[],True,1,batch_0001,2026-06-13T02:07:07+00:00
+AAN,,vnstock:VCI,OK,OK,,16,2026-05-22,2026-06-12,22.35,276800.0,,333225.0,333225.0,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:07:08+00:00
+AAS,UPCoM,vnstock:VCI,OK,OK,,641,2023-11-13,2026-06-12,8.3,241300.0,,490215.0,692643.3333,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:07:10+00:00
+AAT,HOSE,vnstock:VCI,OK,OK,,641,2023-11-13,2026-06-12,2.82,14800.0,,15730.0,21920.0,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:07:11+00:00
+AAV,HNX,vnstock:VCI,OK,OK,,641,2023-11-02,2026-06-12,6.9,1039800.0,,489660.0,751023.3333,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:07:13+00:00
+ABB,UPCoM,vnstock:VCI,OK,OK,,641,2023-11-13,2026-06-12,16.7,1060500.0,,1070580.0,925490.0,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:07:14+00:00
+ABC,UPCoM,vnstock:VCI,OK,OK,,641,2023-11-13,2026-06-12,10.2,1900.0,,12950.0,24125.0,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:07:16+00:00
+ABI,UPCoM,vnstock:VCI,OK,OK,,641,2023-11-13,2026-06-12,19.3,24500.0,,18240.0,34468.3333,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:07:17+00:00
+ABR,HOSE,vnstock:VCI,OK,OK,,641,2023-10-12,2026-06-11,12.4,800.0,,1015.0,1121.6667,,,True,True,True,False,2,[],True,1,batch_0001,2026-06-13T02:07:19+00:00
+ABS,HOSE,vnstock:VCI,OK,OK,,641,2023-11-13,2026-06-12,2.93,31500.0,,191700.0,233640.0,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:07:20+00:00
+ABT,HOSE,vnstock:VCI,OK,OK,,641,2023-11-13,2026-06-12,55.3,300.0,,5715.0,4940.4167,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:07:22+00:00
+ABW,UPCoM,vnstock:VCI,OK,OK,,641,2023-11-13,2026-06-12,11.3,157500.0,,95790.0,110163.3333,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:07:24+00:00
+AC4,UPCoM,vnstock:VCI,FAILED,SOURCE_RATE_LIMIT_OR_TIMEOUT,RetryError: RetryError[<Future at 0x155a7a00690 state=finished raised ValueError>],0,,,,,,,,,,False,False,False,True,,"[""last_price_date"", ""last_close"", ""last_volume"", ""avg_volume_20d"", ""avg_volume_60d""]",False,2,batch_0001,2026-06-13T03:20:25+00:00
+ACB,HOSE,vnstock:VCI,OK,OK,,641,2023-11-13,2026-06-12,26.5,61171200.0,,31256550.0,18688480.0,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:09:50+00:00
+ACC,HOSE,vnstock:VCI,OK,OK,,641,2023-11-02,2026-06-12,12.6,29300.0,,12310.0,64825.0,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:09:55+00:00
+ACE,UPCoM,vnstock:VCI,OK,OK,,641,2023-10-24,2026-06-08,36.0,800.0,,1675.0,1958.5833,,,True,True,True,False,5,[],True,1,batch_0001,2026-06-13T02:09:59+00:00
+ACG,HOSE,vnstock:VCI,OK,OK,,641,2023-11-09,2026-06-12,33.45,3100.0,,4785.0,7861.6667,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:10:03+00:00
+ACL,HOSE,vnstock:VCI,OK,OK,,641,2023-10-31,2026-06-12,11.8,10500.0,,2785.0,4480.0,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:10:07+00:00
+ACM,UPCoM,vnstock:VCI,OK,OK,,641,2022-05-11,2026-06-12,0.5,315200.0,,912830.0,778020.0,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:10:11+00:00
+ACS,UPCoM,vnstock:VCI,OK,OK,,641,2022-09-15,2026-06-12,5.4,9000.0,,855.0,1111.6667,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:10:16+00:00
+ACV,UPCoM,vnstock:VCI,OK,OK,,641,2023-11-13,2026-06-12,43.7,389800.0,,707040.0,763691.6667,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:10:20+00:00
+ADC,HNX,vnstock:VCI,OK,OK,,641,2023-09-22,2026-05-27,19.0,100.0,,227.45,4376.1,,,True,True,True,True,17,[],True,1,batch_0001,2026-06-13T02:10:24+00:00
+ADG,HOSE,vnstock:VCI,OK,OK,,641,2023-10-12,2026-06-11,8.44,400.0,,1385.0,4155.0,,,True,True,True,False,2,[],True,1,batch_0001,2026-06-13T02:10:28+00:00
+ADP,HOSE,vnstock:VCI,OK,OK,,641,2023-11-13,2026-06-12,22.8,3300.0,,3963.05,4870.6833,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:10:33+00:00
+ADS,HOSE,vnstock:VCI,OK,OK,,641,2023-11-13,2026-06-12,9.16,57600.0,,71725.0,97155.0,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:10:37+00:00
+AFC,UPCoM,vnstock:VCI,FAILED,SOURCE_RATE_LIMIT_OR_TIMEOUT,RetryError: RetryError[<Future at 0x1dae1990690 state=finished raised ValueError>],0,,,,,,,,,,False,False,False,True,,"[""last_price_date"", ""last_close"", ""last_volume"", ""avg_volume_20d"", ""avg_volume_60d""]",False,2,batch_0001,2026-06-13T03:21:37+00:00
+AFX,HOSE,vnstock:VCI,OK,OK,,641,2023-11-03,2026-06-12,10.35,75800.0,,58590.0,67671.6667,,,True,True,True,False,1,[],True,1,batch_0001,2026-06-13T02:11:07+00:00
